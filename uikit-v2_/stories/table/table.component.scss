@@ -1,0 +1,14 @@
+.no-data-example {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-content: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+// Styling sticky left column
+.mat-mdc-table-sticky-border-elem-left {
+  font-weight: bold !important;
+  border-right: 1px solid #e4e4e4 !important;
+}

@@ -1,0 +1,39 @@
+.radio-group {
+  margin: 15px 0;
+  label {
+    display: block;
+  }
+}
+
+.first-group {
+  .mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 16px;
+  }
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+  max-width: 200px;
+
+  .mat-mdc-radio-button {
+    width: 100%;
+    .mdc-form-field {
+      width: 100%;
+    }
+  }
+}
+
+#controls {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+@media (min-width: 800px) {
+  #controls {
+    flex-direction: row;
+  }
+}

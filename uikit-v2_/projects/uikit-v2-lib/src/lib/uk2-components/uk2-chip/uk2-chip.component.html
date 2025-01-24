@@ -1,0 +1,10 @@
+<div class="uk2-chip" [ngClass]="getChipClass()">
+  <ng-container *ngIf="!uk2IsLoading">
+    <mat-icon *ngIf="hasChipLeadingIcon" [svgIcon]="uk2ChipLeadingIcon!" class="uk2-chip-leading-icon"></mat-icon>
+    <div *ngIf="hasChipIndicator" class="uk2-chip-rounded-indicator"></div>
+    <span>
+      <ng-content></ng-content>
+    </span>
+    <mat-icon *ngIf="hasChipTrailingIcon" [svgIcon]="uk2ChipTrailingIcon!" class="uk2-chip-trailing-icon"></mat-icon>
+  </ng-container>
+</div>

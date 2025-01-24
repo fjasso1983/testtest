@@ -1,0 +1,307 @@
+<p>file-viewer works!</p>
+
+<div *ngIf="!extended" class="uk2-pdf-viewer-container-collapsed">
+  <div
+    [uk2FileViewerElementPosition]="positionLeft"
+    class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-start"
+  >
+    <button
+      (click)="extendView()"
+      uk2TextIconButton
+      disableRipple
+      mat-button
+      [uk2ButtonSize]="buttonSize.small"
+      [uk2IsLoading]="isLoading"
+      ><mat-icon [svgIcon]="iconExtand"></mat-icon
+    ></button>
+  </div>
+  <div
+    [uk2FileViewerElementPosition]="positionCenter"
+    class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-center"
+  >
+    {{ pdfName }}
+  </div>
+  <div
+    [uk2FileViewerElementPosition]="positionRight"
+    class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-end"
+  >
+    <button
+      mat-button
+      uk2TextIconButton
+      uk2FlyoutMenu
+      disableRipple
+      [uk2FlyoutTemplate]="flyoutOverlay"
+      [uk2TextButtonVariant]="uk2TextButtonVariant"
+      [uk2ButtonSize]="buttonSize.small"
+      #flyoutMenu="uk2FlyoutMenu"
+      [uk2OverlayYOffset]="8"
+      (click)="flyoutMenu.toggle()"
+    >
+      <mat-icon [svgIcon]="iconEllipses"></mat-icon>
+    </button>
+    <button mat-button uk2TextIconButton disableRipple [uk2ButtonSize]="buttonSize.small" (click)="onClose()">
+      <mat-icon [svgIcon]="iconClose"></mat-icon>
+    </button>
+    <ng-template #flyoutOverlay>
+      <div class="flyout-container">
+        <div
+          uk2MenuListItem
+          *ngFor="let item of flyoutList; index as i; last as isLast"
+          [uk2ShowDividerLine]="!isLast"
+          (click)="clickOption(item)"
+        >
+          <mat-icon [svgIcon]="item.svgIconName!"></mat-icon>
+          <p>{{ item.bodyText }}</p>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<div *ngIf="extended" uk2FileViewerContainer [uk2FileViewerWidth]="'800px'" [uk2FileViewerHeight]="'400px'">
+  <div uk2FileViewerHeader>
+    <div [uk2FileViewerElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
+      <input
+        [(ngModel)]="inputPage"
+        (blur)="updatePage($event)"
+        (keydown)="keydownPage($event)"
+        type="number"
+        id="page"
+        autocomplete="off"
+      />
+      of {{ pdf?.numPages }}
+    </div>
+    <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+      <button
+        (click)="setZoomValue('minus')"
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        [uk2IsLoading]="isLoading"
+        ><mat-icon [svgIcon]="iconZoomLess"></mat-icon
+      ></button>
+      <input
+        type="text"
+        [value]="zoom + '%'"
+        (blur)="onBlur($event)"
+        (click)="onFocus($event)"
+        autocomplete="off"
+        id="page"
+        placeholder="100%" />
+      <button
+        (click)="setZoomValue('plus')"
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        [uk2IsLoading]="isLoading"
+        ><mat-icon [svgIcon]="iconZoomMore"></mat-icon></button
+    ></div>
+    <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+      <button
+        mat-button
+        uk2TextIconButton
+        uk2FlyoutMenu
+        disableRipple
+        [uk2FlyoutTemplate]="flyoutOverlay"
+        [uk2TextButtonVariant]="uk2TextButtonVariant"
+        [uk2ButtonSize]="buttonSize.small"
+        [uk2OverlayYOffset]="8"
+        #flyoutMenu="uk2FlyoutMenu"
+        (click)="flyoutMenu.toggle()"
+      >
+        <mat-icon [svgIcon]="iconEllipses"></mat-icon>
+      </button>
+      <ng-template #flyoutOverlay>
+        <div class="flyout-container">
+          <div
+            uk2MenuListItem
+            *ngFor="let item of flyoutList; index as i; last as isLast"
+            [uk2ShowDividerLine]="!isLast"
+            (click)="clickOption(item)"
+          >
+            <mat-icon [svgIcon]="item.svgIconName!"></mat-icon>
+            <p>{{ item.bodyText }}</p>
+          </div>
+        </div>
+      </ng-template>
+      <button mat-button uk2TextIconButton disableRipple [uk2ButtonSize]="buttonSize.small" (click)="onClose()">
+        <mat-icon [svgIcon]="iconClose"></mat-icon>
+      </button>
+    </div>
+  </div>
+  <pdf-viewer
+    [src]="pdfSrc"
+    [render-text]="true"
+    [original-size]="false"
+    [zoom-scale]="'page-width'"
+    [zoom]="zoom / 100"
+    [autoresize]="true"
+    [(page)]="pdfPage"
+    [show-borders]="true"
+    (after-load-complete)="callBackPDFLoaded($event)"
+  ></pdf-viewer>
+  <div uk2FileViewerFooter>
+    <div [uk2FileViewerElementPosition]="positionLeft">
+      <button
+        (click)="extendView()"
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        [uk2IsLoading]="isLoading"
+        ><mat-icon [svgIcon]="iconCollapse"></mat-icon
+      ></button>
+    </div>
+    <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+      {{ pdfName }}
+    </div>
+    <div [uk2FileViewerElementPosition]="positionRight">
+      <button
+        (click)="openFullScreen()"
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        [uk2IsLoading]="isLoading"
+        ><mat-icon [svgIcon]="iconWindow"></mat-icon></button
+    ></div>
+  </div>
+</div>
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br />
+<button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="openModal()">
+  Open Modal
+</button>
+
+<uk2-modal
+  title="Lorem ipsum dolor"
+  subtitle="Amet consecutar etum"
+  [hasBackdrop]="true"
+  [disabledCloseOverlayBackdrop]="false"
+  [showCloseButton]="true"
+  [showHeader]="true"
+  [showTitleDivider]="true"
+  [showActionsDivider]="true"
+  [actionsGrid]="actionsGrid.centered"
+  [titleFontWeight]="fontWeight.bold300"
+  [titleAlign]="titleAlign.center"
+  [innerPanelClass]="innerPanelClass"
+  #modal
+>
+  <ng-template #uk2ModalContent>
+    <div
+      uk2FileViewerContainer
+      [uk2FileViewerWidth]="'100%'"
+      [uk2FileViewerHeight]="'400px'"
+      [uk2FileViewerNoBorder]="true"
+    >
+      <div uk2FileViewerHeader>
+        <div
+          [uk2FileViewerElementPosition]="positionLeft"
+          [uk2FileViewerPageSize]="pdf?.numPages"
+          uk2FileViewerPageControl
+        >
+          <input
+            [(ngModel)]="inputPage"
+            (blur)="updatePage($event)"
+            (keydown)="keydownPage($event)"
+            type="number"
+            id="page"
+            autocomplete="off"
+          />
+          of
+          {{ pdf?.numPages }}
+        </div>
+        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+          <button
+            (click)="setZoomValue('minus')"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSize.small"
+            [uk2IsLoading]="isLoading"
+            ><mat-icon [svgIcon]="iconZoomLess"></mat-icon
+          ></button>
+          <input
+            type="text"
+            [value]="zoom + '%'"
+            (blur)="onBlur($event)"
+            (click)="onFocus($event)"
+            autocomplete="off"
+            id="page"
+            placeholder="100%" />
+          <button
+            (click)="setZoomValue('plus')"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSize.small"
+            [uk2IsLoading]="isLoading"
+            ><mat-icon [svgIcon]="iconZoomMore"></mat-icon></button
+        ></div>
+        <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+          <button
+            mat-button
+            uk2TextIconButton
+            uk2FlyoutMenu
+            disableRipple
+            [uk2FlyoutTemplate]="flyoutOverlay"
+            [uk2TextButtonVariant]="uk2TextButtonVariant"
+            [uk2ButtonSize]="buttonSize.small"
+            #flyoutMenu="uk2FlyoutMenu"
+            [uk2OverlayYOffset]="8"
+            (click)="flyoutMenu.toggle()"
+          >
+            <mat-icon [svgIcon]="iconEllipses"></mat-icon>
+          </button>
+          <ng-template #flyoutOverlay>
+            <div class="flyout-container">
+              <div
+                uk2MenuListItem
+                *ngFor="let item of flyoutList; index as i; last as isLast"
+                [uk2ShowDividerLine]="!isLast"
+                (click)="clickOption(item)"
+              >
+                <mat-icon [svgIcon]="item.svgIconName!"></mat-icon>
+                <p>{{ item.bodyText }}</p>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <pdf-viewer
+        [src]="pdfSrc"
+        [render-text]="true"
+        [original-size]="false"
+        [zoom-scale]="'page-width'"
+        [zoom]="zoom / 100"
+        [autoresize]="true"
+        [(page)]="pdfPage"
+        [show-borders]="true"
+        (after-load-complete)="callBackPDFLoaded($event)"
+      ></pdf-viewer>
+      <div uk2FileViewerFooter>
+        <div [uk2FileViewerElementPosition]="positionLeft">
+          <button
+            (click)="openFullScreen()"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSize.small"
+            [uk2IsLoading]="isLoading"
+            ><mat-icon [svgIcon]="iconWindow"></mat-icon></button
+        ></div>
+        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+          {{ pdfName }}
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #uk2ModalActions>
+    <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.large" (click)="closeModal()">
+      Continue
+    </button>
+  </ng-template>
+</uk2-modal>

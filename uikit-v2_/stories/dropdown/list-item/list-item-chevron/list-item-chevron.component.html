@@ -1,0 +1,43 @@
+<section class="section">
+  <span class="section-title">Basic Usage</span>
+  <p>This page showcases the following:</p>
+
+  <ul>
+    <li>Dropdown list item chevron states (default, hover, skeleton, pending and disabled).</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+    <li>Dropdown list item chevron integration with bottom sheet component (small device screen).</li>
+  </ul>
+  <br />
+
+  <mat-form-field appearance="outline" floatLabel="always" [hintLabel]="'Please select an option'">
+    <mat-label>Options</mat-label>
+    <mat-select
+      [placeholder]="'Lorem ipsum'"
+      uk2Dropdown
+      uk2BottomSheetLink
+      disableRipple
+      [uk2DropdownSize]="dropdownSize"
+      [uk2BottomSheetRef]="bottomSheet"
+      #select
+    >
+      <mat-option *ngFor="let listItem of listItems; let odd = odd" [value]="listItem.value">
+        <uk2-dropdown-list-item-chevron
+          [uk2ListItem]="listItem"
+          [uk2IsDisabled]="disabled"
+          [uk2IsPending]="pending"
+          [uk2IsLoading]="isLoading"
+          [uk2ShowDividerLine]="showDivider"
+          [uk2CurrencyOptions]="currencyOptions"
+        ></uk2-dropdown-list-item-chevron>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <ng-template #bottomSheet>
+    <uk2-bottom-sheet-options
+      [title]="bottomSheetListHeader"
+      [description]="bottomSheetListDescription"
+      [options]="select.options"
+    ></uk2-bottom-sheet-options>
+  </ng-template>
+</section>

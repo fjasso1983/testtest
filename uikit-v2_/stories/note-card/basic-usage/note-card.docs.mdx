@@ -1,0 +1,226 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source, Canvas } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+
+# uk2NoteCard directive documentation
+<br/>
+
+
+## Introduction
+<p>
+  uk2NoteCard is a directive designed to customize the styling of <a href="https://v15.material.angular.io/components/card/overview" target="_blank"><strong>&lt;mat-card&gt;</strong></a> Angular Material component to achieve the Note Card component described in <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/👷‍♂️-Framework-Core---Web-2.0?node-id=673%3A8530&t=xMrnsOGwiCJ12o4x-0"  target="_blank">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;mat-card&gt;</strong> Angular material component. It will add the <strong>uk2-note-card</strong> css class to handle styles.
+  </li>
+  <li>
+    Refer to the Inputs section below to know more about how to use each available property.
+  </li>
+  <li>
+    Refer to the Sample code section to know more about how to achieve each variant.
+  </li>
+</ol>
+
+## Prerequisites
+
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+- You need to import MatCardModule and MatCheckboxModule from @angular/material/card and @angular/material/card into the desired module of your Angular App. To be able to use uk2NoteCard directive.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatCardModule } from '@angular/material/card';
+      import { MatCheckboxModule } from '@angular/material/checkbox';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li><strong>[uk2NoteCardFontSize]</strong> <u>Enum</u> <i>(optional)</i> used to change card's font size(<strong>Default:</strong> small).</li>
+  <li><strong>[uk2IsLoading]</strong> <u>Boolean</u> <i>(optional)</i> used to display skeleton mode.</li>
+  <li><strong>[uk2NoteCardHasCheckbox]</strong> <u>Boolean</u> <i>(optional)</i> used to display checkbox in skeleton mode.(<strong>Default:</strong> false).</li>
+</ul>
+<br/>
+
+## Enums
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2FontNoteCardEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2FontNoteCardEnum {
+      small = 'small',  
+      large = 'large',
+    }
+  `}
+/>
+
+## Sample code
+
+### Note card with body text only
+  
+#### *.component.html
+<ul><li>Note the use of uk2NoteCard directive applied to 'mat-card' Angular material component.</li></ul>
+<Source
+  dark
+  code={dedent`
+   <mat-card uk2NoteCard> 
+    <mat-card-content> 
+      <label> Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+              Donec at neque interdum integer lacus. 
+              At quis mi lacus odio auctor urna, orci. 
+      </label> 
+    </mat-card-content> 
+  </mat-card>
+  `}
+/>
+<br/>
+
+### Note card with hyperlink
+  
+#### *.component.html
+<ul>
+  <li> Note the use of anchor html element with uk2Anchor directive. 
+       Refer to Hyperlink documentation to know more.
+  </li>
+</ul>
+<Source
+  dark
+  code={dedent`
+    <mat-card uk2NoteCard> 
+      <mat-card-content> 
+        <label> 
+          Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Donec at neque interdum integer lacus. At quis mi lacus odio auctor urna, orci. 
+          <a uk2Anchor routerLink="not/exiting/route">Hyperlink at end</a> 
+        </label> 
+      </mat-card-content> 
+    </mat-card>
+  `}
+/>
+<br/>
+
+### Note card with checkbox
+  
+#### *.component.html
+<ul>
+  <li>Note the use of property uk2NoteCardHasCheckbox = true</li>
+  <li>Note the different template inside the 'mat-card' </li>
+  <li>Note the use of 'mat-checkbox' Angular material component with uk2Checkbox directive. Refer to Checkbox documentation to know more.</li>
+</ul>
+<Source
+  dark
+  code={dedent`
+    <mat-card uk2NoteCard [uk2HasCheckbox]="true"> 
+      <mat-card-content> 
+        <div class="uk2-checkbox-container"> 
+          <mat-checkbox color="primary" uk2Checkbox [uk2IsLoading]="isLoading"></mat-checkbox> 
+            <label> Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Donec at neque interdum integer lacus. At quis mi lacus odio auctor urna, orci. 
+            </label> 
+          </div> 
+        </mat-card-content> 
+      </mat-card>
+  `}
+/>
+<br/>
+
+
+### Note card with hyperlink and checkbox
+  
+#### *.component.html
+<Source
+  dark
+  code={dedent`
+    <mat-card uk2NoteCard [uk2HasCheckbox]="true"> 
+      <mat-card-content> 
+        <div class="uk2-checkbox-container"> 
+          <mat-checkbox color="primary" uk2Checkbox [uk2IsLoading]="isLoading"></mat-checkbox> 
+            <label> Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Donec at neque interdum integer lacus. At quis mi lacus odio auctor urna, orci. 
+                    <a uk2Anchor routerLink="not/existing/route">Hyperlink at end</a> 
+            </label> 
+          </div> 
+        </mat-card-content> 
+      </mat-card>
+  `}
+/>
+<br/>
+
+### Controlling font size for Note card
+#### *.component.html
+<Source
+  dark
+  code={dedent`
+    <mat-card uk2NoteCard [uk2FontSize]="fontSize.small"> 
+      <mat-card-content> 
+        <label> Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Donec at neque interdum integer lacus. At quis mi lacus odio auctor urna, orci. 
+        </label> 
+      </mat-card-content> 
+    </mat-card>
+  `}
+/>
+#### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      export class YourComponent { fontSize = Uk2FontNoteCardEnum; }
+  `}
+/>
+<br/>
+
+### Controlling skeleton state for Note card
+#### *.component.html
+<Source
+  dark
+  code={dedent`
+    <mat-card uk2NoteCard [uk2IsLoading]="isLoading"> 
+      <mat-card-content> 
+        <label> Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Donec at neque interdum integer lacus. At quis mi lacus odio auctor urna, orci. 
+        </label> 
+      </mat-card-content> 
+    </mat-card>
+  `}
+/>
+#### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      export class YourComponent { isLoading = false; }
+  `}
+/>
+<br/>
+
+
+
+#### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component, OnInit } from '@angular/core';
+    import { Uk2NoteCardFontSizeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export class YourComponent {
+      \r
+      uk2IsLoading = false;
+      uk2NoteCardFontSize: Uk2NoteCardFontSizeEnum = Uk2NoteCardFontSizeEnum.small;
+      uk2NoteCardHasCheckbox = false;
+      \r
+      constructor() {}
+      \r
+    };
+  `}
+/>
+<br/>

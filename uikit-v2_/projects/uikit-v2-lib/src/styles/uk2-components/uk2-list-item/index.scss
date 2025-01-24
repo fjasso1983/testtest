@@ -1,0 +1,205 @@
+@import '../../uk2-directives/uk2-checkbox/uk2-checkbox.mixins.scss';
+
+uk2-list-item {
+  background-color: inherit;
+}
+// Normal State
+.uk2-list-item {
+  padding: 8px 16px;
+  gap: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 32px;
+  min-width: 0px !important;
+  background-color: inherit;
+
+  &:hover {
+    background-color: var(--uk2-neutral-grey-100);
+  }
+
+  .uk2-list-item-header {
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 2;
+    order: 0;
+    min-width: 0px !important;
+
+    .uk2-list-item-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .uk2-list-item-header-container {
+      display: flex;
+      flex-direction: column;
+      min-width: 0px !important;
+
+      .uk2-list-item-header-label {
+        @include uk2-font__body-medium--100();
+        flex-grow: 2;
+        display: flex;
+        flex-direction: row;
+        color: var(--uk2-neutral-slate-500);
+
+        .uk2-list-item-header-label-name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .uk2-list-item-header-label-identifier {
+          flex-shrink: 0;
+        }
+      }
+
+      .uk2-list-item-body-text {
+        @include uk2-font__body-regular--75;
+        @include uk2-max-number-of-lines(4);
+        color: var(--uk2-neutral-slate-400);
+      }
+    }
+  }
+
+  .uk2-list-item-money-amount {
+    flex-shrink: 0;
+    @include uk2-font__body-regular--100;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    color: var(--uk2-neutral-slate-400);
+    order: 0;
+  }
+
+  mat-icon {
+    color: var(--uk2-neutral-slate-400);
+  }
+}
+// End Normal State
+
+// Disabled State
+.uk2-list-item.uk2-list-item-disabled {
+  opacity: 0.5;
+
+  &:hover {
+    background-color: unset;
+  }
+}
+// End Disabled State
+
+// Pending State
+.uk2-list-item.uk2-list-item-pending {
+  .uk2-list-item-header {
+    .uk2-list-item-header-container {
+      .uk2-list-item-header-label {
+        .uk2-list-item-header-label-name {
+          font-style: italic;
+          padding-right: 1px;
+        }
+        .uk2-list-item-header-label-identifier {
+          font-style: italic;
+        }
+      }
+
+      .uk2-list-item-body-text {
+        font-style: italic !important;
+      }
+    }
+  }
+
+  .uk2-list-item-money-amount {
+    font-style: italic;
+    padding-right: 1px;
+  }
+}
+// End Pending State
+
+// Skeleton State
+.uk2-list-item-skeleton-container {
+  padding: 8px 16px;
+  background-color: var(--uk2-neutral-grey-300);
+
+  .uk2-list-item-skeleton {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+
+    .uk2-list-item-skeleton-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background-color: var(--uk2-neutral-grey-400);
+    }
+
+    .uk2-list-item-skeleton-text-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-grow: 1;
+
+      .uk2-list-item-skeleton-text-container-item {
+        height: 24px;
+        width: 100%;
+        border-radius: 8px;
+        background-color: var(--uk2-neutral-grey-400);
+      }
+    }
+  }
+}
+// End Skeleton State
+
+// Angular Material behavior
+.mat-mdc-option {
+  .uk2-list-item {
+    .mat-icon {
+      margin: 0;
+    }
+  }
+}
+
+// Radio Button Styles
+.uk2-list-item {
+  .uk2-radio-button.mat-mdc-radio-button {
+    .mdc-form-field {
+      gap: unset;
+    }
+  }
+}
+
+// Checkbox Styles
+.uk2-list-item {
+  @include checkbox-size(32px);
+
+
+}
+@include md {
+  .uk2-list-item {
+    @include checkbox-size(24px);
+
+  }
+}
+// End Angular Material behavior
+
+// Divider Line
+.uk2-list-item-divider-line {
+  height: 1px;
+  background-color: var(--uk2-neutral-grey-200);
+  margin: 0px 16px;
+}
+// End Divider Line
+
+@include md {
+  .uk2-list-item {
+    .uk2-list-item-header {
+      order: 1;
+    }
+    .uk2-list-item-money-amount {
+      order: 1;
+    }
+  }
+}

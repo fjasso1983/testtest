@@ -1,0 +1,54 @@
+<button
+  #menuButton
+  uk2MenuButton
+  class="uk2-menu-button"
+  [ngClass]="{
+    'no-border': !uk2DisplayBorder,
+    'icon-only': uk2IsIconOnly,
+    'uk2-menu-icon-button__custom': uk2IsIconOnly && !!uk2IconButtonSizeClass
+  }"
+  [class]="uk2IsIconOnly && !!uk2IconButtonSizeClass ? uk2IconButtonSizeClass : ''"
+  mat-stroked-button
+  disableRipple
+  cdkOverlayOrigin
+  (click)="toggleFlyout()"
+  [uk2ButtonSize]="uk2ButtonSize"
+  [uk2IsLoading]="uk2IsLoading"
+  [disabled]="uk2IsDisabled"
+>
+  <mat-icon
+    [ngClass]="{ 'uk2-menu-button-icon': uk2IsIconOnly || (uk2IsIconOnly && !!uk2IconButtonSizeClass) }"
+    [svgIcon]="uk2SvgIconName"
+  ></mat-icon>
+  {{ uk2IsIconOnly ? '' : uk2DefaultStateText }}
+</button>
+<div
+  class="uk2-menu-button-badge"
+  uk2NotificationBadge
+  [matBadge]="selectedOptions.length + ''"
+  *ngIf="uk2DisplayBadge && uk2ButtonType === buttonType.multiple && selectedOptions.length > 0"
+>
+</div>
+<uk2-menu-button-overlay
+  [menuButton]="menuButton._elementRef"
+  [uk2ButtonType]="uk2ButtonType"
+  [uk2ItemList]="uk2ItemList"
+  [uk2CSSPortalProperties]="uk2CSSPortalProperties"
+  [menuItemsContainerMinHeight]="menuItemsContainerMinHeight"
+  [uk2ContentClass]="uk2ContentClass"
+  [uk2DividerLineClass]="uk2DividerLineClass"
+  [uk2BackdropIsEnabled]="uk2BackdropIsEnabled"
+  [uk2BackdropIsHidden]="uk2BackdropIsHidden"
+  [uk2BackdropCanBeClosedWhenHasBeenClicked]="uk2BackdropCanBeClosedWhenHasBeenClicked"
+  [uk2BackdropClass]="uk2BackdropClass"
+  [uk2ScrollStrategy]="uk2ScrollStrategy"
+  [optionTemplateRef]="optionTemplateRef"
+  [optionDividerLine]="optionDividerLine"
+  [isMobileSize]="isMobileSize"
+  [bottomSheetTitle]="uk2BottomSheetTitle"
+  [bottomSheetDescription]="uk2BottomSheetDescription"
+  (selectOptionIndex)="selectOption($event)"
+  (multipleOptionsSelect)="multipleOptionsSelect($event)"
+>
+  <ng-content></ng-content>
+</uk2-menu-button-overlay>

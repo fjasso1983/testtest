@@ -1,0 +1,127 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2NotificationBadge directive documentation
+
+## Introduction
+<p>
+  <b>Uk2NotificationBadge</b> is a directive designed to update the styling and behavior of [matBadge] directive from <a target="_blank" href='https://v15.material.angular.io/components/badge/overview'>Angular Material</a> to adhere to <a target="_blank" href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=289-9&t=D5UfChF4ixCIkQpx-0">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to elements with the attribute <strong>[matBadge]</strong> from <a target="_blank" href='https://v15.material.angular.io/components/badge/overview'>Angular Material badge</a>. It will add the <b>uk2-notification-badge</b> css class name to handle styles.
+  </li>
+</ol>
+
+## Prerequisites
+<p>
+Import MatBadgeModule module from @angular/material
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatBadgeModule } from '@angular/material/badge';
+  `}
+/>
+</p>
+<p>
+Import Uk2DirectivesModule module from @axos/uikit-v2-lib
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+</p>
+
+## Inputs
+
+<ul>
+  <li>[matBadge] <u>string|number</u> <i>(optional)</i> Set the content of the badge.</li>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle to switch from default state to skeleton state.</li>
+  <li>[uk2BadgeType] <u>Uk2BadgeTypeEnum</u> <i>(optional)</i> Change the style of the badge depending on enum value.</li>
+  <li>[uk2BadgeSelected] <u>boolean</u> <i>(optional)</i> Toogle badge styles to selected.</li>
+  <li>[uk2BadgeEnableHoverState] <u>boolean</u> <i>(optional)</i> Add hover interaction styles when value is true.</li>
+  <li>Angular Material inputs for MatBadge directive <a target="_blank" href="https://v15.material.angular.io/components/badge/api#MatBadge">link</a>.</li>
+</ul>
+
+## Enums
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Uk2BadgeTypeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2BadgeTypeEnum {
+      notification = 'notification',
+      badge = 'badge',
+    }
+  `}
+/>
+
+## Sample code button with badge
+### .component.html
+<p>
+  <b>Note:</b> <br/>
+  Import the required modules for button component
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <button
+      uk2TextIconButton
+      mat-button
+      disableRipple
+      [uk2ButtonSize]="uk2ButtonSize"
+      [uk2IsLoading]="uk2IsLoading"
+      [disabled]="isDisabled"
+    >
+      <mat-icon
+        uk2NotificationBadge
+        [matBadge]="text"
+        [svgIcon]="svgIconName"
+        [uk2IsLoading]="uk2IsLoading"
+        [matBadgeHidden]="isHidden"
+        [uk2BadgeType]="type"
+        [uk2BadgeSelected]="isSelected"
+        [uk2BadgeEnableHoverState]="hasHover"
+      >
+      </mat-icon>
+    </button>
+  `}
+/>
+
+### .component.ts
+<p>
+  Note that svgIconName is part of the @axos/uikit-v2-lib iconography. To see more information go to <a href="/docs/iconography--iconography">iconography.</a>
+</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2ButtonSizeEnum, Uk2BadgeTypeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export class MyComponent {
+      uk2ButtonSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.large;
+      isDisabled = false;
+      isHidden = false;
+      text = '4';
+      uk2IsLoading = false;
+      type: Uk2BadgeTypeEnum = Uk2BadgeTypeEnum.notification;
+      isSelected = false;
+      hasHover = false;
+      svgIconName = 'uk2-speech-bubbles';
+      \r
+      constructor() {}
+    }
+  `}
+/>

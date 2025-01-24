@@ -1,0 +1,68 @@
+.containers {
+  display: flex;
+  margin-bottom: 20px;
+  div {
+    flex: 1;
+  }
+}
+
+.truncate-width-chip {
+  width: 220px;
+  max-width: 220px;
+}
+
+.red-chip-class {
+  --uk2-chips-text-color: #c01349;
+  --uk2-chips-icon-color: #c01349;
+  --uk2-chips-indicator-color: #c01349;
+  &.square {
+    --uk2-chips-default-surface-color: #fff7f9;
+    --uk2-chips-default-stroke-color: #ffe1e8;
+  }
+  &.rounded {
+    --uk2-chips-default-surface-color: #FFE1E8;
+    --uk2-chips-default-stroke-color: #FFE1E8;
+  }
+}
+
+.yellow-chip-class {
+  --uk2-chips-text-color: #d58f06;
+  --uk2-chips-icon-color: #d58f06;
+  --uk2-chips-indicator-color: #d58f06;
+  &.square {
+    --uk2-chips-default-surface-color: #fffefb;
+    --uk2-chips-default-stroke-color: #ffe48f;
+  }
+  &.rounded {
+    --uk2-chips-default-surface-color: #ffe48f;
+    --uk2-chips-default-stroke-color: #ffe48f;
+  }
+}
+
+.black-chip-class {
+  --uk2-chips-text-color: #333d46;
+  --uk2-chips-icon-color: #333d46;
+  --uk2-chips-indicator-color: #333d46;
+  &.square {
+    --uk2-chips-default-surface-color: #f4f4f4;
+    --uk2-chips-default-stroke-color: #e7e9ec;
+  }
+  &.rounded {
+    --uk2-chips-default-surface-color: #e7e9ec;
+    --uk2-chips-default-stroke-color: #e7e9ec;
+  }
+}
+
+.blue-chip-class {
+  --uk2-chips-text-color: #17508f;
+  --uk2-chips-icon-color: #17508f;
+  --uk2-chips-indicator-color: #17508f;
+  &.square {
+    --uk2-chips-default-surface-color: #f2faff;
+    --uk2-chips-default-stroke-color: #cdeeff;
+  }
+  &.rounded {
+    --uk2-chips-default-surface-color: #cdeeff;
+    --uk2-chips-default-stroke-color: #cdeeff;
+  }
+}

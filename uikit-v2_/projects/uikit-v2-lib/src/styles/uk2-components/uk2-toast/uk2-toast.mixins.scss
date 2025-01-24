@@ -1,0 +1,182 @@
+@mixin uk2-toast-container-default{
+  border-radius: 8px !important;
+  animation: uk2-toast-slide-top 0.5s ease both;
+  .mdc-snackbar__label{
+    padding: 0px;
+  }
+  .mdc-snackbar__surface{
+    padding:0px;
+    border-radius: 8px !important;
+    box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.15)!important;
+    background-color: transparent !important;
+    width: 100% !important;
+    min-width: 100%  !important;
+    max-width: 100%  !important;
+  }
+}
+
+@mixin uk2-toast-default{
+  display: table;
+  width: 100%;
+  border-radius: 8px;
+  .uk2-toast-icon-container{
+    display: table-cell;
+    width: 56px;
+    min-width: 56px;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    position:relative;
+    mat-icon{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -12px 0 0 -12px;
+    }
+  }
+
+  .uk2-toast-body{
+    display: table-cell;
+    width: 100%;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    position: relative;
+    .uk2-toast-text-container{
+      padding: 16px;
+      display: inline-block;
+      .uk2-toast-text{
+        color: var(--uk2-neutral-slate-500);
+        @include uk2-format-text('Roboto', 14px !important, 400 !important, 20px !important);
+        @include uk2-max-number-of-lines(3);
+      }
+    }
+    .uk2-toast-button-container{
+      display: inline-block;
+      position: absolute;
+      right:0px;
+      .uk2-toast-button{
+        margin: 16px 16px 0 0;
+        height: 24px;
+        width: 24px;
+        padding: 0px;
+        display: none;
+        .mat-icon{
+          height:24px;
+          width:24px;
+          color: var(--uk2-neutral-slate-400);
+          svg{
+            height:16px;
+            width:16px;
+            position: relative;
+            top: -2px;
+          }
+        }
+        .mat-mdc-button-touch-target {
+            height: 24px;
+            width: 24px;
+        }
+
+        .mat-mdc-button-persistent-ripple::before{
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+@mixin uk2-toast-success{
+  &.uk2-toast-success{
+    .uk2-toast-icon-container{
+      background-color: var(--uk2-semantic-green) !important;
+    }
+
+    .uk2-toast-body{
+      background-color: var(--uk2-specialty-green-100) !important;
+      .uk2-toast-button-container{
+        .uk2-toast-button:hover{
+          .mat-mdc-button-touch-target{
+            border: 1px solid  var(--uk2-semantic-green) !important;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin uk2-toast-alert{
+  &.uk2-toast-alert{
+    .uk2-toast-icon-container{
+      background-color: var(--uk2-semantic-red) !important;
+    }
+
+    .uk2-toast-body{
+      background-color: var(--uk2-specialty-yellow-100) !important;
+      .uk2-toast-button-container{
+        .uk2-toast-button:hover{
+          .mat-mdc-button-touch-target{
+            border: 1px solid  var(--uk2-specialty-yellow-600) !important;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin uk2-toast-skeleton{
+  &.uk2-toast-skeleton{
+    .uk2-toast-icon-container{
+      background-color: var(--uk2-neutral-grey-400) !important;
+    }
+
+    .uk2-toast-body{
+      background-color: var(--uk2-neutral-grey-300) !important;
+      .uk2-toast-text-container{
+        .uk2-toast-text{
+          background-color: var(--uk2-neutral-grey-400) !important;
+          width: 211px;
+          height: 24px;
+          border-radius: 8px;
+        }
+      }
+      .uk2-toast-button-container{
+        display: none;
+      }
+    }
+  }
+}
+
+
+@mixin uk2-toast-responsive(){
+  @include md {
+    .uk2-toast-body .uk2-toast-text-container .uk2-toast-text {
+      @include uk2-format-text('Roboto', 16px !important, 400 !important, 24px !important);
+    }
+    .uk2-toast .uk2-toast-body .uk2-toast-button-container .uk2-toast-button{
+      display: block;
+    }
+    .uk2-toast .uk2-toast-body .uk2-toast-text-container {
+      padding: 16px 56px 16px 16px;
+    }
+  }
+  @include md {
+    .mdc-snackbar__surface{
+      width: 512px !important;
+      min-width: 512px !important;
+      max-width: 512px  !important;
+    }
+  }
+}
+
+@mixin uk2-toast-overlay-responsive(){
+  .cdk-overlay-pane{
+    flex: 1 1 auto;
+    @include md {
+      flex: 0 0 auto;
+    }
+  }
+}
+
+@mixin uk2-toast-container-hide{
+  animation: uk2-toast-slide-hide 0.5s ease both;
+}

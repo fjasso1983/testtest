@@ -1,0 +1,279 @@
+@import './uk2-horizontal-label-aligned-tabs.mixins.scss';
+.uk2-horizontal-tabs {
+  .mdc-tab__ripple {
+    opacity: 0;
+  }
+
+  .uk2-navigation-button {
+    transition: opacity 150ms ease-in;
+    opacity: 1;
+
+    &.invisible {
+      opacity: 0 !important;
+    }
+
+    &.uk2-hide {
+      display: none;
+    }
+
+    &.uk2-show {
+      display: none;
+    }
+  }
+  @include uk2-horizontal-tab-responsive-height;
+
+  border-bottom: 1px solid var(--uk2-neutral-grey-200);
+
+  &__navigation-button-icon {
+    width: 20px;
+    height: 20px;
+    transition: ease 0.3s;
+    color: var(--uk2-neutral-slate-300);
+  }
+
+  &.mat-mdc-tab-header-pagination-controls-enabled {
+    .mat-mdc-tab-header-pagination-before,
+    .mat-mdc-tab-header-pagination-after {
+      box-sizing: border-box;
+      width: 32px !important;
+      height: 32px !important;
+    }
+
+    .mat-mdc-tab-header-pagination-before {
+      padding: 8px 9.6px 8px 6.4px;
+      background: linear-gradient(270deg, rgba(255, 255, 255, 0) 10.98%, #ffffff 33.95%);
+      z-index: 1;
+    }
+
+    .mat-mdc-tab-header-pagination-after {
+      padding: 8px 6.4px 8px 9.6px;
+      background: linear-gradient(270deg, #ffffff 67.23%, rgba(255, 255, 255, 0) 92.08%);
+      z-index: 1;
+    }
+
+    .mat-mdc-tab-links {
+      > :last-child,
+      > :first-child {
+        transition: margin 0.5s ease;
+      }
+    }
+
+    @include md {
+      .mat-mdc-tab-header-pagination-before {
+        padding: 10px 12px 10px 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px !important;
+        height: 40px !important;
+      }
+      .mat-mdc-tab-header-pagination-after {
+        box-sizing: border-box;
+        padding: 10px 8px 10px 12px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px !important;
+        height: 40px !important;
+      }
+
+      .mat-mdc-tab-links {
+        > :first-child {
+          margin-left: 40px !important;
+          &.uk2-no-spacing {
+            margin-left: 0px !important;
+          }
+        }
+        > :last-child {
+          margin-right: 40px !important;
+          &.uk2-no-spacing {
+            margin-right: 0px !important;
+          }
+        }
+      }
+    }
+  }
+
+  .mdc-tab.mat-mdc-tab-link[uk2notificationbadge] {
+    .mdc-tab__content {
+      transition: width ease 0.3s, padding ease 0.3s;
+    }
+  }
+
+  .mat-mdc-tab-disabled {
+    opacity: 0.5;
+    @include uk2-disabled-horizontal-tabs-link;
+    .mdc-tab-indicator,
+    mat-icon {
+      display: none;
+    }
+  }
+
+  .mdc-tab.mat-mdc-tab-link[uk2notificationbadge]:not(.uk2-notification-badge-hidden) {
+    &:has(> .mdc-tab__content > .mdc-tab__text-label > .mat-icon) {
+      .uk2-notification-badge.mat-badge-content {
+        top: 6px;
+      }
+    }
+    .uk2-notification-badge.mat-badge-content {
+      top: 4px;
+      left: 4px;
+      width: 16px;
+      height: 16px;
+    }
+
+    .mdc-tab__content {
+      padding: 4px 4px 4px 24px;
+    }
+
+    @include md {
+      .uk2-notification-badge.mat-badge-content {
+        top: 6px;
+        left: 4px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .mdc-tab__content {
+        padding: 6px 4px 6px 32px;
+      }
+    }
+  }
+
+  .mdc-tab.mat-mdc-tab,
+  .mdc-tab.mat-mdc-tab-link {
+    @include uk2-horizontal-tab-responsive-height;
+    @include uk2-horizontal-tabs-link-transitions;
+    @include uk2-default-horizontal-tabs-link;
+    width: fit-content;
+
+    &:hover {
+      @include uk2-default-horizontal-tabs-link-hover;
+    }
+
+    &:disabled,
+    &[disabled] {
+      @include uk2-disabled-horizontal-tabs-link;
+    }
+
+    &:active {
+      @include uk2-pressed-horizontal-tabs-link;
+    }
+
+    &.mdc-tab--active {
+      @include uk2-default-horizontal-tabs-link-selected;
+
+      &:disabled,
+      &[disabled] {
+        @include uk2-disabled-horizontal-tabs-link;
+      }
+
+      &:hover {
+        @include uk2-selected-horizontal-tabs-link-hover;
+      }
+
+      &:active {
+        @include uk2-selected-horizontal-tabs-link-pressed;
+      }
+    }
+
+    margin-right: 24px;
+    padding: 0;
+
+    .mdc-tab__content {
+      width: 100%;
+      &:has(> .mdc-tab__text-label > .mat-icon) {
+        height: 28px;
+      }
+      height: 24px;
+      @include md {
+        height: 32px !important;
+      }
+      box-sizing: border-box;
+      padding: 6px 4px;
+      border-radius: 8px;
+    }
+
+    .mat-icon {
+      margin-right: 4px;
+      @include md {
+        margin-right: 8px;
+      }
+      width: 20px;
+      height: 20px;
+    }
+
+    .mdc-tab__text-label {
+      @include uk2-font__body-medium--50();
+      color: var(--uk2-neutral-slate-400);
+      @include md {
+        @include uk2-font__body-medium--75();
+      }
+    }
+  }
+
+  .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
+    border-top-width: 2px !important;
+    border-color: accent-color-400-hsl() !important;
+  }
+  // do not remove this, it is used to generate the drag the tabs on the x axis without using javascript
+  // on small devices * it does not trigger on desktop devices.
+  .mat-mdc-tab-link-container {
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  @include md {
+    .mat-mdc-tab-link-container {
+      overflow-x: hidden;
+    }
+  }
+
+  @include md {
+    .mat-mdc-tab-link-container {
+      overflow-x: hidden;
+    }
+  }
+
+  .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
+    border-top-width: 2px !important;
+    border-color: accent-color-400-hsl() !important;
+  }
+
+  &__loading {
+    @include uk2-horizontal-tab-responsive-height;
+    @include md {
+      padding: 13px 20.5px;
+      gap: 16px;
+    }
+    display: flex;
+    gap: 8px;
+    box-sizing: border-box;
+    padding: 9px 24px;
+    @include md {
+      height: 40px !important;
+      padding: 13px 20.5px;
+      gap: 16px;
+    }
+    @include uk2-loading-skeleton-animation(--uk2-neutral-grey-300, --uk2-neutral-grey-600);
+    .mat-mdc-tab-header-pagination-before,
+    .mat-mdc-tab-header-pagination-after,
+    .mat-mdc-tab-link-container {
+      display: none;
+    }
+    .uk2-horizontal-skeleton-tab {
+      border-radius: 8px;
+      height: 14px;
+      min-width: 101px;
+      width: 101px;
+      @include uk2-loading-skeleton-animation(--uk2-neutral-grey-400, --uk2-neutral-grey-300);
+      @include md {
+        width: 120px;
+        min-width: 120px;
+      }
+    }
+  }
+}

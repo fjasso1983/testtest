@@ -1,0 +1,258 @@
+<h1>Checkbox directive documentation</h1>
+
+<p>
+  Uk2CheckboxDirective is a directive that will only work on
+  <i>&lt;mat-checkbox&gt;</i>
+  elements and it will add a class name to handle styles.
+</p>
+
+<section>
+  <h2>Default checkbox</h2>
+
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+    <label>
+      Lorem ipsum dolot sit amet,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+
+  <pre>
+      <code>
+        &#60;mat-checkbox  uk2Checkbox  disableRipple &#62; &#60;/mat-checkbox&#62;
+      </code>
+  </pre>
+</section>
+
+<section>
+  <h2>Skeleton checkbox</h2>
+  <div>
+    <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  </div>
+  <br />
+
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox [uk2IsLoading]="isLoading" disableRipple></mat-checkbox>
+    <label>
+      Lorem ipsum dolot sit amet,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+
+  <pre>
+      <code>
+        &#60;mat-checkbox  uk2Checkbox disableRipple  &#91;uk2IsLoading&#93;="isLoading"&#62; &#60;/mat-checkbox&#62;
+      </code>
+  </pre>
+</section>
+
+<section>
+  <h2>Indeterminate checkbox</h2>
+
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple [indeterminate]="true"></mat-checkbox>
+    <label>
+      Lorem ipsum dolot sit amet,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+
+  <pre>
+      <code>
+        &#60;mat-checkbox  uk2Checkbox disableRipple &#91;indeterminate&#93;="true" &#62; &#60;/mat-checkbox&#62;
+      </code>
+  </pre>
+</section>
+
+<section>
+  <h2>Disabled checkbox</h2>
+
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple [disabled]="true"></mat-checkbox>
+    <label>
+      Lorem ipsum dolot sit amet,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple [disabled]="true" [checked]="true"></mat-checkbox>
+    <label>
+      Lorem ipsum dolot sit amet,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple [disabled]="true" [indeterminate]="true"></mat-checkbox>
+    <label>
+      Lorem ipsum dolot sit amet,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+
+  <pre>
+      <code>
+        &#60;mat-checkbox  uk2Checkbox disableRipple &#91;disabled&#93;="true" &#62; &#60;/mat-checkbox&#62;
+      </code>
+  </pre>
+</section>
+
+<section>
+  <h2>Label</h2>
+  <p>
+    You should not handle the text with the native functionality of the Angular material component. We are going to use
+    a separate &#60;label&#62; component
+  </p>
+
+  <pre>
+      <code>
+        &#60;div class="uk2-checkbox-container" &#62;
+          &#60;mat-checkbox  uk2Checkbox disableRipple &#62; &#60;/mat-checkbox&#62;
+          &#60;label &#62; Example label &#60;/label&#62;
+        &#60;/div&#62;
+      </code>
+  </pre>
+</section>
+
+<section>
+  <h2>Long Text</h2>
+
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+    <label>
+      Lorem ipsum dolor sit amet is a Latin phrase that translates to “pain is an illusion.” The phrase is often used in
+      psychological and philosophical discussions about the nature of pain. The phrase lorem ipsum dolor sit amet is a
+      reminder that pain is not a real thing but rather a product of our minds. It is important to remember this when we
+      are dealing with pain in our lives. We can choose to see pain as an illusion and choose to focus on other things.
+      By doing this,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+</section>
+
+<section>
+  <h2>Checkbox list: left align</h2>
+  <div>
+    <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  </div>
+  <br />
+
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+    <label>
+      Lorem ipsum dolot sit amet,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple [checked]="true" [uk2IsLoading]="isLoading"></mat-checkbox>
+    <label>
+      Lorem ipsum dolot,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox disableRipple [indeterminate]="true" [uk2IsLoading]="isLoading"></mat-checkbox>
+    <label>
+      Lorem ipsum dolot sit,
+      <a uk2Anchor routerLink="not/exiting/route">My link</a>
+    </label>
+  </div>
+
+  <pre>
+      <code>
+        &#60;div class="uk2-checkbox-container"&#62;
+          &#60;mat-checkbox  uk2Checkbox disableRipple [uk2IsLoading]="isLoading"&#62;&#60;/mat-checkbox&#62;
+          &#60;label&#62;Lorem ipsum dolot sit amet&#60;/label&#62;
+        &#60;/div&#62;
+        &#60;div class="uk2-checkbox-container"&#62;
+          &#60;mat-checkbox  uk2Checkbox disableRipple [checked]="true" [uk2IsLoading]="isLoading"&#62;&#60;/mat-checkbox&#62;
+          &#60;label&#62;Lorem ipsum dolot&#60;/label&#62;
+        &#60;/div&#62;
+        &#60;div class="uk2-checkbox-container"&#62;
+          &#60;mat-checkbox  uk2Checkbox disableRipple [indeterminate]="true" [uk2IsLoading]="isLoading"&#62;&#60;/mat-checkbox&#62;
+          &#60;label&#62;Lorem ipsum dolot sit &#60;/label&#62;
+        &#60;/div&#62;
+    </code>
+  </pre>
+</section>
+
+<section>
+  <h2>Checkbox list: right align</h2>
+  <div>
+    <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  </div>
+  <br />
+
+  <div class="container">
+    <div class="uk2-checkbox-container uk2-checkbox-align-right">
+      <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+      <label>
+        Lorem ipsum dolot sit amet,
+        <a uk2Anchor routerLink="not/exiting/route">My link</a>
+      </label>
+    </div>
+    <div class="uk2-checkbox-container uk2-checkbox-align-right">
+      <mat-checkbox uk2Checkbox disableRipple [checked]="true" [uk2IsLoading]="isLoading"></mat-checkbox>
+      <label>
+        Lorem ipsum dolot,
+        <a uk2Anchor routerLink="not/exiting/route">My link</a>
+      </label>
+    </div>
+    <div class="uk2-checkbox-container uk2-checkbox-align-right">
+      <mat-checkbox uk2Checkbox disableRipple [indeterminate]="true" [uk2IsLoading]="isLoading"></mat-checkbox>
+      <label>
+        Lorem ipsum dolot sit,
+        <a uk2Anchor routerLink="not/exiting/route">My link</a>
+      </label>
+    </div>
+  </div>
+
+  <pre>
+    <code>
+        &#60;div class="uk2-checkbox-container uk2-checkbox-align-right"&#62;
+          &#60;mat-checkbox  uk2Checkbox disableRipple [uk2IsLoading]="isLoading"&#62;&#60;/mat-checkbox&#62;
+          &#60;label&#62;Lorem ipsum dolot sit amet&#60;/label&#62;
+        &#60;/div&#62;
+        &#60;div class="uk2-checkbox-container uk2-checkbox-align-right"&#62;
+          &#60;mat-checkbox  uk2Checkbox disableRipple [checked]="true" [uk2IsLoading]="isLoading"&#62;&#60;/mat-checkbox&#62;
+          &#60;label&#62;Lorem ipsum dolot&#60;/label&#62;
+        &#60;/div&#62;
+        &#60;div class="uk2-checkbox-container uk2-checkbox-align-right"&#62;
+          &#60;mat-checkbox  uk2Checkbox disableRipple [indeterminate]="true" [uk2IsLoading]="isLoading"&#62;&#60;/mat-checkbox&#62;
+          &#60;label&#62;Lorem ipsum dolot sit &#60;/label&#62;
+        &#60;/div&#62;
+    </code>
+  </pre>
+</section>
+
+<section>
+  <h2>Parent/Child relationship of Checkboxes</h2>
+  <div>
+    <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  </div>
+  <br />
+
+  <div class="uk2-checkbox-container">
+    <mat-checkbox
+      uk2Checkbox
+      disableRipple
+      [uk2IsLoading]="isLoading"
+      [checked]="allComplete"
+      [indeterminate]="someComplete()"
+      (change)="setAll($event.checked)"
+    ></mat-checkbox>
+    <label>{{ task.name }}</label>
+  </div>
+  <div *ngFor="let subtask of task.subtasks" class="uk2-checkbox-child">
+    <div class="uk2-checkbox-container">
+      <mat-checkbox
+        uk2Checkbox
+        disableRipple
+        [uk2IsLoading]="isLoading"
+        [(ngModel)]="subtask.completed"
+        (ngModelChange)="updateAllComplete()"
+      ></mat-checkbox>
+      <label>{{ subtask.name }}</label>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,260 @@
+// Tabs container
+.uk2-vertical-tab-container {
+  flex-direction: row !important;
+  .mat-mdc-tab-body-wrapper {
+    flex-grow: 1 !important;
+  }
+  .mat-mdc-tab-labels {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+}
+
+//States
+// skeleton
+$skeleton-bar-margin: 24px;
+.uk2-vertical-tab-container.uk2-skeleton-tab-container {
+  .mat-mdc-tab-header {
+    background-color: var(--uk2-neutral-grey-300) !important;
+    .mat-mdc-tab-labels {
+      // Remove gap
+      gap: 0px !important;
+      // Deactivate click events
+      .mdc-tab.mat-mdc-tab {
+        pointer-events: none !important;
+      }
+      .mdc-tab__content {
+        pointer-events: none !important;
+      }
+
+      // Hide indicator
+      .mdc-tab.mat-mdc-tab .mdc-tab-indicator {
+        display: none !important;
+      }
+
+      // Hide labels
+      .mat-mdc-tab.mdc-tab.uk2-vertical-tab {
+        .mdc-tab__text-label {
+          color: transparent !important;
+        }
+      }
+
+      // add skeleton bar in each tab
+      .mdc-tab.mat-mdc-tab {
+        position: relative !important;
+        &::after {
+          display: block !important;
+          content: '' !important;
+          position: absolute !important;
+          background-color: var(--uk2-neutral-grey-400) !important;
+          width: calc(100% - ($skeleton-bar-margin * 2)) !important;
+          top: 50% !important;
+          left: $skeleton-bar-margin !important;
+          transform: translateY(-50%) !important;
+          border-radius: 8px !important;
+        }
+      }
+    }
+  }
+}
+// Skeleton in medium size
+.uk2-vertical-tab-container.uk2-skeleton-tab-container.uk2-vertical-tab-container-medium {
+  .mat-mdc-tab-header {
+    .mat-mdc-tab-labels {
+      .mdc-tab.mat-mdc-tab {
+        height: 40px !important;
+        padding: 13px 24px !important;
+        &::after {
+          height: 14px !important;
+        }
+      }
+    }
+  }
+}
+// Skeleton in small size
+.uk2-vertical-tab-container.uk2-skeleton-tab-container.uk2-vertical-tab-container-small {
+  .mat-mdc-tab-header {
+    .mat-mdc-tab-labels {
+      .mdc-tab.mat-mdc-tab {
+        height: 30px !important;
+        padding: 8px 24px !important;
+        &::after {
+          height: 14px !important;
+        }
+      }
+    }
+  }
+}
+
+// Tab
+//Densities
+.uk2-vertical-tab-container-medium {
+  .mat-mdc-tab.mdc-tab.uk2-vertical-tab {
+    height: 36px !important;
+    padding: 8px 16px !important;
+
+    .mdc-tab__content {
+      .mdc-tab__text-label {
+        @include uk2-font__body-medium--75();
+        // Medium size badge
+        $size: 20px;
+        .mat-badge {
+          margin-left: calc($size + 8px) !important;
+          .mat-badge-content {
+            @include uk2-font__body-medium--25();
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            left: calc(($size + 8px) * -1) !important;
+            width: $size !important;
+            height: $size !important;
+          }
+        }
+      }
+    }
+  }
+}
+.uk2-vertical-tab-container-small {
+  .mat-mdc-tab.mdc-tab.uk2-vertical-tab {
+    height: 24px !important;
+    padding: 8px 16px !important;
+
+    .mdc-tab__content {
+      .mdc-tab__text-label {
+        @include uk2-font__body-medium--50();
+        // Small size badge
+        $size: 16px;
+        .mat-badge {
+          margin-left: calc($size + 8px) !important;
+          .mat-badge-content {
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            left: calc(($size + 8px) * -1) !important;
+            width: $size !important;
+            height: $size !important;
+            font-size: 8px !important;
+            line-height: 11.2px !important;
+            letter-spacing: 0.16px !important;
+            border-width: 1.6px !important;
+          }
+        }
+      }
+    }
+  }
+}
+// States
+// default
+.mat-mdc-tab.mdc-tab.uk2-vertical-tab {
+  border-radius: 8px !important;
+  justify-content: start !important;
+
+  .mdc-tab__content {
+    // remove fixed height
+    height: auto !important;
+    .mdc-tab__text-label {
+      color: var(--uk2-neutral-slate-400) !important;
+      transition: none !important;
+    }
+  }
+
+  // hide bottom line indicator
+  .mdc-tab-indicator {
+    display: none !important;
+  }
+}
+ // hover
+ .uk2-vertical-tab-container:not(.uk2-vertical-tab-container-disabled):not(.uk2-skeleton-tab-container) {
+   .mat-mdc-tab.mdc-tab.uk2-vertical-tab:hover {
+     background-color: var(--uk2-neutral-grey-200) !important;
+
+     // remove default background color
+     .mdc-tab__ripple {
+       display: none !important;
+       &::before {
+         display: none !important;
+       }
+     }
+   }
+ }
+ // pressed
+ .uk2-vertical-tab-container:not(.uk2-vertical-tab-container-disabled):not(.uk2-skeleton-tab-container) {
+   .mat-mdc-tab.mdc-tab.uk2-vertical-tab:active {
+     background-color: var(--uk2-neutral-grey-200) !important;
+
+     .mdc-tab__content {
+      .mdc-tab__text-label {
+        color: var(--uk2-neutral-slate-500) !important;
+      }
+    }
+   }
+ }
+ // selected
+ .uk2-vertical-tab-container:not(.uk2-vertical-tab-container-disabled):not(.uk2-skeleton-tab-container) {
+   .mat-mdc-tab.mdc-tab.uk2-vertical-tab.mdc-tab--active {
+     background-color: var(--uk2-neutral-grey-200) !important;
+
+     .mdc-tab__content {
+      .mdc-tab__text-label {
+        color: accent-color-400-hsl() !important;
+      }
+    }
+   }
+ }
+
+// selected pressed
+.uk2-vertical-tab-container:not(.uk2-vertical-tab-container-disabled):not(.uk2-skeleton-tab-container) {
+  .mat-mdc-tab.mdc-tab.uk2-vertical-tab.mdc-tab--active:active {
+    background-color: var(--uk2-neutral-grey-200) !important;
+
+    .mdc-tab__content {
+      .mdc-tab__text-label {
+        color: accent-color-500-hsl() !important;
+      }
+    }
+  }
+}
+// disabled
+.uk2-vertical-tab-container.uk2-vertical-tab-container-disabled {
+  .mat-mdc-tab-header {
+
+    .mat-mdc-tab-labels {
+      // Deactivate click events
+      .mdc-tab.mat-mdc-tab {
+        pointer-events: none !important;
+      }
+      .mdc-tab__content {
+        pointer-events: none !important;
+        .mdc-tab__text-label {
+          color: var(--uk2-neutral-grey-400) !important;
+        }
+      }
+    }
+  }
+}
+// hide badge when tab is disabled or loading
+.uk2-vertical-tab-container.uk2-vertical-tab-container-disabled, .uk2-vertical-tab-container.uk2-skeleton-tab-container {
+  .mat-mdc-tab.mdc-tab.uk2-vertical-tab {
+    .mdc-tab__content {
+      .mdc-tab__text-label {
+        .mat-badge {
+          // Remove margin
+          margin-left: 0 !important;
+          .mat-badge-content {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
+}
+// remove margin left when badge is hidden
+.uk2-vertical-tab-container:not(.uk2-vertical-tab-container-disabled):not(.uk2-skeleton-tab-container) {
+  .mat-mdc-tab.mdc-tab.uk2-vertical-tab {
+    .mdc-tab__content {
+      .mdc-tab__text-label {
+        .mat-badge.uk2-notification-badge-hidden {
+          margin-left: 0 !important;
+        }
+      }
+    }
+  }
+}

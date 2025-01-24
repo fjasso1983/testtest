@@ -1,0 +1,132 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2DropdownListItemChevronComponent documentation
+## Introduction
+<p>
+  Uk2DropdownListItemChevronComponent is a component designed to customize the content of dropdown options to adhere to <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?type=design&node-id=735-19854&mode=design&t=ePaRpRQOI6FtkMe9-0" target="_blank">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It can work independently, <strong>Uk2DropdownListItemChevronComponent</strong> is a dumb component that only renders information.
+  </li>
+  <li>
+    <strong>Uk2DropdownListItemChevronComponent</strong> has a required input <strong>uk2ListItem</strong>, and it will throw error if the input is null or if the property <strong>uk2ListItem.headerLabelName</strong> is not a valid string.
+  </li>
+  <li>
+    There are two ways to provide an image/logo first svgIconName is a string of the logo name from tier 1 Axos Iconography. We can also use a URL of an image using imageUrl property, if you provide both attributes imageUrl is prioritized.
+  </li>
+  <li>
+    Is necessary to add the attribute <b>[disableRipple]</b> in &lt;mat-select&gt; element for the integration with &lt;bottom-sheet&gt; component.
+  </li>
+</ol>
+
+## Prerequisites
+### You need to import the next modules from @axos/uikit-v2-lib and @angular/material. To be able to access Uk2DropdownListItemChevronComponent component.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    //angular
+    import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+    //@angular/material
+    import { MatSelectModule } from '@angular/material/select';
+    import { MatInputModule } from '@angular/material/input';
+    import { MatIconModule } from '@angular/material/icon';
+    //@axos/uikit-v2-lib
+    import { Uk2DirectivesModule, Uk2DropdownListItemChevronModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li>[uk2ListItem] <u>Uk2DropDownListItemChevron</u> Data structure with properties to render the component.</li>
+  <li>[uk2IsDisabled] <u>boolean</u> <i>(optional)</i> Toggle to disabled state. (<b>Default:</b> false).</li>
+  <li>[uk2IsPending] <u>boolean</u> <i>(optional)</i> Toggle to pending state. (<b>Default:</b> false).</li>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle skeleton state. (<b>Default:</b> false).</li>
+  <li>[uk2ShowDividerLine] <u>boolean</u> <i>(optional)</i> Display divider line. (<b>Default:</b> false).</li>
+  <li>[uk2CurrencyOptions] <u>Uk2DropDownListItemCurrencyOptions</u> <i>(optional)</i> Control the currency format of money amount property. For more info about currency please visit <a href="https://v15.angular.io/api/common/CurrencyPipe" target="_blank">Angular currency pipe documentation</a>. (<b>Default:</b> {"{ currencyCode: 'USD', display: 'symbol', digitsInfo: '1.2-2' }"})</li>
+</ul>
+
+## Types
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2DropDownListItemChevron } from '@axos/uikit-v2-lib';
+    \r
+    export type Uk2DropDownListItemChevron {
+      showControl?: boolean;
+      svgIconName?: string;
+      imageUrl?: string;
+      headerLabelName: string;
+      headerLabelIdentifier?: string;
+      moneyAmount?: number;
+      bodyText?: string;
+      uk2IsPending?: boolean;
+      uk2IsDisabled?: boolean;
+      uk2ShowDividerLine?: boolean;
+      uk2IsLoading?: boolean;
+      uk2CurrencyOptions?: IUk2DropDownListItemCurrencyOptions;
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2DropDownListItemCurrencyOptions } from '@axos/uikit-v2-lib';
+    \r
+    export type Uk2DropDownListItemCurrencyOptions = {
+      currencyCode: string;
+      display: string;
+      digitsInfo: string;
+    };
+  `}
+/>
+
+## Sample code
+### Basic Usage
+
+Example of Uk2DropdownListItemChevronComponent inside a &lt;mat-select&gt;
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+    <mat-label>Options</mat-label>
+    <mat-select
+      uk2Dropdown
+      placeholder="Lorem Ipsum"
+      disableRipple
+    >
+      <mat-option [value]="'Option 1'">
+        <uk2-dropdown-list-item-chevron
+          [uk2ListItem]="{
+            control: true,
+            imageUrl: 'https://v15.angular.io/assets/images/logos/angular/shield-large.svg',
+            moneyAmount: 926122.99,
+            svgIconName: 'uk2-location-pin',
+            bodyText: 'Consecutar sit perlabum',
+            headerLabelName: 'Image :D Credit',
+            headerLabelIdentifier: '1234'
+          }"
+          [uk2IsDisabled]="false"
+          [uk2IsPending]="false"
+        ></uk2-dropdown-list-item-chevron>
+      </mat-option>
+    </mat-select>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+  `}
+/>

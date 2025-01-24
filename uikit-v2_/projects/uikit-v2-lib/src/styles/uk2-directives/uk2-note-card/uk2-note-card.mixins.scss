@@ -1,0 +1,89 @@
+@import './uk2-note-card.constants';
+@import '../uk2-checkbox/uk2-checkbox.mixins';
+
+@mixin uk2-skeleton-note-card($checkbox) {
+  background-color: var(--uk2-neutral-grey-300) !important;
+  box-shadow: none !important;
+  border-radius: 8px;
+  .uk2-skeleton-note-card-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px !important;
+    .uk2-skeleton-note-card-checkbox-container {
+      @include uk2-skeleton-checkbox-container(24px);
+      margin-top: 0px !important;
+      margin-right: 16px !important;
+      @if $checkbox == $uk2-no-checkbox {
+        display: none;
+      }
+    }
+    .uk2-skeleton-note-card-text-container {
+      width: 100%;
+      height: auto;
+      .uk2-skeleton-note-card-text-start {
+        @include uk2-skeleton-note-card-text-container(100%, 0px);
+      }
+      .uk2-skeleton-note-card-text-middle {
+        @include uk2-skeleton-note-card-text-container(80%, 8px);
+      }
+      .uk2-skeleton-note-card-text-middle2 {
+        @include uk2-skeleton-note-card-text-container(100%, 16px);
+      }
+      .uk2-skeleton-note-card-text-end {
+        @include uk2-skeleton-note-card-text-container(80%, 8px);
+      }
+    }
+  }
+}
+
+@mixin uk2-note-card($font-size) {
+  background-color: var(--uk2-neutral-grey-100) !important;
+  color: var(--uk2-neutral-slate-400) !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  mat-card-content {
+    @if $font-size == $uk2-text-large {
+      label{
+        @include uk2-format-text('Roboto', 18px !important, 400 !important, 26px !important);
+      }
+    } @else if $font-size == $uk2-text-small {
+      .uk2-checkbox-container {
+        gap: 8px;
+      }
+      label{
+        @include uk2-format-text('Roboto', 12px !important, 400 !important, 16px !important);
+      }
+    }
+  }
+  .uk2-checkbox-container label {
+    margin-top: 0px;
+  }
+  .uk2-checkbox{
+    &:hover:not(.mat-checkbox-disabled) .mat-ripple.mat-checkbox-ripple {
+      z-index: 0 !important;
+    }
+  }
+}
+
+@mixin uk2-skeleton-note-card-text-container($width, $marginTop) {
+  height: 24px;
+  width: $width;
+  background: var(--uk2-neutral-grey-400) !important;
+  border-radius: 8px;
+  margin-top: $marginTop;
+}
+
+@mixin uk2-note-card-responsive {
+  @include lg {
+    width: 260px;
+  }
+
+  @include xl {
+    width: 228px;
+  }
+
+  @include xxl {
+    width: 203px;
+  }
+}

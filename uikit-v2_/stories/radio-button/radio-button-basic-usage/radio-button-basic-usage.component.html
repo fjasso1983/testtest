@@ -1,0 +1,73 @@
+<div>
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Radio button states (default, hover, disabled, unselected, selected and skeleton).</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  </ul>
+</div>
+
+<section>
+  <mat-radio-group [class.is-horizontal]="isHorizontalLayout" [style.gap]="calculateGap()">
+    <mat-radio-button
+      value="agree"
+      disableRipple="true"
+      uk2RadioButton
+      [disabled]="isDisabled"
+      [uk2RadioButtonSize]="size"
+      [uk2IsLoading]="isLoading"
+      [uk2Alignment]="alignment"
+    >
+      {{ labelText }} - 1
+      <a *ngIf="linkVisible" uk2Anchor (click)="linkClicked($event)" href="/test">{{ linkText }}</a>
+    </mat-radio-button>
+    <mat-radio-button
+      value="value2"
+      disableRipple="true"
+      uk2RadioButton
+      [disabled]="isDisabled"
+      [uk2RadioButtonSize]="size"
+      [uk2IsLoading]="isLoading"
+      [uk2Alignment]="alignment"
+    >
+      {{ labelText }} - 2
+      <a *ngIf="linkVisible" uk2Anchor (click)="linkClicked($event)" href="/test">{{ linkText }}</a>
+    </mat-radio-button>
+    <mat-radio-button
+      value="value3"
+      disableRipple="true"
+      uk2RadioButton
+      [disabled]="isDisabled"
+      [uk2RadioButtonSize]="size"
+      [uk2IsLoading]="isLoading"
+      [uk2Alignment]="alignment"
+    >
+      {{ labelText }} - 3
+      <a *ngIf="linkVisible" uk2Anchor (click)="linkClicked($event)" href="/test">{{ linkText }}</a>
+    </mat-radio-button>
+    <mat-radio-button
+      value="value4"
+      disableRipple="true"
+      uk2RadioButton
+      [disabled]="isDisabled"
+      [uk2RadioButtonSize]="size"
+      [uk2IsLoading]="isLoading"
+      [uk2Alignment]="alignment"
+    >
+      {{ labelText }} - longer name 4
+      <a *ngIf="linkVisible" uk2Anchor (click)="linkClicked($event)" href="/test">{{ linkText }}</a>
+    </mat-radio-button>
+    <mat-radio-button
+      value="value5"
+      disableRipple="true"
+      uk2RadioButton
+      [disabled]="isDisabled"
+      [uk2RadioButtonSize]="size"
+      [uk2IsLoading]="isLoading"
+      [uk2Alignment]="alignment"
+    >
+      short - 5
+      <a *ngIf="linkVisible" uk2Anchor (click)="linkClicked($event)" href="/test">{{ linkText }}</a>
+    </mat-radio-button>
+  </mat-radio-group>
+</section>

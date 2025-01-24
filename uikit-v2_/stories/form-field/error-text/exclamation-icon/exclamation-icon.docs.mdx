@@ -1,0 +1,75 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Error Text with exclamation icon documentation
+
+## Introduction
+<p>
+  This page describes how to achieve showing a leading icon on error message for a <a href="https://v15.material.angular.io/components/form-field/overview" target="_blank"><strong>&lt;mat-form-field&gt;</strong></a> Angular Material component, using  <a href="https://v15.material.angular.io/components/icon/overview " target="_blank"> <strong>&lt;mat-form-field&gt;</strong> </a> to adhere to
+  <a href="https://v15.material.angular.io/components/icon/overview " target="_blank"> Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    uk2.scss file should be imported in the angular application. Refer to the Introduction page of this website.
+  </li>
+  <li>
+    It only works with <strong>&lt;mat-icon&gt;</strong> component inside <strong>&lt;mat-error&gt;</strong> element, wrapped in <strong>&lt;mat-form-field&gt;</strong> Angular Material component. See the code sample below.
+  </li>
+  <li>
+    Angular Material icons are also supported.
+  </li>
+  <li>
+  To display an icon from the <a href="https://www.figma.com/file/Hg1gtpuOUDdWaIeyy0pg90/🏰-Ft.-Knox-Design-System?node-id=60%3A9633&t=C2XUxVTqROIkCHJf-0 " target="_blank">  Axos iconography </a>, refer to the icons page.
+  </li>
+  <li>
+    <strong>&lt;mat-hint&gt;</strong> should be defined inside your mat-error element.
+  </li>
+</ol>
+
+
+## Prerequisites
+- Assuming you already have all the required imports to use <strong>&lt;mat-form-field&gt;</strong>. You just need to include the MatIconModule import in the module where you want to implement this feature.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatIconModule } from '@angular/material/icon';
+  `}
+/>
+
+## Code sample
+### Using icon from Axos Iconography
+#### .component.html
+<p>
+  Once the prerequisites are met, you can just use the following code, depending on your requirements.
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-error>
+    <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+    Consectetur adpiscing eli.
+</mat-error>
+  `}
+/>
+
+### Using Angular Material icons
+#### .component.html
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-error>
+    <mat-icon>home</mat-icon>
+    Consectetur adpiscing eli.
+</mat-error>
+  `}
+/>
+
+
+<br/>

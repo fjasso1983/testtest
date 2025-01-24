@@ -1,0 +1,25 @@
+@import './uk2-menu-button.mixins.scss';
+/*
+ * The following classes are not currently used any more for label menu button variant will be removed in the future
+ * since the size for label menu variant will be fixed due to new specs
+ * button.uk2-menu-button-medium.uk2-menu-button-medium,
+ * button.uk2-menu-button-medium.uk2-menu-button-large
+ */
+button.uk2-menu-button-small,
+button.uk2-menu-button-medium,
+button.uk2-menu-button-large {
+  @include uk2-menu-button-size;
+  & mat-icon {
+    height: 16px !important;
+    width: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+  }
+}
+
+button.uk2-menu-button-skeleton {
+  pointer-events: none;
+  color: transparent !important;
+  background-color: var(--uk2-neutral-grey-300) !important;
+  border: 1px solid var(--uk2-neutral-grey-300) !important;
+}

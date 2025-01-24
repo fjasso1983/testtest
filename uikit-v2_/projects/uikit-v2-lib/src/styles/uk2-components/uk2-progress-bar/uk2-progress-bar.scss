@@ -1,0 +1,8 @@
+@import './uk2-progress-bar.mixins';
+
+.uk2-progress-bar {
+  @include uk2-progress-bar;
+  @include uk2-progress-bar-header;
+  @include uk2-progress-bar-footer;
+  @include uk2-progress-bar-skeleton;
+}

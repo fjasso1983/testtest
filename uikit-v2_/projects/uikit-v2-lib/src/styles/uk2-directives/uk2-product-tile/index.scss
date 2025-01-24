@@ -1,0 +1,253 @@
+.uk2-product-tile {
+  box-shadow: none !important;
+  border-radius: 16px !important;
+  width: 100%;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  background-color: var(--uk2-neutral-white) !important;
+  overflow: hidden;
+
+  // set max-width when tile is not full width
+  &:not(.uk2-product-tile-full) {
+    max-width: 327px !important;
+  }
+
+  // set border-radius to 0 when tile state is square
+  &.uk2-square-tile {
+    border-radius: 0px !important;
+  }
+
+  // Tile Header section
+  mat-card-header.mat-mdc-card-header {
+    padding: 16px !important;
+
+    // Title Header is not using grid directive
+    &:not(.uk2-product-tile-grid) {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    // Hack to hide unnecessary header text from angular material
+    .mat-mdc-card-header-text {
+      display: none;
+    }
+  }
+
+  // Tile header actions
+  .mat-mdc-card-actions {
+    padding: 16px;
+    min-height: unset;
+    display: block;
+
+    &:empty {
+      padding: 0 !important;
+      height: 16px !important;
+    }
+  }
+
+  // Tile header is using grid directive
+  .uk2-product-tile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr minmax(0, auto);
+    grid-template-rows: 1fr auto;
+    align-items: center;
+    grid-auto-flow:dense;
+
+    // Show tab-bar in bottom state
+    &.uk2-product-tile-grid--bottom {
+      grid-template-areas: "header header actions" "component component component";
+
+      .uk2-product-tile-component {
+        margin-top: 16px !important;
+      }
+    }
+
+    // Show tab-bar in top state
+    &.uk2-product-tile-grid--top {
+      grid-template-areas: "component component component" "header header actions";
+
+      .uk2-product-tile-component {
+        margin-bottom: 16px !important;
+      }
+    }
+  }
+
+  // Tile content
+  .mat-mdc-card-content {
+    overflow-y: auto;
+    padding: 0 !important;
+    flex-grow: 1;
+    @include uk2-scrollbar--medium();
+
+    // Tile content overflow
+    &.uk2-content-overflow {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, var(--uk2-neutral-black-600) var(--top-mask-size, 0), var(--uk2-neutral-black-600) calc(100% - var(--bottom-mask-size, 0)), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, var(--uk2-neutral-black-600) var(--top-mask-size, 0), var(--uk2-neutral-black-600) calc(100% - var(--bottom-mask-size, 0)), transparent 100%);
+      --bottom-mask-size: 30px;
+    }
+
+  }
+
+  // Dividers inside tile
+  & > mat-divider {
+    margin: 0 16px;
+  }
+
+  // Padding if tile content is last child
+  > mat-card-content:last-child, mat-divider:last-child {
+    margin-bottom: 16px !important;
+  }
+
+  //Grid
+  .uk2-product-tile-actions {
+    grid-area: actions; justify-self: end;
+    display: flex;
+    gap: 16px;
+  }
+  .uk2-product-tile-header {
+    grid-area: header;
+    overflow: hidden;
+  }
+  .uk2-product-tile-component {
+    grid-area: component;
+  }
+}
+
+//Skeleton
+.uk2-product-tile:not(.uk2-product-tile-loading) {
+  .uk2-skeleton-product-tile-footer {
+    display: none
+  }
+  .uk2-skeleton-product-tile-header {
+    display: none
+  }
+}
+.uk2-product-tile.uk2-product-tile-loading {
+  .mat-mdc-card-actions {
+    display: none;
+  }
+  .mat-mdc-card-header {
+    display: none;
+  }
+  .mat-divider {
+    display: none;
+  }
+  .uk2-skeleton-product-tile-footer {
+    display: block
+  }
+  .uk2-skeleton-product-tile-header {
+    display: block
+  }
+
+  // Padding if tile content is last child
+  > mat-card-content:last-child, mat-divider:last-child {
+    margin-bottom: 0px !important;
+  }
+
+  // Tile content
+  .mat-mdc-card-content {
+    &.uk2-content-overflow {
+      overflow: hidden;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+}
+.uk2-skeleton-product-tile-header {
+  padding: 16px;
+
+  .uk2-skeleton-product-tile__header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .uk2-skeleton-product-tile__header-title {
+      border-radius: 8px;
+      height: 24px;
+      width: 100%;
+      @include uk2-loading-skeleton-animation(
+        $background: '--uk2-neutral-grey-200',
+        $light: '--uk2-neutral-grey-100'
+      );
+    }
+    .uk2-skeleton-product-tile__header-subtitle {
+      border-radius: 8px;
+      height: 24px;
+      max-width: 266px;
+      @include uk2-loading-skeleton-animation(
+        $background: '--uk2-neutral-grey-200',
+        $light: '--uk2-neutral-grey-100'
+      );
+    }
+  }
+}
+.uk2-skeleton-product-tile-footer {
+  height: 16px;
+  flex-shrink: 0;
+  order: 1;
+}
+.uk2-skeleton-product-tile-header, .uk2-skeleton-product-tile-footer {
+  background-color: var(--uk2-neutral-grey-300);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+@include md {
+  // Product tile container
+  .uk2-product-tile {
+    max-width: unset !important;
+
+    &:not(.uk2-product-tile-full) {
+      max-width: unset !important;
+    }
+
+    mat-card-header.mat-mdc-card-header {
+      padding: 16px 24px !important;
+    }
+
+    .mat-mdc-card-actions {
+      padding: 16px 24px;
+    }
+
+    & > mat-divider {
+      margin: 0 24px;
+    }
+
+    // Grid
+    .uk2-product-tile-grid {
+      grid-template-columns: auto auto max-content;
+      grid-template-rows: 1fr;
+      grid-template-areas: "header component actions" !important;
+
+      &.uk2-product-tile-grid--bottom {
+        grid-template-areas: "header header actions" "component component component" !important;
+
+        .uk2-product-tile-component {
+          margin-top: 16px !important;
+        }
+      }
+
+      &.uk2-product-tile-grid--top {
+        .uk2-product-tile-component {
+          margin-bottom: 0px !important;
+        }
+      }
+    }
+
+    .uk2-product-tile-component {
+      margin-top: 0 !important;
+    }
+    .uk2-product-tile-actions {
+      justify-self: end;
+      margin-left: 18px;
+    }
+  }
+
+  // Skeleton
+  .uk2-skeleton-product-tile {
+    max-width: unset !important;
+  }
+}

@@ -1,0 +1,5 @@
+@import './uk2-determinate-progress-bar.mixins';
+
+.uk2-determinate-progress-bar {
+  @include progress-bar-styles();
+}

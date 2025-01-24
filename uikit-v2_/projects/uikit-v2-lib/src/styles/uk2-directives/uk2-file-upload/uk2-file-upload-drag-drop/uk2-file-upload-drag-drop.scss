@@ -1,0 +1,7 @@
+@import './uk2-file-upload-drag-drop.variables.scss';
+@import './uk2-file-upload-drag-drop.mixins';
+
+.uk2-file-uploader-drag-drop {
+  @include file-uploader-drag-drop-variables();
+  @include file-uploader-drag-drop-styles();
+}

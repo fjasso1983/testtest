@@ -1,0 +1,38 @@
+.body-docs {
+  padding: 16px !important;
+}
+
+.mock-contextual-area {
+  height: 100%;
+  width: 100px;
+  min-height: 50px;
+  background: rgba(222, 244, 255, 0.2);
+  border: 1px dashed #0062B3;
+}
+
+.content-mock {
+  height: 100%;
+  width: 100%;
+  background-color: var(--uk2-neutral-grey-200) !important;
+  border-radius: 8px;
+}
+
+.height-500px {
+  height: 500px !important;
+}
+
+.height-300px {
+  height: 300px !important;
+}
+
+.layout-2 {
+  display: grid;
+  grid-template-columns: 80% auto;
+  gap: 10px;
+}
+
+.layout-3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+}

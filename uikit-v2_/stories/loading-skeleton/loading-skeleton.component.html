@@ -1,0 +1,48 @@
+<h2>Shimmer Animation</h2>
+<p>How this works:</p>
+<p>
+  Instructions
+</p>
+<ul>
+  <li>
+    Use Uk2LoadingSkeleton directive or uk2-loading-skeleton__bg-[200 - 600] CSS classes to implement animation for a particular
+    element
+  </li>
+  <li>
+    Uk2LoadingSkeleton directive will use neutral / grey colors scale for the animation. If you need your element to display a different
+    color from the default use the CSS classes. CSS classes support neutral / grey colors from 200 to 600.
+  </li>
+  <li>
+    Note that responsiveness should be handled by the component that implements the shimmer animation.
+  </li>
+  <li>
+    Please use scss classes to hide elements within the desired element during loading state or structure control
+    directives such as *ngIf (for this one specify what would not work)
+  </li>
+</ul>
+<section>
+  <div class="spacing-bottom">
+    <h4>
+      Directive
+    </h4>
+    <div uk2LoadingSkeleton [uk2IsLoading]="uk2IsLoading" [uk2LoadingWidth]="uk2LoadingWidth" [uk2LoadingHeight]="uk2LoadingHeight">
+      <span *ngIf="!uk2IsLoading">
+        content
+      </span>
+    </div>
+  </div>
+  <div class="spacing-bottom">
+    <h4>
+      Using css classes
+    </h4>
+    <div class="grid-container">
+      <div class="grid-item"  *ngFor="let prefix of classPrefixList">
+        <code>
+          .{{ 'uk2-loading-skeleton__bg-'+prefix }}
+        </code>
+        <div [ngClass]="'uk2-loading-skeleton__bg-'+prefix" [ngStyle]="{'width': uk2LoadingWidth+'px', 'height': uk2LoadingHeight+'px'}">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

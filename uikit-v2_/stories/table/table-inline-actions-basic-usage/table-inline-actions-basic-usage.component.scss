@@ -1,0 +1,26 @@
+.mock-row {
+  border-bottom: 1px solid #ebebeb;
+  border-top: 1px solid #ebebeb;
+  background-color: #f9f9f9;
+  max-width: 400px;
+  display: flex;
+
+  &:nth-child(odd) {
+    background-color: #fff;
+  }
+}
+
+.mock-cell {
+  padding: 0 8px 0 28px;
+  min-height: 40px;
+  max-height: 40px;
+  display: flex;
+  align-items: center;
+  flex: 2;
+}
+
+.mock-action-cell {
+  border-left: 1px solid #ebebeb;
+  padding: 0 4px 0 4px !important;
+  flex: unset;
+}

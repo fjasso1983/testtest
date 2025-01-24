@@ -1,0 +1,8 @@
+@mixin uk2-skeleton-breadcrumbs {
+  border-radius: 8px;
+  @include uk2-loading-skeleton-animation(--uk2-neutral-grey-400, --uk2-neutral-grey-300);
+  height: 16px;
+  width: 224px;
+  border-radius: 6px;
+  overflow: hidden;
+}

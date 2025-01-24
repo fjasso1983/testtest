@@ -1,0 +1,25 @@
+@import './uk2-dropdown.mixins';
+
+.uk2-form-field.uk2-dropdown {
+  @include uk2-form-field-responsive;
+  @include uk2-dropdown-default;
+  @include uk2-dropdown-valid;
+  @include uk2-dropdown-invalid;
+  @include uk2-dropdown-filled;
+  @include uk2-dropdown-flyout-above;
+  @include uk2-dropdown-flyout-bellow;
+}
+
+.uk2-dropdown-overlay {
+  @include uk2-dropdown-overlay-hidden;
+  @include uk2-dropdown-overlay-default;
+  @include uk2-dropdown-overlay-invalid;
+  @include uk2-dropdown-overlay-valid;
+  @include uk2-dropdown-overlay-above;
+  @include uk2-dropdown-overlay-below;
+  @include uk2-dropdown-overlay-label-above;
+}
+
+.uk2-dropdown-multi-select {
+  @include uk2-dropdown-multi-select-checkbox;
+}

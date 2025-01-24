@@ -1,0 +1,152 @@
+<h1>Axos Iconography</h1>
+<p>
+  UI KIT includes all icons from Axos Iconography in SVG format. That means that, once you install
+  <strong>@axos/uikit-v2-lib</strong>
+  you will have access to all three tiers of icons, presented in this page.
+</p>
+<section>
+  <h2>Tier 1</h2>
+  <ul>
+    <li>
+      Tier 1 Icons are most commonly used at 24x24 in screens/components. They can be used at 16x16 or 20x20, 32x32 etc.
+      Dimensions must be scaled up in increments of 8px after reaching 24x24.
+    </li>
+    <li>
+      By default, Tier 1 Icons use the color of the surrounding text. In this case set to Neutral Slate / 400. This can
+      be easily customized by setting the color style property to the container of the icon.
+    </li>
+    <li>The color of these icons can be customized with the control "Tier 1 icons color" below.</li>
+  </ul>
+
+  <h3>Alerts</h3>
+  <div class="icon-list tier1" *ngFor="let alertIcon of alertIcons">
+    <div class="icon-item">
+      <label>{{ alertIcon }}</label>
+      <mat-icon [svgIcon]="alertIcon"></mat-icon>
+    </div>
+  </div>
+  <h3>Biometrics</h3>
+  <div class="icon-list tier1" *ngFor="let biometricIcon of biometricsIcons">
+    <div class="icon-item">
+      <label>{{ biometricIcon }}</label>
+      <mat-icon [svgIcon]="biometricIcon"></mat-icon>
+    </div>
+  </div>
+  <h3>Communication</h3>
+  <div class="icon-list tier1" *ngFor="let communicationIcon of communicationIcons">
+    <div class="icon-item">
+      <label>{{ communicationIcon }}</label>
+      <mat-icon [svgIcon]="communicationIcon"></mat-icon>
+    </div>
+  </div>
+  <h3>Files</h3>
+  <div class="icon-list tier1" *ngFor="let file of filesIcons">
+    <div class="icon-item">
+      <label>{{ file }}</label>
+      <mat-icon [svgIcon]="file"></mat-icon>
+    </div>
+  </div>
+  <h3>Financial</h3>
+  <div class="icon-list tier1" *ngFor="let financial of financialEnum">
+    <div class="icon-item">
+      <label>{{ financial }}</label>
+      <mat-icon [svgIcon]="financial"></mat-icon>
+    </div>
+  </div>
+  <h3>Invest</h3>
+  <div class="icon-list tier1" *ngFor="let invest of investEnum">
+    <div class="icon-item">
+      <label>{{ invest }}</label>
+      <mat-icon [svgIcon]="invest"></mat-icon>
+    </div>
+  </div>
+  <h3>Misc</h3>
+  <div class="icon-list tier1" *ngFor="let misc of miscEnum">
+    <div class="icon-item">
+      <label>{{ misc }}</label>
+      <mat-icon [svgIcon]="misc"></mat-icon>
+    </div>
+  </div>
+  <h3>Navigation</h3>
+  <div class="icon-list tier1" *ngFor="let navigation of navigationEnum">
+    <div class="icon-item">
+      <label>{{ navigation }}</label>
+      <mat-icon [svgIcon]="navigation"></mat-icon>
+    </div>
+  </div>
+  <h3>Utility</h3>
+  <div class="icon-list tier1" *ngFor="let utility of utilityEnum">
+    <div class="icon-item">
+      <label>{{ utility }}</label>
+      <mat-icon [svgIcon]="utility"></mat-icon>
+    </div>
+  </div>
+  <h3>Value Movements</h3>
+  <div class="icon-list tier1" *ngFor="let valueMovement of valueMovementsEnum">
+    <div class="icon-item">
+      <label>{{ valueMovement }}</label>
+      <mat-icon [svgIcon]="valueMovement"></mat-icon>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Tier 2</h2>
+  <ul>
+    <li>
+      Tier 2 Icons are most commonly used at 32x23 in screens/components. They can be used at 24x24 or 32x32 etc.
+      Dimensions must be scaled up in increments of 8px after reaching 24x24.
+    </li>
+    <li>
+      By default, Tier 2 Mono Icons use the color of the surrounding text. In this case set to Neutral Slate / 400. This
+      can be easily customized by setting the color style property to the container of the icon. Use the control below
+      to see how that works.
+    </li>
+    <li>
+      Tier 2 Colored with Accent are duo colored with Neutral Slate / 400 and Primary / Blue 200 accent. Neutral color
+      can be overwritten whereas the accent cannot.
+    </li>
+  </ul>
+  <h3>Mono</h3>
+  <div>
+    <ul>
+      <li>The color of these icons can be customized with the control "Tier 2 icons color (Mono)" below.</li>
+    </ul>
+  </div>
+  <div class="icon-list" *ngFor="let mono of monoEnum">
+    <div class="icon-item">
+      <label>{{ mono }}</label>
+      <mat-icon class="tier2" [svgIcon]="mono"></mat-icon>
+    </div>
+  </div>
+  <h3>Colored with Accent</h3>
+  <div>
+    <ul>
+      <li>Colored with Accent Colored neutral/slate 400 or duo colored with a primary/blue 200 accent.</li>
+      <li>
+        If used in a selected state, the entire icon changes color to primary/blue 400. Use the control "Tier 2 Colored
+        with Accent is selected" below to see how it works.
+      </li>
+    </ul>
+  </div>
+  <div class="icon-list" *ngFor="let coloredWithAccent of coloredWithAccentEnum">
+    <div class="icon-item">
+      <label>{{ coloredWithAccent }}</label>
+      <mat-icon class="tier2 tier2ColoredWithAccent" [svgIcon]="coloredWithAccent"></mat-icon>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Tier 3</h2>
+  <ul>
+    <li>Tier 3 Icons are most commonly used at 40x40. They can be used as illustrations in empty states.</li>
+    <li>When used in a selected state, the icon does not change color.</li>
+  </ul>
+  <div class="icon-list" *ngFor="let tier3 of tier3">
+    <div class="icon-item">
+      <label>{{ tier3 }}</label>
+      <mat-icon class="tier3" [svgIcon]="tier3"></mat-icon>
+    </div>
+  </div>
+</section>

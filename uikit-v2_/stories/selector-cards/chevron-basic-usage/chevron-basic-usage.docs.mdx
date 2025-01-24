@@ -1,0 +1,279 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source, Canvas } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import IntroductionLayout from '../selector-cards-introduction.docs.mdx';
+
+<IntroductionLayout></IntroductionLayout>
+
+
+## Sample code
+
+### Basic Usage
+  <p>
+  This is an example on how to achieve integration for basic usage of single options selector card.
+  </p>
+  <ul>
+    <li>
+      Please note that to achieve the variant without icon, you just have to omit adding the div with the uk2-checkbox-selection-cards-icon-container css class.
+    </li>
+    <li>
+      Please note the use of uk2IsRadio to toggle between chevron icon and radio button control for single option variant.
+    </li>
+  </ul>
+
+#### *.component.html
+<Source
+  dark
+  code={dedent`
+  <mat-selection-list
+    uk2CheckboxSelectionCards
+    disableRipple
+    [uk2IsLoading]="uk2IsLoading"
+    #singleOption
+    [disabled]="isDisabled"
+    [uk2IsRadio]="uk2IsRadio"
+  >
+    <mat-list-option *ngFor="let option of options" [value]="singleOption">
+      <div class="uk2-checkbox-selection-cards-icon-container">
+        <mat-icon class="uk2-icon-tier-1" [svgIcon]="option.iconName"></mat-icon>
+      </div>
+      <div class="uk2-checkbox-selection-cards-text-container">
+        <label>{{ option.labelText }}</label>
+        <p>
+          {{ option.descriptionText }}
+        </p>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+  `}
+/>
+<br/>
+
+
+#### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component, OnInit } from '@angular/core';
+    \r
+    export class YourComponent {
+      \r
+      isDisabled = false;
+      uk2IsLoading = false;
+      uk2IsRadio="false"
+      options: any[] = [
+        {
+          iconName: 'uk2-location-pin',
+          labelText: 'San diego Office',
+          descriptionText: '207 Fifth Ave, San Diego, CA 92101'
+        },
+        {
+          iconName: 'uk2-location-pin',
+          labelText: 'Guadalajara Office',
+          descriptionText: 'Av. Adolfo López Mateos Sur 1280, Chapalita, 45040 Guadalajara, Jal., Mexico',
+        },
+        {
+          iconName: 'uk2-location-pin',
+          labelText: 'Paris Office',
+          descriptionText: '112 Rue du Faubourg Saint-Honoré, 75008 Paris, France',
+        },
+      ];
+      \r
+      constructor() {}
+      \r
+    };
+  `}
+/>
+
+
+### Icon sizes based on tier used
+  <p>
+    Make sure to use the correct class according with the icon tier you want to use for each item.
+  </p>
+
+<Source
+  dark
+  code={dedent`
+      <mat-icon  class="uk2-icon-tier-1"  [svgIcon]="uk2-x-circle"></mat-icon>
+  `}
+/>
+
+<Source
+  dark
+  code={dedent`
+      <mat-icon  class="uk2-icon-tier-2"  [svgIcon]="uk2-color-piggy"></mat-icon>
+  `}
+/>
+
+
+<Source
+  dark
+  code={dedent`
+      <mat-icon  class="uk2-icon-tier-3"  [svgIcon]="uk2-tier3-piggy"></mat-icon>
+  `}
+/>
+
+
+### Reactive Form Integration
+  <p>
+  This is an example on how to achieve integration of single option selector card with Reactive Form.
+  </p>
+
+#### *.component.html
+<Source
+  dark
+  code={dedent`
+    <form [formGroup]="form" (ngSubmit)="onReactiveFormSubmit()">
+      <mat-selection-list
+        uk2CheckboxSelectionCards
+        disableRipple
+        [uk2IsLoading]="isLoading"
+        [uk2IsRadio]="uk2IsRadio"
+        [multiple]="false"
+        [formControl]="selectedAddress"
+      >
+        <mat-list-option *ngFor="let address of addresses; index as i" [value]="address">
+          <div class="uk2-checkbox-selection-cards-icon-container">
+            <mat-icon  class="uk2-icon-tier-1" [svgIcon]="'uk2-location-pin'"></mat-icon>
+          </div>
+          <div class="uk2-checkbox-selection-cards-text-container">
+            <label>{{ address.name }}</label>
+            <p>
+              {{ address.description }}
+            </p>
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+      <br />
+      <button type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+  `}
+/>
+
+
+
+#### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component, OnInit } from '@angular/core';
+  import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+  \r
+  export class YourComponent {
+    \r
+    uk2IsLoading = false;
+    uk2IsRadio="false"
+    addresses: any[] = [
+      {
+        name: 'San diego Office',
+        description: '207 Fifth Ave, San Diego, CA 92101'
+      },
+      {
+        name: 'Guadalajara Office',
+        description: ' Av. Adolfo López Mateos Sur 1280, Chapalita, 45040 Guadalajara, Jal., Mexico',
+      },
+      {
+        name: 'Paris Office',
+        description: '112 Rue du Faubourg Saint-Honoré, 75008 Paris, France'
+      },
+    ];
+    \r
+    form: FormGroup = this.fb.group({
+      selectedAddress: new FormControl('', [Validators.required]),
+    });
+    \r
+    get selectedAddress(): any {
+      return this.form.get('selectedAddress');
+    }
+    \r
+    constructor(private fb: FormBuilder) {}
+    \r
+    onReactiveFormSubmit() {
+      ...
+    }
+  };
+  `}
+/>
+
+
+### Template Driven Form Integration
+  <p>
+  This is an example on how to achieve integration of single option selector card with Template Driven Form.
+  </p>
+
+#### *.component.html
+<Source
+  dark
+  code={dedent`
+    <form #myForm="ngForm" (ngSubmit)="onTemplateDrivenFormSubmit()">
+      <mat-selection-list
+        uk2CheckboxSelectionCards
+        disableRipple
+        [uk2IsLoading]="isLoading"
+        [uk2IsRadio]="uk2IsRadio"
+        [multiple]="false"
+        required
+        name="singleSelectedAddress"
+        #singleSelectedAddress
+        [(ngModel)]="user.singleSelectedAddress"
+      >
+        <mat-list-option *ngFor="let address of addresses; index as i" [value]="address">
+          <div class="uk2-checkbox-selection-cards-icon-container">
+            <mat-icon  class="uk2-icon-tier-1" [svgIcon]="'uk2-location-pin'"></mat-icon>
+          </div>
+          <div class="uk2-checkbox-selection-cards-text-container">
+            <label>{{ address.name }}</label>
+            <p>
+              {{ address.description }}
+            </p>
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+      <br />
+      <button type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+  `}
+/>
+
+
+
+#### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component, OnInit } from '@angular/core';
+  \r
+  export class YourComponent {
+    \r
+    uk2IsLoading = false;
+    uk2IsRadio = false;
+    addresses: any[] = [
+      {
+        name: 'San diego Office',
+        description: '207 Fifth Ave, San Diego, CA 92101'
+      },
+      {
+        name: 'Guadalajara Office',
+        description: ' Av. Adolfo López Mateos Sur 1280, Chapalita, 45040 Guadalajara, Jal., Mexico',
+      },
+      {
+        name: 'Paris Office',
+        description: '112 Rue du Faubourg Saint-Honoré, 75008 Paris, France'
+      },
+    ];
+    \r
+    user: any = {
+      singleSelectedAddress: null,
+    };
+    \r
+    constructor() {}
+    \r
+    onTemplateDrivenFormSubmit() {
+      ...
+    }
+  };
+  `}
+/>

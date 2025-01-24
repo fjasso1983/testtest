@@ -1,0 +1,7 @@
+@import '@axos/uikit-v2-lib/src/styles/uk2-common/uk2-breakpoints.scss';
+
+.responsive-input{
+  @include xl{
+    max-width: 150px !important;
+  }
+}

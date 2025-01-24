@@ -1,0 +1,540 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+import IntroductionLayout from '../contextual-top-bar-basic-usage.docs.mdx'
+
+# uk2ContextualTopBarDirective documentation
+
+<IntroductionLayout></IntroductionLayout>
+
+## Inputs
+
+<ul>
+  <li>[uk2IsLoading] <u>boolean</u> Flag to toggle between default and skeleton mode.</li>
+  <li>[uk2IsSticky] <u>boolean</u> Flag to indicate if contextual top bar is sticky.</li>
+  <li>[uk2HasTopBar] <u>boolean</u> Flag to indicate if the page has a brand top bar.</li>
+</ul>
+
+## Component-specific CSS variables
+<ul>
+  <li>
+    [--uk2-header-font-color] (default: --uk2-accent-color-hsl) This variable is used as the color for the page label element. It can be overwritten to achieve custom brandings. Refer to "Overriding default colors from your app" section from Theming menu option to learn more.
+  </li>
+</ul>
+
+## New context menu family members.
+
+### uk2ContextualTopBarActionsRow
+
+This directive can be used to attach two buttons, such buttons can be passed as <code>TemplateRef</code> to offer major end developer customization depending on the use case.
+
+#### When to use uk2ContextualTopBarActionsRow?
+
+Whenever we need to attach action buttons to uk2ContextualTopBar and we don't have a <code>uk2-brand-top-bar</code> component on the view, we suggest using this directive.<br/>
+
+#### Inputs
+
+- [uk2IsAxos] <u>boolean</u> Flag to indicate if the page is an Axos page. This will change paddings of row to match Axos design or RIA.
+- [uk2BackButton] <u>TemplateRef | undefined</u> Template reference to the back button if set to undefined will remove any previous button set on the view (mobile devices window size).
+- [uk2CloseButton] <u>TemplateRef | undefined</u> Template reference to the close button if set to undefined will remove any previous button set on the view (mobile device window size).
+
+#### Notes about uk2BackButton and uk2CloseButton
+
+- As previously mentioned these inputs are of type <code>TemplateRef</code> and can be used to pass any button to the directive. The directive will not take care of the button's behavior and styling.
+It's up to the end developer to provide the correct behavior and styling to the button since they have full control over the button and it's template, this directive works as portal to the contextual top bar,
+that simplifies the process of adding buttons to the contextual top bar.
+
+- The buttons attached to the view will only be visible on mobile devices window size, this is to avoid cluttering the view with buttons that are not necessary on larger screens (based on use case and Figma specs where stand alone contextual top bar does not have buttons integrated on larger screens).
+
+## Optional elements that can be attached as children to the contextual top bar.
+As part of the contextual top bar multiple use cases now elements will be passed trough two <code>mat-toolbar-row</code>
+- mat-toolbar-row[uk2ContextualTopBarActionsRow] | mat-toolbar-row - with the class <code>uk2-contextual-top-bar-button-section</code> (css class is required), required.
+  <strong>note:</strong> uk2ContextualTopBarActionsRow is optional and can be used to attach action buttons to the contextual top bar as it was previously mentioned. <br/>
+
+#### In case you are using template refs for the buttons, the following code snippet can be used as a reference.
+
+  <Source
+    dark
+    language="html"
+    code={dedent`
+      <mat-toolbar-row
+        uk2ContextualTopBarActionsRow
+        [uk2BackButton]="contextualTopBarBackButton"
+        [uk2CloseButton]="contextualTopBarCloseButton"
+        class="uk2-contextual-top-actions-section"
+      >
+        <!--breadcrumbs element, title, contextual area, etc.-->
+      </mat-toolbar-row>
+      <ng-template #contextualTopBarBackButton>
+        <button
+          uk2TextIconButton
+          mat-button
+          disableRipple
+          [uk2ButtonSize]="leftButtonSize"
+          class="uk2-brand-top-bar-top-left-button-responsive"
+          aria-label="Top bar button"
+        >
+          <mat-icon class="uk2-brand-top-bar-top-left-icon" [svgIcon]="arrowBackIcon"></mat-icon>
+        </button>
+      </ng-template>
+      <ng-template #contextualTopBarCloseButton>
+        <button
+          id="uk2BrandTopBarCloseButton"
+          uk2TextIconButton
+          mat-button
+          disableRipple
+          [uk2ButtonSize]="leftButtonSize"
+          class="uk2-brand-top-bar-top-close-button-responsive"
+          aria-label="Top bar close button"
+        >
+          <mat-icon class="uk2-brand-top-bar-top-close-button-icon" [svgIcon]="closeIconButton"></mat-icon>
+        </button>
+      </ng-template>
+    `}
+  />
+
+### Optional elements for uk2-contextual-top-actions-section row example.
+- uk2-breadcrumbs - Breadcrumbs component to display the current page hierarchy. optional contextual top bar directive will adjust layout when breadcrumbs component is provided need to be within an element with the class <code>uk2-contextual-top-bar-header-section</code>, no special css classes are required as the [uk2ContextualTopBar] will take care of adapting any style.
+- contextual top bar area - This section can be used to add any contextual components that are needed for the page. The layout for this component is handled with the <code>uk2-contextual-top-bar-contextual-section</code> css class.
+- contextual top bar title - This section can be used to add the title of the page. The layout for this component is handled with the <code>uk2-contextual-top-bar-header-section-title-container</code> css class.
+
+
+#### In case you are not using uk2ContextualTopBarActionsRow for action buttons with template refs example.
+
+
+  <Source
+    dark
+    language="html"
+    code={dedent`
+        <mat-toolbar-row class="uk2-contextual-top-actions-section">
+            <!--breadcrumbs element, title, contextual area, etc.-->
+        </mat-toolbar-row>
+    `}
+  />
+
+- mat-toolbar-row with the class <code>uk2-contextual-top-tabs-section</code> (css class is required), optional.
+  This row on the context top bar is used to display tabs that are related to the current page, this row is optional and can be used based on the use case.
+
+#### Global tabs row example.
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+    <mat-toolbar-row class="uk2-contextual-top-tabs-section">
+      <nav
+        [uk2IsLoading]="isLoading"
+        [mat-stretch-tabs]="false"
+        disableRipple
+        dynamicHeight
+        uk2HorizontalLabelAlignedTabs
+        mat-tab-nav-bar
+        [tabPanel]="tabPanel"
+      >
+        <a
+          *ngFor="let tab of items; index as i"
+          uk2NotificationBadge
+          matBadge="!"
+          [disabled]="horizontalTabsDisabled"
+          mat-tab-link
+          [matBadgeHidden]="horizontalTabsBadgesHidden"
+          [active]="i === selectedTab"
+          (click)="tabChange(i)"
+        >
+          <mat-icon *ngIf="!horizontalTabsIconsHidden" [svgIcon]="alertIcons.xCircle"></mat-icon>
+          {{ tab.label }}
+        </a>
+      </nav>
+  </mat-toolbar-row>
+`}/>
+
+
+
+## Brand top bar interaction.
+
+As contextual top bar and brand top bar are standalone components, they can be used together or separately.
+The contextual top bar will adapt to the presence of the brand top bar and will adjust its padding accordingly and vice versa.
+It's important to provide each component with the input that let's them now that they are being used together, this will ensure that the components will adjust their padding and layout accordingly.
+If not provided this may cause the components to fallout of the expected layout and specs.
+
+#### Uk2ContextualTopBarDirective and Uk2BrandTopBarComponent Inputs layout inputs
+
+Required inputs when working with both components as one, if not provided the components will not adjust their layout accordingly in both states loaded and skeleton.
+If you need to control the loading state and behavior of one of the elements rendered please refer to the documentation of the component you are working with, as if you
+set uk2IsLoading for the contextual top bar directive (uk2ContextualTopBar) will set a general skeleton.
+
+##### Uk2ContextualTopBarDirective
+- [uk2HasTopBar] <u>boolean</u> Flag to indicate if the page has a brand top bar.
+
+##### Uk2BrandTopBarComponent
+- [uk2HasContextualTopBar] <u>boolean</u> Flag to indicate if the page has a contextual top bar.
+
+## Sample code
+
+### Stand alone contextual top bar.
+
+#### .component.html
+
+Remember that we provide [uk2BackButton] and [uk2CloseButton] as we don't have a brand top bar on the view that in other use cases would handle those buttons.
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+   <mat-toolbar
+      uk2ContextualTopBar
+      [uk2IsLoading]="isLoading"
+      [uk2IsSticky]="isSticky"
+      [uk2HasTopBar]="false">
+      <mat-toolbar-row
+        uk2ContextualTopBarActionsRow
+        [uk2BackButton]="contextualTopBarBackButton"
+        [uk2CloseButton]="contextualTopBarCloseButton"
+        class="uk2-contextual-top-actions-section"
+      >
+        <div class="uk2-contextual-top-bar-header-section">
+          <uk2-breadcrumbs
+            #uk2Breadcrumbs
+            *ngIf="items.length > 0"
+            [items]="breadcrumbItems"
+            [uk2IsLoading]="isLoading"
+            (itemSelected)="onItemSelected($event)"
+          ></uk2-breadcrumbs>
+          <div class="uk2-contextual-top-bar-header-section-title-container">
+            <h2>{{ title }}</h2>
+          </div>
+        </div>
+        <div *ngIf="itHasContextualArea" class="uk2-contextual-top-bar-contextual-section">
+          <button
+            uk2PrimaryButton
+            disableRipple
+            mat-raised-button
+            [uk2ButtonSize]="uk2ButtonSize"
+            [uk2IsLoading]="isLoading"
+          >
+            Lorem Ipsum
+          </button>
+          <button
+            uk2SecondaryButton
+            disableRipple
+            mat-stroked-button
+            [uk2ButtonSize]="uk2ButtonSize"
+            [uk2IsLoading]="isLoading"
+          >
+            Lorem Ipsum
+          </button>
+        </div>
+      </mat-toolbar-row>
+      <mat-toolbar-row class="uk2-contextual-top-tabs-section">
+        <nav
+          [uk2IsLoading]="isLoading"
+          [mat-stretch-tabs]="false"
+          disableRipple
+          dynamicHeight
+          uk2HorizontalLabelAlignedTabs
+          mat-tab-nav-bar
+          [tabPanel]="tabPanel"
+        >
+          <a
+            *ngFor="let tab of items; index as i"
+            uk2NotificationBadge
+            matBadge="!"
+            [disabled]="horizontalTabsDisabled"
+            mat-tab-link
+            [matBadgeHidden]="horizontalTabsBadgesHidden"
+            [active]="tab.url === selectedTab.url"
+            (click)="navigateTo(tab.url)"
+          >
+            <mat-icon *ngIf="!horizontalTabsIconsHidden" [svgIcon]="alertIcons.xCircle"></mat-icon>
+            {{ tab.label }}
+          </a>
+        </nav>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <ng-template #contextualTopBarBackButton>
+      <button
+        uk2TextIconButton
+        mat-button
+        disableRipple
+        [uk2ButtonSize]="leftButtonSize"
+        class="uk2-brand-top-bar-top-left-button-responsive"
+        aria-label="Top bar button"
+        (click)="goBack()"
+      >
+        <mat-icon class="uk2-brand-top-bar-top-left-icon" [svgIcon]="arrowBackIcon"></mat-icon>
+      </button>
+    </ng-template>
+    <ng-template #contextualTopBarCloseButton>
+      <button
+        id="uk2BrandTopBarCloseButton"
+        uk2TextIconButton
+        mat-button
+        disableRipple
+        [uk2ButtonSize]="leftButtonSize"
+        class="uk2-brand-top-bar-top-close-button-responsive"
+        aria-label="Top bar close button"
+        (click)="close()"
+      >
+        <mat-icon class="uk2-brand-top-bar-top-close-button-icon" [svgIcon]="closeIconButton"></mat-icon>
+      </button>
+    </ng-template>
+    <router-outlet></router-outlet>
+  `}
+/>
+
+
+
+#### .component.ts
+
+Note the use of Uk2Tier1NavigationEnum to set the icon for the back button displayed on mobile-size screens.
+
+<Source
+  dark
+  language="typescript"
+  code={dedent`
+    export class MyComponent implements OnInit {
+      readonly arrowBackIcon = Uk2Tier1NavigationEnum.chevronLeft;
+      readonly closeIconButton: Uk2Tier1NavigationEnum = Uk2Tier1NavigationEnum.x;
+      readonly items: Uk2BreadcrumbsItem[] = [
+        {
+          url: '/component/1',
+          label: 'Home',
+        },
+        {
+          url: '/component/2',
+          label: 'All items',
+        },
+        {
+          url: '/component/3',
+          label: 'TVs and Games consoles',
+        },
+        {
+          url: '/component/4',
+          label: 'Microsoft',
+        },
+        {
+          url: '/component/5',
+          label: 'XBox Series X',
+        },
+      ];
+      selectedTab: Uk2BreadcrumbsItem;
+      @Input() isLoading = false;
+      @Input() isSticky = false;
+      \r
+      constructor(
+        public breadcrumbsService: BreadcrumbsService,
+        private router: Router
+      ) {}
+      \r
+      ngOnInit(): void {
+        this.breadcrumbsService.items.subscribe(items => {
+          this.items = items;
+          this.cd.detectChanges();
+        });
+        this.elementRef.nativeElement.closest('.side-nav-content').classList.add('no-padding');
+        this.brandTopBarService.topBar.subscribe(topBar => {
+          this.selectedTab = this.items.find(item => item.url === topBar.url);
+          this.organizationName = topBar.organizationName;
+        });
+      }
+      \r
+      goBack() {
+        if (this.items.length > 1) {
+          let elem = this.items[this.items.length - 2];
+          this.router.navigate([elem.url]);
+          this.breadcrumbsService.items.subscribe(items => {
+            this.items = items;
+            this.cd.detectChanges();
+          });
+        }
+      }
+      \r
+      close() {
+        // add logic for close button
+      }
+      \r
+      onItemSelected(item: Uk2BreadcrumbsItem) {
+        this.router.navigate([item.url]);
+      }
+    }
+`}/>
+
+### contextual top bar with uk2-brand-top-bar.
+
+#### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+   <uk2-brand-top-bar
+        *ngIf="hasTopBar"
+        [uk2IsLoading]="isLoading"
+        [uk2IsAxos]="isAxos"
+        [uk2LogoImgPath]="logoUrl"
+        [uk2LogoRedirectionUrl]="urlRedirectionConfig"
+        [uk2OrganizationName]="organizationName"
+        [uk2HasContextualTopBar]="hasTopBar"
+        [uk2LabeledIconButton]="labeledIconButton"
+        [uk2ShowCloseButton]="showCloseButton"
+        [uk2MobileLogoPath]="mobileLogoUrl"
+        [uk2MobilePageTitle]="title"
+        (uk2CallBackButton)="goBack()"
+        (uk2CallBackCloseButton)="close()"
+    >
+   </uk2-brand-top-bar>
+   <mat-toolbar
+      uk2ContextualTopBar
+      [uk2IsLoading]="isLoading"
+      [uk2IsSticky]="isSticky"
+      [uk2HasTopBar]="false">
+      <mat-toolbar-row class="uk2-contextual-top-actions-section">
+        <div class="uk2-contextual-top-bar-header-section">
+          <uk2-breadcrumbs
+            *ngIf="items.length > 0"
+            [items]="breadcrumbItems"
+            [uk2IsLoading]="isLoading"
+            (itemSelected)="onItemSelected($event)"
+          ></uk2-breadcrumbs>
+          <div class="uk2-contextual-top-bar-header-section-title-container">
+            <h2>{{ title }}</h2>
+          </div>
+        </div>
+        <div *ngIf="itHasContextualArea" class="uk2-contextual-top-bar-contextual-section">
+          <button
+            uk2PrimaryButton
+            disableRipple
+            mat-raised-button
+            [uk2ButtonSize]="uk2ButtonSize"
+            [uk2IsLoading]="isLoading"
+          >
+            Lorem Ipsum
+          </button>
+          <button
+            uk2SecondaryButton
+            disableRipple
+            mat-stroked-button
+            [uk2ButtonSize]="uk2ButtonSize"
+            [uk2IsLoading]="isLoading"
+          >
+            Lorem Ipsum
+          </button>
+        </div>
+      </mat-toolbar-row>
+      <mat-toolbar-row class="uk2-contextual-top-tabs-section">
+        <nav
+          [uk2IsLoading]="isLoading"
+          [mat-stretch-tabs]="false"
+          disableRipple
+          dynamicHeight
+          uk2HorizontalLabelAlignedTabs
+          mat-tab-nav-bar
+          [tabPanel]="tabPanel"
+        >
+          <a
+            *ngFor="let tab of items; index as i"
+            uk2NotificationBadge
+            matBadge="!"
+            [disabled]="horizontalTabsDisabled"
+            mat-tab-link
+            [matBadgeHidden]="horizontalTabsBadgesHidden"
+            [active]="tab.url === selectedTab.url"
+            (click)="navigateTo(tab.url)"
+          >
+            <mat-icon *ngIf="!horizontalTabsIconsHidden" [svgIcon]="alertIcons.xCircle"></mat-icon>
+            {{ tab.label }}
+          </a>
+        </nav>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  `}
+/>
+
+
+
+#### .component.ts
+
+Note the use of Uk2Tier1NavigationEnum to set the icon for the back button displayed on mobile-size screens.
+
+<Source
+  dark
+  language="typescript"
+  code={dedent`
+    export class ContextualTopBarBasicUsageComponent implements OnChanges, OnDestroy {
+      readonly items: Uk2BreadcrumbsItem[] = [
+        {
+          url: '/component/1',
+          label: 'Home',
+        },
+        {
+          url: '/component/2',
+          label: 'All items',
+        },
+        {
+          url: '/component/3',
+          label: 'TVs and Games consoles',
+        },
+        {
+          url: '/component/4',
+          label: 'Microsoft',
+        },
+        {
+          url: '/component/5',
+          label: 'XBox Series X',
+        },
+      ];
+      \r
+      @Input() horizontalTabsDisabled = false;
+      @Input() horizontalTabsIconsHidden = true;
+      @Input() horizontalTabsBadgesHidden = true;
+      @Input() hasBreadCrumbs = false;
+      @Input() isLoading = false;
+      @Input() hasTopBar = false;
+      @Input() isSticky = false;
+      @Input() title = 'Title';
+      @Input() showBackButton = false;
+      @Input() showCloseButton = false;
+      @Input() itHasContextualArea = false;
+      @Input() theme = 'Axos';
+      @Input() organizationName = 'Axos';
+      \r
+      get alertIcons() {
+        return Uk2Tier1AlertsEnum;
+      }
+      \r
+      constructor(
+        private router: Router,
+      ) {}
+      \r
+      hasTopBar = true;
+      \r
+      mobileLogoUrl = './static-branding-assets/logos/lexmans-advisors-mobile-logo.svg';
+      \r
+      logoUrl = './static-branding-assets/logos/axos.svg';
+      \r
+      labeledIconButton = return new Uk2BrandTopBarLabeledIconButtonModel({
+        svgIconName: svg,
+        label: 'Label',
+      });
+      \r
+      urlRedirectionConfig = new Uk2BrandTopBarRedirectionUrlModel({
+        url: 'http://www.axosbank.com',
+        openOnNewTab: true,
+      });
+      \r
+      navigateTo(url: string) {
+        this.router.navigate([url]);
+      }
+      \r
+      goBack() {
+        if (this.items.length > 1) {
+          let elem = this.items[this.items.length - 2];
+          this.router.navigate([elem.url]);
+        }
+      }
+      \r
+      close() {
+        // add logic for close button
+      }
+    }
+`}/>

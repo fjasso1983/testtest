@@ -1,0 +1,70 @@
+<h1>Secondary button directive documentation</h1>
+
+<p>
+  Uk2SecondaryButtonDirective is a directive that will only work on
+  <i>&lt;button&gt;</i>
+  elements with mat-raised-button directive, and it will add a class to handle styles.
+</p>
+
+<h2>Requisites</h2>
+
+<p>You need to import the Uk2DirectivesModule from @axos/uikit-v2-lib into the desired module of your Angular App.</p>
+<pre>
+    <code>
+        import Uk2DirectivesModule from @axos/uikit-v2-lib
+    </code>
+</pre>
+
+<hr />
+
+<div>
+  <button (click)="toggleLoading()">toggle skeleton</button>
+</div>
+<div>
+  <button (click)="toggleButtonState()">{{ buttonState }}</button>
+</div>
+
+<p>Small Size</p>
+<button
+  uk2SecondaryIconButton
+  mat-stroked-button
+  disableRipple
+  [uk2ButtonSize]="buttonSize.small"
+  [uk2IsLoading]="isLoading"
+  [disabled]="isDisable"
+>
+  <mat-icon [svgIcon]="icon"></mat-icon>
+</button>
+<code>
+  {{ smallSize }}
+</code>
+
+<p>Medium Size</p>
+<button
+  uk2SecondaryIconButton
+  mat-stroked-button
+  disableRipple
+  [uk2ButtonSize]="buttonSize.medium"
+  [uk2IsLoading]="isLoading"
+  [disabled]="isDisable"
+>
+  <mat-icon [svgIcon]="icon"></mat-icon>
+</button>
+<code>
+  {{ mediumSize }}
+</code>
+
+<p>Large Size</p>
+<button
+  uk2SecondaryIconButton
+  mat-stroked-button
+  disableRipple
+  [uk2ButtonSize]="buttonSize.large"
+  [uk2IsLoading]="isLoading"
+  [disabled]="isDisable"
+>
+  <mat-icon [svgIcon]="icon"></mat-icon>
+</button>
+<code>
+  {{ largeSize }}
+</code>

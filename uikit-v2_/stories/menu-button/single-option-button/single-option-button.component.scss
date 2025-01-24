@@ -1,0 +1,4 @@
+@import '../../../projects/uikit-v2-lib/src/styles/uk2';
+@include uk2-menu-icon-button-custom-size-range;
+
+@include uk2-menu-button-item-content(16, 24, 16, 24);

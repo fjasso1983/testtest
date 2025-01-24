@@ -1,0 +1,14 @@
+@import './uk2-button-toggle-group.constants.scss';
+
+@mixin uk2-button-toggle-responsive($button-toggle-size){
+    @if $button-toggle-size == $uk2-button-toggle-group-medium {
+      @include uk2-font__body-medium--75;
+      height: 32px !important;
+      min-height: 32px !important;
+    }
+    @else if $button-toggle-size == $uk2-button-toggle-group-small {
+      @include uk2-font__body-medium--50;
+      height: 28px !important;
+      min-height: 28px !important;
+    }
+  }

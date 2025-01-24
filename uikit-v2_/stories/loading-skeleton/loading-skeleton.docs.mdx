@@ -1,0 +1,140 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2LoadingSkeleton documentation
+
+## Introduction
+
+Uk2LoadingSkeleton is a component designed add shimmer animation when element is loading
+
+<a
+  href="https://www.figma.com/file/9GV6jAjjFVhtAqdGRVZdhi/UI-templates?type=design&node-id=1660-152514&mode=design&t=i1Qp2KDWcuacgUqC-0 Opens in new window or tab"
+  target="_blank"
+>
+  Shimmer animation
+</a> component.
+
+## Prerequisites
+
+You need to import the next modules from @axos/uikit-v2-lib.
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>
+    [uk2IsLoading] <u>boolean</u> Toggles shimmer animation
+  </li>
+  <li>
+    [uk2LoadingHeight] <u>Uk2LoadingSkeletonSize</u> Height while animated
+  </li>
+  <li>
+    [uk2LoadingWidth] <u>Uk2LoadingSkeletonSize</u> Width while animated
+  </li>
+</ul>
+
+## Models
+
+- `Uk2LoadingSkeletonDirective` implements two different types `Uk2LoadingSkeleton` `IUk2IsLoading` those two are signatures that define
+  the set of inputs that `Uk2LoadingSkeletonDirective` requires to defined loading state and width and height while animation is active
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Input, OnChanges } from '@angular/core';
+    import { IUk2IsLoading } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
+    import { Uk2LoadingSkeleton } from './types';
+    export class Uk2LoadingSkeletonDirective implements Uk2LoadingSkeleton, IUk2IsLoading, OnChanges {
+      @Input() uk2IsLoading = false;
+      @Input() uk2LoadingWidth: Uk2LoadingSkeletonSize = undefined;
+      @Input() uk2LoadingHeight: Uk2LoadingSkeletonSize = undefined;
+    }
+    `}
+/>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    export interface IUk2IsLoading {
+      uk2IsLoading: boolean;
+    }
+    `}
+/>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+      import { Uk2LoadingSkeletonSize } from './uk2-loading-skeleton-size.type';
+      export type Uk2LoadingSkeleton = {
+        uk2LoadingWidth: Uk2LoadingSkeletonSize;
+        uk2LoadingHeight: Uk2LoadingSkeletonSize;
+      };
+    `}
+/>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    export type Uk2LoadingSkeletonSize = number | 'auto' | 'inherit' | null | undefined;
+    `}
+/>
+
+## Sample code
+
+In order to use Uk2LoadingSkeleton you need to add <b>&lt;Uk2LoadingSkeleton&gt;</b>
+to an element inside template and define the property <b>uk2IsLoading</b>.<br />
+Note the use and setup of the "uk2IsLoading" property also to define properties uk2LoadingWidth and uk2LoadingHeight,
+those are optional but in case of not using height and width must be provided
+via css or with inline styles
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+  <div uk2LoadingSkeleton [uk2IsLoading]="uk2IsLoading" [uk2LoadingWidth]="uk2LoadingWidth" [uk2LoadingHeight]="uk2LoadingHeight">
+        <span *ngIf="!uk2IsLoading">
+          content
+        </span>
+   </div>
+  `}
+/>
+<h4>Directive use without optional bindings of [uk2LoadingWidth], [uk2LoadingHeight]</h4>
+<Source
+  dark
+  language="html"
+  code={dedent`
+  <div uk2LoadingSkeleton [uk2IsLoading]="uk2IsLoading">
+        <span *ngIf="!uk2IsLoading">
+          content
+        </span>
+   </div>
+  `}
+/>
+<h4>Available css classes</h4>
+<Source
+  dark
+  language="html"
+  code={dedent`
+      <div class="uk2-loading-skeleton__bg-200">
+      </div>
+      <div class="uk2-loading-skeleton__bg-300">
+      </div>
+      <div class="uk2-loading-skeleton__bg-400">
+      </div>
+      <div class="uk2-loading-skeleton__bg-500">
+      </div>
+      <div class="uk2-loading-skeleton__bg-600">
+      </div>
+  `}
+/>

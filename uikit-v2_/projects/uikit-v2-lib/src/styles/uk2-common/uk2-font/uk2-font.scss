@@ -1,0 +1,90 @@
+// IMPORTANT PLEASE READ THIS BEFORE MAKING CHANGE
+//
+// If you make a change on this file to create or modify font classes,
+// you have to run the following NPM CMD to generate corresponding mixins from our NPM SCRIPT: generate-font-mixins
+//
+//Please refer to our documentation: https://uikit.dev.axosbank.com/?path=/docs/typography--typography
+//
+// END
+
+$body-scales: 25, 50, 75, 100, 200, 300, 400, 500, 600, 700, 800;
+$body-font-parameters:
+  "body-light" "Roboto" 300,
+  "body-light-italic" "Roboto" 300 italic,
+  "body-light-underline" "Roboto" 300 null underline,
+  "body-light-italic-underline" "Roboto" 300 italic underline,
+  "body-regular" "Roboto" 400,
+  "body-regular-italic" "Roboto" 400 italic,
+  "body-regular-underline" "Roboto" 400 null underline,
+  "body-regular-italic-underline" "Roboto" 400 italic underline,
+  "body-medium" "Roboto" 500,
+  "body-medium-italic" "Roboto" 500 italic,
+  "body-medium-underline" "Roboto" 500 null underline,
+  "body-medium-italic-underline" "Roboto" 500 italic underline,
+  "body-bold" "Roboto" 700,
+  "body-bold-italic" "Roboto" 700 italic,
+  "body-bold-underline" "Roboto" 700 null underline,
+  "body-bold-italic-underline" "Roboto" 700 italic underline;
+
+$display-scales: 25, 50, 75, 100, 200, 300, 400, 500, 600, 700, 800;
+$display-font-parameters:
+  "display-light" "Encode Sans" 300,
+  "display-regular" "Encode Sans" 400,
+  "display-medium" "Encode Sans" 500,
+  "display-bold" "Encode Sans" 600;
+
+$font-sizes: (
+  25: (10px, 14px),
+  50: (12px, 16px),
+  75: (14px, 20px),
+  100: (16px, 24px),
+  200: (18px, 26px),
+  300: (20px, 28px),
+  400: (24px, 32px),
+  500: (28px, 36px),
+  600: (34px, 44px),
+  700: (40px, 50px),
+  800: (48px, 56px)
+);
+
+
+@mixin uk2-font-family($font-family, $font-style, $text-decoration){
+  font-family: $font-family !important;
+  @if $font-style != null {
+    font-style: $font-style !important;
+  }
+  @if $text-decoration != null {
+    text-decoration: $text-decoration !important;
+  }
+}
+
+@mixin uk2-font-size($font-size, $line-height){
+  font-size: $font-size !important;
+  line-height: $line-height !important;
+  letter-spacing: 0.2px !important;
+}
+
+@mixin uk2-font-weight($font-weight){
+  font-weight: $font-weight !important;
+}
+
+@mixin uk2-font-scale($scale){
+  $font-size: nth(map-get($font-sizes, $scale), 1);
+  $line-height: nth(map-get($font-sizes, $scale), 2);
+  @include uk2-font-size($font-size, $line-height);
+}
+
+@mixin uk2-generate-font-classes($types, $scales) {
+  @each $name, $font, $weight, $style, $text-decoration in $types {
+    @each $scale in $scales {
+      .uk2-font__#{$name}--#{$scale}{
+        @include uk2-font-scale($scale);
+        @include uk2-font-weight($weight);
+        @include uk2-font-family($font, $style, $text-decoration);
+      }
+    }
+  }
+}
+
+@include uk2-generate-font-classes($body-font-parameters, $body-scales);
+@include uk2-generate-font-classes($display-font-parameters, $display-scales);

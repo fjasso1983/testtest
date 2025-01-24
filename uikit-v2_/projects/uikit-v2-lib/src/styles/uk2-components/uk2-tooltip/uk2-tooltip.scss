@@ -1,0 +1,29 @@
+@import './uk2-tooltip.mixins.scss';
+@import './uk2-tooltip-theme.mixins.scss';
+@import 'tippy.js/animations/shift-away.css';
+@import 'tippy.js/dist/svg-arrow.css';
+
+.uk2-tooltip {
+  @include uk2-tooltip-default();
+}
+
+.uk2-tooltip-skeleton {
+  @include uk2-tooltip-skeleton();
+}
+
+.uk2-tooltip-container {
+  @include uk2-tooltip-container-default();
+}
+
+.tippy-box[data-theme~='uk2TooltipTheme'] {
+  @include uk2-tooltip-tippy-box-theme();
+  @include uk2-tooltip-tippy-box-theme-responsive();
+  @include uk2-tooltip-arrow-placement();
+}
+
+.tippy-box[data-theme~='uk2TooltipSkeletonTheme'] {
+  @include uk2-tooltip-tippy-box-theme(var(--uk2-neutral-grey-300));
+  @include uk2-tooltip-tippy-box-theme-responsive();
+  @include uk2-tooltip-container-skeleton();
+  @include uk2-tooltip-arrow-placement();
+}

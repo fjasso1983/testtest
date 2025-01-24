@@ -1,0 +1,31 @@
+.color-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .color-list-item {
+    margin-right:32px;
+    margin-bottom: 16px;
+    .color-title {
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0.20000000298023224px;
+        text-align: center;
+    }
+
+    .color-square {
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+      margin: 0 auto;
+    }
+  }
+}
+
+.banner-color {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  margin: 0 auto;
+}

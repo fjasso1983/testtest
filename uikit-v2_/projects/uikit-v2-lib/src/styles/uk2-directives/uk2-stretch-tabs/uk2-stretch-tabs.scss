@@ -1,0 +1,10 @@
+@import './uk2-stretch-tabs.mixins';
+
+.uk2-stretch-tabs {
+  @include uk2-stretch-tabs-default;
+  @include uk2-stretch-tabs-active;
+}
+
+.uk2-stretch-tabs-skeleton{
+  @include uk2-stretch-tabs-skeleton;
+}

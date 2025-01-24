@@ -1,0 +1,126 @@
+.uk2-inline-loading-button {
+  pointer-events: none;
+
+  mat-icon {
+    display: none !important;
+  }
+
+  .mdc-button__label {
+    display: none;
+  }
+
+  .uk2-inline-loading-button-container {
+    display: inline;
+    .uk2-inline-loading-dot-1 {
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-name: dotAnimation;
+      animation-iteration-count: infinite;
+      opacity: 0;
+    }
+
+    .uk2-inline-loading-dot-2 {
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-name: dotAnimation2;
+      animation-iteration-count: infinite;
+      opacity: 0;
+    }
+
+    .uk2-inline-loading-dot-3 {
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-name: dotAnimation3;
+      animation-iteration-count: infinite;
+      opacity: 0;
+    }
+  }
+
+  // mat-button primary
+  &.uk2-primary-button-small:not(.uk2-primary-button-skeleton), &.uk2-primary-button-medium:not(.uk2-primary-button-skeleton), &.uk2-primary-button-large:not(.uk2-primary-button-skeleton) {
+    background-color: accent-color-500-hsl() !important;
+    color: var(--uk2-neutral-white) !important;
+  }
+  // mat-button secondary
+  &.uk2-secondary-button-small:not(.uk2-secondary-button-skeleton), &.uk2-secondary-button-medium:not(.uk2-secondary-button-skeleton), &.uk2-secondary-button-large:not(.uk2-secondary-button-skeleton) {
+    background-color: var(--uk2-neutral-grey-100) !important;
+    color: accent-color-400-hsl() !important;
+    border-color: accent-color-400-hsl() !important;
+  }
+  // mat-button text
+  &.uk2-text-button-small:not(.uk2-text-button-skeleton), &.uk2-text-button-medium:not(.uk2-text-button-skeleton), &.uk2-text-button-large:not(.uk2-text-button-skeleton) {
+    background-color: var(--uk2-neutral-grey-100) !important;
+    color: accent-color-400-hsl() !important;
+  }
+
+  // mat-button text variant
+  &.uk2-text-variant.uk2-text-button-small:not(.uk2-text-button-skeleton),
+  &.uk2-text-variant.uk2-text-button-medium:not(.uk2-text-button-skeleton),
+  &.uk2-text-variant.uk2-text-button-large:not(.uk2-text-button-skeleton) {
+    background-color: unset !important;
+    color: accent-color-500-hsl() !important;
+  }
+}
+
+
+@keyframes dotAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dotAnimation2 {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dotAnimation3 {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

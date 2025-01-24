@@ -1,0 +1,133 @@
+<!-- Custom-MDX-Documentation.mdx -->
+
+import { Source } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+
+## Dynamic branding trough CdkPortalOutlet
+
+In certain scenarios, utilizing the `uk2CSSPortalProperties` becomes necessary to
+apply custom styles to the `CdkPortalOutlet` where the menu is displayed.
+These edge cases arise when there is a specific set of custom branding properties,
+which are globally defined and cannot be overridden based on business requirements.
+
+If your component involves custom branding,
+the challenge arises because the `CdkPortalOutlet` always inherits variables from the global CSS file.
+Consequently, attempts to apply custom branding settings directly may prove ineffective,
+and overriding the global CSS is not a viable solution.
+
+To address this, you can specify a list of type `Uk2MenuButtonCSSProperty` to define the CSS variables you wish to modify.
+These CSS variables will exclusively affect the portal outlet while it is open,
+ensuring that the changes do not impact any other stylesheets.
+
+### Sample Code
+This is the component you can use as a guidance for single option Uk2MenuButton component:
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+   <uk2-menu-button
+    [uk2ButtonSize]="buttonSize"
+    [uk2ButtonType]="buttonType"
+    [uk2KeepLastSelection]="keepLastSelection"
+    [uk2ItemList]="items"
+    [uk2IsLoading]="isLoading"
+    [uk2IsDisabled]="isDisabled"
+    [uk2DefaultStateText]="defaultStateText"
+    [uk2ActiveStateText]="activeStateText"
+    [uk2SvgIconName]="icon"
+    [uk2CSSPortalProperties]="cssProperties"
+    (uk2OnItemSelected)="onItemSelected($event)"
+  >
+    <ng-template #option let-context> {{ context.option.text }} </ng-template>
+  </uk2-menu-button>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    import {
+      Uk2ButtonSizeEnum,
+      Uk2MenuButtonItem,
+      Uk2MenuButtonSelectionTypeEnum,
+      Uk2Tier1UtilityEnum,
+      Uk2MenuButtonCSSProperty,
+    } from '@axos/uikit-v2-lib';
+    \r
+    export class YOUR_COMPONENT {
+      buttonSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.small;
+      isLoading = false;
+      isDisabled = false;
+      defaultStateText = 'Sort';
+      icon = Uk2Tier1NavigationEnum.arrowsVertical;
+      buttonType: Uk2MenuButtonSelectionTypeEnum = Uk2MenuButtonSelectionTypeEnum.single;
+      keepLastSelection: boolean = true;
+      cssProperties: Uk2MenuButtonCSSProperty[] =  [
+        {
+          name: '--uk2-accent-color-hsl',
+          value: 'hsl(210, 49%, 36%)'
+        }
+        {
+          name: '--uk2-accent-color-hsl-h'
+          value: '210',
+        },
+        {
+          name: '--uk2-accent-color-hsl-s'
+          value: '49%',
+        },
+        {
+          name: '--uk2-accent-color-hsl-l',
+          value: '36%',
+        },
+      ];
+      items = [
+        {
+          text: 'Lorem Ipsum 1',
+          isSelected: false,
+          value: '1',
+        },
+        {
+          text: 'Lorem Ipsum 2',
+          isSelected: false,
+          value: '2',
+        },
+        {
+          text: 'Lorem Ipsum 3',
+          isSelected: false,
+          value: '3',
+        },
+        {
+          text: 'Lorem Ipsum 4',
+          isSelected: false,
+          value: '4',
+        },
+        {
+          text: 'Lorem Ipsum 5',
+          isSelected: false,
+          value: '5',
+        },
+        {
+          text: 'Lorem Ipsum 6',
+          isSelected: false,
+          value: '6',
+        },
+      ];
+      receivedItems: Uk2MenuButtonItem[] = [];
+      \r
+      constructor(private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      onItemSelected(itemSelection: Uk2MenuButtonItem[]) {
+        this.receivedItems = itemSelection;
+      }
+    }
+  `}
+/>

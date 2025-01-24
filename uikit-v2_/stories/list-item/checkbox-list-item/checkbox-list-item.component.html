@@ -1,0 +1,27 @@
+<div>
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Checkbox list item states (default, hover, disabled, unselected, selected and skeleton).</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  </ul>
+</div>
+
+<div class="container">
+  <uk2-list-item
+    uk2Clickable
+    [uk2ListItem]="listItem"
+    [uk2IsDisabled]="disabled"
+    [uk2IsPending]="pending"
+    [uk2IsLoading]="isLoading"
+    [uk2CurrencyOptions]="currencyOptions"
+  >
+    <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+  </uk2-list-item>
+</div>
+
+<div class="container">
+  <uk2-list-item uk2Clickable [uk2ListItem]="secondListItem" [uk2CurrencyOptions]="currencyOptions">
+    <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+  </uk2-list-item>
+</div>

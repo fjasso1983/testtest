@@ -1,0 +1,44 @@
+@mixin uk2-flyout-menu-default-styles {
+  border: 1px solid var(--uk2-overlay-border-color, black);
+  border-radius: var(--uk2-overlay-radius);
+  box-shadow: 0px 8px 16px 0px var(--uk2-overlay-shadow-color);
+  background-color: var(--uk2-overlay-background-color);
+
+  uk2-list-item {
+    cursor: pointer;
+  }
+}
+
+@mixin uk2-flyout-menu-header-default-styles {
+  @include uk2-font__body-medium--75();
+  display: flex;
+}
+
+@mixin uk2-flyout-menu-body-default-styles {
+  overflow: auto;
+  overflow-y: auto;
+}
+
+
+@mixin uk2-flyout-menu-footer-default-styles {
+  @include uk2-font__body-medium--50();
+  display: flex;
+}
+
+@mixin uk2-flyout-menu-backdrop-default-styles {
+  background-color: transparent;
+}
+
+@mixin uk2-flyout-bottom-gradient {
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0,
+      var(--uk2-neutral-black-600) 0,
+      var(--uk2-neutral-black-600) calc(100% - var(--uk2-flyout-menu-bottom-mask-size, 0)),
+      transparent 100%);
+  mask-image: linear-gradient(to bottom,
+      transparent 0,
+      var(--uk2-neutral-black-600) 0,
+      var(--uk2-neutral-black-600) calc(100% - var(--uk2-flyout-menu-bottom-mask-size, 0)),
+      transparent 100%);
+  --uk2-flyout-menu-bottom-mask-size: 16px;
+}

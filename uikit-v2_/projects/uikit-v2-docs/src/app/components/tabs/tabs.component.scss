@@ -1,0 +1,23 @@
+uk2-suggested-action:first-child {
+  display: block;
+  margin-top: 10px;
+}
+
+
+mat-tab-group {
+  gap: 20px;
+  flex-basis: auto;
+  flex-grow: 2;
+
+
+  .mat-mdc-tab-label-container {
+    width: 200px;
+  }
+}
+
+.tab-content {
+  background-color: white;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}

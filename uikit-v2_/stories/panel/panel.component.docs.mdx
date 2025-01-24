@@ -1,0 +1,271 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Panel Module component documentation
+
+## Introduction
+
+<p>
+  <strong>uk2Panel</strong> is a custom component developed using Angular Material <a href="https://v15.material.angular.io/cdk/overlay/overview" target="_blank">
+    CDK Overlay
+  </a> package, to achieve a panel Component which is part of <a
+    href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=3090-14392&node-type=canvas&t=UPK3ADH1PNRZg3vL-0"
+    target="_blank">
+    Axos Design System
+  </a>.
+</p>
+
+## Prerequisites
+
+- You need to import Uk2PanelModule and Uk2DirectivesModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      import { MatIconModule } from '@angular/material/icon';
+      import { MatButtonModule } from '@angular/material/button';
+      import { Uk2PanelModule, Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+- You also need to import MatIconModule and MatButtonModule from @angular/material/\* into the desired module of your Angular App. To be able to use uk2Panel component.
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      import { MatIconModule } from '@angular/material/icon';
+      import { MatButtonModule } from '@angular/material/button';
+  `}
+  />
+
+## Inputs
+<ul>
+  <li><strong>[uk2BackdropClass]</strong> <u>string</u> <i>(optional)</i> CSS class for the backdrop class (<strong>Default:</strong> 'uk2-overlay').</li>
+  <li><strong>[uk2PanelPosition]</strong> <u>uk2PanelPosition</u> <i><i>(optional)</i></i> Changes the panel position. (<strong>Default:</strong> uk2PanelPosition.Right)</li>
+  <li><strong>[uk2PanelClass]</strong> <u>string</u> <i><i>(optional)</i></i> Optional CSS class for the panel.</li>
+  <li><strong>[uk2PanelWidth]</strong> <u>string | number</u> <i><i>(optional)</i></i> CSS width value for the panel. Numeric values represent width in pixels, string values represent a valid CSS unit (e.g. '80%' or '80vh'), 'auto' value adjusts the panel width to the inner content. (<strong>Default:</strong> '80%')</li>
+  <li><strong>[uk2PanelMinWidth]</strong> <u>string | number</u> <i><i>(optional)</i></i> CSS min width value for the panel. Numeric values represent width in pixels (e.g. '496') (<strong>Default:</strong> '496')</li>
+  <li><strong>[uk2PanelMaxWidth]</strong> <u>string | number</u> <i><i>(optional)</i></i> CSS max width value for the panel. Numeric values represent width in pixels (e.g. '1280') (<strong>Default:</strong> '1280')</li>
+  <li><strong>[uk2ShowFooter]</strong> <u>boolean</u> <i><i>(optional)</i></i> When set to true the header button will be rendered. (<strong>Default:</strong> true)</li>
+  <li><strong>[uk2IsLoading]</strong> <u>Boolean</u> <i><i>(optional)</i></i> Toggle to switch from default state to skeleton state. (<strong>Default:</strong> false)</li>
+  <li><strong>[uk2CloseOnBackdropClick]</strong> <u>Boolean</u> <i><i>(optional)</i></i> Toggle to close the panel when the backdrop is clicked. (<strong>Default:</strong> false)</li>
+  <li><strong>[uk2HeaderTitle]</strong> <u>string</u> <i><i>(optional)</i></i> Text on the header.</li>
+  <li><strong>[uk2HeaderTextBehavior]</strong> <u>Uk2PanelHeaderTextBehaviorEnum</u> <i>(optional)</i> Change text overflow to be truncated or wrap. (<strong>Default:</strong> truncate)</li>
+  <li><strong>[uk2IsPanelResizable]</strong> <u>boolean</u> <i><i>(optional)</i></i> When set to true the grabber to adjust the width of the panel will be rendered. (<strong>Default:</strong> false)</li>
+  <li>
+    <p>
+      #uk2PanelLeftHeaderIcons <u>TemplateRef</u> <i>(optional)</i> It is content projected at the left corner of the panel. Meant for buttons with icons
+    </p>
+    <Source
+      dark
+      language="html"
+      code={dedent`
+        <uk2-panel>
+          <ng-template #uk2PanelLeftHeaderIcons>
+            ...
+          </ng-template>
+        </uk2-panel>
+      `}
+    />
+  </li>
+  <li>
+    <p>
+      #uk2PanelRightHeaderIcons <u>TemplateRef</u> <i>(optional)</i> It is content projected at the right corner of the panel. Meant for buttons with icons
+    </p>
+    <Source
+      dark
+      language="html"
+      code={dedent`
+        <uk2-panel>
+          <ng-template #uk2PanelRightHeaderIcons>
+            ...
+          </ng-template>
+        </uk2-panel>
+      `}
+    />
+  </li>
+  <li>
+    <p>
+      #uk2PanelHeader <u>TemplateRef</u> <i>(optional)</i> It is content projected below the header title
+    </p>
+    <Source
+      dark
+      language="html"
+      code={dedent`
+        <uk2-panel>
+          <ng-template #uk2PanelHeader>
+            ...
+          </ng-template>
+        </uk2-panel>
+      `}
+    />
+  </li>
+  <li>
+    <p>
+      #uk2PanelContent <u>TemplateRef</u> <i>(optional)</i> It is the panel content
+    </p>
+    <Source
+      dark
+      language="html"
+      code={dedent`
+        <uk2-panel>
+          <ng-template #uk2PanelContent>
+            ...
+          </ng-template>
+        </uk2-panel>
+      `}
+    />
+  </li>
+  <li>
+    <p>
+      #uk2PanelFooter <u>TemplateRef</u> <i>(optional)</i> It is content projected on the footer
+    </p>
+    <Source
+      dark
+      language="html"
+      code={dedent`
+        <uk2-panel>
+          <ng-template #uk2PanelFooter>
+            ...
+          </ng-template>
+        </uk2-panel>
+      `}
+    />
+  </li>
+</ul>
+
+## Projection sections
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Required</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><b>#uk2PanelLeftHeaderIcons</b></td>
+    <td><u>Projected element</u></td>
+    <td><i>Optional</i></td>
+    <td>HTML element that will be projected to the left side of the header, can contain a set of icon elements</td>
+  </tr>
+  <tr>
+    <td><b>#uk2PanelRightHeaderIcons</b></td>
+    <td><u>Projected element</u></td>
+    <td><i>Optional</i></td>
+    <td>HTML element that will be projected to the right side of the header, can contain a set of icon elements</td>
+  </tr>
+  <tr>
+    <td><b>#uk2PanelHeader</b></td>
+    <td><u>Projected element</u></td>
+    <td><i>Optional</i></td>
+    <td>It is content projected below the header title</td>
+  </tr>
+  <tr>
+    <td><b>#uk2PanelContent</b></td>
+    <td><u>Projected element</u></td>
+    <td><i>Optional</i></td>
+    <td>It is the panel content</td>
+  </tr>
+  <tr>
+    <td><b>#uk2PanelFooter</b></td>
+    <td><u>Projected element</u></td>
+    <td><i>Optional</i></td>
+    <td>It is content projected on the footer</td>
+  </tr>
+</table>
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>[--uk2-header-font-color]</strong> <i>(default: --uk2-axos-primary-blue-500)</i> Is the color of the header text.</li>
+  <li><strong>[--uk2-panel-header-icon-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> Is the color of the header icons.</li>
+</ul>
+<br/>
+
+## Sample Code
+This is the component you can use as a guidance:
+
+### *.component.ts
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class PanelComponent {
+      @ViewChild('panelRef') panelRef!: Uk2PanelComponent;
+      headerTitle = 'Lorem ipsum dolor sit amet';
+      buttonSize = Uk2ButtonSizeEnum;
+      panelPosition = uk2PanelPosition.Right;
+      isLoading = false;
+      isPanelResizable = false;
+      \r
+      constructor() {
+      }
+      \r
+      openPanel() {
+        this.panelRef.openPanel();
+      }
+      \r
+      closePanel() {
+        this.panelRef.closePanel();
+      }
+      \r
+      alert() {
+        alert('Function was executed');
+      }
+    }
+  `}
+/>
+
+### *.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="container">
+      <button uk2PrimaryButton mat-raised-button disableRipple (click)="openPanel()">Open panel</button>
+      <uk2-panel
+        [uk2HeaderTitle]="headerTitle"
+        [uk2PanelPosition]="panelPosition"
+        [uk2IsLoading]="isLoading"
+        [uk2ShowHeaderIconButton]="true"
+        [uk2IsPanelResizable]="isPanelResizable"
+        [uk2PanelMaxWidth]="1280"
+        [uk2PanelMinWidth]="496"
+        [uk2PanelWidth]="'80%'"
+        (iconButtonAction)="closePanel()"
+        #panelRef
+      >
+        <ng-template #uk2PanelHeaderIcons>
+          <button
+            uk2TextIconButton
+            mat-button
+            disableRipple
+            (click)="closePanel()"
+          >
+            <mat-icon [svgIcon]="'uk2-x'"></mat-icon>
+          </button>
+        </ng-template>
+        <ng-template #uk2PanelContent>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </ng-template>
+        <ng-template #uk2PanelFooter>
+          <button
+            uk2TextButton
+            mat-button
+            disableRipple
+            [uk2ButtonSize]="buttonSize.small"
+            (click)="alert()"
+          >
+            Lorem ipsum
+          </button>
+        </ng-template>
+      </uk2-panel>
+    </div>
+  `}
+/>

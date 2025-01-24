@@ -1,0 +1,14 @@
+div#root {
+  height: 100%;
+}
+
+components-tabs-vertical--vertical-tabs {
+  height: 100%;
+  display: block;
+}
+
+tabs-vertical {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

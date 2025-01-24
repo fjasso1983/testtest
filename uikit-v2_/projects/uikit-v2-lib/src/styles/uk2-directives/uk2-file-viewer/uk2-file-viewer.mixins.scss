@@ -1,0 +1,169 @@
+@mixin uk2-file-viewer-position($position: 'center') {
+  text-align: $position;
+  grid-area: $position;
+}
+
+@mixin uk2-file-viewer-border-mode {
+  border-radius: 8px;
+  .uk2-file-viewer-header {
+    border: solid 1px var(--uk2-neutral-grey-300);
+  }
+  pdf-viewer {
+    border-left: solid 1px var(--uk2-neutral-grey-300);
+    border-right: solid 1px var(--uk2-neutral-grey-300);
+  }
+  .uk2-file-viewer-footer {
+    border: solid 1px var(--uk2-neutral-grey-300);
+  }
+}
+
+@mixin uk2-file-viewer-header {
+  background-color: var(--uk2-neutral-white);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 0 8px;
+  border-bottom: solid 1px var(--uk2-neutral-grey-300);
+  height: 48px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: 'left center right';
+  box-sizing: border-box;
+
+  .uk2-file-viewer-page-control {
+    @include uk2-font__body-regular--75();
+    color: var(--uk2-file-viewer-color);
+    align-items: center;
+    padding: 12px 0;
+    display: flex;
+
+    input {
+      margin: auto 8px auto 0;
+      text-align: center;
+      box-sizing: border-box;
+      border-radius: 4px;
+      height: 20px;
+      min-width: 18px;
+      border: solid 1px var(--uk2-neutral-grey-300);
+      color: var(--uk2-file-viewer-color);
+      @include uk2-font__body-regular--75();
+    }
+
+    .input-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .percentage-symbol {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    input:focus-visible {
+      outline: none;
+    }
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type='number'] {
+      -moz-appearance: textfield;
+    }
+  }
+
+  .uk2-file-viewer-zoom-control {
+    @include uk2-font__body-regular--75();
+    color: var(--uk2-file-viewer-color);
+    padding: 8px 0;
+    input {
+      box-sizing: border-box;
+      text-align: center;
+      margin: 0 4px;
+      width: 42px;
+      border-radius: 4px;
+      height: 20px;
+      border: solid 1px var(--uk2-neutral-grey-300);
+      color: var(--uk2-file-viewer-color);
+      @include uk2-font__body-regular--75();
+    }
+
+    button {
+      &.uk2-text-icon-button-small {
+        height: 32px;
+        width: 32px;
+        > mat-icon,
+        > mat-icon svg {
+          height: 20px !important;
+          min-height: 20px !important;
+          width: 20px !important;
+          min-width: 20px !important;
+        }
+      }
+    }
+
+    input:focus-visible {
+      outline: none;
+    }
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type='number'] {
+      -moz-appearance: textfield;
+    }
+  }
+
+  .uk2-file-viewer-action-control {
+    padding: 8px 0;
+    button.uk2-text-icon-button-small {
+      height: 32px;
+      width: 32px;
+      > mat-icon,
+      > mat-icon svg {
+        height: 24px !important;
+        min-height: 24px !important;
+        width: 24px !important;
+        min-width: 24px !important;
+      }
+
+      &:nth-child(2) {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+@mixin uk2-file-viewer-footer {
+  background-color: var(--uk2-neutral-white);
+  width: 100%;
+  position: relative;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 8px;
+  border-top: solid 1px var(--uk2-neutral-grey-300);
+  height: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: 'left center right';
+  box-sizing: border-box;
+
+  .uk2-file-viewer-file-name {
+    padding-top: 5px;
+    @include uk2-font__body-medium--75();
+  }
+}

@@ -1,0 +1,56 @@
+<div [ngClass]="getSkeletonRowClass()" *ngIf="uk2IsLoading">
+  <div
+    class="uk2-value-movement-skeleton-icon"
+    [ngClass]="getSkeletonIconClass()"
+    *ngIf="shouldShowLoadingIcon()"
+  ></div>
+  <div
+    class="uk2-value-movement-skeleton-body"
+    [ngClass]="getSkeletonBodyClass()"
+    *ngIf="shouldShowLoadingSkeletonBody()"
+  ></div>
+</div>
+<div class="uk2-value-movement-info-row" [ngClass]="getContainerClass()" *ngIf="!uk2IsLoading">
+  <div class="uk2-value-movement-icon-container">
+    <mat-icon
+      class="uk2-value-movement-icon"
+      [svgIcon]="svgIconName"
+      arial-hidden="false"
+      [attr.aria-label]="ariaLabel"
+    ></mat-icon>
+  </div>
+  <div #uk2ValueMovementElem id="uk2-value-movement-container" class="uk2-value-movement-info-row">
+    <div class="uk2-value-movement-info-row" [ngClass]="getAmountPercentageClass()" *ngIf="!isIconOnly">
+      <div class="uk2-value-movement-amount-wrap">
+        <div #uk2ValueMovementElem id="uk2-value-movement-amount" class="uk2-value-movement-text-overflow">
+          <span>{{ amountDisplay }}</span>
+        </div>
+        <div>
+          <span>{{ amountSuffix }}</span>
+        </div>
+      </div>
+      <div class="uk2-value-movement-percentage-wrap">
+        <div #uk2ValueMovementElem id="uk2-value-movement-percentage" class="uk2-value-movement-text-overflow">
+          <span>{{ percentageDisplay }}</span>
+        </div>
+        <div>
+          <span>{{ percentageSuffix }}</span>
+        </div>
+      </div>
+      <div
+        #uk2ValueMovementElem
+        id="uk2-value-movement-description"
+        class="uk2-value-movement-description uk2-value-movement-text-overflow"
+        [ngClass]="getDescriptionClass()"
+      >
+        <div *ngIf="description; then descriptionBlock; else contentBlock"></div>
+      </div>
+      <ng-template #descriptionBlock>
+        {{ description }}
+      </ng-template>
+      <ng-template #contentBlock>
+        <ng-content />
+      </ng-template>
+    </div>
+  </div>
+</div>

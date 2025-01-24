@@ -1,0 +1,16 @@
+<div class="uk2-tile-header-link" (cdkObserveContent)="contentChanges()">
+  <div class="uk2-tile-header-link__text">
+    <ng-content select=".uk2-tile-header"></ng-content>
+    <uk2-tooltip [svgIconName]="uk2TooltipIconName" [size]="smallTooltipSize" *ngIf="uk2ShowTooltip">
+      <div>
+        <ng-content select=".uk2-tile-tooltip-content"></ng-content>
+      </div>
+    </uk2-tooltip>
+  </div>
+  <ng-container *ngIf="anchorInside">
+    <mat-icon class="uk2-tile-header-link-chevron" svgIcon="uk2-chevron-right" (click)="onChevronClick()"> </mat-icon>
+  </ng-container>
+</div>
+<div class="uk2-tile-header-sub-line-container">
+  <ng-content select=".uk2-tile-header-sub-line"></ng-content>
+</div>

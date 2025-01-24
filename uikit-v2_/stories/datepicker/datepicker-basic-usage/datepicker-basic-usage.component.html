@@ -1,0 +1,55 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Datepicker states (default, hover, empty, filled, skeleton and disabled).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Calendar, Label, Placeholder and Helper text behavior.</li>
+  <li>
+    Note that this is a generic implementation of a date field, all page-specific cases should be addressed from the
+    client application
+  </li>
+</ul>
+<section>
+  <h3>Basic datepicker</h3>
+  <form #myForm="ngForm">
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>{{ labelText }}</mat-label>
+      <input
+        id="inputDate"
+        matInput
+        name="tdfDate"
+        #tdfDate="ngModel"
+        [(ngModel)]="valueInput"
+        [matDatepicker]="picker"
+        [uk2IsLoading]="uk2IsLoading"
+        [placeholder]="placeholderText"
+        [required]="isRequired"
+        uk2Input
+        [disabled]="isDisabled"
+        [uk2InputSize]="uk2InputSize"
+      />
+      <button
+        class="uk2-input-clear-button"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        tabindex="-1"
+        *ngIf="valueInput"
+        (mousedown)="valueInput = ''"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon [svgIcon]="svgIconName"></mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker uk2DatePicker #picker [disabled]="isDisabled"></mat-datepicker>
+      <mat-hint>
+        {{ helperText }}
+      </mat-hint>
+      <mat-error *ngIf="isRequired">
+        <mat-icon [svgIcon]="svgIconHint"></mat-icon>
+        {{ errorText }}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</section>

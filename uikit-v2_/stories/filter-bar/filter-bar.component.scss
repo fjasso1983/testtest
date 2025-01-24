@@ -1,0 +1,19 @@
+.uk2-filter-bar-add-filter-menu {
+  box-shadow: 0px 8px 16px 0px #00000033;
+  background-color: transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid var(--uk2-neutral-grey-200);
+
+  .uk2-filter-bar-add-filter-menu-option {
+    color: var(--uk2-neutral-slate-500);
+    padding: 6px 24px;
+    background-color: var(--uk2-neutral-white);
+    min-height: auto;
+  }
+}
+
+[uk2FilterBar] button.uk2-text-icon-button-small.visible {
+  display: inline-flex !important;
+}

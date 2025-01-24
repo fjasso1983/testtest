@@ -1,0 +1,100 @@
+// Custom Theming for Angular Material
+@use '@angular/material' as mat;
+@include mat.all-component-typographies();
+@include mat.core();
+
+/* For use in src/lib/core/theming/_palette.scss */
+$axos-primary-palette: (
+  100: #c1cedb,
+  200: #97adc4,
+  300: #6d8cac,
+  400: #4e749a,
+  500: #2f5b88,
+  600: #2a5380,
+    contrast: (
+        100 : #051A3F,
+        200 : #051A3F,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$axos-specialty-blue-palette: (
+    100 : #CDEEFF,
+    200 : #ACE1FC,
+    300 : #6BBEED,
+    400 : #398DCB,
+    500 : #17508F,
+    600 : #051A3F,
+    contrast: (
+        100 : #17508F,
+        200 : #17508F,
+        300 : #17508F,
+        400 : #ffffff,
+        500 : #CDEEFF,
+        600 : #CDEEFF,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$axos-semantic-red-palette: (
+    100 : #f2bec1,
+    200 : #e99397,
+    300 : #e0686d,
+    400 : #d9474e,
+    500 : #d2272f,
+    600 : #cd232a,
+    contrast: (
+        100 : #051A3F,
+        200 : #051A3F,
+        300 : #051A3F,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+    )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$axos-primary: mat.define-palette($axos-primary-palette);
+$axos-accent: mat.define-palette($axos-specialty-blue-palette);
+
+// The warn palette is optional (defaults to red).
+$axos-warn: mat.define-palette($axos-semantic-red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$axos-theme: mat.define-light-theme((
+  color: (
+    primary: $axos-primary,
+    accent: $axos-accent,
+    warn: $axos-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($axos-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+section{
+  margin-bottom: 16px;
+}
+.no-padding{
+  padding: 0px !important;
+}
+.wrapper{
+  padding:16px;
+}
+
+// only works with npm link
+@import '@axos/uikit-v2-lib/src/styles/uk2.scss';

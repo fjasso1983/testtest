@@ -1,0 +1,23 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../directives-docs/directives-prerequisites.docs.mdx';
+
+## Introduction
+<p>
+<strong>Uk2CheckboxDirective</strong> is a directive designed to customize the styling of <i>&lt;mat-checkbox&gt;</i> <a href='https://v15.material.angular.io/components/checkbox/overview'>Angular Material component</a> to adhere to <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=1863%3A29623&t=vhfNsqizBpEoXKq5-0">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;mat-checkbox&gt;</strong> Angular Material component. It will add the <strong> uk2-checkbox </strong> css class name to handle styles.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the "color" attribute for the Angular Material component.
+  </li>
+</ol>
+
+## Prerequisites
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>

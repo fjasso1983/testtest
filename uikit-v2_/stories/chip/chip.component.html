@@ -1,0 +1,48 @@
+<div class="container">
+  <h1>Basic Usage</h1>
+  <p> This page showcase the following: </p>
+
+  <ul>
+    <li>Customize text content of the chip</li>
+    <li>Customize size of the chip</li>
+    <li>Customize type of the chip</li>
+    <li>Customize indicator for rounded Chips</li>
+    <li>Leading and trailing icon</li>
+    <li>Skeleton state</li>
+    <li>Click action and hover state</li>
+    <li>Chip text truncation</li>
+  </ul>
+  <br />
+  <div class="container">
+    <uk2-chip
+      *ngIf="!clickableChip"
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize"
+      [uk2ShowBorder]="showBorder"
+      [uk2IsActive]="chipActive"
+      [uk2IsDisabled]="disabled"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+    >
+      {{ chipText }}
+    </uk2-chip>
+    <uk2-chip
+      *ngIf="clickableChip"
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize"
+      [uk2ShowBorder]="showBorder"
+      [uk2IsActive]="chipActive"
+      [uk2IsDisabled]="disabled"
+      (uk2ChipClick)="clickChip()"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+    >
+      {{ chipText }}
+    </uk2-chip>
+  </div>
+  <br />
+  <br />
+</div>

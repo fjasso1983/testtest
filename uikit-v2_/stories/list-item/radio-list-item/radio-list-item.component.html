@@ -1,0 +1,35 @@
+<div>
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Radio button list item states (default, hover, disabled, unselected, selected and skeleton).</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  </ul>
+</div>
+
+<mat-radio-group>
+  <div class="container">
+    <uk2-list-item
+      uk2Clickable
+      [uk2ListItem]="listItem"
+      [uk2IsDisabled]="disabled"
+      [uk2IsPending]="pending"
+      [uk2IsLoading]="isLoading"
+      [uk2CurrencyOptions]="currencyOptions"
+    >
+      <mat-radio-button disableRipple uk2RadioButton value="option1"> </mat-radio-button>
+    </uk2-list-item>
+  </div>
+  <div class="container">
+    <uk2-list-item
+      uk2Clickable
+      [uk2ListItem]="secondListItem"
+      [uk2IsDisabled]="false"
+      [uk2IsPending]="false"
+      [uk2IsLoading]="false"
+      [uk2CurrencyOptions]="currencyOptions"
+    >
+      <mat-radio-button disableRipple uk2RadioButton value="option2"> </mat-radio-button>
+    </uk2-list-item>
+  </div>
+</mat-radio-group>

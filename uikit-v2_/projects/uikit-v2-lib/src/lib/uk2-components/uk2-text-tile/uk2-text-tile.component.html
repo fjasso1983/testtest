@@ -1,0 +1,14 @@
+<div [ngClass]="getTextTileClasses()">
+  <div class="uk2-text-tile-container">
+    <span class="uk2-text-tile-icon">
+      <mat-icon [svgIcon]="uk2TextTileSvgIconName"></mat-icon>
+    </span>
+    <div class="uk2-text-tile-information">
+      <h1 class="uk2-text-tile-title">{{ uk2TextTileTitle }}</h1>
+      <div #uk2TextTileContent class="uk2-text-tile-content">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+  <div class="uk2-text-tile-background" *ngIf="uk2TextTileDisplayBackground"></div>
+</div>

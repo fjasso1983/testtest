@@ -1,0 +1,10 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <uk2-breadcrumbs *ngIf="items.length > 0" [items]="items" [uk2IsLoading]="uk2IsLoading"></uk2-breadcrumbs>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>
+<br />
+<button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize" (click)="toggleLoading()">
+  Toggle loading
+</button>

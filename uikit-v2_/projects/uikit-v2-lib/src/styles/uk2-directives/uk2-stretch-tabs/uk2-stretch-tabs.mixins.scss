@@ -1,0 +1,147 @@
+@mixin uk2-stretch-tabs-default() {
+  background-color: transparent;
+
+  // Tabs container
+  .mat-mdc-tab-labels {
+    background-color: transparent;
+    position: relative;
+    gap: 8px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--uk2-neutral-grey-200);
+      box-sizing: border-box;
+      background-color: var(--uk2-neutral-grey-25);
+    }
+  }
+  // End tabs container
+
+  // Tab items
+  .mat-mdc-tab-labels .mdc-tab {
+    padding: 0 6px;
+    border-radius: 8px;
+    color: var(--uk2-neutral-slate-300);
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    width: 0 !important;
+    background-color: transparent;
+    border: 1px solid transparent !important;
+    box-sizing: border-box;
+
+    &:hover {
+      color: var(--uk2-neutral-slate-500);
+    }
+
+    &.cdk-keyboard-focused {
+      background-color: accent-color-100-hsl();
+    }
+
+    .mdc-tab__content {
+      display: flex !important;
+      align-items: center;
+      justify-content: left;
+      height: auto;
+      pointer-events: none;
+      overflow: hidden;
+
+      .mdc-tab__text-label:has(span) {
+        display: contents;
+        .uk2-stretch-tab-label {
+          @include uk2-text-truncation-ellipsis();
+          @include uk2-max-number-of-lines(1);
+          display: inline-block !important;
+          width:calc(100% - 30px);
+        }
+        .uk2-stretch-tab-element-counter {
+          width: 30px;
+          margin-left:1px;
+        }
+      }
+
+      .mdc-tab__text-label {
+        @include uk2-text-truncation-ellipsis();
+        @include uk2-max-number-of-lines(1);
+        display: block;
+        color: unset;
+        transition: none;
+      }
+    }
+  }
+  // End tab items
+
+  // Sizes
+  &.uk2-stretch-tabs-small{
+    .mdc-tab{
+      height: 28px;
+      .mdc-tab__content {
+        .mdc-tab__text-label{
+          @include uk2-font__body-medium--50;
+        }
+      }
+    }
+  }
+
+  &.uk2-stretch-tabs-medium{
+    .mdc-tab{
+      height: 32px;
+      .mdc-tab__content {
+        .mdc-tab__text-label{
+          @include uk2-font__body-medium--75;
+        }
+      }
+    }
+  }
+  // End sizes
+}
+
+
+@mixin uk2-stretch-tabs-active() {
+  .mat-mdc-tab-header {
+    .mdc-tab--active {
+      background-color: var(--uk2-neutral-white);
+      border: 1px solid var(--uk2-neutral-grey-300) !important;
+      color: accent-color-400-hsl() !important;
+      &:hover {
+        background-color: var(--uk2-neutral-white);
+      }
+
+      &.cdk-keyboard-focused {
+        background-color: accent-color-100-hsl();
+      }
+
+      .mdc-tab__icon {
+        transition-delay: unset;
+      }
+    }
+    .mdc-tab-indicator__content--underline {
+      border: none;
+    }
+
+    .mdc-tab__ripple::before {
+      background-color: unset;
+    }
+  }
+}
+
+
+@mixin uk2-stretch-tabs-skeleton() {
+  width: 100%;
+  background-color: var(--uk2-neutral-grey-300);
+  height: 36px;
+  border-radius: 4px;
+  &.uk2-stretch-tabs-small{
+    height: 28px;
+  }
+
+  &.uk2-stretch-tabs-medium{
+    height: 36px;
+  }
+}
+

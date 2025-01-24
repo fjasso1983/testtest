@@ -1,0 +1,19 @@
+@mixin size($value) {
+  height: $value;
+  width: $value;
+}
+
+@mixin radio-disabled-outer-circle {
+  border-color: var(--uk2-neutral-grey-400) !important;
+  opacity: 0.5 !important;
+}
+
+@mixin radio-disabled-inner-circle {
+  background-color: var(--uk2-neutral-grey-400) !important;
+  opacity: 0.5 !important;
+}
+
+@mixin center {
+  top: 50%;
+  left: 50%;
+}

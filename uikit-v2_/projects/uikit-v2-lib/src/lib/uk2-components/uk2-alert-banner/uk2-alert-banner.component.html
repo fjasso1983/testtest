@@ -1,0 +1,35 @@
+<div class="uk2-alert-banner" [ngClass]="getAnimationClasses()">
+  <div *ngIf="!uk2IsLoading" class="uk2-alert-banner-container" [ngClass]="getClasses()">
+    <div class="uk2-alert-banner-icon-container">
+      <mat-icon [svgIcon]="svgIconNameToDisplay"></mat-icon>
+    </div>
+    <div class="uk2-alert-banner-text-container">
+      <div class="uk2-alert-banner-text uk2-alert-banner-header">{{ uk2AlertBannerHeaderText }}</div>
+      <div class="uk2-alert-banner-text">
+        {{ uk2AlertBannerBodyText }}
+      </div>
+      <div class="uk2-alert-banner-text">
+        <a id="uk2AlertBannerHyperlink" uk2Anchor (click)="urlBannerAction()">{{ uk2AlertBannerHyperlinkText }}</a>
+      </div>
+    </div>
+    <div *ngIf="isDismissible()" class="uk2-alert-banner-dismiss-container">
+      <button
+        (click)="dismissBannerAction()"
+        uk2TextIconButton
+        mat-button
+        disableRipple
+        [uk2ButtonSize]="dismissButtonSize"
+        class="uk2-alert-banner-dismiss-button"
+      >
+        <mat-icon [svgIcon]="dismissButtonIcon"></mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="uk2-alert-banner-container uk2-alert-banner-skeleton" *ngIf="uk2IsLoading">
+  <div class="uk2-alert-banner-icon-container-skeleton"></div>
+  <div class="uk2-alert-banner-text-container-skeleton">
+    <div class="uk2-alert-banner-text-skeleton-1"></div>
+    <div class="uk2-alert-banner-text-skeleton-2"></div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+
+<ul>
+  <li>Filter bar states (default, hover, and skeleton).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Responsiveness on different screen sizes</li>
+</ul>
+
+<div #element>
+  <div
+    uk2FilterBar
+    #filterBar="uk2FilterBar"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    [uk2IsLoading]="isLoading"
+    [uk2RelatedContainer]="element"
+    (cdkDropListDropped)="handleDropEvent($event)"
+  >
+    <uk2-filter-chip-boolean
+      cdkDrag
+      [uk2Options]="item.options"
+      [uk2Identifier]="item.label"
+      [uk2IsMultiple]="item.isMultiple"
+      (uk2DeleteFilter)="removeFilter(item)"
+      (uk2FilterValueChanges)="filterChanged.emit($event)"
+      *ngFor="let item of items"
+    ></uk2-filter-chip-boolean>
+
+    <button
+      class="uk2-filter-bar-add-filter-button"
+      [class.visible]="showAddFilterButton && !isLoading"
+      mat-button
+      uk2TextIconButton
+      disableRipple
+      [uk2ButtonSize]="smallSize"
+      cdkOverlayOrigin
+      #addFilterButton="cdkOverlayOrigin"
+      (click)="addFilterMenuOpen = !addFilterMenuOpen; showAddFilterButton = true"
+    >
+      <mat-icon [svgIcon]="'uk2-plus'"></mat-icon>
+    </button>
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="addFilterButton"
+      [cdkConnectedOverlayOpen]="addFilterMenuOpen"
+      (overlayOutsideClick)="addFilterMenuOpen = false; showAddFilterButton = false"
+    >
+      <div class="uk2-filter-bar-add-filter-menu">
+        <div
+          uk2MenuListItem
+          class="uk2-filter-bar-add-filter-menu-option uk2-font__body-regular--75"
+          *ngFor="let column of columnOptions"
+          (click)="addFilter(column); addFilterMenuOpen = false"
+        >
+          {{ column | titlecase }}
+        </div>
+      </div>
+    </ng-template>
+    <button
+      mat-button
+      uk2TextButton
+      disableRipple
+      [uk2ButtonSize]="smallSize"
+      (click)="filterBar.clearFilters()"
+      *ngIf="showClearFiltersButton"
+    >
+      Clear filters
+    </button>
+  </div>
+
+  <div
+    style="
+      width: 100%;
+      height: 500px;
+      background-color: grey;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-top: 20px;
+    "
+  >
+    Touch target
+  </div>
+</div>

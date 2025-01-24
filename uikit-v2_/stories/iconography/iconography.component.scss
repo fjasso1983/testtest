@@ -1,0 +1,46 @@
+.tier1 {
+  color: var(--storybook-iconography-tier-1-color);
+}
+
+.tier2 {
+  width: 32px;
+  height: 32px;
+  color: var(--storybook-iconography-tier-2-color);
+}
+
+.tier2ColoredWithAccent {
+  color: var(--storybook-iconography-tier-2-colored-with-accent-color);
+}
+
+.tier3 {
+  width: 40px;
+  height: 40px;
+}
+
+h3 {
+  padding-top: 25px;
+  font-weight: 500;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+.icon-list {
+  display: inline-flex;
+  align-items:center;
+
+  .icon-item {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 8px;
+    margin: 8px;
+    border: 1px solid var(--uk2-neutral-grey-300);
+    border-radius: 8px;
+
+    label {
+      margin-top: 8px;
+    }
+  }
+}

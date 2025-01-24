@@ -1,0 +1,394 @@
+<h1>Modal component documentation</h1>
+
+<p>UkModalComponent is a component that can be used to open modal dialogs with Axos styles and animations.</p>
+
+<h2>Requisites</h2>
+
+<p>
+  You need to import the SASS file in your Angular App
+  <i>styles.scss</i>
+  and include
+  <i>theming-uk2-input</i>
+  with your custom theme.
+</p>
+
+<pre>
+  <code>
+    @import '~@axos/uikit-v2-lib/src/assets/scss/uk2-theming.scss';
+    @include theming-uk2-input($uikit-v2-docs-theme);
+  </code>
+</pre>
+<br />
+
+<button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="openModal()">
+  Open Modal
+</button>
+<br />
+<br />
+<button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="openLongModal()">
+  Open Long Modal
+</button>
+<br />
+<br />
+<button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="openTimerModal()">
+  Open Timer Modal test
+</button>
+<br />
+<br />
+<button
+  uk2PrimaryButton
+  mat-raised-button
+  disableRipple
+  [uk2ButtonSize]="buttonSize.medium"
+  (click)="openSecondaryHeaderModal()"
+>
+  Open Universal Header Modal</button
+>
+<br />
+<br />
+<button
+  uk2PrimaryButton
+  mat-raised-button
+  disableRipple
+  [uk2ButtonSize]="buttonSize.medium"
+  (click)="openSecondaryHeaderLoadingModal()"
+>
+  Open Loading Universal Header Modal</button
+>
+<br />
+<br />
+<button
+  uk2PrimaryButton
+  mat-raised-button
+  disableRipple
+  [uk2ButtonSize]="buttonSize.medium"
+  (click)="openResponsiveFullscreenModal()"
+>
+  Open Responsive Fullscreen Modal</button
+>
+
+<uk2-modal
+  title="Lorem ipsum dolor"
+  subtitle="Amet consecutar etum"
+  [hasBackdrop]="true"
+  [disabledCloseOverlayBackdrop]="false"
+  [showCloseButton]="true"
+  [showHeader]="true"
+  [showTitleDivider]="true"
+  [showActionsDivider]="true"
+  [actionsGrid]="actionsGrid.side"
+  [titleFontWeight]="fontWeight.bold300"
+  [titleAlign]="titleAlign.left"
+  (notifyCloseParent)="alert()"
+  #modal
+>
+  <ng-template #uk2ModalContent>
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+    </p>
+  </ng-template>
+  <ng-template #uk2ModalActions>
+    <button
+      uk2SecondaryButton
+      mat-stroked-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      (click)="closeModal()"
+    >
+      Lorem Ipsum
+    </button>
+
+    <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="alert()">
+      Lorem Ipsum
+    </button>
+
+    <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="alert()">
+      Lorem Ipsum
+    </button>
+  </ng-template>
+</uk2-modal>
+
+<uk2-modal
+  title="Lorem ipsum dolor"
+  subtitle="Amet consecutar etum"
+  [hasBackdrop]="true"
+  [disabledCloseOverlayBackdrop]="true"
+  [showCloseButton]="true"
+  [showHeader]="true"
+  [showTitleDivider]="true"
+  [showActionsDivider]="true"
+  [actionsGrid]="actionsGrid.stacked"
+  [titleFontWeight]="fontWeight.bold400"
+  [titleAlign]="titleAlign.left"
+  [innerPanelClass]="'custom-content-class'"
+  #longModal
+>
+  <ng-template #uk2ModalContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet aliquam tortor, a euismod nunc. In egestas
+      posuere metus a consequat. Quisque leo justo, pulvinar sed tellus non, sagittis hendrerit augue. Duis id efficitur
+      nulla. Etiam dui felis, porta id libero non, gravida elementum nisi. In hac habitasse platea dictumst. Phasellus
+      vestibulum dignissim diam, sed aliquam elit fringilla quis. Cras non finibus dolor. Pellentesque et dui vitae
+      dolor malesuada finibus in nec sem. Curabitur ultricies, sem ut dignissim ultrices, velit ex laoreet sapien, quis
+      condimentum tortor sapien a eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse ac
+      orci hendrerit, ornare est ac, accumsan metus.
+    </p>
+
+    <p>
+      Ut nec imperdiet lacus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+      Nulla tristique, odio eu blandit eleifend, orci mi mattis nulla, vitae ultrices odio est nec dolor. Etiam et
+      feugiat massa. Nam tempor viverra velit sit amet placerat. Suspendisse id ante neque. Morbi pharetra et massa eu
+      consequat. Aliquam a ex sit amet mauris malesuada tincidunt.
+    </p>
+
+    <p>
+      Maecenas maximus lorem nisl, nec laoreet risus semper at. Donec at metus elit. Quisque interdum ligula ut ex
+      tempus tempor. Curabitur tincidunt dolor nec tortor ultrices ornare. Nunc at magna imperdiet, efficitur erat
+      consequat, dictum diam. Mauris gravida fringilla turpis, et sodales justo sagittis nec. Praesent molestie
+      vulputate odio ut aliquam. Integer ullamcorper justo vitae commodo feugiat. Proin risus purus, mattis a purus vel,
+      consectetur accumsan leo. Cras vel lacus nunc.
+    </p>
+
+    <p>
+      Aenean aliquet, lacus sagittis volutpat semper, erat nisi placerat tellus, eu blandit orci dui fermentum nibh. Sed
+      pharetra at felis non ultrices. Praesent quis neque vestibulum, bibendum eros eu, condimentum tellus. Fusce
+      laoreet, erat a suscipit laoreet, nulla sapien ultrices tortor, in sagittis enim odio et mi. Pellentesque habitant
+      morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Nullam volutpat enim
+      sit amet elit placerat aliquet. Nulla sed mollis felis. Integer tempor viverra sem sollicitudin semper. Curabitur
+      accumsan mauris metus, vel rutrum erat pulvinar sed.
+    </p>
+
+    <p>
+      Donec varius a odio nec mattis. Aliquam in porta ante. Quisque efficitur elit nisi. Donec congue vel sem et
+      fringilla. Sed fermentum lorem non varius lacinia. Vivamus sed sodales lorem, quis commodo elit. Nulla tincidunt
+      sodales enim, in vehicula nunc varius vitae. Aenean venenatis urna eget rutrum convallis. Nunc interdum erat
+      consequat orci tempor, ut bibendum purus venenatis. Nam interdum turpis et dictum rutrum. Maecenas dapibus libero
+      at congue interdum.
+    </p>
+
+    <p>
+      Donec eget dui mattis, euismod arcu in, vulputate ante. Aenean condimentum dolor ac quam aliquam posuere. Praesent
+      congue vehicula elit eget lacinia. Curabitur mollis pulvinar risus, et commodo ex tristique sit amet. Vivamus
+      lacinia risus non dui sollicitudin sagittis. Phasellus in sem ut enim volutpat cursus. Pellentesque habitant morbi
+      tristique senectus et netus et malesuada fames ac turpis egestas. Ut non justo euismod, luctus lectus et, feugiat
+      dolor. Fusce sagittis dictum ex, nec dictum purus suscipit a. Integer et sem dui. Aenean non suscipit metus, vel
+      mollis lorem. Duis eleifend feugiat erat, quis scelerisque nibh ultricies et.
+    </p>
+    <p>
+      Maecenas maximus lorem nisl, nec laoreet risus semper at. Donec at metus elit. Quisque interdum ligula ut ex
+      tempus tempor. Curabitur tincidunt dolor nec tortor ultrices ornare. Nunc at magna imperdiet, efficitur erat
+      consequat, dictum diam. Mauris gravida fringilla turpis, et sodales justo sagittis nec. Praesent molestie
+      vulputate odio ut aliquam. Integer ullamcorper justo vitae commodo feugiat. Proin risus purus, mattis a purus vel,
+      consectetur accumsan leo. Cras vel lacus nunc.
+    </p>
+
+    <p>
+      Aenean aliquet, lacus sagittis volutpat semper, erat nisi placerat tellus, eu blandit orci dui fermentum nibh. Sed
+      pharetra at felis non ultrices. Praesent quis neque vestibulum, bibendum eros eu, condimentum tellus. Fusce
+      laoreet, erat a suscipit laoreet, nulla sapien ultrices tortor, in sagittis enim odio et mi. Pellentesque habitant
+      morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Nullam volutpat enim
+      sit amet elit placerat aliquet. Nulla sed mollis felis. Integer tempor viverra sem sollicitudin semper. Curabitur
+      accumsan mauris metus, vel rutrum erat pulvinar sed.
+    </p>
+
+    <p>
+      Donec varius a odio nec mattis. Aliquam in porta ante. Quisque efficitur elit nisi. Donec congue vel sem et
+      fringilla. Sed fermentum lorem non varius lacinia. Vivamus sed sodales lorem, quis commodo elit. Nulla tincidunt
+      sodales enim, in vehicula nunc varius vitae. Aenean venenatis urna eget rutrum convallis. Nunc interdum erat
+      consequat orci tempor, ut bibendum purus venenatis. Nam interdum turpis et dictum rutrum. Maecenas dapibus libero
+      at congue interdum.
+    </p>
+
+    <p>
+      Donec eget dui mattis, euismod arcu in, vulputate ante. Aenean condimentum dolor ac quam aliquam posuere. Praesent
+      congue vehicula elit eget lacinia. Curabitur mollis pulvinar risus, et commodo ex tristique sit amet. Vivamus
+      lacinia risus non dui sollicitudin sagittis. Phasellus in sem ut enim volutpat cursus. Pellentesque habitant morbi
+      tristique senectus et netus et malesuada fames ac turpis egestas. Ut non justo euismod, luctus lectus et, feugiat
+      dolor. Fusce sagittis dictum ex, nec dictum purus suscipit a. Integer et sem dui. Aenean non suscipit metus, vel
+      mollis lorem. Duis eleifend feugiat erat, quis scelerisque nibh ultricies et.
+    </p>
+  </ng-template>
+  <ng-template #uk2ModalActions>
+    <button uk2PrimaryButton disableRipple mat-raised-button [uk2ButtonSize]="buttonSize.medium" (click)="alert()">
+      Okay
+    </button>
+  </ng-template>
+</uk2-modal>
+
+<uk2-modal
+  title="Lorem ipsum dolor"
+  subtitle="Amet consecutar etum"
+  [hasBackdrop]="false"
+  [disabledCloseOverlayBackdrop]="false"
+  [showCloseButton]="true"
+  [showHeader]="false"
+  [showTitleDivider]="true"
+  [showActionsDivider]="true"
+  [actionsGrid]="actionsGrid.centered"
+  [titleFontWeight]="fontWeight.bold400"
+  [titleAlign]="titleAlign.left"
+  [innerPanelClass]="'timer-modal'"
+  #timerModal
+>
+  <ng-template #uk2ModalContent>
+    <img class="image" src="./assets/image/time.png" alt="timer" />
+    <div class="title uk2-font__display-bold--300">Still with us?</div>
+    <div class="text uk2-font__body-regular--75">
+      We've detected some inactivity. If you're still working, click 'Continue' to stay active. Otherwise, we'll take
+      you back to the Registration page.
+    </div>
+    <uk2-timer
+      [uk2StartTime]="3599"
+      [(uk2TimerRunning)]="isRunning"
+      [(uk2TimerStopAndReset)]="isStop"
+      (uk2TimerEvent)="uk2TimerEvent($event)"
+    ></uk2-timer>
+  </ng-template>
+  <ng-template #uk2ModalActions>
+    <button
+      uk2PrimaryButton
+      mat-raised-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      (click)="closeTimerModal()"
+    >
+      Continue
+    </button>
+  </ng-template>
+</uk2-modal>
+
+<uk2-modal
+  title="Lorem ipsum dolor"
+  [showCloseButton]="true"
+  [showHeader]="true"
+  [headerVariant]="headerVariant.universalHeader"
+  [showTitleDivider]="true"
+  [showActionsDivider]="true"
+  [uk2UniversalHeaderShowBackButton]="true"
+  (backButtonCallback)="backButton()"
+  #secondaryHeaderModal
+>
+  <ng-template #uk2ModalContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet aliquam tortor, a euismod nunc. In egestas
+      posuere metus a consequat. Quisque leo justo, pulvinar sed tellus non, sagittis hendrerit augue. Duis id efficitur
+      nulla. Etiam dui felis, porta id libero non, gravida elementum nisi. In hac habitasse platea dictumst. Phasellus
+      vestibulum dignissim diam, sed aliquam elit fringilla quis. Cras non finibus dolor. Pellentesque et dui vitae
+      dolor malesuada finibus in nec sem. Curabitur ultricies, sem ut dignissim ultrices, velit ex laoreet sapien, quis
+      condimentum tortor sapien a eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse ac
+      orci hendrerit, ornare est ac, accumsan metus.
+    </p>
+  </ng-template>
+</uk2-modal>
+
+<uk2-modal
+  title="Lorem ipsum dolor"
+  [showHeader]="true"
+  [headerVariant]="headerVariant.universalHeader"
+  [uk2UniversalHeaderIsLoading]="true"
+  (labelButtonCallback)="backButton()"
+  #secondaryHeaderModalLoading
+>
+  <ng-template #uk2ModalContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet aliquam tortor, a euismod nunc. In egestas
+      posuere metus a consequat. Quisque leo justo, pulvinar sed tellus non, sagittis hendrerit augue. Duis id efficitur
+      nulla. Etiam dui felis, porta id libero non, gravida elementum nisi. In hac habitasse platea dictumst. Phasellus
+      vestibulum dignissim diam, sed aliquam elit fringilla quis. Cras non finibus dolor. Pellentesque et dui vitae
+      dolor malesuada finibus in nec sem. Curabitur ultricies, sem ut dignissim ultrices, velit ex laoreet sapien, quis
+      condimentum tortor sapien a eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse ac
+      orci hendrerit, ornare est ac, accumsan metus.
+    </p>
+  </ng-template>
+  <ng-template #uk2ModalActions>
+    <button
+      uk2PrimaryButton
+      mat-raised-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      (click)="closeSecondaryHeaderLoadingModal()"
+    >
+      Close
+    </button>
+  </ng-template>
+</uk2-modal>
+
+<uk2-modal
+  title="Lorem ipsum dolor"
+  subtitle="Amet consecutar etum"
+  [hasBackdrop]="true"
+  [disabledCloseOverlayBackdrop]="false"
+  [showCloseButton]="true"
+  [showHeader]="true"
+  [showTitleDivider]="true"
+  [showActionsDivider]="true"
+  [actionsGrid]="actionsGrid.side"
+  [uk2EnableResponsiveFullscreen]="true"
+  [uk2UniversalHeaderShowBackButton]="true"
+  [headerVariant]="headerVariant.universalHeader"
+  #fullscreenModal
+>
+  <ng-template #uk2ModalContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <br />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </ng-template>
+  <ng-template #uk2ModalActions>
+    <button
+      uk2SecondaryButton
+      mat-stroked-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      (click)="closeResponsiveFullscreenModal()"
+    >
+      Lorem Ipsum
+    </button>
+
+    <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="alert()">
+      Lorem Ipsum
+    </button>
+
+    <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="alert()">
+      Lorem Ipsum
+    </button>
+  </ng-template>
+</uk2-modal>

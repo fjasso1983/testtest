@@ -1,0 +1,32 @@
+<h1>Helper Text: Display Pattern</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>
+    The different display patterns that can be applied to the helper text of inputs. In this case, to a text input.
+  </li>
+  <li>For inputs where a helper text is specified, it can be displayed in two patterns across the range of states.</li>
+  <ul>
+    <li>
+      Not visible in default state but the present in Focus, Filled, and Disabled States. (Use hideInDefaultState option
+      from the controls section below)
+    </li>
+    <li>
+      Visible in Default, Focus, Filled, and Disabled States. (Use alwaysVisible option from the controls section below)
+    </li>
+  </ul>
+  <li>
+    Note that error text is different than helper text. Error text should always be present when input is in error
+    state. And the text can/can not be the same as the helper text.
+  </li>
+</ul>
+
+<mat-form-field floatLabel="always" appearance="outline">
+  <mat-label>Enter your name</mat-label>
+  <input uk2Input type="text" matInput [uk2HintDisplayPattern]="behavior" [formControl]="nameInput" />
+  <mat-hint>{{ helperText }}</mat-hint>
+  <mat-error>
+    <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+    {{ errorText }}
+  </mat-error>
+</mat-form-field>

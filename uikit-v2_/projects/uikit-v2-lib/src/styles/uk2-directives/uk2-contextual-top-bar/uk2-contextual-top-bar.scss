@@ -1,0 +1,149 @@
+@import 'uk2-contextual-top-bar.mixins.scss';
+
+.uk2-contextual-top-bar {
+  background-color: var(--uk2-neutral-white);
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-bottom: 1px solid var(--uk2-neutral-grey-200);
+  overflow: hidden;
+  uk2-breadcrumbs.uk2-contextual-top-bar {
+    display: none;
+    @include md {
+      display: inherit;
+      margin-bottom: 6px;
+    }
+  }
+
+  .mat-toolbar-row {
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  @include xs {
+    padding-left: 0px;
+    padding-right: 0px;
+    height: fit-content !important;
+    min-height: fit-content !important;
+    min-height: -moz-fit-content;
+  }
+
+  @include md {
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 16px;
+    display: flex !important;
+    flex-direction: column !important;
+    uk2-breadcrumbs {
+      margin-bottom: 8px;
+    }
+  }
+
+  &.uk2-contextual-top-bar-fixed {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 3;
+  }
+
+
+  & > mat-toolbar-row > *[uk2HorizontalLabelAlignedTabs] {
+    width: 100%;
+  }
+
+  &.uk2-contextual-top-bar-skeleton-color {
+    .uk2-horizontal-tabs {
+      display: none;
+    }
+
+    .uk2-contextual-top-bar-header-section-title-container {
+      margin-bottom: 0px !important;
+    }
+
+    padding: 12px;
+
+    @include md {
+      padding: 16px 80px !important;
+    }
+  }
+
+  mat-toolbar-row.uk2-contextual-top-tabs-section {
+    padding: 0 !important;
+  }
+
+  // if contextual top bar does not have branded top bar we show button actions
+  &:not(.uk2-has-top-bar) {
+    mat-toolbar-row.uk2-contextual-top-actions-section {
+      align-items: flex-start !important;
+      .uk2-contextual-top-bar-row-action-button {
+        @include md {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  &.uk2-has-top-bar {
+
+    @include xs {
+      border-bottom: none;
+      .uk2-horizontal-tabs{
+        border-bottom: 1px solid var(--uk2-neutral-grey-200);
+      }
+    }
+
+    @include md {
+      border-bottom: 1px solid var(--uk2-neutral-grey-200);
+      .uk2-horizontal-tabs{
+        border-bottom: none;
+      }
+    }
+
+
+    mat-toolbar-row.uk2-contextual-top-actions-section {
+      display: none !important;
+      .uk2-contextual-top-bar-row-action-button {
+        display: none !important;
+      }
+      @include md {
+        display: flex !important;
+      }
+    }
+  }
+
+  mat-toolbar-row.uk2-contextual-top-actions-section {
+    display: flex !important;
+    padding: 12px 4px;
+    flex-direction: row !important;
+    align-items: center;
+    @include xs {
+      padding: 12px 12px !important;
+    }
+    @include md {
+      padding: 0 !important;
+      margin-bottom: 16px;
+    }
+  }
+
+  @include mat-toolbar-button;
+  @include mat-toolbar-header;
+  @include mat-toolbar-contextual;
+  @include skeleton-state;
+}
+
+button.uk2-text-icon-button-medium:hover, button.uk2-text-icon-button-medium span.mat-mdc-button-touch-target {
+  @include xs {
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  }
+}
+
+button.uk2-text-icon-button-medium, button.uk2-text-icon-button-medium span.mat-mdc-button-touch-target.uk2-contextual-top-bar-size-button {
+  @include xs {
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  }
+}

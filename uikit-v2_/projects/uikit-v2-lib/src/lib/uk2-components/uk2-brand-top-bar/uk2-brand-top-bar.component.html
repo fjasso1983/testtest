@@ -1,0 +1,108 @@
+<mat-toolbar
+  *ngIf="!uk2IsLoading"
+  class="uk2-brand-top-bar"
+  [ngClass]="{
+    'uk2-brand-top-bar-with-button': displayButton,
+    'uk2-brand-top-bar-with-close-button': uk2ShowCloseButton,
+    'uk2-with-contextual-top-bar': uk2HasContextualTopBar
+  }"
+>
+  <uk2-color-bar [uk2IsLoading]="uk2IsLoading" [uk2BackgroundColor]="uk2ColorBarBackgroundColor"></uk2-color-bar>
+  <mat-toolbar-row class="uk2-brand-top-bar-logo-bar" [ngClass]="{ 'uk2-on-close-button': uk2ShowCloseButton }">
+    <button
+      uk2TextIconButton
+      mat-button
+      disableRipple
+      [style.visibility]="displayButton ? 'visible' : 'hidden'"
+      [uk2ButtonSize]="leftButtonSize"
+      class="uk2-brand-top-bar-top-left-button-responsive"
+      aria-label="Top bar button"
+      (click)="actionButtonClick()"
+    >
+      <mat-icon class="uk2-brand-top-bar-top-left-icon" [svgIcon]="uk2LabeledIconButton?.svgIconName || ''"></mat-icon>
+    </button>
+
+    <a
+      *ngIf="showRedirectionLink()"
+      class="uk2-brand-top-bar-redirect-container"
+      [href]="uk2LogoRedirectionUrl?.url"
+      [target]="setRedirectionTarget()"
+    >
+      <ng-container *ngTemplateOutlet="uk2BrandTopBarLogo"> </ng-container>
+    </a>
+    <ng-container *ngTemplateOutlet="showRedirectionLink() ? null : uk2BrandTopBarLogo"> </ng-container>
+    <button
+      id="uk2BrandTopBarCloseButton"
+      uk2TextIconButton
+      mat-button
+      disableRipple
+      [style.visibility]="uk2ShowCloseButton ? 'visible' : 'hidden'"
+      [uk2ButtonSize]="closeButtonSize"
+      class="uk2-brand-top-bar-top-close-button-responsive"
+      aria-label="Top bar close button"
+      (click)="actionCloseButtonClick()"
+    >
+      <mat-icon class="uk2-brand-top-bar-top-close-button-icon" [svgIcon]="closeIconButton"></mat-icon>
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="displayButton" class="uk2-brand-top-bar-labeled-icon-button-bar">
+    <button
+      id="uk2BrandTopBarButton"
+      uk2LabeledIconButton
+      mat-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize"
+      (click)="actionButtonClick()"
+      aria-label="Top bar button"
+    >
+      {{ uk2LabeledIconButton?.labelText || '' }}
+      <mat-icon [svgIcon]="uk2LabeledIconButton?.svgIconName || ''"></mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-toolbar
+  *ngIf="uk2IsLoading"
+  class="uk2-brand-top-bar uk2-brand-top-bar-skeleton"
+  [ngClass]="{
+    'uk2-brand-top-bar-with-button': displayButton,
+    'uk2-brand-top-bar-with-contextual-top-bar': uk2HasContextualTopBar,
+    'uk2-ria-brand-top-bar': !uk2IsAxos
+  }"
+>
+  <mat-toolbar-row class="uk2-brand-top-bar-color-bar"></mat-toolbar-row>
+  <mat-toolbar-row class="uk2-brand-top-bar-logo-bar">
+    <div class="uk2-brand-top-bar-top-left-button-responsive"></div>
+    <div class="uk2-brand-top-bar-logo"></div>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="displayButton" class="uk2-brand-top-bar-labeled-icon-button-bar">
+    <div class="uk2-brand-top-bar-button"></div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<ng-template #uk2BrandTopBarLogo>
+  <!--
+    image element will render if we have a image that is not null or empty.
+    src of the image will determined based on screen size and value, if mobile logo path is not empty then it will be used
+    otherwise logo image path will be used.
+  -->
+  <div class="uk2-brand-top-bar__mobile-logo-with-text">
+    <img
+      id="uk2BrandTopBarLogo"
+      class="uk2-brand-top-bar-logo"
+      [ngClass]="uk2IsAxos ? 'uk2-brand-top-bar-logo-axos' : 'uk2-brand-top-bar-logo-ria'"
+      [src]="uk2ImageResponsiveLogoSRC"
+      alt=""
+      *ngIf="!hasEmptyOrNullUk2LogoImgPath"
+    />
+    <div class="uk2-brand-top-text-logo" *ngIf="hasEmptyOrNullUk2LogoImgPath">
+      {{ uk2OrganizationName }}
+    </div>
+    <div
+      class="uk2-page-label-mobile"
+      [ngClass]="uk2IsAxos ? 'uk2-brand-top-bar-logo-axos' : 'uk2-brand-top-bar-logo-ria'"
+      *ngIf="!(uk2MobilePageTitle | uk2IsNullOrEmpty)"
+    >
+      {{ uk2MobilePageTitle }}
+    </div>
+  </div>
+</ng-template>

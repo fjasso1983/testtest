@@ -1,0 +1,252 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# uk2FileUploadDragDrop directives documentation
+
+## Introduction
+
+<p><strong>uk2FileUploadDisplay</strong> is a directive customizing the style and behavior of an element to achieve the file uploader display variant adhering to the  <a target="_blank" href='https://www.figma.com/design/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?node-id=5735-2550&node-type=canvas&m=dev'>Axos Design System</a></p>
+
+## Prerequisites
+- You need to import Uk2FileUploaderDisplayModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+- You also need to import Uk2ElementPositionModule from @axos/uikit-v2-lib in order to position the elements inside the info bar correctly
+
+<Source
+    dark
+    language='ts'
+    code={dedent`
+      import { Uk2FileUploaderDisplayModule, Uk2ElementPositionModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+- For buttons, flyout menus and icons inside the info bar, you also need to import Uk2DirectivesModule and Uk2FlyoutMenuModule from @axos/uikit-v2-lib and MatButtonModule from @angular/material/button into the desired module of your Angular App.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatButtonModule } from '@angular/material/button';
+      import { Uk2DirectivesModule, Uk2FlyoutMenuModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+
+## Constraints
+<ol>
+  <li>The directive should only be applied to <strong>div</strong> container elements.</li>
+  <li>Inside of the div container it should contain a <strong>div</strong> container with the attribute <strong>uk2-file-upload-description-bar</strong> to indicate the info bar.</li>
+  <li>Inside of the div container it can contain a <strong>div</strong> container with the attribute <strong>uk2-file-upload-preview</strong> to display a preview if available.</li>
+</ol>
+
+## Inputs
+
+<ul>
+  <li><strong>[uk2IsLoading]</strong> <u>boolean</u> <i>(optional)</i> Sets the skeleton state (<strong>Default:</strong> false).</li>
+  <li><strong>[uk2ShowPreview]</strong> <u>boolean</u> <i>(optional)</i> Toggles the visibility of the file preview (<strong>Default:</strong> false).</li>
+  <li><strong>[uk2File]</strong> <u>Uk2File</u> Reference to the uploaded file.</li>
+</ul>
+
+## Ouputs
+
+<ul>
+  <li>(uk2FileSrc) <u>string</u> Returns an url reference for the uploaded file.</li>
+</ul>
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>[--uk2-file-uploader-display-icon-color]</strong> <i>(default: accent-color-400-hsl)</i> Is the color of the button icons inside the info bar.</li>
+  <li><strong>[--uk2-file-uploader-display-description-surface-color]</strong> <i>(default: --uk2-neutral-white)</i> Is th background color of the info bar.</li>
+  <li><strong>[--uk2-file-uploader-display-text-color]</strong> <i>(default: --uk2-neutral-slate-500)</i> Is the color of the file name.</li>
+  <li><strong>[--uk2-file-uploader-display-stroke-color]</strong> <i>(default: --uk2-neutral-grey-300)</i> Is the color of the border.</li>
+</ul>
+
+## File uploader display - structure
+<p>In order to display all elements inside the info bar correctly, elements need to indicate their position via the uk2ElementPosition directive for correct styling.</p>
+<p>The structure of the position directive and it's values is visualized on the following diagram:</p>
+
+<img style={{marginBottom:"16px"}} src="/assets/uk2/components/element-position/assets/images/position-structure.png"/>
+
+## Sample Code
+<p>This is the component you can use as a guidance:</p>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class UploaderDisplayComponentReference {
+      ...
+      showPreview = false;
+      isLoading = false;
+      uploadedFile: Uk2File = {...} //File instance
+      elementPosition = Uk2ElementPositionEnum;
+      \r
+      buttonSmallSize = Uk2ButtonSizeEnum.small;
+      buttonVariant = Uk2TextButtonVariant.button;
+      \r
+      constructor(private sanitizer: DomSanitizer) { }
+      \r
+      getFileSrc(fileUrl: string) {
+        this.fileUrl = this.sanitizer.bypassSecurityTrustUrl(fileUrl);
+      }
+      ...
+    }
+  `}
+/>
+
+<p>*.component.scss</p>
+
+<Source
+  dark
+  language="css"
+  code={dedent`
+    .uploader-container {
+      max-width: 600px;
+      max-height: 400px;
+    }
+  `}
+/>
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="uploader-container">
+      <div
+        uk2FileUploadDisplay
+        [uk2ShowPreview]="showPreview"
+        [uk2IsLoading]="isLoading"
+        [uk2File]="uploadedFile"
+        (uk2FileSrc)="getFileSrc($event)"
+      >
+        <div uk2-file-upload-preview>
+          <img [src]="fileUrl" />
+        </div>
+        <div uk2-file-upload-description-bar>
+          <div [uk2ElementPosition]="elementPosition.left">
+            <button
+              mat-button
+              uk2TextIconButton
+              disableRipple
+              [uk2TextButtonVariant]="buttonVariant"
+              [uk2ButtonSize]="buttonSmallSize"
+              (click)="onExpandClick()"
+            >
+              <mat-icon [svgIcon]="iconExpand"></mat-icon>
+            </button>
+          </div>
+          <div [uk2ElementPosition]="elementPosition.center">
+            <p> {{ uploadedFile.fileName }} </p>
+            <span *ngIf="showFileSize"> (uploadedFile.fileFormatedSize)</span>
+          </div>
+          <div [uk2ElementPosition]="elementPosition.right">
+            <button
+              mat-button
+              uk2TextIconButton
+              disableRipple
+              [uk2TextButtonVariant]="buttonVariant"
+              [uk2ButtonSize]="buttonSmallSize"
+              (click)="openFlyoutMenu()"
+            >
+              <mat-icon [svgIcon]="iconEllipses"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `}
+/>
+
+## Example with the file viewer
+<p>The following example integrates the uploader display variant with the file viewer, please reference <a href="../?path=/docs/components-file-viewer--basic-usage" target="_blank">the file viewer documentation</a> for configuring the file viewer instance.</p>
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="uploader-container">
+      <div
+        uk2FileUploadDisplay
+        [uk2ShowPreview]="showPreview"
+        [uk2IsLoading]="isLoading"
+        [uk2File]="uploadedFile"
+        (uk2FileSrc)="getFileSrc($event)"
+      >
+        <div uk2-file-upload-preview>
+          <div
+            uk2FileViewerContainer
+            [uk2FileViewerWidth]="'auto'"
+            [uk2FileViewerHeight]="'400px'"
+            [uk2FileViewerNoBorder]="true"
+          >
+            <div uk2FileViewerHeader>
+              <div [uk2FileViewerElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
+                <input
+                  [(ngModel)]="inputPage"
+                  (blur)="updatePage($event)"
+                  (keydown)="keydownPage($event)"
+                  type="number"
+                  id="page"
+                  autocomplete="off"
+                />
+                of {{ pdf?.numPages }}
+              </div>
+              <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+                <button
+                  (click)="setZoomValue('minus')"
+                  uk2TextIconButton
+                  disableRipple
+                  mat-button
+                  [uk2ButtonSize]="buttonSize.small"
+                  [uk2IsLoading]="isLoading"
+                  ><mat-icon [svgIcon]="iconZoomLess"></mat-icon
+                ></button>
+                <input
+                  type="text"
+                  [value]="zoom + '%'"
+                  (blur)="onBlur($event)"
+                  (click)="onFocus($event)"
+                  autocomplete="off"
+                  id="page"
+                  placeholder="100%" />
+                <button
+                  (click)="setZoomValue('plus')"
+                  uk2TextIconButton
+                  disableRipple
+                  mat-button
+                  [uk2ButtonSize]="buttonSize.small"
+                  [uk2IsLoading]="isLoading"
+                  ><mat-icon [svgIcon]="iconZoomMore"></mat-icon></button
+              ></div>
+              <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl></div>
+            </div>
+            <pdf-viewer
+              *ngIf="pdfSrc"
+              [src]="pdfSrc"
+              [render-text]="true"
+              [original-size]="false"
+              [zoom-scale]="'page-width'"
+              [zoom]="zoom / 100"
+              [autoresize]="true"
+              [(page)]="pdfPage"
+              [show-borders]="true"
+              (after-load-complete)="callBackPDFLoaded($event)"
+            ></pdf-viewer>
+          </div>
+        </div>
+        <div uk2-file-upload-description-bar>
+          ...
+        </div>
+      </div>
+    </div>
+  `}
+/>

@@ -1,0 +1,135 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>Toggle the flyout display when clicking the button</li>
+  <li>Flyout menu styles for header, body and footer</li>
+  <li>Flyout menu body styles (bottom gradient when overflows, scroll style)</li>
+  <li>Inner flyout menu</li>
+  <li>Close flyout when clicking outside.</li>
+  <li>Close flyout when clicking on an item in inner flyout.</li>
+</ul>
+<br />
+
+<button
+  type="button"
+  uk2FlyoutMenu
+  [uk2FlyoutTemplate]="flyoutOverlay"
+  [uk2OriginXPosition]="flyoutOriginXPosition"
+  [uk2OverlayXPosition]="flyoutOverlayXPosition"
+  [uk2OriginYPosition]="flyoutOriginYPosition"
+  [uk2OverlayYPosition]="flyoutOverlayYPosition"
+  [uk2OverlayYOffset]="flyoutOverlayYOffset"
+  [uk2OverlayHasBackdrop]="flyoutOverlayHasBackdrop"
+  [uk2OverlayBackdropClass]="flyoutOverlayBackdropClass"
+  [uk2CloseOnClickOutside]="closeOnClickBackdrop"
+  uk2PrimaryButton
+  disableRipple
+  mat-raised-button
+  #flyoutMenu="uk2FlyoutMenu"
+  (click)="flyoutMenu.toggle()"
+>
+  Open Flyout
+</button>
+
+<ng-template #flyoutOverlay>
+  <div class="menu-list-container">
+    <ng-container *ngIf="!showVerticalTabs">
+      <div uk2FlyoutMenuHeader class="header" *ngIf="showHeader">
+        <div [uk2ElementPosition]="elementPosition.center"> Header </div>
+        <div [uk2ElementPosition]="elementPosition.right">
+          <mat-icon
+            uk2FlyoutMenu
+            [svgIcon]="ellipsisIcon"
+            [uk2FlyoutTemplate]="innerFlyout"
+            #innerFlyoutMenu="uk2FlyoutMenu"
+            (click)="innerFlyoutMenu.toggle()"
+          >
+            <ng-template #innerFlyout>
+              <div class="inner-menu">
+                <div (click)="innerFlyoutMenu.close()">Option 1</div>
+                <div (click)="innerFlyoutMenu.close()">Option 2</div>
+                <div (click)="innerFlyoutMenu.close()">Option 3</div>
+              </div>
+            </ng-template>
+          </mat-icon>
+        </div>
+      </div>
+      <div class="body" [class.has-vertical-tabs]="showVerticalTabs" uk2FlyoutMenuBody>
+        <div class="skeleton">
+          <div class="skeleton-icon"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-sub-title"></div>
+          </div>
+        </div>
+        <div class="skeleton">
+          <div class="skeleton-icon"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-sub-title"></div>
+          </div>
+        </div>
+        <div class="skeleton">
+          <div class="skeleton-icon"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-sub-title"></div>
+          </div>
+        </div>
+        <div class="skeleton">
+          <div class="skeleton-icon"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-header"></div>
+            <div class="skeleton-sub-title"></div>
+          </div>
+        </div>
+      </div>
+      <div uk2FlyoutMenuFooter *ngIf="showFooter">
+        <div [uk2ElementPosition]="elementPosition.center">
+          <div class="footer">Show more <mat-icon [svgIcon]="chevronIcon"></mat-icon></div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="body" [class.has-vertical-tabs]="showVerticalTabs" uk2FlyoutMenuBody *ngIf="showVerticalTabs">
+      <div class="tab-group-container">
+        <mat-tab-group
+          class="custom-tab"
+          mat-stretch-tabs="false"
+          disableRipple
+          uk2VerticalTabs
+          animationDuration="0ms"
+        >
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div>Time Period</div>
+            </ng-template>
+            <div class="tab-content">
+              <div
+                class="tab-group-option"
+                [class.active]="selectedTimePeriod === option"
+                *ngFor="let option of timePeriodOptions"
+                (click)="selectedTimePeriod = option"
+                >{{ option }}</div
+              >
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div>Document Type</div>
+            </ng-template>
+            <div class="tab-content">
+              <div
+                class="tab-group-option"
+                [class.active]="selectedDocumentType === option"
+                *ngFor="let option of documentTypeOptions"
+                (click)="selectedDocumentType = option"
+                >{{ option }}</div
+              >
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</ng-template>

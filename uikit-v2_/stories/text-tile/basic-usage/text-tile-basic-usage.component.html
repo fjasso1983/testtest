@@ -1,0 +1,20 @@
+<section>
+  <div class="wrapper">
+    <h2>Basic Usage</h2>
+    <p>This page showcases the following:</p>
+    <ul>
+      <li>Customizations for the icon, title and content.</li>
+      <li>Behavior when the tile displays the background or not.</li>
+      <li>Behavior when the tile is in standalone mode (with rounded corners) or not.</li>
+      <li>Behavior on different screen sizes.</li>
+    </ul>
+    <uk2-text-tile
+      [uk2TextTileTitle]="uk2TextTileTitle"
+      [uk2TextTileIsStandaloneTile]="uk2TextTileIsStandaloneTile"
+      [uk2TextTileDisplayBackground]="uk2TextTileDisplayBackground"
+      [uk2TextTileSvgIconName]="uk2TextTileSvgIconName"
+    >
+      {{ uk2TextTileContent }}
+    </uk2-text-tile>
+  </div>
+</section>

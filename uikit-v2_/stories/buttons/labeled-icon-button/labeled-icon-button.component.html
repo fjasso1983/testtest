@@ -1,0 +1,22 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Labeled Icon Button states (default, hover, skeleton and disabled).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Labeled Icon Button size (medium and small)</li>
+  <li>Accept only Labeled Icon Tiers 1</li>
+  <li>Labeled Icon position</li>
+</ul>
+
+<button
+  uk2LabeledIconButton
+  mat-button
+  disableRipple
+  [uk2ButtonSize]="uk2ButtonSize"
+  [uk2IsLoading]="uk2IsLoading"
+  [disabled]="isDisabled"
+  [uk2LabeledIconPosition]="uk2LabeledIconPosition"
+>
+  {{ label }}
+  <mat-icon [svgIcon]="svgIconName"></mat-icon>
+</button>

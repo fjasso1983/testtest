@@ -1,0 +1,118 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+import ListItemDoc from '../list-item.doc.mdx';
+
+# Uk2ListItemComponent documentation
+### Radio button integration example
+
+## Introduction
+<p>
+  <b>Uk2ListItemComponent</b> provides a styled list item that can be used to display account information inside/outside a dropdown. Adhering <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?type=design&node-id=735-19854&mode=design&t=kdyWz3Z4A5vlnbkR-0" target="_blank">Axos Design System</a>
+</p>
+
+<br />
+
+## Prerequisites
+<p>You need to import MatIconModule and MatRadioModule from @angular/material/icon and Uk2ListItemModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to access Uk2ListItemComponent</p>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+\nimport { Uk2ListItemModule } from '@axos/uikit-v2-lib';
+`}
+/>
+
+<ListItemDoc></ListItemDoc>
+
+## Sample Code
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+  import { Uk2ListItem } from '@axos/uikit-v2-lib'
+  \n
+  @Component({
+    ...
+  })
+  export class MyComponent {
+    isLoading = false;
+    disabled = false;
+    pending = false;
+    showDivider = false;
+    currencyOptions: Uk2ListItemCurrencyOptions = {
+      currencyCode: 'USD',
+      display: 'none',
+      digitsInfo: '1',
+    };
+    listItem: Uk2ListItem = {
+      showControl: true,
+      imageUrl: 'https://picsum.photos/200/300',
+      moneyAmount: 1000,
+      svgIconName: 'uk2-phone',
+      bodyText: 'Lorem Ipsum...',
+      headerLabelName: 'Account',
+      headerLabelIdentifier: '1234',
+      uk2IsDisabled: false,
+      uk2IsPending: false,
+      value: '1234',
+    }
+    secondListItem: Uk2ListItem = {
+      imageUrl: '',
+      moneyAmount: 0,
+      svgIconName: 'uk2-finger-print',
+      bodyText: '',
+      headerLabelName: 'Finger print',
+      headerLabelIdentifier: '',
+      uk2IsDisabled: false,
+      uk2IsPending: false,
+      uk2IsLoading: false,
+      value: 'option2',
+    };
+    radioControl = new FormControl('');
+  }
+`}
+/>
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+<mat-radio-group formControlName="radioControl">
+  <div class="container">
+    <uk2-list-item
+      uk2Clickable
+      [uk2ListItem]="listItem"
+      [uk2IsDisabled]="disabled"
+      [uk2IsPending]="pending"
+      [uk2IsLoading]="isLoading"
+      [uk2CurrencyOptions]="currencyOptions"
+    >
+      <mat-radio-button disableRipple uk2RadioButton value="option1"> </mat-radio-button>
+    </uk2-list-item>
+  </div>
+  <div class="container">
+    <uk2-list-item
+      uk2Clickable
+      [uk2ListItem]="secondListItem"
+      [uk2IsDisabled]="disabled"
+      [uk2IsPending]="pending"
+      [uk2IsLoading]="isLoading"
+      [uk2CurrencyOptions]="currencyOptions"
+    >
+      <mat-radio-button disableRipple uk2RadioButton value="option2"> </mat-radio-button>
+    </uk2-list-item>
+  </div>
+</mat-radio-group>
+`}
+/>

@@ -1,0 +1,23 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Timer configuration.</li>
+  <li>Timer Behavior (Dismissible and Persistent).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Timer output event ('started', 'paused', 'reset' and 'ended').</li>
+  <li>Timer format (minutes and seconds).</li>
+</ul>
+
+<uk2-timer
+  [uk2StartTime]="time"
+  [(uk2TimerRunning)]="isRunning"
+  [(uk2TimerStopAndReset)]="isStop"
+  (uk2TimerEvent)="uk2TimerEvent($event)"
+></uk2-timer>
+
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="running()">{{
+  isRunning ? 'pause' : 'Start'
+}}</button>
+<br />
+<br />
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="stop()">Stop and reset</button>

@@ -1,0 +1,99 @@
+<section class="field-states-container">
+  <span>Field states:</span>
+  <div class="field-states-buttons">
+    <button type="button" (click)="toggleDisable()">Toggle disabled</button>
+    <button type="button" (click)="toggleLoading()">Toggle skeleton</button>
+    <button type="button" (click)="setDensitySmall()">Toggle small density</button>
+    <button type="button" (click)="setDensityMedium()">Toggle medium density</button>
+    <button type="button" (click)="setDensityLarge()">Toggle large density</button>
+  </div>
+  <div class="fild-states-inputs">
+    <form>
+      <div>
+        <label for="delay">Delay milliseconds:</label>
+        <input type="number" id="delay" [formControl]="stateDelayControl" />
+      </div>
+      <div>
+        <label for="limit">Limit of options:</label>
+        <input type="number" id="limit" [formControl]="stateLimitControl" />
+      </div>
+      <div>
+        <label for="minimunLength">Minimum length of characters:</label>
+        <input type="number" id="minimunLength" [formControl]="stateMinimumLengthControl" />
+      </div>
+      <div>
+        <label for="customLabel">Custom label:</label>
+        <input type="text" id="customLabel" [formControl]="customLabel" />
+      </div>
+    </form>
+  </div>
+</section>
+
+<form>
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Search Input</mat-label>
+    <input
+      type="text"
+      placeholder="Lorem ipsum"
+      autocomplete="off"
+      matInput
+      uk2Input
+      [formControl]="inputFormControl"
+      [uk2IsLoading]="uk2InputIsLoading"
+      [uk2HintDisplayPattern]="uk2AlwaysVisible"
+      [uk2InputSize]="inputSize"
+      [uk2SearchMenu]="someMenu"
+      [uk2SearchMenuMinimumLength]="stateMinimumLengthControl.value || 0"
+      [uk2SearchInputCustomLabel]="customLabel.value || ''"
+      #inputElement
+      #searchMenu="uk2SearchMenu"
+    />
+    <button matSuffix mat-icon-button uk2SearchInputClearIcon [uk2SearchMenu]="searchMenu" *ngIf="inputElement.value">
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <button class="uk2-search-input-icon" matPrefix mat-icon-button aria-label="Search input">
+      <mat-icon svgIcon="uk2-magnifying-glass"></mat-icon>
+    </button>
+    <mat-error>
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Disabled is required
+    </mat-error>
+  </mat-form-field>
+  <br />
+
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Extra input to test focus</mat-label>
+    <input
+      type="text"
+      required
+      placeholder="input placeholder"
+      autocomplete="off"
+      matInput
+      uk2Input
+      [formControl]="extraFormControl"
+    />
+  </mat-form-field>
+</form>
+
+<pre>
+  Search input value: {{ inputFormControl.value }}
+</pre>
+
+<ng-template #someMenu>
+  <div
+    [uk2SearchMenuOverlay]="searchMenu"
+    [uk2SearchMenuFilterDelay]="stateDelayControl.value || 500"
+    [uk2SearchMenuOptionsLimit]="stateLimitControl.value || 3"
+  >
+    <uk2-dropdown-list-item-chevron
+      [uk2ListItem]="listItem"
+      [uk2IsDisabled]="false"
+      [uk2IsPending]="false"
+      [uk2IsLoading]="false"
+      [uk2ShowDividerLine]="false"
+      uk2SearchMenuItem
+      (uk2SearchMenuItemSelected)="onClick(listItem)"
+      *ngFor="let listItem of uk2ListItems"
+    ></uk2-dropdown-list-item-chevron>
+  </div>
+</ng-template>

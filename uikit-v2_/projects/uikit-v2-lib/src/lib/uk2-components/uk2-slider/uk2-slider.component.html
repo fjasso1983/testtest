@@ -1,0 +1,22 @@
+<section class="uk2-slider-container">
+  <ng-container *ngIf="!uk2IsLoading; else skeleton">
+    <mat-slider
+      class="uk2-slider"
+      [ngClass]="{ gradient: variant === uk2SliderVariantEnum.gradient }"
+      disableRipple
+      [min]="minValue"
+      [max]="maxValue"
+      [step]="step"
+      uk2SliderThumbStyle
+    >
+      <input matSliderThumb (valueChange)="onValueChange($event)" [value]="value" />
+    </mat-slider>
+    <section class="uk2-slider-text">
+      <div class="uk2-slider-text-min" aria-label="min slider label" [title]="minValueLabel">{{ minValueLabel }}</div>
+      <div class="uk2-slider-text-max" aria-label="max slider label" [title]="maxValueLabel">{{ maxValueLabel }}</div>
+    </section>
+  </ng-container>
+  <ng-template #skeleton>
+    <div class="uk2-slider-skeleton" aria-busy="true"></div>
+  </ng-template>
+</section>

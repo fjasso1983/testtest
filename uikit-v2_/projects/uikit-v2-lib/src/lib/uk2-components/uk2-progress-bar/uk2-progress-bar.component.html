@@ -1,0 +1,71 @@
+<mat-toolbar class="uk2-progress-bar" [ngClass]="getSkeletonClass()">
+  <mat-toolbar-row class="uk2-progress-bar-header">
+    <div class="uk2-progress-bar-header-back-button">
+      <button
+        *ngIf="displayFooterButton"
+        uk2TextIconButton
+        disableRipple
+        [uk2ButtonSize]="buttonSizeMedium"
+        mat-button
+        (click)="actionFooterButtonClick()"
+      >
+        <mat-icon [svgIcon]="uk2FooterIconButton?.svgIconName || ''"></mat-icon>
+      </button>
+    </div>
+    <div class="uk2-progress-bar-header-logo">
+      <img [src]="uk2LogoImgPath" alt="" *ngIf="uk2LogoImgPath !== ''" />
+      <div *ngIf="uk2LogoImgPath === ''">
+        {{ uk2OrganizationName }}
+      </div>
+    </div>
+    <div class="uk2-progress-bar-header-text">
+      <h2>{{ uk2HeaderText }}</h2>
+    </div>
+    <div class="uk2-progress-bar-header-button">
+      <button
+        id="uk2-progress-bar-header-button-large"
+        *ngIf="displayHeaderButton"
+        uk2LabeledIconButton
+        mat-button
+        disableRipple
+        [uk2ButtonSize]="buttonSize"
+        (click)="actionHeaderButtonClick()"
+      >
+        {{ uk2HeaderIconButton?.labelText || '' }}
+        <mat-icon [svgIcon]="uk2HeaderIconButton?.svgIconName || ''"></mat-icon>
+      </button>
+      <button
+        id="uk2-progress-bar-header-button-small"
+        *ngIf="displayFooterButton"
+        uk2TextIconButton
+        disableRipple
+        [uk2ButtonSize]="buttonSizeMedium"
+        mat-button
+        (click)="actionHeaderButtonClick()"
+      >
+        {{ uk2HeaderIconButton?.labelText || '' }}
+        <mat-icon [svgIcon]="uk2HeaderIconButton?.svgIconName || ''"></mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="uk2-progress-bar-footer">
+    <div class="uk2-progress-bar-footer-mat-progress-bar">
+      <mat-progress-bar uk2DeterminateProgressBar [value]="uk2ProgressBarValue" mode="determinate"></mat-progress-bar>
+    </div>
+
+    <div class="uk2-progress-bar-footer-button">
+      <button
+        *ngIf="displayFooterButton"
+        uk2LabeledIconButton
+        mat-button
+        disableRipple
+        [uk2ButtonSize]="buttonSize"
+        (click)="actionFooterButtonClick()"
+      >
+        {{ uk2FooterIconButton?.labelText || '' }}
+        <mat-icon [svgIcon]="uk2FooterIconButton?.svgIconName || ''"></mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

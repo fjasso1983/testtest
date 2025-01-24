@@ -1,0 +1,54 @@
+<mat-expansion-panel
+  *ngIf="!uk2IsLoading"
+  [(expanded)]="uk2MessagingCardIsExpanded"
+  [hideToggle]="hideToggle"
+  [ngClass]="{ 'uk2-messaging-card-expandable': uk2MessagingCardIsExpandable }"
+  [class]="'uk2-messaging-card ' + configMessagingCard.class"
+>
+  <mat-expansion-panel-header
+    #panel
+    (click)="uk2MessagingCardIsExpandable ? null : panel._toggle()"
+    class="uk2-messaging-card-header"
+  >
+    <mat-panel-title>
+      <mat-icon
+        *ngIf="configMessagingCard.svgIconName && uk2MessagingCardShowIcon"
+        class="uk2-messaging-card-icon"
+        [svgIcon]="configMessagingCard.svgIconName"
+      ></mat-icon>
+      <div class="uk2-messaging-card-header-text">
+        {{ uk2MessagingCardHeaderText }}
+      </div>
+    </mat-panel-title>
+    <mat-panel-description
+      (click)="uk2MessagingCardIsExpandable ? null : panel._toggle()"
+      *ngIf="uk2MessagingCardIsExpandable"
+    >
+      <mat-icon
+        class="uk2-messaging-card-expand-icon"
+        [ngClass]="{ 'uk2-messaging-card-expanded': uk2MessagingCardIsExpanded }"
+        [svgIcon]="chevronDown"
+      ></mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-content></ng-content>
+</mat-expansion-panel>
+
+<div
+  *ngIf="uk2IsLoading"
+  [ngClass]="{ 'uk2-messaging-card-status': !uk2MessagingCardIsExpandable }"
+  class="uk2-messaging-card uk2-messaging-card-skeleton"
+>
+  <div *ngIf="uk2MessagingCardIsExpanded" class="uk2-messaging-card-expanded-skeleton">
+    <div class="uk2-messaging-card-expanded-header-skeleton">
+      <div class="uk2-messaging-card-expanded-header-icon-skeleton"></div>
+      <div class="uk2-messaging-card-expanded-container-skeleton">
+        <div class="uk2-messaging-card-expanded-header-title-skeleton"></div>
+        <div class="uk2-messaging-card-expanded-content-1-skeleton"></div>
+        <div class="uk2-messaging-card-expanded-content-2-skeleton"></div>
+        <div class="uk2-messaging-card-expanded-content-3-skeleton"></div>
+      </div>
+      <div class="uk2-messaging-card-expanded-header-icon-skeleton"></div>
+    </div>
+  </div>
+</div>

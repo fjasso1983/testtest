@@ -1,0 +1,18 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Secondary Icon Button states (default, hover, skeleton and disabled).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Secondary Icon Button size (large, medium and small)</li>
+</ul>
+
+<button
+  uk2SecondaryIconButton
+  mat-stroked-button
+  disableRipple
+  [uk2ButtonSize]="uk2ButtonSize"
+  [uk2IsLoading]="uk2IsLoading"
+  [disabled]="isDisabled"
+>
+  <mat-icon [svgIcon]="svgIconName"></mat-icon>
+</button>

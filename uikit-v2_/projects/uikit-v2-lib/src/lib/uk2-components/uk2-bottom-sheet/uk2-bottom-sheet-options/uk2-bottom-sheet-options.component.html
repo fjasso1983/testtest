@@ -1,0 +1,10 @@
+<uk2-bottom-sheet [title]="title" [description]="description" [uk2IsLoading]="uk2IsLoading">
+  <section id="uk2-bottom-sheet-body">
+    <div *ngFor="let option of options; let i = index" (click)="handleOptionSelected(option)">
+      <div [uk2BottomSheetOptionHelper]="optionHtmlElements[i]"></div>
+    </div>
+  </section>
+  <ng-container id="uk2-bottom-sheet-footer">
+    <ng-content select="#uk2-bottom-sheet-footer"></ng-content>
+  </ng-container>
+</uk2-bottom-sheet>

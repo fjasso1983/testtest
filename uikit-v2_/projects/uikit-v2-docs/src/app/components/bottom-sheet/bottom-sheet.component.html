@@ -1,0 +1,431 @@
+<!-- <br />
+<button uk2PrimaryButton mat-raised-button disableRipple (click)="openOverlay()">Open side bottomsheet</button>
+<br /> -->
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickComplete()">Open complete template</button>
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickNoDescription()">
+  Open no description template
+</button>
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickNoTitle()">Open no title template</button>
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickNoFooter()">Open no footer template</button>
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickSkeleton()">Open skeleton template</button>
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickShortContent()">
+  Open short content template
+</button>
+<br />
+<br />
+<h1>Dropdown with bottom-sheet example (mobile screens only)</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="group">
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+    <mat-label>Options</mat-label>
+    <mat-select
+      placeholder="Option 2"
+      uk2Dropdown
+      uk2BottomSheetLink
+      formControlName="options"
+      [uk2BottomSheetRef]="formIntegration"
+      #select
+    >
+      <mat-option>None</mat-option>
+      <mat-option value="option1">Option 1</mat-option>
+      <mat-option value="option2">Option 2</mat-option>
+      <mat-option value="option3">Option 3</mat-option>
+      <mat-option value="option4">Option 4</mat-option>
+    </mat-select>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+    <mat-label>Type of Account</mat-label>
+    <mat-select
+      placeholder="Admin"
+      uk2Dropdown
+      uk2BottomSheetLink
+      formControlName="userType"
+      [uk2BottomSheetRef]="formIntegrationTwo"
+      #selectTwo
+    >
+      <mat-option value="normal">Normal</mat-option>
+      <mat-option value="admin">Admin</mat-option>
+    </mat-select>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+  <p>valid: {{ group.valid }}</p>
+  <pre>{{ group.value | json }}</pre>
+  <button type="submit" [disabled]="group.invalid" uk2PrimaryButton mat-raised-button disableRipple>Submit</button>
+</form>
+
+<ng-template #sidePanelRef>
+  <uk2-bottom-sheet
+    #sidePanelRef
+    uk2BottomSheetWidth="'100%'"
+    [title]="title"
+    [description]="description"
+    [titleheadericon]="titleheadericon"
+    [showTitleDivider]="true"
+    uk2ElementResize
+    [uk2BottomSheetMaxWidth]="1280"
+    [uk2BottomSheetMinWidth]="496"
+  >
+    <section id="uk2-bottom-sheet-body">
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+    </section>
+
+    <section id="uk2-bottom-sheet-footer">
+      <button
+        uk2PrimaryButton
+        mat-raised-button
+        disableRipple
+        (click)="openAlert('completeTemplate', 'Primary button clicked')"
+      >
+        Lorem Ipsum
+      </button>
+      <button uk2SecondaryButton mat-stroked-button disableRipple>Lorem Ipsum</button>
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>
+
+<ng-template #complete>
+  <uk2-bottom-sheet
+    uk2BottomSheetWidth="'100%'"
+    [title]="title"
+    [description]="description"
+    [titleheadericon]="titleheadericon"
+    [showTitleDivider]="true"
+    uk2ElementResize
+    [uk2BottomSheetMaxWidth]="1380"
+    [uk2BottomSheetMinWidth]="396"
+  >
+    <section id="uk2-bottom-sheet-body">
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+    </section>
+
+    <section id="uk2-bottom-sheet-footer">
+      <button
+        uk2PrimaryButton
+        mat-raised-button
+        disableRipple
+        (click)="openAlert('completeTemplate', 'Primary button clicked')"
+      >
+        Lorem Ipsum
+      </button>
+      <button uk2SecondaryButton mat-stroked-button disableRipple>Lorem Ipsum</button>
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>
+
+<ng-template #noDescription>
+  <uk2-bottom-sheet [title]="title">
+    <section id="uk2-bottom-sheet-body">
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+    </section>
+
+    <section id="uk2-bottom-sheet-footer">
+      <button uk2PrimaryButton mat-raised-button disableRipple>Lorem Ipsum</button>
+      <button uk2SecondaryButton mat-stroked-button disableRipple>Lorem Ipsum</button>
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>
+
+<ng-template #noTitle>
+  <uk2-bottom-sheet [description]="description">
+    <section id="uk2-bottom-sheet-body">
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+    </section>
+
+    <section id="uk2-bottom-sheet-footer">
+      <button uk2PrimaryButton mat-raised-button disableRipple>Lorem Ipsum</button>
+      <button uk2SecondaryButton mat-stroked-button disableRipple>Lorem Ipsum</button>
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>
+
+<ng-template #noFooter>
+  <uk2-bottom-sheet [title]="title" [description]="description">
+    <section id="uk2-bottom-sheet-body">
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>
+
+<ng-template #skeleton>
+  <uk2-bottom-sheet [title]="title" [description]="description" [uk2IsLoading]="isLoading">
+    <section id="uk2-bottom-sheet-body">
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
+        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
+        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
+        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
+        quidem laborum!
+      </p>
+    </section>
+    <section id="uk2-bottom-sheet-footer">
+      <button uk2PrimaryButton mat-raised-button disableRipple>Lorem Ipsum</button>
+      <button uk2SecondaryButton mat-stroked-button disableRipple>Lorem Ipsum</button>
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>
+
+<ng-template #shortContent>
+  <uk2-bottom-sheet [title]="title" [description]="description">
+    <section id="uk2-bottom-sheet-body">
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
+        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
+        Hic.
+      </p>
+    </section>
+
+    <section id="uk2-bottom-sheet-footer">
+      <button uk2PrimaryButton mat-raised-button disableRipple>Lorem Ipsum</button>
+      <button uk2SecondaryButton mat-stroked-button disableRipple>Lorem Ipsum</button>
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>
+
+<ng-template #formIntegration>
+  <uk2-bottom-sheet-options [title]="title" [description]="description" [options]="select.options">
+    <section id="uk2-bottom-sheet-footer">
+      <button
+        uk2PrimaryButton
+        mat-raised-button
+        disableRipple
+        (click)="openAlert('completeTemplate', 'Primary button clicked')"
+      >
+        Lorem Ipsum
+      </button>
+    </section>
+  </uk2-bottom-sheet-options>
+</ng-template>
+
+<ng-template #formIntegration>
+  <uk2-bottom-sheet-options [title]="title" [description]="description" [options]="select.options">
+    <section id="uk2-bottom-sheet-footer">
+      <button
+        uk2PrimaryButton
+        mat-raised-button
+        disableRipple
+        (click)="openAlert('completeTemplate', 'Primary button clicked')"
+      >
+        Lorem Ipsum
+      </button>
+    </section>
+  </uk2-bottom-sheet-options>
+</ng-template>
+
+<ng-template #formIntegrationTwo>
+  <uk2-bottom-sheet-options [title]="title" [description]="description" [options]="selectTwo.options">
+    <section id="uk2-bottom-sheet-footer">
+      <button
+        uk2PrimaryButton
+        mat-raised-button
+        disableRipple
+        (click)="openAlert('completeTemplate', 'Primary button clicked')"
+      >
+        Lorem Ipsum
+      </button>
+    </section>
+  </uk2-bottom-sheet-options>
+</ng-template>

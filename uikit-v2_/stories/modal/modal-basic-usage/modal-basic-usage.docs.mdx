@@ -1,0 +1,318 @@
+import { Source, ArgsTable, Canvas, Meta, Story, PRIMARY_STORY } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import dedent from 'ts-dedent';
+
+# Uk2ModalComponent documentation
+
+## Introduction
+
+<p>
+  <strong>Uk2ModalComponent</strong> is a component designed to customize the styling of <strong>mat-dialog</strong>
+  from <a href="https://v15.material.angular.io/components/dialog/overview">Angular Material</a> to adhere to
+  <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=729-14598&t=ugd9xbju5vvNZYKZ-0">
+    Axos Design System
+  </a>
+  .
+</p>
+
+<br />
+
+## Prerequisites
+
+- You need to import Uk2ModalModule, Uk2ServicesModule and Uk2DirectivesModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to access Uk2ModalComponent.
+  <Source
+    dark
+    language="ts"
+    code={dedent`
+  import { Uk2ModalModule } from '@axos/uikit-v2-lib';
+  import { Uk2ServicesModule } from '@axos/uikit-v2-lib';
+  import { Uk2DirectivesModule } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
+`}
+  />
+
+- You need to import MatIconModule, MatButtonModule, MatDialogModule, MatDividerModule, from @angular.
+  <Source
+    dark
+    language="ts"
+    code={dedent`
+      import { MatButtonModule } from '@angular/material/button';
+      import { MatIconModule } from '@angular/material/icon';
+      import { MatDividerModule } from '@angular/material/divider';
+      import { MatDialogModule } from '@angular/material/dialog';
+`}
+  />
+
+## Inputs
+
+<ul>
+  <li> [title] <u>string</u> <i>(required)</i> is the header of modal</li>
+  <li> [subtitle] <u>string</u><i><i>(optional)</i></i> is the subline of modal</li>
+  <li> [headerVariant] <u>Uk2ModalHeaderVariant</u> <i>(optional, default: Uk2ModalHeaderVariant.defaultHeader)</i> indicates the type of header variant to use </li>
+  <li> [showCloseButton] <u>boolean</u> <i>(optional)</i> flag to indicate if the close button is displayed</li>
+  <li> [disabledCloseOverlayBackdrop] <u>boolean</u> <i>(optional)</i> flag to indicate if the modal can be closed by clicking below the background</li>
+  <li> [hasBackdrop] <u>boolean</u> <i>(optional, default: true)</i> flag to indicate if backdrop should be displayed (Forced to true if disabledCloseOverlayBackdrop is false) </li>
+  <li> [showTitleDivider] <u>boolean</u> <i>(optional)</i> flag to indicate if the header divider is displayed </li>
+  <li> [showActionsDivider] <u>boolean</u> <i>(optional)</i> flag to indicate if the footer divider is displayed </li>
+  <li> [showHeader] <u>boolean</u> <i>(optional)</i> (default: true) flag to show / hide modal header </li>
+  <li> [actionsGrid] <u>Uk2ModalActionsGridEnum</u> <i>(optional)</i> change the footer grid</li>
+  <li> [titleFontWeight] <u>Uk2ModalFontWeightEnum</u> <i>(optional)</i> change the header font weight <ul>(Default header variant only)</ul> </li>
+  <li> [titleAlign] <u>Uk2ModalTitleAlignEnum</u> <i>(optional)</i> (default: left) change the header align  <ul>(Default header variant only)</ul></li>
+  <li> [bodyContentAlignment] <u>Uk2ModalTitleAlignEnum</u> <i>(optional)</i> (default: left) change the body content align </li>
+  <li> [innerPanelClass] <u>string | string[]</u> <i>(optional)</i> (default: 'uk2-modal-dialog-container') Custom CSS class names to override the default modal panel class </li>
+  <li> [modalId] <u>string</u> <i>(optional)</i> set an ID for the modal will allow to close separately from other in case of open multiple modals at the same time </li>
+  <li> [uk2EnableResponsiveFullscreen] <u>boolean</u> <i>(optional)</i> enables fullscreen modal with responsive size. (Forces the header to universal variant if set to true)</li>
+  <li>
+    <p>
+      #uk2ModalContent <u>TemplateRef</u> <i>(optional)</i> It is the body content
+    </p>
+    <Source
+      dark
+      language="ts"
+      code={dedent`
+        <uk2-modal>
+          <ng-template #uk2ModalContent>
+            ...
+          </ng-template>
+        </uk2-modal>
+      `}
+    />
+  </li>
+  <li>
+    <p>
+      #uk2ModalActions <u>TemplateRef</u> <i>(optional)</i> It is the footer content
+    </p>
+    <Source
+      dark
+      language="ts"
+      code={dedent`
+      <uk2-modal>
+        <ng-template #uk2ModalActions>
+        ...
+        </ng-template>
+      </uk2-modal>
+      `}
+    />
+  </li>
+</ul>
+
+### Universal header only Inputs
+<ul>
+  <li> [uk2UniversalHeaderIsLoading] <u>boolean</u> <i>(optional, default: false)</i> Indicates if it should set a shimmer skeleton on the header </li>
+  <li> [uk2UniversalHeaderDensity] <u>Uk2ModalUniversalHeaderDensity</u> <i>(optional, default: Uk2ModalUniversalHeaderDensity.medium)</i> Indicates the size of the universal header </li>
+  <li> [uk2UniversalHeaderTextBehavior] <u>Uk2ModalTitleTextBehaviorEnum</u> <i>(optional, default: Uk2ModalTitleTextBehaviorEnum.wrap)</i> Indicates if the title text should truncate or wrap</li>
+  <li> [uk2UniversalHeaderShowBackButton] <u>boolean</u> <i>(optional)</i> flag to indicate if the back button is displayed. </li>
+</ul>
+
+## Outputs
+
+<ul>
+  <li> (notifyCloseParent) <u>EventEmitter</u> <i>(optional)</i> Function that is executed after the modal is closed</li>
+  <li> (backButtonCallback) <u>EventEmitter</u> <i>(optional)</i> Function that is executed after the back button is clicked (universal header variant only)</li>
+</ul>
+
+## Component-specific CSS variables
+
+<ul>
+  <li>
+    <strong>[--uk2-header-icon-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> is the colors of the icons on the modal header
+  </li>
+  <li>
+    <strong>[--uk2-header-font-color]</strong> <i>(default: --uk2-accent-color-hsl)</i> is the title color of the modal header.
+  </li>
+  <li>
+    <strong>[--uk2-header-font-family]</strong> <i>(default: 'Encode Sans')</i> is the font family of the modal header.
+  </li>
+</ul>
+
+## Enums
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Uk2ModalActionsGridEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2ModalActionsGridEnum {
+      stacked = 'stacked',
+      side = 'side',
+      sideSpaced = 'sideSpaced',
+      centered = 'centered',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Uk2ModalTitleAlignEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2ModalTitleAlignEnum {
+      left = 'left',
+      center = 'center',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Uk2ModalFontWeightEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2ModalFontWeightEnum {
+      bold400 = 'bold400',
+      bold300 = 'bold300',
+    }
+  `}
+/>
+
+## Sample Code
+
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+      encapsulation: ViewEncapsulation.None,
+    })
+    export class ModalComponent {
+      @ViewChild('modal') modal?: Uk2ModalComponent;
+      title = 'Lorem ipsum dolor';
+      subtitle = 'Amet consecutar etum';
+      showCloseButton = false;
+      disabledCloseOverlayBackdrop = true;
+      hasBackdrop = true;
+      showTopDivider = false;
+      showBottomDivider = false;
+      showHeader = true;
+      actionsGrid = Uk2ModalActionsGridEnum.side;
+      fontWeight = Uk2ModalFontWeightEnum.bold400;
+      titleAlign = Uk2ModalTitleAlignEnum.left;
+      buttonSize = Uk2ButtonSizeEnum;
+      innerPanelClass="uk2-modal-dialog-container"
+      \r
+      constructor(private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      openModal() {
+        this.modal?.openDialog();
+      }
+      \r
+      closeModal() {
+        this.modal?.closeDialog();
+      }
+      \r
+      alert() {
+        alert('Function was executed');
+      }
+    }
+  `}
+/>
+
+### .component.scss
+
+<Source
+  dark
+  language="css"
+  code={dedent`
+    .uk2-modal-section-content {
+      padding-top: 24px !important;
+      padding-bottom: 24px !important;
+    }
+  `}
+/>
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+    <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="openModal()">
+      Open Modal
+    </button>
+    \r
+      <uk2-modal
+        [title]="title"
+        [subtitle]="subtitle"
+        [disabledCloseOverlayBackdrop]="disabledCloseOverlayBackdrop"
+        [hasBackdrop]="hasBackdrop"
+        [showCloseButton]="showCloseButton"
+        [showTitleDivider]="showTitleDivider"
+        [showActionsDivider]="showActionsDivider"
+        [showHeader]="showHeader"
+        [actionsGrid]="actionsGrid"
+        [titleFontWeight]="titleFontWeight"
+        [titleAlign]="titleAlign"
+        [innerPanelClass]="innerPanelClass"
+        #modal
+      >
+      \r
+      <ng-template #uk2ModalContent>
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+      </ng-template>
+      \r
+      <ng-template #uk2ModalActions>
+        <button uk2SecondaryButton mat-stroked-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="closeModal()">
+          Lorem Ipsum
+        </button>
+        <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="alert()">
+          Lorem Ipsum
+        </button>
+        <button uk2TextButton disableRipple [uk2ButtonSize]="buttonSize.medium" mat-button (click)="alert()">
+          Lorem Ipsum
+        </button>
+      </ng-template>
+      \r
+    </uk2-modal>
+  `}
+/>
+
+### Overwrite Style (Example size button)
+
+<ul>
+  <li>
+    <p>
+      You can use input <strong>[innerPanelClass]</strong> to apply your custom class to overwrite the default style of
+      the modal.
+    </p>
+  </li>
+</ul>
+
+<Source
+  dark
+  language="css"
+  code={dedent`
+    .your-custom-class{
+      .uk2-modal-centered-grid{
+        button{
+          min-width: 212px;
+        }
+      }
+    }
+  `}
+/>
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+      <uk2-modal
+        ...
+        [innerPanelClass]="'your-custom-class'"
+      >
+      \r
+      <ng-template #uk2ModalContent>
+      ...
+      </ng-template>
+      \r
+    </uk2-modal>
+  `}
+/>

@@ -1,0 +1,143 @@
+<p>tooltip works!</p>
+<br />
+<br />
+<br />
+<div>
+  <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  {{ isLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+<br />
+manual arrow offset:
+<input [(ngModel)]="arrowOffset" type="number" />
+<br />
+<br />
+<div>
+  <button (click)="setPlacement('auto')">placement Auto</button>
+</div>
+<div>
+  <button (click)="setPlacement('right')">placement Right</button>
+</div>
+<div>
+  <button (click)="setSize('large')">Large Size</button>
+</div>
+<div>
+  <button (click)="setSize('medium')">Medium Size</button>
+</div>
+<div>
+  <button (click)="setSize('small')">Small Size</button>
+</div>
+<br />
+{{ placement }}
+<br />
+<uk2-tooltip
+  [labelText]="'Normal body text'"
+  [size]="size"
+  [bodyText]="'body text body text body text body text body text body text body text'"
+  [uk2IsLoading]="isLoading"
+  [arrowOffset]="arrowOffset"
+  [placement]="placement"
+  [desktopOpenMode]="uk2TooltipTriggerEnum.hover"
+></uk2-tooltip>
+<br />
+<br />
+
+<uk2-tooltip
+  [uk2IsLoading]="isLoading"
+  [size]="size"
+  [arrowOffset]="arrowOffset"
+  [placement]="placement"
+  [desktopOpenMode]="uk2TooltipTriggerEnum.click"
+  [bodyText]="'body text body text body text body text body text body text body text'"
+>
+  <div>
+    <h2>test</h2>
+    <br />
+    <strong>test</strong>
+    <p>test</p>
+  </div>
+</uk2-tooltip>
+<br />
+<br />
+
+<uk2-tooltip
+  [labelText]="'Normal body text with button'"
+  [bodyText]="'body text body text body text body text body text body text body text'"
+  [uk2IsLoading]="isLoading"
+  [size]="size"
+  [displayCloseButton]="true"
+  [arrowOffset]="arrowOffset"
+  [placement]="placement"
+  [desktopOpenMode]="uk2TooltipTriggerEnum.click"
+></uk2-tooltip>
+<br />
+<br />
+
+<uk2-tooltip
+  [labelText]="'Very long body text with button'"
+  [bodyText]="
+    'body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text'
+  "
+  [uk2IsLoading]="isLoading"
+  [size]="size"
+  [displayCloseButton]="true"
+  [arrowOffset]="arrowOffset"
+  [placement]="placement"
+></uk2-tooltip>
+<br />
+<br />
+<br />
+<br />
+<div>
+  <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  {{ isLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+<br />
+<br />
+
+<uk2-tooltip
+  [labelText]="'Normal body text'"
+  [bodyText]="'body text body text body text body text body text body text body text'"
+  [uk2IsLoading]="isLoading"
+  [size]="size"
+  [placement]="placement"
+></uk2-tooltip>
+<br />
+<br />
+
+<uk2-tooltip
+  [labelText]="'Very long body text'"
+  [bodyText]="
+    'body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text'
+  "
+  [uk2IsLoading]="isLoading"
+  [size]="size"
+  [placement]="placement"
+></uk2-tooltip>
+<br />
+<br />
+
+<uk2-tooltip
+  [labelText]="'Normal body text with button'"
+  [bodyText]="'body text body text body text body text body text body text body text'"
+  [uk2IsLoading]="isLoading"
+  [displayCloseButton]="true"
+  [placement]="placement"
+  [size]="size"
+></uk2-tooltip>
+<br />
+<br />
+
+<uk2-tooltip
+  [labelText]="'Very long body text with button'"
+  [bodyText]="
+    'body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text body text'
+  "
+  [uk2IsLoading]="isLoading"
+  [displayCloseButton]="true"
+  [placement]="placement"
+  [size]="size"
+></uk2-tooltip>
+<br />
+<br />
+<br />
+<br />

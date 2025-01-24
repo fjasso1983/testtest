@@ -1,0 +1,135 @@
+@mixin hoverBackground($background-color) {
+  @if $background-color == transparent {
+    background-color:transparent;
+  }
+  @else {
+    background-color:var(--uk2-neutral-grey-100);
+  }
+}
+
+@mixin hoverLeftBorder($background-color) {
+  @if $background-color == transparent {
+    border-left: 1px solid transparent;
+  }
+  @else {
+    background-color:var(--uk2-neutral-grey-100);
+    border-left: 1px solid var(--uk2-neutral-grey-200);
+  }
+}
+
+@mixin hoverBottomBorder($background-color) {
+  @if $background-color == transparent {
+    border-bottom: 1px solid transparent;
+  }
+  @else {
+    background-color:var(--uk2-neutral-grey-100);
+    border-bottom: 1px solid var(--uk2-neutral-grey-200);
+  }
+}
+
+@mixin scrollbar-styles($color: var(--uk2-neutral-grey-400), $background-color: var(--uk2-neutral-white), $size:8px, $background-size:16px) {
+  overflow: auto;
+
+  &::-webkit-scrollbar{
+    background-color:$background-color;
+    width:  $background-size;
+    height: $background-size;
+  }
+
+  &::-webkit-scrollbar:vertical:hover{
+    @include hoverBackground($background-color);
+    @include hoverLeftBorder($background-color);
+  }
+
+  &::-webkit-scrollbar:horizontal:hover{
+    @include hoverBackground($background-color);
+    @include hoverBottomBorder($background-color);
+  }
+
+  &::-webkit-scrollbar-thumb{
+    background:$color;
+    border-radius: $size;
+    border: calc(($background-size - $size)/2 ) solid transparent;
+    background-clip: content-box;
+  }
+}
+
+@mixin moz-scrollbar-styles{
+  @-moz-document url-prefix() {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--uk2-neutral-grey-400) var(--uk2-neutral-white) !important;
+  }
+}
+
+@mixin moz-transparent-scrollbar-styles{
+  @-moz-document url-prefix() {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--uk2-neutral-grey-400) transparent !important;
+  }
+}
+
+@mixin uk2-scrollbar--small() {
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), var(--uk2-neutral-white), 4px, 8px);
+  @include moz-scrollbar-styles();
+}
+
+@mixin uk2-scrollbar--medium() {
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), var(--uk2-neutral-white), 8px, 16px);
+  @include moz-scrollbar-styles();
+}
+
+@mixin uk2-scrollbar--large() {
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), var(--uk2-neutral-white), 12px, 20px);
+  @include moz-scrollbar-styles();
+}
+
+@mixin uk2-transparent-scrollbar--small() {
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), transparent, 4px, 8px);
+  @include moz-transparent-scrollbar-styles();
+}
+
+@mixin uk2-transparent-scrollbar--medium() {
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), transparent, 8px, 16px);
+  @include moz-transparent-scrollbar-styles();
+}
+
+@mixin uk2-transparent-scrollbar--large() {
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), transparent, 12px, 20px);
+  @include moz-transparent-scrollbar-styles();
+}
+
+.uk2-scrollbar--small{
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), var(--uk2-neutral-white), 4px, 8px);
+}
+
+.uk2-scrollbar--medium{
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), var(--uk2-neutral-white), 8px, 16px);
+}
+
+.uk2-scrollbar--large{
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), var(--uk2-neutral-white), 12px, 20px);
+}
+
+.uk2-transparent-scrollbar--small{
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), transparent, 4px, 8px);
+}
+
+.uk2-transparent-scrollbar--medium{
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), transparent, 8px, 16px);
+}
+
+.uk2-transparent-scrollbar--large{
+  @include scrollbar-styles(var(--uk2-neutral-grey-400), transparent, 12px, 20px);
+}
+
+@-moz-document url-prefix() {
+  .uk2-scrollbar--small, .uk2-scrollbar--medium, .uk2-scrollbar--large{
+      scrollbar-width: thin !important;
+      scrollbar-color: var(--uk2-neutral-grey-400) var(--uk2-neutral-white) !important;
+  }
+
+  .uk2-transparent-scrollbar--small, .uk2-transparent-scrollbar--medium, .uk2-transparent-scrollbar--large{
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--uk2-neutral-grey-400) transparent !important;
+  }
+}

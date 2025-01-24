@@ -1,0 +1,146 @@
+@import '../uk2-buttons/uk2-buttons.constants';
+
+@mixin uk2-button-responsive($button-size) {
+  max-width: 100%;
+  @if $button-size == $uk2-button-large {
+    @include uk2-font__body-regular--200;
+    height: 48px !important;
+    .mat-mdc-button-touch-target {
+      height: 48px;
+    }
+    @include xs {
+      min-width: 100%;
+    }
+    @include sm {
+      min-width: 100%;
+    }
+    @include md {
+      min-width: 100%;
+    }
+    @include lg {
+      min-width: 144px;
+    }
+    @include xl {
+      min-width: 178px;
+    }
+  } @else if $button-size == $uk2-button-medium {
+    @include uk2-font__body-regular--100;
+    height: 40px !important;
+    .mat-mdc-button-touch-target {
+      height: 40px;
+    }
+    @include xs {
+      min-width: 76px;
+    }
+    @include sm {
+      min-width: 126px;
+    }
+    @include md {
+      min-width: 76px;
+    }
+    @include lg {
+      min-width: 60px;
+    }
+    @include xl {
+      min-width: 77px;
+    }
+  } @else if $button-size == $uk2-button-small {
+    @include uk2-font__body-regular--50;
+    height: 32px !important;
+
+    .mat-mdc-button-touch-target {
+      height: 32px;
+    }
+    @include xs {
+      min-width: 76px;
+    }
+    @include sm {
+      min-width: 126px;
+    }
+    @include md {
+      min-width: 76px;
+    }
+    @include lg {
+      min-width: 60px;
+    }
+    @include xl {
+      min-width: 60px;
+    }
+    /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
+    & span.mat-button-wrapper {
+      display: block;
+      line-height: 1px;
+    }
+  }
+}
+
+@mixin uk2-icon-button-responsive($button-size) {
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0px !important;
+  & mat-icon {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0px !important;
+  }
+  @if $button-size == $uk2-button-large {
+    & mat-icon,
+    & mat-icon svg {
+      height: 32px !important;
+      min-height: 32px !important;
+      width: 32px !important;
+      min-width: 32px !important;
+    }
+    &,
+    span.mat-mdc-button-touch-target {
+      height: 48px !important;
+      min-height: 48px !important;
+      width: 48px !important;
+      min-width: 48px !important;
+    }
+  } @else if $button-size == $uk2-button-medium {
+    & mat-icon,
+    & mat-icon svg {
+      height: 24px !important;
+      min-height: 24px !important;
+      width: 24px !important;
+      min-width: 24px !important;
+    }
+    &,
+    span.mat-mdc-button-touch-target {
+      min-height: 40px !important;
+      height: 40px !important;
+      min-width: 40px !important;
+      width: 40px !important;
+    }
+  } @else if $button-size == $uk2-button-small {
+    & mat-icon,
+    & mat-icon svg {
+      height: 18px !important;
+      min-height: 18px !important;
+      width: 18px !important;
+      min-width: 18px !important;
+    }
+    &,
+    span.mat-mdc-button-touch-target {
+      height: 32px !important;
+      min-height: 32px !important;
+      width: 32px !important;
+      min-width: 32px !important;
+    }
+  }
+  & span.mat-mdc-button-persistent-ripple.mdc-icon-button__ripple {
+    display: none;
+  }
+}
+
+@mixin uk2-button-selected-state() {
+  &.mat-mdc-raised-button,
+  &.mat-mdc-button,
+  &.mat-mdc-outlined-button {
+    --mat-mdc-button-persistent-ripple-color: transparent !important;
+    --mat-mdc-button-ripple-color: transparent !important;
+  }
+}

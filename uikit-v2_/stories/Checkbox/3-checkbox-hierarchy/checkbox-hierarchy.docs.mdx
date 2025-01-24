@@ -1,0 +1,90 @@
+import { CheckboxHierarchyComponent } from './checkbox-hierarchy.component';
+import { Source, ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import IntroductionLayout from '../checkbox-introduction.docs.mdx';
+import dedent from 'ts-dedent';
+
+# Uk2Checkbox directive: Hierarchy documentation
+
+<IntroductionLayout></IntroductionLayout>
+
+## .component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="uk2-checkbox-container">
+      <mat-checkbox uk2Checkbox
+        [uk2IsLoading]="isLoading"
+        [checked]="allComplete"
+        [indeterminate]="someComplete()"
+        (change)="setAll($event.checked)">
+      </mat-checkbox>
+      <label>{{task.name}}</label>
+    </div>
+    <div *ngFor="let subtask of task.subtasks" class="uk2-checkbox-child">
+      <div class="uk2-checkbox-container">
+        <mat-checkbox uk2Checkbox
+          [uk2IsLoading]="isLoading"
+          [(ngModel)]="subtask.completed"
+          (ngModelChange)="updateAllComplete()"></mat-checkbox>
+        <label>{{subtask.name}}</label>
+      </div>
+    </div>
+  `}
+/>
+
+## .component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component, Input } from '@angular/core';
+    @Component({
+      selector: 'app-checkbox-hierarchy',
+      templateUrl: './checkbox-hierarchy.component.html',
+      styleUrls: ['./checkbox-hierarchy.component.scss', '../../../projects/uikit-v2-lib/src/styles/uk2.scss'],
+    })
+    export class CheckboxHierarchyComponent {
+      @Input() isLoading = false;
+      task: task;
+      allComplete: boolean = false;
+      constructor() {
+        this.task = {
+          name:'Indeterminate',
+          subtasks: [
+            { name: 'Primary', completed: false },
+            { name: 'Accent', completed: false },
+            { name: 'Warn', completed: false }
+          ]
+        };
+      }
+      updateAllComplete() {
+        this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+      }
+      someComplete(): boolean {
+        if (this.task.subtasks == null) {
+          return false;
+        }
+        return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+      }
+      setAll(completed: boolean) {
+        this.allComplete = completed;
+        if (this.task.subtasks == null) {
+          return;
+        }
+        this.task.subtasks.forEach(t => t.completed = completed);
+      }
+    }
+    interface task {
+      name: string,
+      subtasks: subtask[]
+    }
+    interface subtask {
+      name: string,
+      completed: boolean
+    }
+  `}
+/>

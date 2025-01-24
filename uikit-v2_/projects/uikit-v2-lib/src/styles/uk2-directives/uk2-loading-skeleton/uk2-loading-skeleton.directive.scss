@@ -1,0 +1,47 @@
+@use 'sass:math';
+
+.uk2-loading-skeleton {
+  @include uk2-loading-skeleton-animation();
+
+  @for $i from 1 through 10 {
+    $durationByPixel: math.div(100, math.div(2, $i)) + ms;
+    $duration: math.div(100, math.div(3, $i)) + ms;
+    &__width-#{$i} {
+      width: ($i * 2) + px;
+      transition: width ease $durationByPixel;
+    }
+    &__height-#{$i} {
+      height: ($i * 2) + px;
+      transition: height ease $durationByPixel;
+    }
+    &__width-#{$i*2} {
+      width: ($i * 2 * 2) + px;
+      transition: width ease $durationByPixel;
+    }
+    &__height-#{$i*2} {
+      height: ($i * 2 * 2) + px;
+      transition: height ease $durationByPixel;
+    }
+    &__height-hrem-#{$i} {
+      height: ($i * 0.5) + rem;
+      transition: height ease $duration;
+    }
+    &__width-hrem-#{$i} {
+      width: ($i * 0.5) + rem;
+      transition: width ease $duration;
+    }
+    &__height-hem-#{$i} {
+      height: ($i * 0.5) + rem;
+      transition: height ease $duration;
+    }
+    &__width-hem-#{$i} {
+      width: ($i * 0.5) + rem;
+      transition: width ease $duration;
+    }
+  }
+  @for $i from 2 through 6 {
+    &__bg-#{$i * 100} {
+      @include uk2-loading-skeleton-animation('--uk2-neutral-grey-#{$i}00', '--uk2-neutral-grey-#{$i - 1}00');
+    }
+  }
+}

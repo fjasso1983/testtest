@@ -1,0 +1,118 @@
+@mixin uk2-loading-skeleton-background-size {
+  background-size: 400px 400px;
+  @include sm {
+    background-size: 600px 600px;
+  }
+  @include md {
+    background-size: 800px 800px;
+  }
+  @include lg {
+    background-size: 1000px 1000px;
+  }
+  @include xl {
+    background-size: 1200px 1200px;
+  }
+  @include xxl {
+    background-size: 1400px 1400px;
+  }
+  @include xxxl {
+    background-size: 1600px 1600px;
+  }
+}
+
+@mixin uk2-loading-skeleton-background-start-position {
+  background-position: -100vw 0px;
+  @include xs {
+    background-position: -100vw 0px;
+  }
+  @include sm {
+    background-position: -100vw 0px;
+  }
+  @include md {
+    background-position: -100vw 0px;
+  }
+  @include lg {
+    background-position: -100vw 0px;
+  }
+  @include xl {
+    background-position: -100vw 0px;
+  }
+  @include xxl {
+    background-position: -100vw 0px;
+  }
+  @include xxxl {
+    background-position: -100vw 0px;
+  }
+}
+
+@mixin uk2-loading-skeleton-background-end-position {
+  background-position: 100vw 0px;
+  @include xs {
+    background-position: 100vw 0px;
+  }
+  @include sm {
+    background-position: 100vw 0px;
+  }
+  @include md {
+    background-position: 100vw 0px;
+  }
+  @include lg {
+    background-position: 100vw 0px;
+  }
+  @include xl {
+    background-position: 100vw 0px;
+  }
+  @include xxl {
+    background-position: 100vw 0px;
+  }
+  @include xxxl {
+    background-position: 100vw 0px;
+  }
+}
+
+@mixin uk2-loading-skeleton-animation(
+  $background: '--uk2-neutral-grey-200',
+  $light: '--uk2-neutral-grey-100',
+  $duration: 1.5s
+) {
+  background: var(#{$background});
+  background-image: linear-gradient(
+    to right,
+    var(#{$background}) 0%,
+    var(#{$light}) 20%,
+    var(#{$background}) 40%,
+    var(#{$background}) 100%
+  );
+  background-repeat: no-repeat;
+  @include uk2-loading-skeleton-background-size;
+  animation-duration: $duration;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: Uk2SkeletonLoadingMovement;
+  animation-timing-function: linear;
+  -webkit-animation-duration: $duration;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: Uk2SkeletonLoadingMovement;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+}
+
+@keyframes Uk2SkeletonLoadingMovement {
+  0% {
+    @include uk2-loading-skeleton-background-start-position;
+  }
+
+  100% {
+    @include uk2-loading-skeleton-background-end-position;
+  }
+}
+@-webkit-keyframes Uk2SkeletonLoadingMovement {
+  0% {
+    @include uk2-loading-skeleton-background-start-position;
+  }
+
+  100% {
+    @include uk2-loading-skeleton-background-end-position;
+  }
+}

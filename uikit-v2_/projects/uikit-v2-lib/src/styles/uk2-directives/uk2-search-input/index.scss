@@ -1,0 +1,146 @@
+@import './uk2-search-input.mixins.scss';
+
+// Search Overlay
+.uk2-search-menu-overlay-pane {
+  .uk2-search-menu-overlay {
+    width: 100% !important;
+    height: calc(100% + 2px) !important;
+    @include scrollbar-styles(var(--uk2-neutral-grey-400), var(--uk2-neutral-white), 8px, 16px);
+
+    // Add top border on scroll container to match with overlay line divider
+    &::-webkit-scrollbar {
+      border-top: 1px solid var(--uk2-neutral-grey-300);
+    }
+
+    &:empty {
+      display: none;
+    }
+
+    box-sizing: border-box !important;
+    border: 2px solid var(--uk2-form-field-general-active-color) !important;
+    // Hack to position overlay below form field
+    margin-top: -2px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: white;
+    border-top: none !important;
+
+    // divider line
+    .uk2-search-menu-overlay-divider {
+      height: 1px;
+      background-color: var(--uk2-neutral-grey-300);
+      display: block;
+      margin-bottom: 0px;
+      position: sticky;
+      top: 0;
+    }
+
+    // bottom spacer
+    .uk2-search-menu-overlay-bottom-spacer {
+      height: 16px;
+      background-color: var(--uk2-neutral-white);
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+
+  // Overlay error state
+  &.uk2-search-menu-overlay-pane-error {
+    .uk2-search-menu-overlay {
+      border-color: var(--uk2-semantic-red) !important;
+    }
+  }
+}
+
+
+
+// Search form field
+.uk2-search-menu-form-field {
+
+  // active
+  &.uk2-search-menu-form-field-active {
+    .mdc-notched-outline__leading {
+      border-top-width: 2px !important;
+      border-left-width: 2px !important;
+      border-bottom-width: 2px !important;
+      border-right-width: 0px !important;
+      border-bottom-left-radius: 0px !important;
+      border-color: var(--uk2-form-field-general-active-color) !important;
+      border-bottom-color: white !important;
+    }
+
+    .mdc-notched-outline__notch {
+      border-bottom-width: 2px !important;
+      border-color: var(--uk2-form-field-general-active-color) !important;
+      border-bottom-color: white !important;
+
+    }
+
+    .mdc-notched-outline__trailing {
+      border-width: 2px !important;
+      border-bottom-right-radius: 0px !important;
+      border-color: var(--uk2-form-field-general-active-color) !important;
+      border-bottom-color: white !important;
+    }
+  }
+
+  // Disabled state
+  &.mat-form-field-disabled {
+
+    button,
+    mat-icon,
+    .mat-mdc-text-field-wrapper {
+      pointer-events: none !important;
+    }
+
+    // in disabled state it hides clear button
+    .uk2-search-clear-input-icon {
+      display: none;
+    }
+
+    // in disabled state it change icon color
+    .uk2-search-input-icon {
+      color: var(--uk2-neutral-slate-400);
+    }
+
+    mat-label {
+      color: var(--uk2-neutral-slate-400);
+    }
+  }
+}
+
+// Icons
+.uk2-search-menu-form-field {
+  // prefix and suffix space
+  @include search-input-icons-padding(8px);
+}
+
+.uk2-search-input-icon {
+  &:focus-visible {
+    outline: black solid 1px;
+    border-radius: 0;
+  }
+}
+
+
+// Overlay items
+.uk2-search-menu-item {
+  outline: none;
+  display: none;
+
+  &:focus-visible {
+    background: rgba(0, 0, 0, 0.04) !important;
+  }
+}
+
+.uk2-search-menu-overlay-no-results {
+
+  &:empty {
+    display: none;
+  }
+
+  text-align: left;
+  padding: 16px 16px 0 16px;
+  color: var(--uk2-neutral-slate-500);
+  @include uk2-font__body-medium--100;
+}

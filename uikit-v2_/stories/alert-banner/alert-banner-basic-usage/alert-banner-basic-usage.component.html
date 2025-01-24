@@ -1,0 +1,26 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Alert banner types (Alert and Inform).</li>
+  <li>Alert banner Behavior (Dismissible and Persistent).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Alert banner responsiveness on each size.</li>
+  <li>Action output event (click on hyperlink and close button).</li>
+  <li>Header and Body text truncation behavior.</li>
+  <li>Default and custom Icon.</li>
+  <li>Animation control.</li>
+</ul>
+
+<uk2-alert-banner
+  *ngIf="showBanner"
+  (uk2AlertBannerHyperlinkAction)="urlClick()"
+  (uk2AlertBannerDismissBannerAction)="dismissButtonClick()"
+  [uk2AlertBannerType]="alertType"
+  [uk2AlertBannerBehavior]="alertBehavior"
+  [uk2AlertBannerBodyText]="bodyText"
+  [uk2AlertBannerHeaderText]="headerText"
+  [uk2AlertBannerSvgIconName]="svgIconName"
+  [uk2AlertBannerHyperlinkText]="hyperLink"
+  [uk2IsLoading]="isLoading"
+  [uk2AlertbannerAnimateOnDisplay]="animateAlertBanner"
+></uk2-alert-banner>

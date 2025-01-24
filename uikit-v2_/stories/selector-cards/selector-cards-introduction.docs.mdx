@@ -1,0 +1,67 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+
+
+# uk2CheckboxSelectionCards directive documentation
+
+## Introduction
+<p>
+  uk2CheckboxSelectionCards is a directive designed to customize the styling of <strong>&lt;mat-selection-list&gt;</strong> component from to adhere to <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/👷‍♂️-Framework-Core---Web-2.0?node-id=511-2123&t=8g3jto0I5lKThiY9-0"  target="_blank">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;mat-selection-list&gt;</strong> element. It will add the <strong>uk2-checkbox-selection-cards</strong> css class name to handle styles.
+  </li>
+  <li>
+    <strong>uk2CheckboxSelectionCards</strong> can be used with single or multiples options with <strong>[multiple]="true/false"</strong> property.
+    <br />
+    See <a href="https://v15.material.angular.io/components/list/overview" target="_blank">Angular Material - List Documentation</a> to see how this can be achieved.
+  </li>
+  <li>
+    Note that depending on the icon used, we should specify a particular class for the <strong>&lt;mat-icon&gt;</strong> element. Refer to the Code Sample section below.
+  </li>
+</ol>
+
+## Prerequisites
+
+- You need to import MatListModule and MatIconModule from @angular/material/* into the desired module of your Angular App. To be able to use uk2CheckboxSelectionCards directive.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatListModule } from '@angular/material/list';
+      import { MatIconModule } from '@angular/material/icon';
+  `}
+/>
+
+- You need to import Uk2DirectivesModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use uk2BrandTopBar component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li><strong>[multiple]</strong> <u>Boolean</u> <i>(optional)</i> using for multiple or single options (<strong>Default:</strong> true).</li>
+  <li><strong>[uk2IsRadio]</strong> <u>Boolean</u> <i>(optional)</i> using for choose between radio or chevron display for single option (<strong>Default:</strong> false).</li>
+  <li><strong>[uk2IsLoading]</strong> <u>Boolean</u> <i>(optional)</i> using for display skeleton mode.</li>
+</ul>
+<br/>
+
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>[--uk2-checkbox-selection-cards-label-selected]</strong> <i>(default: --uk2-neutral-slate-500)</i> is the label selector card color when selected state.</li>
+  <li><strong>[--uk2-checkbox-selection-cards-text-selected]</strong> <i>(default: --uk2-neutral-slate-400)</i> is the text selector card color when selected state.</li>
+  <li><strong>[--uk2-checkbox-selection-cards-left-icon-selected]</strong> <i>(default: --uk2-neutral-slate-400)</i>  is the left icon selector card color when selected state.</li>
+  <li><strong>[--uk2-checkbox-selection-cards-chevron-icon-selected]</strong> <i>(default: --uk2-neutral-slate-500)</i>  is the chevron icon selector card color when selected state.</li>
+</ul>
+

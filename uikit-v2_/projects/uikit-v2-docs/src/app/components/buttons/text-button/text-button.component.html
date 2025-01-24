@@ -1,0 +1,217 @@
+<h1>Text Button directive documentation</h1>
+
+<p>
+  Uk2TextButtonDirective is a directive that will only work on
+  <i>&lt;button&gt;</i>
+  elements with mat-button directive, and it will add a class to handle styles.
+</p>
+
+<h2>Requisites</h2>
+
+<p>You need to import the Uk2DirectivesModule from @axos/uikit-v2-lib into the desired module of your Angular App.</p>
+<pre>
+    <code>
+        import Uk2DirectivesModule from @axos/uikit-v2-lib
+    </code>
+</pre>
+
+<div>WAITNG FOR STORYBOOK INTEGRATION</div>
+<hr />
+
+<div>
+  <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  {{ isLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+<div>
+  <button (click)="toggleButtonState()">{{ buttonState }}</button>
+</div>
+<h4>Please resize the screen for responsive</h4>
+
+<p>Small Size</p>
+<button
+  uk2TextButton
+  disableRipple
+  [uk2ButtonSize]="buttonSize.small"
+  [uk2IsLoading]="isLoading"
+  mat-button
+  [disabled]="isDisable"
+>
+  Add
+</button>
+<code>
+  {{ smallSize }}
+</code>
+
+<p>Medium Size</p>
+<button
+  uk2TextButton
+  disableRipple
+  [uk2ButtonSize]="buttonSize.medium"
+  [uk2IsLoading]="isLoading"
+  mat-button
+  [disabled]="isDisable"
+>
+  Add
+</button>
+<code>
+  {{ mediumSize }}
+</code>
+
+<p>Large Size</p>
+<button
+  uk2TextButton
+  disableRipple
+  [uk2ButtonSize]="buttonSize.large"
+  [uk2IsLoading]="isLoading"
+  mat-button
+  [disabled]="isDisable"
+>
+  Add
+</button>
+<code>
+  {{ largeSize }}
+</code>
+
+<h2>Text Icon Buttons</h2>
+<p>Small Size</p>
+<button
+  uk2TextIconButton
+  disableRipple
+  [uk2ButtonSize]="buttonSize.small"
+  [uk2IsLoading]="isLoading"
+  mat-button
+  [disabled]="isDisable"
+>
+  <mat-icon [svgIcon]="svgIconName"></mat-icon>
+</button>
+<code>
+  {{ smallTextIconSize }}
+</code>
+
+<p>Medium Size</p>
+<button
+  uk2TextIconButton
+  disableRipple
+  [uk2ButtonSize]="buttonSize.medium"
+  [uk2IsLoading]="isLoading"
+  mat-button
+  [disabled]="isDisable"
+>
+  <mat-icon [svgIcon]="svgIconName"></mat-icon>
+</button>
+<code>
+  {{ mediumTextIconSize }}
+</code>
+
+<p>Large Size</p>
+<button
+  uk2TextIconButton
+  disableRipple
+  [uk2ButtonSize]="buttonSize.large"
+  [uk2IsLoading]="isLoading"
+  mat-button
+  [disabled]="isDisable"
+>
+  <mat-icon [svgIcon]="svgIconName"></mat-icon>
+</button>
+<code>
+  {{ largeTextIconSize }}
+</code>
+
+<div>
+  <h3>Variant</h3>
+  <p>
+    Small
+    <br />
+    <button
+      uk2TextButton
+      disableRipple
+      [uk2ButtonSize]="buttonSize.small"
+      [uk2IsLoading]="isLoading"
+      mat-button
+      [disabled]="isDisable"
+      [uk2TextButtonVariant]="uk2TextButtonVariant.text"
+    >
+      Small variant button
+    </button>
+  </p>
+  <p>
+    Medium
+    <br />
+    <button
+      uk2TextButton
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      [uk2IsLoading]="isLoading"
+      mat-button
+      [disabled]="isDisable"
+      [uk2TextButtonVariant]="uk2TextButtonVariant.text"
+    >
+      Medium variant button
+    </button>
+  </p>
+  <p>
+    Large
+    <br />
+    <button
+      uk2TextButton
+      disableRipple
+      [uk2ButtonSize]="buttonSize.large"
+      [uk2IsLoading]="isLoading"
+      mat-button
+      [disabled]="isDisable"
+      [uk2TextButtonVariant]="uk2TextButtonVariant.text"
+    >
+      Large variant button
+    </button>
+  </p>
+</div>
+
+<div>
+  <h3>Variant Icons</h3>
+  <p>
+    Small
+    <br />
+    <button
+      uk2TextIconButton
+      disableRipple
+      [uk2ButtonSize]="buttonSize.small"
+      [uk2IsLoading]="isLoading"
+      mat-button
+      [disabled]="isDisable"
+      [uk2TextButtonVariant]="uk2TextButtonVariant.text"
+    >
+      <mat-icon [svgIcon]="svgIconName"></mat-icon>
+    </button>
+  </p>
+  <p>
+    Medium
+    <br />
+    <button
+      uk2TextIconButton
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      [uk2IsLoading]="isLoading"
+      mat-button
+      [disabled]="isDisable"
+      [uk2TextButtonVariant]="uk2TextButtonVariant.text"
+    >
+      <mat-icon [svgIcon]="svgIconName"></mat-icon>
+    </button>
+  </p>
+  <p>
+    Large
+    <br />
+    <button
+      uk2TextIconButton
+      disableRipple
+      [uk2ButtonSize]="buttonSize.large"
+      [uk2IsLoading]="isLoading"
+      mat-button
+      [disabled]="isDisable"
+      [uk2TextButtonVariant]="uk2TextButtonVariant.text"
+    >
+      <mat-icon [svgIcon]="svgIconName"></mat-icon>
+    </button>
+  </p>
+</div>

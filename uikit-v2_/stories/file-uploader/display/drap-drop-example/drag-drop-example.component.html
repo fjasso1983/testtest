@@ -1,0 +1,21 @@
+<div class="uploader-container">
+  <div
+    uk2FileUploadDragDrop
+    [uk2FileUploadTypes]="uploaderAllowedType"
+    [uk2FileUploadMaxFileSize]="maxFileSize"
+    [uk2FileUploadMultipleFiles]="false"
+    [uk2IsUploading]="isUploading"
+    (uk2UploadSuccess)="onSuccessAction($event)"
+  >
+    <input type="file" accept="image/png, image/jpeg, application/pdf" />
+    <div uk2-file-upload-ready>
+      <mat-icon [svgIcon]="uploaderIcon"></mat-icon>
+      <h3> Upload file here</h3>
+      <p> Drag and drop, or <a uk2Anchor>browse</a></p>
+    </div>
+    <div uk2-file-upload-loading>
+      <mat-spinner uk2-file-upload-load-indicator uk2LoadingSpinner class="loading-spinner"></mat-spinner>
+      <p>Loading...</p>
+    </div>
+  </div>
+</div>

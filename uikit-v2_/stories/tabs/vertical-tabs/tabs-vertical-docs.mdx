@@ -1,0 +1,188 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import CommonEnums from '../tab-common-enums.docs.mdx';
+
+# Uk2VerticalTabs documentation
+
+## Introduction
+<p>
+  <b>uk2VerticalTabs</b> is a directive to customize behavior and styling of Angular Material component <a  href="https://v15.material.angular.io/components/tabs/api#MatTabGroup" target="_blank">MatTabGroup</a>
+</p>
+
+### Constraints
+
+<ol>
+  <li>
+    It should only be applied to <b>&lt;mat-tab-group&gt;</b> elements with <b>uk2VerticalTabs</b> directive disableRipple directive and animationDuration='0ms' attribute.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the "color" or "defaultColor" attribute for the Angular Material component.
+  </li>
+</ol>
+
+## Prerequisites
+
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+- You need to import MatTabsModule from @angular/material/* into the desired module of your Angular App. To be able to use uk2StretchTabs directive.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatTabsModule } from '@angular/material/tabs';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>
+    [uk2TabSize] <u>Uk2VerticalTabSizeEnum</u> <i>(optional)</i> enum to change the size of tabs.
+  </li>
+  <li>
+    [uk2IsLoading] <u>boolean</u> <i>(optional)</i> flag to toggle between default state to skeleton state.
+  </li>
+  <li>
+    [uk2IsDisabled] <u>boolean</u> <i>(optional)</i> flag to toggle between default state to disabled state.
+  </li>
+</ul>
+
+## Enums
+
+- You need to import <strong>Uk2VerticalTabSizeEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the size of the tab header.
+
+<CommonEnums/>
+
+## Sample code
+
+<p>
+  Heres a example of vertical tabs component.
+</p>
+
+#### *.component.html
+<Source
+  dark
+  code={dedent`
+    <mat-tab-group
+      disableRipple
+      animationDuration="0ms"
+      mat-stretch-tabs="false"
+      uk2VerticalTabs
+      [uk2IsLoading]="isLoading"
+      [uk2TabSize]="sizeTabs"
+      [uk2IsDisabled]="isDisabled"
+    >
+      <mat-tab label="Account">
+        <div> Content 1 </div>
+      </mat-tab>
+      <mat-tab label="My Portfolio">
+        <div> Content 2 </div>
+      </mat-tab>
+      <mat-tab label="People">
+        <div> Content 3 </div>
+      </mat-tab>
+    </mat-tab-group>
+  `}
+/>
+<br/>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    import { Uk2VerticalTabSizeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export class YourComponent {
+      isLoading = false;
+      isDisabled = false;
+      sizeTabs = Uk2VerticalTabSizeEnum.medium;
+    \r
+      constructor() {}
+    }
+  `}
+/>
+
+## Compatibility with uk2-notification-badge directive
+
+<p>
+  Heres a example of vertical tabs with uk2-notification-badge. For more information review <a href="https://uikit.dev.axosbank.com/?path=/docs/components-notification-badge--basic-usage" target="_blank">notification badge</a> documentation.
+</p>
+
+#### *.component.html
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-tab-group
+      disableRipple
+      animationDuration="0ms"
+      mat-stretch-tabs="false"
+      uk2VerticalTabs
+      [uk2IsLoading]="isLoading"
+      [uk2TabSize]="sizeTabs"
+      [uk2IsDisabled]="isDisabled"
+    >
+      <ng-template mat-tab-label>
+        <div matBadge="!" uk2NotificationBadge>Account</div>
+      </ng-template>
+      <div class="tab-content"> Content 1 </div>
+    </mat-tab-group>
+  `}
+/>
+<br/>
+
+## Customizing styles (width, spacing, height)
+
+<p>Deactivate styles encapsulation</p>
+
+#### *.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    @Component({
+      selector: 'my-component',
+      ...
+      encapsulation: ViewEncapsulation.None,
+    })
+    export class TabsVerticalComponent {
+      //...
+    }
+  `}
+/>
+
+#### *.component.scss
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+    \n
+    // Make the vertical tabs grab 100% height
+    body {
+      height: 100%;
+    }
+    \n
+    :root {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    \n
+    // Style vertical tabs container and tabs content
+    mat-tab-group {
+      gap: 20px;
+      flex-basis: auto;
+      flex-grow: 2;
+      \n
+      .mat-mdc-tab-label-container {
+        width: 200px;
+      }
+    }
+  `}
+/>

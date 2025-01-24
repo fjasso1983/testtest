@@ -1,0 +1,15 @@
+@import './uk2-file-upload-display.variables.scss';
+@import './uk2-file-upload-display.mixins';
+
+.uk2-file-upload-display {
+  @include file-uploader-drag-drop-variables();
+  @include upload-display-styles();
+
+  .uk2-file-upload-display-preview {
+    @include upload-display-preview-container();
+  }
+
+  .uk2-file-upload-display-info-bar {
+    @include upload-display-description-bar();
+  }
+}

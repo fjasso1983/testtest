@@ -1,0 +1,13 @@
+@import './uk2-tag-input-chips.mixins.scss';
+
+.uk2-tag-input-field-chips {
+  @include uk2-tag-input-chips;
+}
+
+.uk2-tag-input-field-listbox {
+  @include uk2-tag-input-listbox;
+}
+
+.uk2-tag-input-field {
+  @include uk2-tag-input;
+}

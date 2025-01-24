@@ -1,0 +1,67 @@
+import { CheckboxAlignComponent } from './checkbox-align.component';
+import { Source, ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import IntroductionLayout from '../checkbox-introduction.docs.mdx';
+import dedent from 'ts-dedent';
+
+# Uk2Checkbox directive: Alignment documentation
+
+<IntroductionLayout></IntroductionLayout>
+
+## Right Align
+
+<Source
+  dark
+  code={dedent`
+  <div class="uk2-checkbox-container uk2-checkbox-align-right">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading"[indeterminate]="true"></mat-checkbox>
+    <label>Lorem ipsum dolot sit amet lorem</label>
+  </div>
+  <div class="uk2-checkbox-container uk2-checkbox-align-right">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading" [checked]="isChecked"></mat-checkbox>
+    <label>Lorem ipsum dolot</label>
+  </div>
+  <div class="uk2-checkbox-container uk2-checkbox-align-right">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading"></mat-checkbox>
+    <label>Lorem ipsum dolot sit</label>
+  </div>
+  <div class="uk2-checkbox-container uk2-checkbox-align-right">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading" ></mat-checkbox>
+    <label>Lorem ipsum dolot sit amet</label>
+  </div>
+  <div class="uk2-checkbox-container uk2-checkbox-align-right">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading" [disabled]="true"></mat-checkbox>
+    <label>Lorem ipsum </label>
+  </div>
+  `}
+/>
+
+## Left Align
+
+<Source
+  dark
+  code={dedent`
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading"[indeterminate]="true"></mat-checkbox>
+    <label>Lorem ipsum dolot sit amet lorem</label>
+  </div>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading" [checked]="isChecked"></mat-checkbox>
+    <label>Lorem ipsum dolot</label>
+  </div>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading"></mat-checkbox>
+    <label>Lorem ipsum dolot sit</label>
+  </div>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading" ></mat-checkbox>
+    <label>Lorem ipsum dolot sit amet</label>
+  </div>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading" [disabled]="true"></mat-checkbox>
+    <label>Lorem ipsum </label>
+  </div>
+  `}
+/>

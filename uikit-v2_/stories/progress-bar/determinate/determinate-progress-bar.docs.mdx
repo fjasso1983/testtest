@@ -1,0 +1,57 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# uk2DeterminateProgressBar directive documentation
+
+## Introduction
+
+<p>
+  uk2DeterminateProgressBar is a directive designed to customize the styling of a{' '}
+  <a href="https://v15.material.angular.io/components/progress-bar/overview" target="_blank">
+    <strong>&lt;mat-progress-bar&gt;</strong>
+  </a>{' '}
+  Angular Material component to achieve the progress bar component described on the
+  <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?type=design&node-id=1519-43872&t=dj13Ck79TgLkiacd-0" target="_blank"
+  >{' '}
+    Axos Design System
+  </a>
+  .
+</p>
+
+### Constraints
+
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;mat-progress-bar&gt;</strong> Angular Material component. It will add the
+    <strong>uk2-determinate-progress-bar</strong> css class name to handle styles.
+  </li>
+  <li>
+    <strong>&lt;mat-progress-bar&gt;</strong> should have a <strong>mode="determinate"</strong> attribute set and not
+    have any <strong>color="..."</strong> attribute of any value.
+    <br />
+    See <a href="https://v15.material.angular.io/components/progress-bar/overview" target="_blank"> Angular Material - Progress Bar Documentation </a> to see how this can be achieved.
+  </li>
+</ol>
+
+## Prerequisites
+- You need to import MatProgressBarModule from @angular/material/* into the desired module of your Angular App to be able to use uk2DeterminateProgressBar directive.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatProgressBarModule } from '@angular/material/progress-bar';
+  `}
+/>
+
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+## Sample Code
+
+<Source
+  dark
+  code={dedent`
+      <mat-progress-bar uk2DeterminateProgressBar mode="determinate" value="40"></mat-progress-bar>
+  `}
+/>

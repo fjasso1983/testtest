@@ -1,0 +1,33 @@
+<h1>Hyperlink directive documentation</h1>
+
+<p>
+  Uk2AnchorDirective is a directive that will only work on anchor elements
+  <i>&lt;a&gt;</i>
+  and it will add a class name to handle styles.
+</p>
+
+<h2>Basic Example</h2>
+<div class="example">
+  <div>
+    <p><b>Normal link</b></p>
+    -
+    <a uk2Anchor routerLink="not/exiting/route">My link</a>
+  </div>
+  <div>
+    <p><b>Visited link</b></p>
+    -
+    <a uk2Anchor routerLink="/components/form-field">Visited link</a>
+  </div>
+  <div>
+    <p><b>Link without href</b></p>
+    -
+    <a uk2Anchor>Link</a>
+  </div>
+</div>
+<br />
+<h2>Code</h2>
+<pre>
+  <code>
+    {{basicExample}}
+  </code>
+</pre>

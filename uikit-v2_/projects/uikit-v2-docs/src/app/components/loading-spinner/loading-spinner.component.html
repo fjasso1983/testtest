@@ -1,0 +1,26 @@
+<h1>Loading spinner directive documentation</h1>
+<br />
+<div class="container">
+  <h3>Custom values - {{ diameter }} / {{ stroke }}</h3>
+  <mat-spinner uk2LoadingSpinner [uk2Diameter]="diameter" [uk2StrokeWidth]="stroke"></mat-spinner>
+  <br />
+  <button (click)="changeValues()">Change spinner size</button>
+  <br />
+  <br />
+  <h3>Uk2 value attributes - 128 / 16</h3>
+  <mat-spinner uk2LoadingSpinner [uk2Diameter]="128" [uk2StrokeWidth]="16"></mat-spinner>
+  <br />
+  <br />
+  <h3>Uk2 value attributes - 64 / 8</h3>
+  <mat-spinner uk2LoadingSpinner [uk2Diameter]="64" [uk2StrokeWidth]="8"></mat-spinner>
+  <br />
+  <br />
+  <h3>Uk2 value attributes - 32 / 4</h3>
+  <mat-spinner uk2LoadingSpinner [uk2Diameter]="32" [uk2StrokeWidth]="4"></mat-spinner>
+  <br />
+  <br />
+  <h3>Default Uk2 values</h3>
+  <mat-spinner uk2LoadingSpinner></mat-spinner>
+  <br />
+  <br />
+</div>

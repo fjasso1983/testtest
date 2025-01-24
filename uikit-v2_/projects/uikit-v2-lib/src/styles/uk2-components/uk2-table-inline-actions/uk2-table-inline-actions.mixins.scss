@@ -1,0 +1,63 @@
+@mixin inline-actions-styles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  button {
+    &.uk2-inline-table-button {
+      @include button-dimensions(20px);
+      border-radius: 4px !important;
+      &:hover {
+        border-radius: 4px !important;
+        background-color: var(--uk2-table-inline-button-hover-color) !important;
+        @include button-dimensions(20px);
+      }
+      &:active {
+        background-color: var(--uk2-table-inline-button-active-color) !important;
+      }
+      > mat-icon {
+        color: var(--uk2-table-inline-button-icon-color);
+      }
+      > span.mat-mdc-button-touch-target {
+        @include button-dimensions(20px);
+      }
+    }
+  }
+}
+
+@mixin inline-actions-menu-flyout {
+  min-width: 142px;
+  .uk2-list-item {
+    padding: 6px 8px;
+  }
+}
+
+@mixin table-tooltip-styles {
+  background-color: var(--uk2-neutral-slate-400);
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: none;
+  height: 24px;
+  padding: 4px 8px;
+  position: relative;
+  color: var(--uk2-neutral-white);
+
+  & > .tippy-svg-arrow {
+    transform: rotate(180);
+    fill: var(--uk2-neutral-slate-400);
+  }
+
+  .tippy-content {
+    @include uk2-font__body-medium--50();
+  }
+
+  &[data-placement^='top'] > .tippy-svg-arrow > svg {
+    left: 2.5px;
+  }
+}
+
+@mixin button-dimensions($buttonSize) {
+  width: $buttonSize !important;
+  height: $buttonSize !important;
+  min-width: $buttonSize !important;
+  min-height: $buttonSize !important;
+}

@@ -1,0 +1,10 @@
+@mixin uk2-size($width, $height){
+  width:$width !important;
+  height:$height !important;
+}
+
+@mixin uk2-setup-form-field-size($padding-y, $min-height) {
+  padding-top: $padding-y;
+  padding-bottom: $padding-y;
+  min-height: $min-height;
+}

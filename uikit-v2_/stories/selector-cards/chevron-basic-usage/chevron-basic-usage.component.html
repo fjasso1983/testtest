@@ -1,0 +1,36 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Chevron or radio selector cards single option states (default, hover, selected, skeleton and disabled).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Label and Description text truncation behavior.</li>
+</ul>
+<section>
+  <mat-selection-list
+    uk2CheckboxSelectionCards
+    disableRipple
+    [uk2IsLoading]="uk2IsLoading"
+    [uk2IsRadio]="uk2IsRadio"
+    [multiple]="false"
+    #singleOption
+    [disabled]="isDisabled"
+  >
+    <mat-list-option *ngFor="let number of [1, 2, 3]" [value]="selected">
+      <div *ngIf="showIcon" class="uk2-checkbox-selection-cards-icon-container">
+        <mat-icon [svgIcon]="svgIconName" [ngClass]="'uk2-icon-tier-' + svgIconTier"></mat-icon>
+      </div>
+      <div class="uk2-checkbox-selection-cards-text-container">
+        <label>{{ number }} - {{ headerText }}</label>
+        <p>
+          {{ bodyText }}
+        </p>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+</section>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

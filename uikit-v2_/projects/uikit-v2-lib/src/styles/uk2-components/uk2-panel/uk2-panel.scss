@@ -1,0 +1,22 @@
+@import './uk2-panel.mixins.scss';
+@import './uk2-panel.variables.scss';
+
+.uk2-panel {
+  @include uk2-panel();
+
+  .uk2-panel-header {
+    @include uk2-panel-header();
+  }
+
+  .uk2-panel-content {
+    @include uk2-panel-content();
+  }
+
+  .uk2-panel-footer {
+    @include uk2-panel-footer();
+  }
+}
+
+.uk2-panel-skeleton {
+  @include uk2-panel-skeleton();
+}

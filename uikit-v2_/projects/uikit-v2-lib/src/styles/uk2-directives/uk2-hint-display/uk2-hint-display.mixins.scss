@@ -1,0 +1,5 @@
+@mixin hideMatFormFieldHint {
+  mat-hint {
+    display: none !important;
+  }
+}

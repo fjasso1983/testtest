@@ -1,0 +1,38 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Button Toggle states (Default, Hover, Selected, Skeleton)</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Button Toggle Group responsiveness on each size</li>
+  <li>Click action logged with selected item info under Actions tabs below</li>
+</ul>
+
+<mat-button-toggle-group
+  uk2ButtonToggleGroup
+  [uk2IsLoading]="isLoading"
+  [size]="size"
+  value="3M"
+  (change)="onValueChange($event.value)"
+>
+  <mat-button-toggle value="3M">
+    <label>3M</label>
+  </mat-button-toggle>
+  <mat-button-toggle value="6M">
+    <label>6M</label>
+  </mat-button-toggle>
+  <mat-button-toggle value="YDT">
+    <label>YDT</label>
+  </mat-button-toggle>
+  <mat-button-toggle value="1Y">
+    <label>1Y</label>
+  </mat-button-toggle>
+  <mat-button-toggle value="3Y">
+    <label>3Y</label>
+  </mat-button-toggle>
+  <mat-button-toggle value="5Y">
+    <label>5Y</label>
+  </mat-button-toggle>
+  <mat-button-toggle value="ALL">
+    <label>ALL</label>
+  </mat-button-toggle>
+</mat-button-toggle-group>

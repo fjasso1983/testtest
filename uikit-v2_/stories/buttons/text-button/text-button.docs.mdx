@@ -1,0 +1,129 @@
+import { TextButtonComponent } from './text-button.component';
+import { Source, ArgsTable, Canvas, Meta, Story, PRIMARY_STORY } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import { MatButtonModule } from '@angular/material/button';
+import PrerequisitesDoc from '../button-prerequisites.docs.mdx';
+import InlineExampleDoc from '../button-inline-example.docs.mdx';
+import InputList from '../input-list.docs.mdx';
+import InlineLoadingDoc from '../button-inline-loading.docs.mdx';
+import ButtonEnums from '../button-enums.docs.mdx';
+import dedent from 'ts-dedent';
+
+# uk2TextButton directive documentation
+
+## Introduction
+<p>
+<strong>uk2TextButton</strong> is a directive designed to customize the styling of <strong>mat-button</strong> directive from from <a href='https://v15.material.angular.io/components/button/overview'>Angular Material</a> to adhere to <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=752%3A27363&t=zlTHs2LZclf3UA1Z-0">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;button&gt;</strong> elements with mat-button directive. It will add the <strong> uk2-text-button-[large,medium,small] </strong> css class name to handle styles.
+  </li>
+  <li>
+    It should only be applied to <strong>&lt;button&gt;</strong> elements with disableRipple directive. To avoid breaking the predefined styles.
+  </li>
+  <li>
+    <strong>uk2TextButton</strong> directive doesn't work with color attribute.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the "color" attribute for the Angular Material component.
+  </li>
+</ol>
+
+<PrerequisitesDoc></PrerequisitesDoc>
+
+## Inputs
+
+<ul>
+  <InputList/>
+  <li>[uk2TextButtonVariant] <u>Uk2TextButtonVariant</u> <i>(optional)</i> Control the styles for different text button variants</li>
+</ul>
+
+<InlineLoadingDoc></InlineLoadingDoc>
+
+## Enums
+<ButtonEnums/>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2TextButtonVariant } from '@axos/uikit-v2-lib';
+      \r
+      export enum Uk2TextButtonVariant {
+        button = 'button',
+        text = 'text',
+      }
+  `}
+/>
+
+## Sample Code
+### .component.html
+<p>
+  Note the use of <strong>uk2TextButton</strong> directive, applied to the <strong>&lt;button&gt;</strong> element.
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <button uk2TextButton disableRipple [uk2ButtonSize]="uk2ButtonSize" [uk2IsLoading]="uk2IsLoading" mat-button [disabled]="isDisabled">
+       Add
+    </button>
+  `}
+/>
+
+### .component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class YourComponent {
+      uk2ButtonSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.large;
+      uk2IsLoading = false;
+      constructor() {}
+    }
+  `}
+/>
+
+<InlineExampleDoc></InlineExampleDoc>
+
+## Text button variant
+### .component.html
+<p>
+  Note the use of <strong>uk2TextButtonVariant</strong> directive, applied to the <strong>&lt;button&gt;</strong> element.
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <button
+      uk2TextButton
+      disableRipple
+      mat-button
+      [disabled]="isDisabled"
+      [uk2IsLoading]="uk2IsLoading"
+      [uk2TextButtonVariant]="variant"
+    >
+       Add
+    </button>
+  `}
+/>
+
+### .component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class YourComponent {
+      uk2TextButtonVariant: Uk2TextButtonVariant = Uk2TextButtonVariant.text;
+      uk2IsLoading = false;
+      constructor() {}
+    }
+  `}
+/>

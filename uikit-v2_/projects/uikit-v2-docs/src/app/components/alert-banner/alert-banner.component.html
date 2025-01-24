@@ -1,0 +1,74 @@
+<p>alert type</p>
+<uk2-alert-banner
+  *ngIf="showBanner"
+  (uk2AlertBannerDismissBannerAction)="showBannerStatus(false)"
+  [uk2AlertBannerType]="alertType"
+  [uk2AlertBannerBehavior]="dismissibleBehavior"
+  [uk2AlertBannerBodyText]="largebodyText"
+></uk2-alert-banner>
+<br />
+<br />
+<br />
+<p>inform type</p>
+<uk2-alert-banner
+  *ngIf="showBanner"
+  (uk2AlertBannerDismissBannerAction)="showBannerStatus(false)"
+  [uk2AlertBannerType]="informType"
+  [uk2AlertBannerBehavior]="dismissibleBehavior"
+  [uk2AlertBannerBodyText]="bodyText"
+  [uk2AlertBannerHeaderText]="headerText"
+></uk2-alert-banner>
+<br />
+<br />
+<p>Custom Icon</p>
+<uk2-alert-banner
+  *ngIf="showBanner"
+  (uk2AlertBannerDismissBannerAction)="showBannerStatus(false)"
+  [uk2AlertBannerType]="informType"
+  [uk2AlertBannerBehavior]="dismissibleBehavior"
+  [uk2AlertBannerBodyText]="bodyText"
+  [uk2AlertBannerHeaderText]="headerText"
+  [uk2AlertBannerSvgIconName]="cogIcon"
+></uk2-alert-banner>
+<br />
+<br />
+<p>Custom Icon + Url Action</p>
+<uk2-alert-banner
+  *ngIf="showBanner"
+  (uk2AlertBannerHyperlinkAction)="urlClick()"
+  (uk2AlertBannerDismissBannerAction)="showBannerStatus(false)"
+  [uk2AlertBannerType]="informType"
+  [uk2AlertBannerBehavior]="dismissibleBehavior"
+  [uk2AlertBannerBodyText]="bodyText"
+  [uk2AlertBannerHeaderText]="headerText"
+  [uk2AlertBannerSvgIconName]="cogIcon"
+  [uk2AlertBannerHyperlinkText]="hyperLink"
+></uk2-alert-banner>
+<br />
+<br />
+<br />
+<p>
+  Skeleton :
+  <button (click)="changeSkeleton()">Change SKeleton</button>
+</p>
+<uk2-alert-banner
+  *ngIf="showBanner"
+  (uk2AlertBannerHyperlinkAction)="urlClick()"
+  (uk2AlertBannerDismissBannerAction)="showBannerStatus(false)"
+  [uk2AlertBannerType]="informType"
+  [uk2AlertBannerBehavior]="dismissibleBehavior"
+  [uk2AlertBannerBodyText]="bodyText"
+  [uk2AlertBannerHeaderText]="headerText"
+  [uk2AlertBannerSvgIconName]="cogIcon"
+  [uk2AlertBannerHyperlinkText]="hyperLink"
+  [uk2IsLoading]="isLoading"
+></uk2-alert-banner>
+<br />
+<br />
+<br />
+<br />
+<br />
+<button (click)="showBannerStatus(true)">show Banner</button>
+<br />
+<br />
+Url banner clicked counter: {{ urlClickCounter }}

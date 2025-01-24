@@ -1,0 +1,64 @@
+import IntroductionLayout from '../introduction.docs.mdx';
+import { Source, Canvas } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+<IntroductionLayout></IntroductionLayout>
+
+## Inputs
+
+<ul>
+  <li>[uk2HintDisplayPattern] <u>Uk2FormFieldHintDisplayPatternEnum</u> (<i>optional</i>) changes the default behavior as desired.</li>
+</ul>
+
+## Enums
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+export enum Uk2FormFieldHintDisplayPatternEnum {
+  alwaysVisible = 'alwaysVisible',
+  hideInDefaultState = 'hideInDefaultState',
+}
+`}
+/>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+import { Uk2FormFieldHintDisplayPatternEnum } from '@axos/uikit-v2-lib';
+`}
+/>
+
+
+
+## Sample code
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+<mat-form-field>
+  <mat-label>Enter your name*</mat-label>
+  <input type="text" matInput [uk2HintDisplayPattern]="behavior" />
+  <mat-hint>Second name is optional</mat-hint>
+  <mat-error>Invalid name</mat-error>
+</mat-form-field>
+  `}
+/>
+
+### .component.ts
+
+<Source
+  dark
+  language="typescript"
+  code={dedent`
+import { Uk2FormFieldHintDisplayPatternEnum } from '@axos/uikit-v2-lib';
+class MyComponent {
+  behavior: Uk2FormFieldHintDisplayPatternEnum = Uk2FormFieldHintDisplayPatternEnum.hideInDefaultState;
+}
+  `}
+/>

@@ -1,0 +1,27 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li
+    >Value movement component with customizations for type, which handles the icon to use and the color for the value
+    part.</li
+  >
+  <li>Customizations for display type.</li>
+  <li>Customizations for amount, percentage and description.</li>
+  <li>Customizations for size, it can be extraSmall, small, medium and large</li>
+  <li>Description. It can be plain text or projected content</li>
+  <li>Skeleton state. Activated when using the Is Loading control below.</li>
+</ul>
+<uk2-value-movement
+  [amount]="!isAmountUndefined ? amount : undefined"
+  [percentage]="!isPercentageUndefined ? percentage : undefined"
+  [uk2IsLoading]="isLoading"
+  [description]="description"
+  [displayType]="displayType"
+  [valueMovementType]="valueMovementType"
+  [trendFormat]="trendFormat"
+  [isEmpty]="isEmpty"
+  [isIconOnly]="isIconOnly"
+  [size]="size"
+>
+  <span>Projected <i>content</i></span>
+</uk2-value-movement>

@@ -1,0 +1,66 @@
+<ng-container *ngIf="uk2FilterChipStateService.filterChipState$ | async as state">
+  <div class="uk2-filter-chip-overlay-label">
+    <div class="uk2-filter-chip-overlay-label-header">
+      <span class="uk2-filter-chip-overlay-label-identifier">{{ state.identifier }}</span>
+      <div
+        class="uk2-filter-chip-overlay-label-conditional-container"
+        [class.uk2-filter-chip-overlay-label-conditional-container-active]="flyDownOpen"
+        (click)="flyDownOpen = !flyDownOpen"
+      >
+        <span class="uk2-filter-chip-overlay-label-conditional" cdkOverlayOrigin #labelOrigin="cdkOverlayOrigin">
+          {{ state.conditional.label }}
+        </span>
+        <mat-icon [svgIcon]="chevronDownIcon"></mat-icon>
+      </div>
+    </div>
+    <div
+      tabindex="0"
+      class="uk2-filter-chip-overlay-label-ellipsis"
+      (click)="ellipsisFlyDownOpen = !ellipsisFlyDownOpen"
+      (keydown.enter)="ellipsisFlyDownOpen = !ellipsisFlyDownOpen"
+    >
+      <mat-icon cdkOverlayOrigin #ellipsisOrigin="cdkOverlayOrigin" [svgIcon]="ellipsisHorizontalIcon"></mat-icon>
+    </div>
+  </div>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="labelOrigin"
+    [cdkConnectedOverlayOpen]="flyDownOpen"
+    (overlayOutsideClick)="flyDownOpen = false"
+  >
+    <div class="uk2-filter-chip-inner-fly-down-container">
+      <ul>
+        <li
+          tabindex="0"
+          class="uk2-filter-chip-inner-fly-down-option"
+          [class.uk2-inner-fly-down-option-active]="condition.label === state.conditional.label"
+          *ngFor="let condition of uk2Conditions"
+          (click)="updateCondition(condition)"
+          (keydown.enter)="updateCondition(condition)"
+        >
+          {{ condition.label }}
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="ellipsisOrigin"
+    [cdkConnectedOverlayOpen]="ellipsisFlyDownOpen"
+    (overlayOutsideClick)="ellipsisFlyDownOpen = false"
+  >
+    <div class="uk2-filter-chip-inner-fly-down-container uk2-filter-chip-delete-filter-container">
+      <div
+        tabindex="0"
+        class="uk2-filter-chip-inner-fly-down-option"
+        (click)="deleteFilter()"
+        (keydown.enter)="deleteFilter()"
+      >
+        <mat-icon [svgIcon]="trashIcon"></mat-icon>
+        <span>Delete filter</span>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>

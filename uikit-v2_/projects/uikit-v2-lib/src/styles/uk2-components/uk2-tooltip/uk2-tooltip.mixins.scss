@@ -1,0 +1,142 @@
+@mixin uk2-tooltip-default() {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  .uk2-tooltip-label-text {
+    color: var(--uk2-tooltip-label-color) !important;
+    margin-right: 4px;
+    &.uk2-tooltip-label-text-large {
+      @include uk2-format-text('Roboto' !important, 16px!important, 500!important, 24px!important);
+    }
+
+    &.uk2-tooltip-label-text-small {
+      @include uk2-format-text('Roboto' !important, 12px!important, 500!important, 16px!important);
+    }
+
+    &.uk2-tooltip-label-text-medium {
+      @include uk2-format-text('Roboto' !important, 14px!important, 500!important, 20px!important);
+    }
+  }
+
+  .uk2-tooltip-button {
+    color: var(--uk2-tooltip-icon-color) !important;
+    padding: 0px;
+
+    * {
+      box-sizing: content-box !important;
+    }
+
+    &:hover {
+      border-radius: 8px;
+      background: var(--neutral-grey-100, #f4f4f4);
+    }
+  }
+
+  .uk2-tooltip-button-large {
+    @include uk2-tooltip-icon-button-size(32px, 21px);
+  }
+
+  .uk2-tooltip-button-medium {
+    @include uk2-tooltip-icon-button-size(28px, 17.5px);
+  }
+
+  .uk2-tooltip-button-small {
+    @include uk2-tooltip-icon-button-size(24px, 16px);
+  }
+
+  .mat-mdc-icon-button:hover .mat-mdc-button-persistent-ripple::before {
+    background-color: transparent !important;
+    box-sizing: content-box !important; // todo this needs to be applied to all internal elements of the button
+  }
+}
+
+@mixin uk2-tooltip-icon-button-size($size-container, $size-icon) {
+  height: $size-container;
+  width: $size-container;
+  font-size: $size-container;
+  .mat-mdc-button-touch-target {
+    height: $size-container;
+    width: $size-container;
+  }
+  .mat-icon {
+    height: $size-container;
+    width: $size-container;
+    svg {
+      height: $size-icon;
+      width: $size-icon;
+      padding: calc(($size-container - $size-icon) / 2);
+    }
+  }
+}
+
+@mixin uk2-tooltip-skeleton() {
+  .uk2-tooltip-label-text {
+    background-color: var(--uk2-neutral-grey-400);
+    border-radius: 8px !important;
+    width: 209px;
+    height: 24px;
+  }
+
+  .uk2-tooltip-button {
+    background-color: var(--uk2-neutral-grey-400);
+    border-radius: 8px;
+    mat-icon {
+      display: none;
+    }
+  }
+}
+
+@mixin uk2-tooltip-container-default() {
+  display: flex;
+  flex-direction: column;
+  .uk2-tooltip-content {
+    padding: 16px;
+  }
+  .uk2-tooltip-content-message {
+    @include uk2-max-number-of-lines(12);
+    @include uk2-format-text('Roboto', 14px, 400, 20px);
+  }
+
+  .uk2-tooltip-close-button {
+    max-width: fit-content;
+    margin-top: 8px;
+    color: accent-color-400-hsl() !important;
+    cursor: pointer;
+    @include uk2-format-text('Roboto', 18px, 400, 26px);
+    background: var(--uk2-neutral-wite);
+    border: hidden;
+    padding: 0;
+  }
+}
+
+@mixin uk2-tooltip-container-skeleton {
+  .uk2-tooltip-container-skeleton {
+    padding: 16px;
+  }
+
+  .uk2-tooltip-content-message-skeleton {
+    width: 211px;
+    height: 24px;
+    border-radius: 8px;
+    background: var(--uk2-neutral-grey-400) !important;
+  }
+}
+
+@mixin uk2-tooltip-arrow-placement {
+  &[data-placement^='bottom'] > .tippy-svg-arrow > svg {
+    left: -3px;
+  }
+
+  &[data-placement^='top'] > .tippy-svg-arrow > svg {
+    left: -3px;
+  }
+
+  &[data-placement^='right'] > .tippy-svg-arrow > svg {
+    top: 0px;
+  }
+
+  &[data-placement^='left'] > .tippy-svg-arrow > svg {
+    top: 0px;
+  }
+}

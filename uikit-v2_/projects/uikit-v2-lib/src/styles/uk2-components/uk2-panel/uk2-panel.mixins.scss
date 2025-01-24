@@ -1,0 +1,173 @@
+.cdk-overlay-pane {
+  display: block;
+}
+
+@mixin uk2-panel {
+  background: var(--uk2-neutral-white);
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  height: 100%;
+  position: absolute;
+
+  animation-timing-function: cubic-bezier(0.41, 0, 0.58, 1);
+  animation-duration: 200ms;
+
+  &.uk2-panel-left-position {
+    border-radius: 0 16px 16px 0;
+    animation-name: left-enter;
+    left: 0;
+  }
+
+  &.uk2-panel-right-position {
+    border-radius: 16px 0 0 16px;
+    animation-name: right-enter;
+    right: 0;
+  }
+
+  &.uk2-panel-animation-left-position-dispose {
+    animation-name: left-exit;
+  }
+
+  &.uk2-panel-animation-right-position-dispose {
+    animation-name: right-exit;
+  }
+
+  .uk2-panel-grabber {
+    justify-content: center;
+    position: absolute;
+    height: 100%;
+    width: 16px;
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    cursor: col-resize;
+  }
+
+  .uk2-grabber-resize-left {
+    left: 0;
+  }
+
+  .uk2-grabber-resize-right {
+    right: 0;
+  }
+
+  .uk2-panel-grabber-rectangle {
+    position: absolute;
+    background: var(--uk2-neutral-grey-500);
+    height: 24px;
+    width: 4px;
+    top: auto;
+    left: auto;
+    border-radius: 2.5px;
+  }
+}
+
+@mixin uk2-panel-header {
+  width: auto;
+  .uk2-panel-header-content {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    .uk2-panel-left-header-content {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+    }
+    h2 {
+      @include uk2-font__display-bold--300();
+      color: var(--uk2-header-font-color);
+      margin: 0;
+      flex: 1;
+      &.uk2-header-truncate {
+        @include uk2-text-truncation-ellipsis();
+      }
+    }
+
+    button {
+      &.uk2-panel-header-icon {
+        color: var(--uk2-panel-header-icon-color) !important;
+      }
+    }
+  }
+}
+
+@mixin uk2-panel-content {
+  background-color: var(--uk2-neutral-grey-300);
+  overflow-y: auto;
+  flex: 1;
+  width: auto;
+  &.uk2-panel-hidden-footer {
+    border-radius: 0 0 0 16px;
+  }
+}
+
+@mixin uk2-panel-footer {
+  padding: 16px 24px;
+  width: auto;
+  &.side-spaced-actions {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, auto);
+    grid-column-gap: 0px;
+    justify-items: left;
+    button {
+      width: auto;
+    }
+    button[uk2textbutton] {
+      order: 1;
+    }
+    button[uk2secondarybutton] {
+      order: 2;
+    }
+    button[uk2primarybutton] {
+      order: 3;
+      margin-left: 16px !important;
+    }
+  }
+}
+
+@mixin uk2-panel-skeleton {
+  @include uk2-loading-skeleton-animation();
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+// Animation frames
+@keyframes left-enter {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes right-enter {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes left-exit {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes right-exit {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}

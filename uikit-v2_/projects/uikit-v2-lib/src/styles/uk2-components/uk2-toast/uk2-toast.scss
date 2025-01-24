@@ -1,0 +1,60 @@
+@import './uk2-toast.mixins.scss';
+
+.uk2-toast-cdk-overlay-container{
+  @include uk2-toast-overlay-responsive();
+}
+
+.uk2-toast-container{
+  @include uk2-toast-container-default();
+  @include uk2-toast-responsive();
+}
+
+.uk2-toast{
+  @include uk2-toast-default();
+  @include uk2-toast-success();
+  @include uk2-toast-alert();
+  @include uk2-toast-skeleton();
+  @include uk2-toast-responsive();
+}
+
+.uk2-toast-container-slide-down{
+  @include uk2-toast-container-hide();
+}
+
+/**
+ * ----------------------------------------
+ * animation uk2-toast-slide-top
+ * ----------------------------------------
+ */
+
+@keyframes uk2-toast-slide-top {
+  0% {
+    margin-bottom:-160px;
+    transform: none !important;
+    opacity:1 !important;
+  }
+  50% {
+    margin-bottom:-160px;
+    transform: none !important;
+    opacity:1 !important;
+  }
+  100% {
+    margin-bottom:80px;
+  }
+}
+
+@keyframes uk2-toast-slide-hide {
+  100% {
+    margin-bottom:-160px;
+    transform: none !important;
+    opacity:1 !important;
+  }
+  50% {
+    margin-bottom:-160px;
+    transform: none !important;
+    opacity:1 !important;
+  }
+  0% {
+    margin-bottom:80px;
+  }
+}

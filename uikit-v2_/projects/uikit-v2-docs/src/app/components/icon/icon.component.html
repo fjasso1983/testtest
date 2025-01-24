@@ -1,0 +1,99 @@
+<h1 class="title">UiKit V2 Icon component documentation Tier 1</h1>
+<div>
+  <ul>
+    <li>
+      Tier 1 Icons are most commonly used at 24x24. They can be used at 16x16 or 20x20, 32x32 etc. Dimensions must be
+      scaled up in increments of 8px after reaching 24x24.
+    </li>
+    <li>By default, Tier 1 Icons are colored neutral/slate 400.</li>
+    <li>
+      Tier 1 Icons have the ability to have other colors applied to it such as semantic/red, semantic/green,
+      primary/blue 400 etc.
+    </li>
+    <li>
+      Tier 1 Icons can be colored white but must be on a colored background with sufficient contrast for ADA compliance.
+    </li>
+  </ul>
+</div>
+<h2>Alerts</h2>
+<div class="inline" *ngFor="let alertIcon of alertIcons">
+  <mat-icon [svgIcon]="alertIcon"></mat-icon>
+</div>
+<h2>Biometrics</h2>
+<div class="inline" *ngFor="let biometricIcon of biometricsIcons">
+  <mat-icon [svgIcon]="biometricIcon"></mat-icon>
+</div>
+<h2>Communication</h2>
+<div class="inline" *ngFor="let communicationIcon of communicationIcons">
+  <mat-icon [svgIcon]="communicationIcon"></mat-icon>
+</div>
+<h2>Files</h2>
+<div class="inline" *ngFor="let file of filesIcons">
+  <mat-icon [svgIcon]="file"></mat-icon>
+</div>
+<h2>Financial</h2>
+<div class="inline" *ngFor="let financial of financialEnum">
+  <mat-icon [svgIcon]="financial"></mat-icon>
+</div>
+<h2>Invest</h2>
+<div class="inline" *ngFor="let invest of investEnum">
+  <mat-icon [svgIcon]="invest"></mat-icon>
+</div>
+<h2>Misc</h2>
+<div class="inline" *ngFor="let misc of miscEnum">
+  <mat-icon [svgIcon]="misc"></mat-icon>
+</div>
+<h2>Navigation</h2>
+<div class="inline" *ngFor="let navigation of navigationEnum">
+  <mat-icon [svgIcon]="navigation"></mat-icon>
+</div>
+<h2>Utility</h2>
+<div class="inline" *ngFor="let utility of utilityEnum">
+  <mat-icon [svgIcon]="utility"></mat-icon>
+</div>
+<h2>Value Movements</h2>
+<div class="inline" *ngFor="let valueMovement of valuemovementsEnum">
+  <mat-icon [svgIcon]="valueMovement"></mat-icon>
+</div>
+<br />
+<h1 class="title">Tier 2</h1>
+<div>
+  <ul>
+    <li>
+      Tier 2 Icons are most commonly used at 32x23. They can be used at 24x24 or 32x32 etc. Dimensions must be scaled up
+      increments of 8px after reaching 24x24.
+    </li>
+    <li>Tier 2 Icons are colored neutral/slate 400 or duo colored with a primary/blue 200 accent.</li>
+    <li>Tier 2 Icons have the ability to change color to primary/blue 400 in a selected state.</li>
+  </ul>
+</div>
+<h2>Mono</h2>
+<div>
+  <ul>
+    <li>Mono The default color is neutral/slate 400.</li>
+  </ul>
+</div>
+<div class="inline" *ngFor="let mono of monoEnum">
+  <mat-icon class="tier2" [svgIcon]="mono"></mat-icon>
+</div>
+<h2>Colored with Accent</h2>
+<div>
+  <ul>
+    <li>Colored with Accent Colored neutral/slate 400 or duo colored with a primary/blue 200 accent.</li>
+    <li>If used in a selected state, the entire icon changes color to primary/blue 400.</li>
+  </ul>
+</div>
+<div class="inline" *ngFor="let coloredWithAccent of coloredWithAccentEnum">
+  <mat-icon class="tier2" [svgIcon]="coloredWithAccent"></mat-icon>
+</div>
+<br />
+<h1 class="title">Tier 3</h1>
+<div>
+  <ul>
+    <li>Tier 3 Icons are most commonly used at 40x40. They can be used as illustrations in empty states.</li>
+    <li>When used in a selected state, the icon does not change color.</li>
+  </ul>
+</div>
+<div class="inline" *ngFor="let tier3 of tier3">
+  <mat-icon class="tier3" [svgIcon]="tier3"></mat-icon>
+</div>

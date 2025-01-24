@@ -1,0 +1,104 @@
+.uk2-text-tile-container {
+  display: flex;
+  gap: 8px;
+
+  .uk2-text-tile-icon {
+    color: var(--uk2-neutral-slate-400);
+  }
+
+  .uk2-text-tile-information {
+    flex-basis: auto;
+
+    .uk2-text-tile-title {
+      color: var(--uk2-neutral-slate-500);
+      margin-bottom: 0;
+    }
+
+    .uk2-text-tile-content {
+      @include uk2-font__body-regular--75();
+      color: var(--uk2-neutral-slate-400);
+    }
+  }
+
+  @include sm {
+    gap: 16px;
+  }
+}
+
+.uk2-text-tile-background {
+  display: none;
+
+  @include md{
+    display: initial;
+    position: relative;
+    flex-grow: 1;
+    background-image: url('/uk2/assets/svg/graphics/skeleton-background.svg');
+    background-size: 100% 104px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+/** Dynamic classes **/
+.uk2-text-tile-base {
+  background-color: var(--uk2-neutral-white);
+  overflow: hidden;
+  display: flex;
+}
+
+.uk2-text-tile-standalone {
+  border-radius: 16px;
+
+  .uk2-text-tile-title {
+    @include uk2-font__body-bold--200();
+  }
+}
+
+.uk2-text-tile-nonstandalone {
+  border-radius: 0;
+
+  .uk2-text-tile-title {
+    @include uk2-font__body-bold--100();
+
+    @include md {
+      @include uk2-font__body-bold--200();
+    }
+  }
+}
+
+.uk2-text-tile-with-background {
+  .uk2-text-tile-container {
+    width: 100%;
+    padding: 16px;
+
+    @include sm {
+      padding: 24px;
+    }
+
+    @include md {
+      width: 66%;
+      max-width: fit-content;
+      padding-right: 16px;
+    }
+
+    @include lg {
+      padding: 33px 16px 33px 24px;
+    }
+  }
+}
+
+.uk2-text-tile-without-background {
+  .uk2-text-tile-container {
+    width: 100%;
+    padding: 16px;
+    max-width: unset;
+
+    @include sm {
+      padding: 24px;
+    }
+
+    @include lg {
+      padding: 33px 24px 33px 24px;
+    }
+  }
+}

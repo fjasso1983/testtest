@@ -1,0 +1,61 @@
+<div
+  class="uk2-list-item"
+  [ngClass]="{
+    'uk2-list-item-disabled': uk2IsDisabled,
+    'uk2-list-item-pending': uk2IsPending
+  }"
+  *ngIf="!uk2IsLoading; else skeleton"
+>
+  <div class="uk2-list-item-header">
+    <img
+      class="uk2-list-item-icon"
+      alt="list item logo image"
+      aria-hidden="true"
+      [src]="uk2ListItem.imageUrl"
+      *ngIf="uk2ListItem?.imageUrl"
+    />
+    <mat-icon
+      class="uk2-list-item-icon"
+      aria-hidden="true"
+      [svgIcon]="$any(uk2ListItem)?.svgIconName"
+      *ngIf="!uk2ListItem?.imageUrl && uk2ListItem?.svgIconName"
+    ></mat-icon>
+    <div class="uk2-list-item-header-container">
+      <div class="uk2-list-item-header-label">
+        <div class="uk2-list-item-header-label-name" [title]="uk2ListItem.headerLabelName">
+          {{ uk2ListItem.headerLabelName }}
+        </div>
+        <div class="uk2-list-item-header-label-identifier" *ngIf="uk2ListItem?.headerLabelIdentifier">
+          <span *ngIf="uk2ListItem?.headerLabelName">&nbsp;-</span>
+          {{ uk2ListItem.headerLabelIdentifier }}
+        </div>
+      </div>
+      <ng-container *ngIf="uk2ListItem?.bodyText">
+        <div class="uk2-list-item-body-text">{{ uk2ListItem.bodyText }}</div>
+      </ng-container>
+    </div>
+  </div>
+  <span class="uk2-list-item-money-amount" *ngIf="uk2ListItem.moneyAmount">
+    {{
+      uk2ListItem.moneyAmount
+        | currency
+          : uk2CurrencyOptions?.currencyCode || 'USD'
+          : uk2CurrencyOptions?.display || 'symbol'
+          : uk2CurrencyOptions?.digitsInfo || '1.2-2'
+          : uk2CurrencyOptions?.locale || ''
+    }}
+  </span>
+  <ng-content></ng-content>
+</div>
+<ng-template #skeleton>
+  <div class="uk2-list-item-skeleton-container" *ngIf="uk2IsLoading">
+    <div class="uk2-list-item-skeleton">
+      <div class="uk2-list-item-skeleton-icon"></div>
+      <div class="uk2-list-item-skeleton-text-container">
+        <div class="uk2-list-item-skeleton-text-container-item"></div>
+        <div class="uk2-list-item-skeleton-text-container-item"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<div class="uk2-list-item-divider-line" *ngIf="uk2ShowDividerLine"></div>

@@ -1,0 +1,264 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import IntroductionLayout from '../menu-button-introduction.docs.mdx';
+import CustomCSSPropertiesLayout from '../menu-button-custom-css-properties.docs.mdx';
+import IconOnlyMenuButton from '../menu-button-custom-css-sizing.docs.mdx';
+
+<IntroductionLayout></IntroductionLayout>
+
+## Menu button bottom sheet
+A new feature of menu button is the ability to display the options in a bottom sheet. This is useful when the options are too many to fit in the screen in mobile screens. Is necessary to update component view and consume menu button methods to use this feature.
+
+### Bottom sheet elements projection
+
+You can add elements inside uk2-menu-button element that will be projected to bottom sheet footer. In this example we are projecting two buttons one to apply the selected options and another to cancel the selection.
+
+*.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <uk2-menu-button
+    ...
+  >
+    <button
+      uk2PrimaryButton
+      disableRipple
+      mat-raised-button
+      (click)="handleApplyButton()"
+    >
+      Apply
+    </button>
+    <button
+      uk2SecondaryButton
+      disableRipple
+      mat-stroked-button
+      (click)="handleCancelButton()"
+    >
+      Cancel
+    </button>
+  </uk2-menu-button>
+  `}
+/>
+
+*.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component } from '@angular/core';
+  \r
+  import { Uk2MenuButtonComponent } from '@axos/uikit-v2-lib';
+  \r
+  @Component({
+    ...
+  })
+  export class YOUR_COMPONENT {
+    @ViewChild(Uk2MenuButtonComponent) menuButtonComponent: Uk2MenuButtonComponent;
+    ...
+    handleApplyButton() {
+      this.menuButtonComponent.applySelectedOptions();
+    }
+    \r
+    handleCancelButton() {
+      this.menuButtonComponent.close();
+    }
+  }
+  `}
+/>
+
+
+## Sample Code
+This is the component you can use as a guidance for single option Uk2MenuButton component:
+
+#### Menu button with label
+
+<p>*.component.html</p>
+
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-menu-button
+      [uk2ButtonSize]="buttonSize"
+      [uk2ButtonType]="buttonType"
+      [uk2ItemList]="items"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2DefaultStateText]="defaultStateText"
+      [uk2ActiveStateText]="multipleOptionsSelectedText"
+      [uk2SvgIconName]="icon"
+      (uk2OnItemSelected)="onItemSelected($event)"
+    >
+    ... projected elements for bottom sheet footer
+    </uk2-menu-button>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    import {
+      Uk2ButtonSizeEnum,
+      Uk2MenuButtonItem,
+      Uk2MenuButtonSelectionTypeEnum,
+      Uk2Tier1UtilityEnum,
+    } from '@axos/uikit-v2-lib';
+    \r
+    export class YOUR_COMPONENT {
+      buttonSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.small;
+      isLoading = false;
+      isDisabled = false;
+      defaultStateText = 'Filters';
+      activeStateText = 'Many options selected';
+      icon = Uk2Tier1UtilityEnum.filterSlider;
+      buttonType: Uk2MenuButtonSelectionTypeEnum = Uk2MenuButtonSelectionTypeEnum.multiple;
+      items = [
+        {
+          text: 'Lorem Ipsum 1',
+          isSelected: false,
+          value: '1',
+        },
+        {
+          text: 'Lorem Ipsum 2',
+          isSelected: false,
+          value: '2',
+        },
+        {
+          text: 'Lorem Ipsum 3',
+          isSelected: false,
+          value: '3',
+        },
+        {
+          text: 'Lorem Ipsum 4',
+          isSelected: false,
+          value: '4',
+        },
+        {
+          text: 'Lorem Ipsum 5',
+          isSelected: false,
+          value: '5',
+        },
+        {
+          text: 'Lorem Ipsum 6',
+          isSelected: false,
+          value: '6',
+        },
+      ];
+      receivedItems: Uk2MenuButtonItem[] = [];
+      \r
+      constructor(private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      onItemSelected(itemSelection: Uk2MenuButtonItem[]) {
+        this.receivedItems = itemSelection;
+      }
+    }
+  `}
+/>
+
+#### Icon only menu button
+
+<p>*.component.html</p>
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-menu-button
+      [uk2ButtonSize]="buttonSize"
+      [uk2ButtonType]="buttonType"
+      [uk2ItemList]="items"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2DefaultStateText]="defaultStateText"
+      [uk2ActiveStateText]="multipleOptionsSelectedText"
+      [uk2SvgIconName]="icon"
+      [uk2IconOnly]="iconOnly"
+      (uk2OnItemSelected)="onItemSelected($event)"
+    >
+    ... projected elements for bottom sheet footer
+    </uk2-menu-button>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    import {
+      Uk2ButtonSizeEnum,
+      Uk2MenuButtonItem,
+      Uk2MenuButtonSelectionTypeEnum,
+      Uk2Tier1UtilityEnum,
+    } from '@axos/uikit-v2-lib';
+    \r
+    export class YOUR_COMPONENT {
+      buttonSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.small;
+      isLoading = false;
+      isDisabled = false;
+      defaultStateText = 'Filters';
+      activeStateText = 'Many options selected';
+      icon = Uk2Tier1UtilityEnum.filterSlider;
+      buttonType: Uk2MenuButtonSelectionTypeEnum = Uk2MenuButtonSelectionTypeEnum.multiple;
+      iconOnly = true;
+      items = [
+        {
+          text: 'Lorem Ipsum 1',
+          isSelected: false,
+          value: '1',
+        },
+        {
+          text: 'Lorem Ipsum 2',
+          isSelected: false,
+          value: '2',
+        },
+        {
+          text: 'Lorem Ipsum 3',
+          isSelected: false,
+          value: '3',
+        },
+        {
+          text: 'Lorem Ipsum 4',
+          isSelected: false,
+          value: '4',
+        },
+        {
+          text: 'Lorem Ipsum 5',
+          isSelected: false,
+          value: '5',
+        },
+        {
+          text: 'Lorem Ipsum 6',
+          isSelected: false,
+          value: '6',
+        },
+      ];
+      receivedItems: Uk2MenuButtonItem[] = [];
+      \r
+      constructor(private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      onItemSelected(itemSelection: Uk2MenuButtonItem[]) {
+        this.receivedItems = itemSelection;
+      }
+    }
+  `}
+/>
+
+
+<IconOnlyMenuButton></IconOnlyMenuButton>
+
+
+<CustomCSSPropertiesLayout> </CustomCSSPropertiesLayout>

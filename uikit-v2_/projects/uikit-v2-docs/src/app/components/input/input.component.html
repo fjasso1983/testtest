@@ -1,0 +1,734 @@
+<h1>Input directive documentation</h1>
+
+<p>
+  Uk2InputDirective is a directive that will only work on
+  <i>&lt;input&gt;</i>
+  elements with matInput directive and it will add a class name to handle styles.
+</p>
+
+<br />
+<h1>Testing reset (with timeout 1s)</h1>
+<div>
+  <button (click)="resetForm()">resetForm</button>
+</div>
+
+<div>
+  <button (click)="setInputSize('large'); setDropdownSize('large')">SetSizeLarge</button>
+</div>
+<div>
+  <button (click)="setInputSize('medium'); setDropdownSize('medium')">SetSizeMedium</button>
+</div>
+<div>
+  <button (click)="setInputSize('small'); setDropdownSize('small')">SetSizeSmall</button>
+</div>
+<br />
+<br />
+<br />
+<section>
+  <form [formGroup]="formPreFormated" *ngIf="form && ssnMaskConfig">
+    <mat-form-field appearance="outline" floatLabel="always" (click)="setCursorPhone()">
+      <mat-label>Mobile Phone Number</mat-label>
+      <span matTextPrefix>+1</span>
+      <input
+        #phoneInput
+        matInput
+        uk2Input
+        type="tel"
+        [placeholder]="phoneMaskConfig.placeHolder"
+        [mask]="phoneMaskConfig.inputMask"
+        [placeHolderCharacter]="phoneMaskConfig.placeHolderCharacter"
+        [showMaskTyped]="phoneMaskConfig.showMaskTyped"
+        [dropSpecialCharacters]="phoneMaskConfig.dropSpecialCharacters"
+        [prefix]="phoneMaskConfig.prefix"
+        [uk2InputSize]="inputSize"
+        id="phoneInput"
+        formControlName="mobilePhoneNumber"
+        autocomplete="0"
+        (keydown)="setCursorPhone()"
+        (keyup)="setCursorPhone()"
+        (input)="handleSelectPhone($event)"
+        (mousedown)="handleSelectPhone($event)"
+      />
+      <button
+        *ngIf="showClearButton('mobilePhoneNumber')"
+        type="button"
+        mat-icon-button
+        matSuffix
+        (mousedown)="clearPhoneField()"
+        [attr.aria-label]="'clean input'"
+        [attr.aria-pressed]="'clean input'"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      <mat-error *ngIf="mobilePhoneNumber.invalid">
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Error message emplacement
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" (click)="setCursorSSN()">
+      <mat-label>Social Security Number</mat-label>
+      <input
+        id="ssn"
+        #ssnInput
+        matInput
+        uk2Input
+        [type]="showSSN ? 'text' : 'password'"
+        formControlName="ssn"
+        autocomplete="0"
+        [uk2InputSize]="inputSize"
+        [placeholder]="ssnMaskConfig.placeHolder"
+        [mask]="showSSN ? ssnMaskConfig.visibleInputMask : ssnMaskConfig.hiddenInputMask"
+        [showMaskTyped]="showSSN"
+        [dropSpecialCharacters]="ssnMaskConfig.dropSpecialCharacters"
+        (keydown)="setCursorSSN()"
+        (keyup)="setCursorSSN()"
+        (mousedown)="handleSelectSSN($event)"
+      />
+      <button
+        id="toggleShowSSN"
+        type="button"
+        matSuffix
+        mat-icon-button
+        aria-label="Show Social Security Number"
+        (click)="toggleShowSSN($event)"
+      >
+        <mat-icon [svgIcon]="showSSN ? 'uk2-eye' : 'uk2-eye-hide'"></mat-icon>
+      </button>
+      <mat-hint>We use bank-level TLS 1.2 encryption to keep your data safe.</mat-hint>
+      <mat-error *ngIf="ssn.invalid">
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Error message emplacement
+      </mat-error>
+    </mat-form-field>
+
+    <h3>Basic Datepicker</h3>
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Choose date</mat-label>
+      <input
+        id="inputDate"
+        matInput
+        [matDatepicker]="picker2"
+        [formControl]="date1"
+        placeholder="MM/DD/YYYY"
+        uk2Input
+        [uk2InputSize]="inputSize"
+        type="text"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2">
+        <mat-icon matDatepickerToggleIcon svgIcon="uk2-calendar"></mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker uk2DatePicker #picker2 (openedStream)="streamOpened()" [opened]="opened"></mat-datepicker>
+      <mat-hint>
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        This is an example of date.
+      </mat-hint>
+      <mat-error>Date Required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+      <mat-label>Documents Received</mat-label>
+      <mat-select
+        uk2Dropdown
+        [uk2DropdownSize]="dropdownSize"
+        [uk2IsLoading]="isLoading"
+        [formControl]="documentReceived"
+        placeholder="Lorem Ipsum"
+        required
+        [disabled]="true"
+        multiple
+      >
+        <mat-select-trigger>
+          <mat-chip-listbox>
+            <mat-chip-option
+              uk2TagInputChips
+              *ngFor="let document of documentReceived.value"
+              (removed)="onItemRemoved(document)"
+            >
+              {{ document }}
+              <mat-icon matChipRemove svgIcon="uk2-x"></mat-icon>
+            </mat-chip-option>
+          </mat-chip-listbox>
+        </mat-select-trigger>
+
+        <mat-option *ngFor="let document of documentList" [value]="document">{{ document }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+      <mat-label>Select an option</mat-label>
+      <mat-select
+        [disabled]="true"
+        required
+        [(ngModel)]="dropdownModel"
+        uk2Dropdown
+        [uk2IsLoading]="isLoading"
+        [uk2DropdownSize]="dropdownSize"
+        placeholder="Lorem Ipsum"
+      >
+        <mat-option>None</mat-option>
+        <mat-option value="option1">Option 1</mat-option>
+        <mat-option value="option2">Option 2</mat-option>
+        <mat-option value="option3">Option 3</mat-option>
+        <mat-option value="option4">Option 4</mat-option>
+        <mat-option value="option5">Option 5</mat-option>
+        <mat-option value="option6">Option 6</mat-option>
+        <mat-option value="option7">Option 7</mat-option>
+        <mat-option value="option8">Option 8</mat-option>
+      </mat-select>
+      <mat-error>Field required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Amount</mat-label>
+      <span matTextPrefix>$</span>
+      <input
+        matInput
+        uk2Input
+        [uk2InputSize]="inputSize"
+        placeholder="0.00"
+        mask="separator.2"
+        thousandSeparator=","
+        type="text"
+        id="amount"
+        autocomplete="0"
+        formControlName="amount"
+        (blur)="onBlur($event)"
+      />
+      <button
+        *ngIf="showClearButton('amount')"
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="this.form.controls['amount'].reset()"
+        [attr.aria-label]="'clean input'"
+        [attr.aria-pressed]="'clean input'"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      <mat-hint>With initial value.</mat-hint>
+      <mat-error *ngIf="amount.invalid">
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Error message emplacement
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="uk2-preformatted-input-percentage">
+      <mat-label>Percentage</mat-label>
+      <input
+        #percentageInput
+        matInput
+        uk2Input
+        id="percentage"
+        [uk2InputSize]="inputSize"
+        formControlName="percentage"
+        type="text"
+        mask="separator"
+        separatorLimit="100"
+        placeholder="0"
+        autocomplete="0"
+        (input)="setPercentageFieldWidth($event)"
+      />
+      <span matTextSuffix>%</span>
+      <button
+        *ngIf="showClearButton('percentage')"
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="clearPercentageField()"
+        [attr.aria-label]="'clean input'"
+        [attr.aria-pressed]="'clean input'"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      <mat-hint>With initial value.</mat-hint>
+      <mat-error *ngIf="percentage.invalid">
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Error message emplacement
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <h1>Tag Input Field</h1>
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+    <mat-label>Documents Received</mat-label>
+    <mat-select
+      uk2Dropdown
+      [uk2DropdownSize]="dropdownSize"
+      [uk2IsLoading]="isLoading"
+      [formControl]="documentReceived"
+      placeholder="Lorem Ipsum"
+      required
+      [disabled]="true"
+      multiple
+    >
+      <mat-select-trigger>
+        <mat-chip-listbox>
+          <mat-chip-option
+            uk2TagInputChips
+            *ngFor="let document of documentReceived.value"
+            (removed)="onItemRemoved(document)"
+          >
+            {{ document }}
+            <mat-icon matChipRemove svgIcon="uk2-x"></mat-icon>
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </mat-select-trigger>
+
+      <mat-option *ngFor="let document of documentList" [value]="document">{{ document }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</section>
+
+<form [formGroup]="form2" #formDirective (ngSubmit)="submit()">
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Name</mat-label>
+    <input
+      matInput
+      [uk2IsLoading]="isLoading"
+      uk2Input
+      [uk2HintDisplayPattern]="alwaysVisible"
+      [formControl]="name2"
+      type="text"
+      required
+      placeholder="input placeholder"
+    />
+    <button
+      class="uk2-input-clear-button"
+      color="accent"
+      *ngIf="form2.controls['name2'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form2.patchValue({ name2: '' })"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>This is an example of input with a custom accent color theming for app consumer.</mat-hint>
+    <mat-error *ngIf="name2.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Name is required
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      uk2Input
+      [uk2IsLoading]="isLoading"
+      [uk2HintDisplayPattern]="alwaysVisible"
+      [formControl]="email2"
+      type="email"
+      required
+      placeholder="input placeholder"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="form2.controls['email2'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form2.patchValue({ email2: '' })"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>
+      This is an example of simple email input. This is an example of simple email input. This is an example of simple
+      email input. This is an example of simple email input.This is an example of simple email input. This is an example
+      of simple email input. This is an example of simple email input.
+    </mat-hint>
+    <mat-error *ngIf="email2.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Email is required
+    </mat-error>
+    <mat-error *ngIf="email2.hasError('email')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Email incorrect
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <button
+    type="submit"
+    id="nextButton"
+    class="btn-primary"
+    uk2PrimaryButton
+    disableRipple
+    mat-raised-button
+    [disabled]="!form2.valid"
+  >
+    Next
+  </button>
+</form>
+
+<br />
+
+<h1>END Testing reset</h1>
+<br />
+<div>WAITNG FOR STORYBOOK INTEGRATION</div>
+<br />
+<br />
+<br />
+
+COMMENTED FOR WORKING ONLY ON INPUT
+<h1>Tag Input Field</h1>
+<mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+  <mat-label>Documents Received</mat-label>
+  <mat-select
+    uk2Dropdown
+    [uk2DropdownSize]="dropdownSize"
+    [uk2IsLoading]="isLoading"
+    [formControl]="documentReceived"
+    placeholder="Lorem Ipsum"
+    required
+    [disabled]="true"
+    multiple
+  >
+    <mat-select-trigger>
+      <mat-chip-listbox>
+        <mat-chip-option
+          uk2TagInputChips
+          *ngFor="let document of documentReceived.value"
+          (removed)="onItemRemoved(document)"
+        >
+          {{ document }}
+          <mat-icon matChipRemove svgIcon="uk2-x"></mat-icon>
+        </mat-chip-option>
+      </mat-chip-listbox>
+    </mat-select-trigger>
+
+    <mat-option *ngFor="let document of documentList" [value]="document">{{ document }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<br />
+<br />
+<br />
+
+<h1>Dropdown</h1>
+<mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+  <mat-label>Select an option</mat-label>
+  <mat-select
+    [disabled]="true"
+    required
+    [(ngModel)]="dropdownModel"
+    uk2Dropdown
+    [uk2IsLoading]="isLoading"
+    [uk2DropdownSize]="dropdownSize"
+    placeholder="Lorem Ipsum"
+  >
+    <mat-option>None</mat-option>
+    <mat-option value="option1">Option 1</mat-option>
+    <mat-option value="option2">Option 2</mat-option>
+    <mat-option value="option3">Option 3</mat-option>
+    <mat-option value="option4">Option 4</mat-option>
+    <mat-option value="option5">Option 5</mat-option>
+    <mat-option value="option6">Option 6</mat-option>
+    <mat-option value="option7">Option 7</mat-option>
+    <mat-option value="option8">Option 8</mat-option>
+  </mat-select>
+  <mat-error>Field required</mat-error>
+</mat-form-field>
+
+<br />
+<br />
+<br />
+<h1>Dropdown</h1>
+<mat-form-field appearance="outline" floatLabel="always">
+  <mat-label>Select an option</mat-label>
+  <mat-select uk2Dropdown [uk2IsLoading]="isLoading" [uk2DropdownSize]="dropdownSize" placeholder="Lorem Ipsum">
+    <mat-option>None</mat-option>
+    <mat-option value="option1">Option 1</mat-option>
+    <mat-option value="option2">Option 2</mat-option>
+    <mat-option value="option3">Option 3</mat-option>
+    <mat-option value="option4">Option 4</mat-option>
+    <mat-option value="option5">Option 5</mat-option>
+    <mat-option value="option6">Option 6</mat-option>
+    <mat-option value="option7">Option 7</mat-option>
+    <mat-option value="option8">Option 8</mat-option>
+  </mat-select>
+  <mat-error>Field required</mat-error>
+</mat-form-field>
+<br />
+<div>
+  <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  {{ isLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+<br />
+
+<form [formGroup]="form">
+  <br />
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>No uk2Input</mat-label>
+    <input matInput type="text" placeholder="input placeholder" />
+  </mat-form-field>
+  <br />
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always" class="responsive-input">
+    <mat-label>Custom responsive</mat-label>
+    <input matInput uk2Input type="text" placeholder="input placeholder" [uk2IsLoading]="isLoading" />
+  </mat-form-field>
+  <br />
+
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      uk2Input
+      [uk2IsLoading]="isLoading"
+      [uk2HintDisplayPattern]="alwaysVisible"
+      [formControl]="email"
+      type="email"
+      required
+      placeholder="input placeholder"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="form.controls['email'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form.patchValue({ email: '' })"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>
+      This is an example of simple email input. This is an example of simple email input. This is an example of simple
+      email input. This is an example of simple email input.This is an example of simple email input. This is an example
+      of simple email input. This is an example of simple email input.
+    </mat-hint>
+    <mat-error *ngIf="email.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Email is required
+    </mat-error>
+    <mat-error *ngIf="email.hasError('email')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Email incorrect
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Phone with prefix & suffix</mat-label>
+    <span matTextPrefix>+521 &nbsp;</span>
+    <input
+      matInput
+      uk2Input
+      [formControl]="phone"
+      [uk2IsLoading]="isLoading"
+      [uk2HintDisplayPattern]="hideInDefaultState"
+      type="phone"
+      placeholder="phone placeholder"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="form.controls['phone'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form.patchValue({ phone: '' })"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-error *ngIf="phone.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Phone is required
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Name</mat-label>
+    <input
+      matInput
+      [uk2IsLoading]="isLoading"
+      uk2Input
+      [uk2HintDisplayPattern]="alwaysVisible"
+      [formControl]="name"
+      type="text"
+      required
+      placeholder="input placeholder"
+    />
+    <button
+      class="uk2-input-clear-button"
+      color="accent"
+      *ngIf="form.controls['name'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form.patchValue({ name: '' })"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>This is an example of input with a custom accent color theming for app consumer.</mat-hint>
+    <mat-error *ngIf="name.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Name is required
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Disabled Input not filled</mat-label>
+    <input
+      matInput
+      [uk2IsLoading]="isLoading"
+      uk2Input
+      [uk2HintDisplayPattern]="alwaysVisible"
+      [formControl]="disabled"
+      type="text"
+      required
+      placeholder="input placeholder"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="form.controls['disabled'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form.patchValue({ disabled: '' })"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>This is an example of disabled input with placeholder.</mat-hint>
+    <mat-error *ngIf="disabled.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Disabled is required
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Disabled Input filled</mat-label>
+    <input
+      matInput
+      [uk2IsLoading]="isLoading"
+      uk2Input
+      [uk2HintDisplayPattern]="alwaysVisible"
+      [formControl]="disabledFilled"
+      type="text"
+      required
+      placeholder="input placeholder"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="form.controls['disabledFilled'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form.patchValue({ disabledFilled: '' })"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>This is an example of a disabled input with default filled value.</mat-hint>
+    <mat-error *ngIf="disabled.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Disabled is required
+    </mat-error>
+  </mat-form-field>
+</form>
+<h1>Example with Template Drive Form</h1>
+<form #myForm="ngForm">
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>First Name</mat-label>
+    <input
+      matInput
+      uk2Input
+      name="name"
+      #tdfName="ngModel"
+      required
+      [(ngModel)]="user.name"
+      [uk2IsLoading]="isLoading"
+      placeholder="First name placeholder"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="user.name !== ''"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="user.name = ''"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-error *ngIf="tdfName.control.errors?.required">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      First Name is required
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <br />
+  <button type="submit" [disabled]="!myForm.valid">Submit</button>
+</form>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+COMMENTED FOR WORKING ONLY ON INPUT
+<h1>Dropdown</h1>
+<mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+  <mat-label>Select an option</mat-label>
+  <mat-select uk2Dropdown [uk2IsLoading]="isLoading" placeholder="Lorem Ipsum">
+    <mat-option>None</mat-option>
+    <mat-option value="option1">Option 1</mat-option>
+    <mat-option value="option2">Option 2</mat-option>
+    <mat-option value="option3">Option 3</mat-option>
+    <mat-option value="option4">Option 4</mat-option>
+    <mat-option value="option5">Option 5</mat-option>
+    <mat-option value="option6">Option 6</mat-option>
+    <mat-option value="option7">Option 7</mat-option>
+    <mat-option value="option8">Option 8</mat-option>
+  </mat-select>
+  <mat-error>Field required</mat-error>
+</mat-form-field>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

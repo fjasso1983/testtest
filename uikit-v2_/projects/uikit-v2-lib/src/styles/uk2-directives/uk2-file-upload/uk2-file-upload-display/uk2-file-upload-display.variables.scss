@@ -1,0 +1,14 @@
+// HSL accent functions cannot be called directly into a CSS custom property, so they need to be stored on a SCSS variable to be used
+$uk2-accent-400-hsl: accent-color-400-hsl();
+
+// File uploader display variables mixin definition, do not use this specific variables for branding
+@mixin file-uploader-drag-drop-variables() {
+  --uk2-file-uploader-display-aux-icon-color: var(--uk2-file-uploader-display-icon-color, #{$uk2-accent-400-hsl});
+}
+
+:root {
+
+  --uk2-file-uploader-display-description-surface-color: var(--uk2-neutral-white);
+  --uk2-file-uploader-display-text-color: var(--uk2-neutral-slate-500);
+  --uk2-file-uploader-display-stroke-color: var(--uk2-neutral-grey-300);
+}

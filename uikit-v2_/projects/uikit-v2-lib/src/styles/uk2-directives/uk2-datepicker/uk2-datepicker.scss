@@ -1,0 +1,32 @@
+@import './uk2-datepicker.mixins';
+
+.uk2-datepicker-popup {
+  padding-bottom: 8px !important;
+  padding-top: 28px !important;
+  &.no-extra-text {
+    padding-top: 8px !important;
+  }
+
+  // Hide special material button to close calendar
+  .mat-datepicker-close-button {
+    display: none !important;
+  }
+}
+
+.uk2-form-field-datepicker {
+  @include datepicker-input-disabled();
+  @include datepicker-toggle();
+  @include datepicker-input();
+
+  &.mat-form-field-invalid {
+    @include datepicker-input-invalid();
+  }
+}
+
+.mat-calendar.uk2-datepicker {
+  @include calendar-styles();
+}
+
+.cdk-overlay-container {
+  @include datepicker-overlay();
+}

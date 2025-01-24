@@ -1,0 +1,11 @@
+@import './uk2-checkbox-selection-cards.mixins';
+
+.uk2-checkbox-selection-cards {
+  @include uk2-checkbox-selection-cards-default;
+  @include uk2-checkbox-selection-cards-selected;
+}
+
+.uk2-checkbox-selection-cards-skeleton{
+  @include uk2-checkbox-selection-cards-skeleton-default;
+  @include uk2-checkbox-selection-cards-skeleton-responsive;
+}

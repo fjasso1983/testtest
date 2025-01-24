@@ -1,0 +1,41 @@
+<h3>Table - Inline table actions</h3>
+<br />
+<div class="row-example top-border">
+  <div class="cell-example content-cell">
+    <p>lorem ipsum</p>
+  </div>
+  <div class="cell-example action-cell">
+    <uk2-table-inline-actions
+      [uk2ActionList]="testActions"
+      [uk2MaxInlineActions]="0"
+      [uk2RowValue]="{ rowId: 1 }"
+      (uk2OnActionSelect)="onActionClick($event)"
+    ></uk2-table-inline-actions>
+  </div>
+</div>
+<div class="row-example">
+  <div class="cell-example content-cell">
+    <p>lorem ipsum</p>
+  </div>
+  <div class="cell-example action-cell">
+    <uk2-table-inline-actions
+      [uk2ActionList]="flyoutActions"
+      [uk2MaxInlineActions]="2"
+      [uk2RowValue]="{ rowId: 2 }"
+      (uk2OnActionSelect)="onActionClick($event)"
+    ></uk2-table-inline-actions>
+  </div>
+</div>
+<div class="row-example">
+  <div class="cell-example content-cell">
+    <p>lorem ipsum</p>
+  </div>
+  <div class="cell-example action-cell">
+    <uk2-table-inline-actions
+      [uk2ActionList]="flyoutActions"
+      [uk2MaxInlineActions]="1"
+      [uk2RowValue]="{ rowId: 3 }"
+      (uk2OnActionSelect)="onActionClick($event)"
+    ></uk2-table-inline-actions>
+  </div>
+</div>

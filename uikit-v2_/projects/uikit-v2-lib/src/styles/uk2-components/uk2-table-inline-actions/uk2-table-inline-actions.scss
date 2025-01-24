@@ -1,0 +1,14 @@
+@import './uk2-table-inline-actions.variables.scss';
+@import './uk2-table-inline-actions.mixins';
+
+.uk2-table-inline-actions {
+  @include inline-actions-styles;
+}
+
+.uk2-table-inline-actions-flyout-content {
+  @include inline-actions-menu-flyout;
+}
+
+.tippy-box[data-theme~='Uk2TableActionTooltip'] {
+  @include table-tooltip-styles;
+}

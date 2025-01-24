@@ -1,0 +1,74 @@
+<h2>Panel example</h2>
+<br />
+<br />
+<button uk2PrimaryButton mat-raised-button disableRipple (click)="openOverlay()">Open side panel</button>
+<br />
+<br />
+<button (click)="toggleSidePanelPosition()">Toggle panel position - {{ panelPosition }}</button>
+<br />
+<br />
+<button (click)="toggleSkeleton()">Toggle skeleton - {{ isLoading }}</button>
+<br />
+<br />
+<button (click)="footerDisplay = !footerDisplay">Toggle panel footer - {{ footerDisplay }} </button>
+<br />
+<br />
+<button (click)="isPanelResizable = !isPanelResizable">Toggle panel grabber - {{ isPanelResizable }} </button>
+
+<uk2-panel
+  [uk2IsLoading]="isLoading"
+  [uk2ShowFooter]="footerDisplay"
+  [uk2HeaderTitle]="'Lorem ipsum dolor sit amet'"
+  [uk2PanelPosition]="panelPosition"
+  [uk2IsPanelResizable]="isPanelResizable"
+  [uk2PanelMaxWidth]="1280"
+  [uk2PanelMinWidth]="496"
+  [uk2PanelWidth]="'80%'"
+  (iconButtonAction)="closeOverlay()"
+  #sidePanelRef
+>
+  <ng-template #uk2PanelLeftHeaderIcons>
+    <button uk2TextIconButton disableRipple mat-button [uk2ButtonSize]="buttonSize.small">
+      <mat-icon [svgIcon]="'uk2-chevron-down'"></mat-icon>
+    </button>
+    <button uk2TextIconButton disableRipple mat-button [uk2ButtonSize]="buttonSize.small">
+      <mat-icon [svgIcon]="'uk2-chevron-up'"></mat-icon>
+    </button>
+  </ng-template>
+  <ng-template #uk2PanelRightHeaderIcons>
+    <button uk2TextIconButton disableRipple mat-button [uk2ButtonSize]="buttonSize.small" (click)="closeOverlay()">
+      <mat-icon [svgIcon]="'uk2-x'"></mat-icon>
+    </button>
+  </ng-template>
+  <ng-template #uk2PanelHeader></ng-template>
+  <ng-template #uk2PanelContent></ng-template>
+  <ng-template #uk2PanelFooter>
+    <button
+      uk2TextButton
+      mat-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.small"
+      (click)="alert('Text button executed')"
+    >
+      Text button
+    </button>
+    <button
+      uk2SecondaryButton
+      mat-stroked-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.small"
+      (click)="alert('Secondary button executed')"
+    >
+      Secondary button
+    </button>
+    <button
+      uk2PrimaryButton
+      mat-raised-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.small"
+      (click)="alert('Primary button executed')"
+    >
+      Primary button
+    </button>
+  </ng-template>
+</uk2-panel>

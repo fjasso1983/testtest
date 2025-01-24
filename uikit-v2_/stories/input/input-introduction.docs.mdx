@@ -1,0 +1,88 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../directives-docs/directives-prerequisites.docs.mdx';
+
+# uk2Input directive documentation
+
+## Introduction
+<p>
+  uk2Input is a directive designed to customize the styling of <strong>&lt;mat-input&gt;</strong> component from to adhere to Axos Design System.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;input&gt;</strong> elements with <strong>matInput</strong> directive, wrapped in <strong>&lt;mat-form-field&gt;</strong> component. It will add the <strong>uk2-input</strong> css class name to handle styles.
+  </li>
+  <li>
+    <strong>&lt;mat-form-field&gt;</strong> component should have <strong>appearance="outline"</strong> and <strong>floatLabel="always"</strong> properties. Either globally or per usage basis.
+    <br />
+    See <a href="https://v15.material.angular.io/components/input/overview" target="_blank">Angular Material - Input Documentation</a> to see how this can be achieved.
+  </li>
+  <li>
+    To adhere to Axos Design System, you have to add <strong>subscriptSizing = "dynamic"</strong> to MAT_FORM_FIELD_DEFAULT_OPTIONS provider in your app module:
+    <br />
+    <Source
+      dark
+      language='html'
+      code={dedent`
+      providers: [
+          {
+            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+            useValue: {
+              subscriptSizing: 'dynamic',
+            },
+          }
+        ],
+      `}
+    />
+
+  </li>
+  <li>
+    If you need to use <strong>&lt;button&gt;</strong> for cleaning the input (See X Control Interaction pattern), please add to the button <strong>class="uk2-input-clear-button"</strong> and use <strong>(mousedown)</strong> event instead of <strong>(click)</strong> event.
+  </li>
+</ol>
+
+## Prerequisites
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+## Inputs
+<ul>
+  <li><strong>[uk2InputSize]</strong> <u>Uk2InputSizeEnum</u> <i>(optional)</i> using for choose between small, medium or large size. (<strong>Default:</strong> Uk2InputSizeEnum.large)</li>
+  <li><strong>[uk2IsLoading]</strong> <u>Boolean</u> <i>(optional)</i> using for display skeleton mode (<strong>Default:</strong> false).</li>
+</ul>
+<br/>
+
+## Component-specific CSS variables
+
+<ol>
+  <li>
+    <strong> [--uk2-form-field-general-active-color] </strong>  (default: --uk2-neutral-slate-400) This variable is used as the color for all the elements of the input (except the placeholder) in active state. It can be overwritten to achieve custom brandings. Refer to "Overriding default colors from your app" section from Theming menu option to learn more.
+  </li>
+</ol>
+
+
+ ## Enums
+
+- You need to import <strong>Uk2InputSizeEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the size of the Input.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2InputSizeEnum} from '@axos/uikit-v2-lib';
+  `}
+/>
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+      export enum Uk2InputSizeEnum {
+        large = 'large',
+        medium = 'medium',
+        small = 'small',
+      }
+  `}
+/>

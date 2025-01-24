@@ -1,0 +1,61 @@
+.uk2-filter-chip-label {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--uk2-neutral-slate-300);
+  width: 100%;
+
+  // Active state
+  &.uk2-is-active {
+    color: accent-color-400-hsl();
+  }
+
+  span {
+    pointer-events: none;
+  }
+
+  .uk2-filter-chip-label-identifier {
+    @include uk2-font__body-medium--75();
+    flex-shrink: 0;
+  }
+
+  .uk2-filter-chip-label-condition {
+    @include uk2-font__body-regular--75();
+    flex-shrink: 1;
+    min-width: 1px;
+    @include uk2-text-truncation-ellipsis();
+  }
+
+  mat-icon {
+    pointer-events: none;
+    padding-left: 4px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+}
+
+.uk2-filter-chip-label-condition {
+  &.uk2-hidden-label {
+    opacity: 0;
+    display: block;
+    height: 0px;
+  }
+}
+
+// Button pressed
+.uk2-filter-chip-button:active {
+
+  // Default state
+  .uk2-filter-chip-label {
+    color: var(--uk2-neutral-slate-400);
+  }
+
+  // Button pressed and active
+  .uk2-filter-chip-label {
+    &.uk2-is-active {
+      color: accent-color-500-hsl();
+    }
+  }
+}

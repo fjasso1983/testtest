@@ -1,0 +1,190 @@
+<h2>Chips example</h2>
+<br />
+<button (click)="activeChip = !activeChip">Set active - {{ activeChip }}</button>
+<br />
+<br />
+<button (click)="disableChip = !disableChip">Set disabled - {{ disableChip }}</button>
+<br />
+<br />
+<button (click)="isLoading = !isLoading">Toggle skeleton - {{ isLoading }}</button>
+<br />
+<br />
+<button (click)="toggleChipType()">Toggle chip type - {{ chipType }}</button>
+<br />
+<br />
+<button (click)="hasChipIndicator = !hasChipIndicator">Toggle chip indicator - {{ hasChipIndicator }}</button>
+(Only available for rounded chips)
+<br />
+<br />
+
+<div class="containers">
+  <div>
+    <p>Hoverable chip (has click function)</p>
+    <uk2-chip
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize.large"
+      [uk2IsActive]="activeChip"
+      [uk2IsDisabled]="disableChip"
+      (uk2ChipClick)="chipClick()"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+      >Increase click counter</uk2-chip
+    >
+    <br />
+    <br />
+    <uk2-chip
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize.large"
+      [uk2IsActive]="activeChip"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+    >
+      Number of clicks ({{ numberOfClicks }})
+    </uk2-chip>
+  </div>
+  <div>
+    <p>Chip Sizes</p>
+    <uk2-chip
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize.large"
+      [uk2IsActive]="activeChip"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+      >Large chip</uk2-chip
+    >
+    <br />
+    <br />
+    <uk2-chip
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize.medium"
+      [uk2IsActive]="activeChip"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+      >Medium chip</uk2-chip
+    >
+    <br />
+    <br />
+    <uk2-chip
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize.small"
+      [uk2IsActive]="activeChip"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+      >Small chip</uk2-chip
+    >
+    <br />
+    <br />
+    <uk2-chip
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize.extraSmall"
+      [uk2IsActive]="activeChip"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+      >Extra small chip</uk2-chip
+    >
+    <br />
+  </div>
+</div>
+
+<div class="containers">
+  <div>
+    <p>Custom colored chips</p>
+    <uk2-chip
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipClass]="'red-chip-class'"
+      [uk2ChipSize]="chipSize.medium"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+      >Custom color red chip
+    </uk2-chip>
+    <br />
+    <br />
+    <uk2-chip
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipClass]="'blue-chip-class'"
+      [uk2ChipSize]="chipSize.medium"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+      >Custom color blue chip</uk2-chip
+    >
+    <br />
+    <br />
+    <uk2-chip
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipClass]="'black-chip-class'"
+      [uk2ChipSize]="chipSize.medium"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+      >Custom color black chip
+    </uk2-chip>
+    <br />
+    <br />
+    <uk2-chip
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipClass]="'yellow-chip-class'"
+      [uk2ChipSize]="chipSize.medium"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+    >
+      Custom color yellow chip
+    </uk2-chip>
+    <br />
+    <br />
+  </div>
+  <div>
+    <p>Fixed width & truncation</p>
+    <uk2-chip
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipClass]="'truncate-width-chip'"
+      [uk2ChipSize]="chipSize.medium"
+      [uk2IsActive]="activeChip"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+    >
+      Chip with fixed width to trigger truncation
+    </uk2-chip>
+    <br />
+    <br />
+    <uk2-chip
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize.medium"
+      [uk2IsActive]="activeChip"
+      [uk2IsDisabled]="disableChip"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+    >
+      Chip with no fixed width to trigger truncation
+    </uk2-chip>
+    <br />
+  </div>
+</div>

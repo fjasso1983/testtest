@@ -1,0 +1,39 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+
+import dedent from 'ts-dedent';
+
+### Toggling inline loading state
+
+.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+      <button
+        uk2[Primary|Secondary|Text]Button
+        disableRipple
+        mat-raised-button
+        [uk2InlineLoadingStateText]="uk2InlineLoadingText"
+        [uk2IsInlineLoadingActive]="uk2InlineLoading"
+      >
+        {{ text }}
+      </button>
+  `}
+/>
+
+.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      class YourComponent {
+        uk2InlineLoading = true;
+        uk2InlineLoadingText = 'Loading';
+        constructor() {}
+        //...
+      }
+  `}
+/>

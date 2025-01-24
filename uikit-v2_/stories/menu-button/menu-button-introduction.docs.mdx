@@ -1,0 +1,200 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+
+
+# Uk2MenuButton components documentation
+
+## Introduction
+
+<p>
+<strong>Uk2MenuButton</strong> is a component designed to customize the styling and functionality of <strong>mat-stroked-button</strong> directive from <a href='https://v15.material.angular.io/components/button/overview'>Angular Material</a> to adhere to <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?type=design&node-id=4244-57197&mode=design&t=OZMFrIjk88UtCzOc-0">Axos Design System</a>.
+</p>
+
+## Prerequisites
+- You need to import MatButtonModule, MatIconModule, MatCheckboxModule, MatRadioModule and MatBadgeModule from @angular/material/* into the desired module of your Angular App. To be able to use Uk2MenuButton component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { MatButtonModule } from '@angular/material/button';
+    import { MatIconModule } from '@angular/material/icon';
+    import { MatCheckboxModule } from '@angular/material/checkbox';
+    import { MatRadioModule } from '@angular/material/radio';
+    import { MatBadgeModule } from '@angular/material/badge';
+  `}
+/>
+
+- You need to import Uk2DirectivesModule and Uk2MenuButtonModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use Uk2MenuButton component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+      import { Uk2MenuButtonModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li><strong>[uk2ButtonType]</strong> <u>Uk2MenuButtonSelectionTypeEnum</u> <i>(optional)</i> using for choose between single or multiple options (<strong>Default:</strong> single).</li>
+  <li><strong>[uk2KeepLastSelection]</strong> <u>boolean</u> <i>(optional)</i> When set to true, the sort option allows only one selection (maximum and minimum).
+    Clicking the selected item won't unselect it; the event will be ignored.
+    (<strong>Default:</strong> true).</li>
+  <li><strong>[uk2ItemList]</strong> <u>Uk2MenuButtonItem</u> <i>(optional)</i> Data input for menu list items. (<strong>Default:</strong> []).</li>
+  <li><strong>[uk2IsLoading]</strong> <u>Boolean</u> <i><i>(optional)</i></i> Toggle to switch from default state to skeleton state. (<strong>Default:</strong> false)</li>
+  <li><strong>[uk2IsDisabled]</strong> <u>Boolean</u> <i>(optional)</i> Toggle to disabled state when this is true. (<strong>Default:</strong> false)</li>
+  <li><strong>[uk2DefaultStateText]</strong> <u>String</u> <i>(optional)</i> Text button displayed when nothing is selected in menu list items.</li>
+  <li><strong>[uk2ActiveStateText]</strong> <u>String</u> <i>(optional)</i> Text button displayed when multiple options are selected in menu list items or when an item is selected on mobile size regardless of type.</li>
+  <li><strong>[uk2SvgIconName]</strong> <u>Uk2Icon</u> <i>(optional)</i> Button icon.</li>
+  <li><strong>[uk2CSSPortalProperties]</strong> <u>Uk2MenuButtonCSSProperty[]</u> <i>(optional)</i>CSS properties to be applied at portal outlet level in case of having multiple brandings</li>
+  <li><strong>[uk2IconButtonSizeClass]</strong> <u>string | undefined</u> <i>(optional)</i> CSS class to be applied for icon only button sizing.<br/> <u>Overrides default menu button styles when menu button is set to Icon only type.</u> <br/>If not provided will fallback default css class <strong>uk2-custom-menu-item-content__16-16</strong></li>
+  <li><strong>[uk2ContentClass]</strong> <u>string | undefined</u> <i>(optional)</i> CSS class to be applied for flyout list item content.<br/> <u>This css class can apply multiple styles but it's main purpose it's to set internal paddings between content and edges of the flyout menu.</u> <br/>If not provided will fallback to </li>
+  <li><strong>[uk2DividerLineClass]</strong> <u>string | undefined</u> <i>(required)</i> CSS class to be applied for flyout list item divider.<br/> <u>This css class can apply multiple styles but it's main purpose it's to set internal margin top between divider and item content of the flyout menu.</u> <br/>If not provided will fallback default css class <strong>uk2-custom-menu-item-content-divider__16-16</strong></li>
+  <li><strong>[uk2IsIconOnly]</strong> <u>boolean</u> <i>(optional)</i> When set to true no label will be rendered</li>
+  <li><strong>[uk2DisplayBorder]</strong> <u>boolean</u> <i>(optional)</i> When set to true button border will be rendered</li>
+  <li><strong>[uk2DisplayBadge]</strong> <u>boolean</u> <i>(optional)</i> When set to true a badge showing the number of selected items will be rendered when selecting one or more options. <i><u>This is only available for multiple selection type</u></i> (<strong>Default:</strong> false)</li>
+  <li><strong>[uk2BackdropIsEnabled]</strong> <u>boolean</u> <i>(optional)</i> When set to true the overlay will have a backdrop.</li>
+  <li><strong>[uk2BackdropIsHidden]</strong> <u>boolean</u> <i>(optional)</i> When set to true the overlay backdrop will be transparent.</li>
+  <li><strong>[uk2BackdropCanBeClosedWhenHasBeenClicked]</strong> <u>boolean</u> <i>(optional)</i> When set to true the overlay backdrop can be closed by clicking on it.</li>
+  <li><strong>[uk2BackdropClass]</strong> <u>string</u> <i>(optional)</i> Set the css class to be applied for overlay backdrop when is not hidden. <br/> If not provided will fallback default css class <strong>uk2-menu-button-backdrop</strong></li>
+  <li><strong>[uk2ScrollStrategy]</strong> <u>Uk2MenuButtonScrollStrategy</u> <i>(optional)</i> Set the scroll strategy on the overlay backdrop. (<strong>Default:</strong> block).</li>
+</ul>
+<br/>
+
+
+## Outputs
+  <ul>
+    <li><strong>(uk2OnItemSelected)</strong> <i>(required)</i> is the callback that allows to update selection of items.</li>
+  </ul>
+<br/>
+
+## NgTemplateOutlet
+- You need to provide the template for each option to be rendered within the flyout part of the component by using content projection. We have enabled an ngTemplateOutletContext object that reflects the current state of each option on the list allowing further customization.
+   - context type definition:
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+        type context = {
+          option: Uk2MenuButtonItem;
+        }
+    `}
+  />
+
+  - template example:
+  <Source
+    dark
+    language='html'
+    code={dedent`
+        <ng-template #option let-context> {{ context.option.text }} </ng-template>
+    `}
+  />
+
+
+  <p> for <code> Uk2MenuButtonSelectionTypeEnum.multiple </code> variant of menu button the checkbox will be automatically added in contrast with single selection variant of the menu button </p>
+
+
+
+
+
+## Enums
+
+- You need to import <strong>Uk2MenuButtonSelectionTypeEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the button type of Uk2MenuButton component.
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export enum Uk2MenuButtonSelectionTypeEnum {
+      single = 'single',
+      multiple = 'multiple',
+    }
+  `}
+/>
+
+
+- You need to import <strong>Uk2ButtonSizeEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the size of Uk2MenuButton component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      export enum Uk2ButtonSizeEnum {
+        small = 'small',
+        medium = 'medium',
+        large = 'large',
+      }
+  `}
+/>
+
+
+- You need to import <strong>Uk2MenuButtonScrollStrategy</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the overlay backdrop scroll strategy of Uk2MenuButton component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      export enum Uk2MenuButtonScrollStrategy {
+        block = 'block',
+        close = 'close',
+        noop = 'noop',
+        reposition = 'reposition',
+      }
+  `}
+/>
+
+
+## Types
+
+- You need to import <strong>Uk2MenuButtonItem</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose create your menu list items.
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export type Uk2MenuButtonItem = {
+      text: string;
+      isSelected: boolean;
+      value: string;
+    };
+  `}
+/>
+
+
+- You need to import <strong>Uk2MenuButtonCSSProperty</strong> type from @axos/uikit-v2-lib to be used to overwrite uk2CSSPortalProperties input when applicable. Refer to sample code below
+<Source
+  dark
+  language='ts'
+  code={
+    dedent`
+    export type Uk2MenuButtonCSSProperty = {
+      name: string;
+      value: string
+    };
+    `
+  }
+/>
+
+
+
+## Menu button flyout item css styles
+
+- You need to include <strong>uk2-menu-button-item-content</strong> on a scss top file (styles.scss) or styles file with no encapsulation correctly
+  to create and apply custom styles for the menu button item content and divider spacings as this is no handled by default as different use cases require different spacings.
+  This mixin will create two classes with the following names:
+  <Source
+    dark
+    language='scss'
+    code={
+      dedent`
+        @import '../uk2-menu-button.mixins.scss';
+        @include uk2-menu-button-item-content(16, 24, 16, 24);
+        // This generates the following two classes
+        // For content item - uk2-custom-menu-item-content__16-24
+        // For list item divider - uk2-custom-menu-item-content-divider__16-24
+      `
+    }
+  />
+
+  <ul>
+    <li><strong>uk2-custom-menu-item-content__[horizontal-padding]-[vertical-padding]</strong> - for the content of the menu button item</li>
+    <li><strong>uk2-menu-button-item-divider__[horizontal-padding]-[vertical-padding]</strong> - for the divider of the menu button item</li>
+  </ul>

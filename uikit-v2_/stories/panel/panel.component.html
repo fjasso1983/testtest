@@ -1,0 +1,124 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Panel states (Normal and Skeleton)</li>
+  <li>Panel width size</li>
+  <li>Customization for the header</li>
+  <li>Footer customization</li>
+</ul>
+
+<button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="openPanel()">
+  Open Panel
+</button>
+
+<uk2-panel
+  #sidePanelRef
+  [uk2PanelWidth]="panelWidth"
+  [uk2PanelMinWidth]="panelMinWidth"
+  [uk2PanelMaxWidth]="panelMaxWidth"
+  [uk2ShowFooter]="showFooter"
+  [uk2IsLoading]="isLoading"
+  [uk2CloseOnBackdropClick]="closeOnBackdropClick"
+  [uk2IsPanelResizable]="isPanelResizable"
+  [uk2HeaderTitle]="headerTitle"
+  [uk2HeaderTextBehavior]="headerBehavior"
+>
+  <ng-template #uk2PanelRightHeaderIcons>
+    <ng-container [ngSwitch]="headerRightActions">
+      <button
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        (click)="closePanel()"
+        *ngSwitchCase="'close-button'"
+      >
+        <mat-icon [svgIcon]="'uk2-x'"></mat-icon>
+      </button>
+      <button
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        (click)="headerClickEvent.emit('Filter button clicked')"
+        *ngSwitchCase="'filter-button'"
+      >
+        <mat-icon [svgIcon]="'uk2-filter-funnel'"></mat-icon>
+      </button>
+      <button
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        (click)="headerClickEvent.emit('Config button clicked')"
+        *ngSwitchCase="'config-button'"
+      >
+        <mat-icon [svgIcon]="'uk2-cog'"></mat-icon>
+      </button>
+    </ng-container>
+  </ng-template>
+  <ng-template #uk2PanelLeftHeaderIcons>
+    <ng-container [ngSwitch]="headerLeftActions">
+      <button
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        *ngSwitchCase="'chevron-down-up-button'"
+      >
+        <mat-icon [svgIcon]="'uk2-chevron-down'"></mat-icon>
+      </button>
+      <button
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        *ngSwitchCase="'chevron-down-up-button'"
+      >
+        <mat-icon [svgIcon]="'uk2-chevron-up'"></mat-icon>
+      </button>
+    </ng-container>
+  </ng-template>
+  <ng-template #uk2PanelContent>
+    <div class="content"
+      ><p>{{ contentTemplate }}</p></div
+    >
+  </ng-template>
+  <ng-template #uk2PanelFooter>
+    <button
+      *ngIf="textButtonVisible"
+      class="text-buttton"
+      uk2TextButton
+      mat-button
+      disableRipple
+      [uk2ButtonSize]="textButtonSize"
+      (click)="!textButtonClosePanel ? clickEvent.emit() : closePanel()"
+    >
+      {{ textButtonLabel }}
+    </button>
+
+    <button
+      *ngIf="secondaryButtonVisible"
+      class="footer-buttons"
+      uk2SecondaryButton
+      mat-stroked-button
+      disableRipple
+      [uk2ButtonSize]="secondaryButtonSize"
+      (click)="!secondaryButtonClosePanel ? clickEvent.emit() : closePanel()"
+    >
+      {{ secondaryButtonLabel }}
+    </button>
+
+    <button
+      *ngIf="primaryButtonVisible"
+      class="footer-buttons"
+      uk2PrimaryButton
+      mat-raised-button
+      disableRipple
+      [uk2ButtonSize]="primaryButtonSize"
+      (click)="!primaryButtonClosePanel ? clickEvent.emit() : closePanel()"
+    >
+      {{ primaryButtonLabel }}
+    </button>
+  </ng-template>
+</uk2-panel>

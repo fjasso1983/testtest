@@ -1,0 +1,80 @@
+*[uk2FilterBar] {
+  &.uk2-filter-bar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+
+    // Style for buttons inside filter bar
+    button[mat-button][uk2TextIconButton],
+    button[mat-button][uk2TextButton] {
+      color: var(--uk2-neutral-slate-400) !important;
+
+      &:active {
+        background-color: var(--uk2-neutral-grey-200) !important;
+      }
+    }
+
+    button[mat-button][uk2TextButton] {
+      color: var(--uk2-neutral-slate-300) !important;
+      @include uk2-font__body-medium--50();
+      padding: 8px !important;
+    }
+
+    button.uk2-filter-bar-add-filter-button {
+      display: none !important;
+    }
+
+    // Hover set visibility of filter bar buttons
+    &:hover {
+      button.uk2-filter-bar-add-filter-button {
+        display: inline-flex !important;
+      }
+    }
+
+    &.uk2-filter-bar-hovered {
+      button.uk2-filter-bar-add-filter-button {
+        display: inline-flex !important;
+      }
+    }
+  }
+
+  // State skeleton
+  &.uk2-filter-bar-skeleton-visible {
+    .uk2-filter-bar-skeleton {
+      display: flex !important;
+
+      .uk2-filter-bar-skeleton-chip {
+        display: block !important;
+      }
+    }
+
+    *:not(.uk2-filter-bar-skeleton) {
+      display: none !important;
+    }
+
+    &:hover {
+      button.uk2-filter-bar-add-filter-button {
+        display: none !important;
+      }
+    }
+
+    &.uk2-filter-bar-hovered {
+      button.uk2-filter-bar-add-filter-button {
+        display: none !important;
+      }
+    }
+  }
+
+  .uk2-filter-bar-skeleton {
+    gap: 8px;
+    display: none;
+
+    .uk2-filter-bar-skeleton-chip {
+      width: 111px;
+      height: 32px;
+      border-radius: 4px;
+      @include uk2-loading-skeleton-animation(--uk2-neutral-grey-400, --uk2-neutral-grey-300);
+    }
+  }
+}

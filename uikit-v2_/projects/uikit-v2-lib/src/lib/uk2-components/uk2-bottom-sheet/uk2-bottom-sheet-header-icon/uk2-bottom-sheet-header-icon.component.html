@@ -1,0 +1,41 @@
+<section id="uk2-bottom-sheet-header-icon">
+  <div id="uk2-bottom-sheet-header-icon-div">
+    <div [uk2ElementPosition]="leftposition">
+      <button
+        *ngIf="true"
+        uk2LabeledIconButton
+        disableRipple
+        mat-button
+        class="uk2-icon-button"
+        [uk2ButtonSize]="buttonSize"
+        [uk2LabeledIconPosition]="labeledIconPosition"
+        (click)="onClickBackButton()"
+      >
+        <mat-icon class="tier2" [svgIcon]="navigationBack"></mat-icon>
+        Back
+      </button>
+    </div>
+    <div [uk2ElementPosition]="centerposition">
+      <span id="uk2-bottom-sheet-header-icon-title">{{ titleheadericon }}</span>
+    </div>
+    <div [uk2ElementPosition]="rightposition">
+      <button
+        uk2TextIconButton
+        mat-button
+        disableRipple
+        mat-dialog-close
+        mat-button
+        title="Close"
+        [uk2ButtonSize]="buttonSize"
+        [uk2TextButtonVariant]="buttonVariant"
+        (click)="onClickCloseButton()"
+      >
+        <mat-icon class="tier2" [svgIcon]="navigationX"></mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="showTitleDivider">
+    <mat-divider></mat-divider>
+  </ng-container>
+</section>

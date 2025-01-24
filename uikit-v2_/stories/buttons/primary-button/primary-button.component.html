@@ -1,0 +1,21 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Primary Button states (default, hover, skeleton and disabled).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Primary Button size (large, medium and small)</li>
+  <li>Primary Button responsiveness on each size</li>
+</ul>
+
+<button
+  uk2PrimaryButton
+  disableRipple
+  mat-raised-button
+  [uk2ButtonSize]="uk2ButtonSize"
+  [uk2IsLoading]="uk2IsLoading"
+  [uk2InlineLoadingStateText]="uk2InlineLoadingText"
+  [uk2IsInlineLoadingActive]="uk2InlineLoading"
+  [disabled]="isDisabled"
+>
+  {{ text }}
+</button>

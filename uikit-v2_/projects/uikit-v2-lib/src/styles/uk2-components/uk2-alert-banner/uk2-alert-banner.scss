@@ -1,0 +1,14 @@
+@import './uk2-alert-banner.mixins';
+
+.uk2-alert-banner{
+  overflow: hidden;
+  @include uk2-alert-banner-animation;
+}
+
+.uk2-alert-banner-container{
+  @include uk2-alert-banner;
+  @include uk2-alert-banner-alert;
+  @include uk2-alert-banner-inform;
+  @include uk2-alert-banner-skeleton;
+  @include uk2-alert-banner-responsive;
+}

@@ -1,0 +1,27 @@
+@mixin uk2-input-default() {
+  .mdc-notched-outline__notch {
+    width: auto !important;
+  }
+}
+
+@mixin uk2-input-size-large() {
+  @include uk2-font__body-regular--100();
+  &.mat-mdc-input-element::placeholder, &.mat-mdc-input-element:disabled{
+    color:var(--uk2-neutral-slate-300) !important;
+  }
+}
+
+@mixin uk2-input-size-medium() {
+  @include uk2-font__body-regular--100();
+  &.mat-mdc-input-element::placeholder, &.mat-mdc-input-element:disabled{
+    color:var(--uk2-neutral-slate-300) !important;
+  }
+}
+
+@mixin uk2-input-size-small() {
+  @include uk2-font__body-regular--75();
+  &.mat-mdc-input-element::placeholder, &.mat-mdc-input-element:disabled{
+    color:var(--uk2-neutral-slate-300) !important;
+  }
+}
+

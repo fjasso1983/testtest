@@ -1,0 +1,142 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import { hrefTo } from '@storybook/addon-links';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../../../directives-docs/directives-prerequisites.docs.mdx';
+
+# Uk2ProgressBar component documentation
+
+## Introduction
+<p>
+  <strong>Uk2ProgressBar</strong> is a custom component using the <a href="/docs/components-progress-bar-determinate--basic-usage"> uk2DeterminateProgressBar  </a> directive, designed to achieve the top bar with progress variant as part of the <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?type=design&node-id=1000-35338&t=0nO37XcIk9eTVGG9-0" target="_blank">Axos Design System</a>.
+</p>
+
+## Prerequisites
+- You need to import MatToolbarModule, MatIconModule, MatButtonModule and MatProgressBarModule from @angular/material/* into the desired module of your Angular App. To be able to use Uk2ProgressBarModule component.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatToolbarModule } from '@angular/material/toolbar';
+      import { MatIconModule } from '@angular/material/icon';
+      import { MatButtonModule } from '@angular/material/button';
+      import { MatProgressBarModule } from '@angular/material/progress-bar';
+  `}
+/>
+
+- You need to import Uk2ProgressBarModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use Uk2ProgressBarModule component.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2ProgressBarModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+## Inputs
+<ul>
+  <li><strong>[uk2LogoImgPath]</strong> <u>String</u> <i>(required)</i> logo image path.</li>
+  <li><strong>[uk2OrganizationName]</strong> <u>string </u> <i>(optional)</i> used to display the organization name when uk2LogoImgPath is not provided.</li>
+  <li><strong>[uk2IsLoading]</strong> <u>Boolean</u> <i>(optional)</i> using for display skeleton mode.</li>
+  <li><strong>[uk2ProgressBarValue]</strong> <u>Number</u> <i>(required)</i> It is the value that the progress bar will have.</li>
+  <li><strong>[uk2HeaderText]</strong> <u>String</u> <i>(required)</i> It is the value that the title text will have.</li>
+  <li><strong>[uk2HeaderIconButton]</strong> <u>Uk2ProgressBarLabeledIconButtonModel </u> <i>(optional)</i> using for display icon labeled header button.</li>
+  <li><strong>[uk2FooterIconButton]</strong> <u>Uk2ProgressBarLabeledIconButtonModel </u> <i>(optional)</i> using for display icon labeled footer button.</li>
+</ul>
+
+## Outputs
+<ul>
+  <li><strong>(uk2HeaderCallBackButton)</strong> <u>EventEmitter</u> <i>(optional)</i> It is the function that will be triggered when clicking on the header button.</li>
+  <li><strong>(uk2FooterCallBackButton)</strong> <u>EventEmitter</u> <i>(optional)</i> It is the function that will be triggered when clicking on the footer button.</li>
+ </ul>
+
+## Component-specific CSS variables
+
+<ul>
+ <li><strong>[--uk2-header-font-color]</strong> <i>(default: --uk2-accent-color-hsl)</i> is the organization name color and title color of Progress Bar.</li>
+ <li><strong>[--uk2-header-font-family]</strong> <i>(default: 'Encode Sans')</i> is the font family of Progress Bar.</li>
+</ul>
+
+## Models
+
+- You need to import <strong>Uk2ProgressBarLabeledIconButtonModel</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to use icon labeled button.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Uk2ProgressBarLabeledIconButtonModel } from '@axos/uikit-v2-lib';
+  \r
+  export class Uk2ProgressBarLabeledIconButtonModel {
+    svgIconName: string;
+    labelText: string;
+    \r
+    constructor(uk2LabeledIconButton: any) {
+      this.svgIconName = uk2LabeledIconButton.svgIconName;
+      this.labelText = uk2LabeledIconButton.labelText;
+    }
+  }
+  `}
+/>
+
+## Sample code
+
+### *.component.html
+<Source
+  dark
+  code={dedent`
+    <uk2-progress-bar
+      [uk2LogoImgPath]="uk2LogoImgPath"
+      [uk2OrganizationName]="uk2OrganizationName"
+      [uk2IsLoading]="uk2IsLoading"
+      [uk2ProgressBarValue]="uk2ProgressBarValue"
+      [uk2HeaderText]="uk2HeaderText"
+      [uk2HeaderIconButton]="uk2HeaderIconButton"
+      (uk2HeaderCallBackButton)="uk2HeaderCallBackButton()"
+      [uk2FooterIconButton]="uk2FooterIconButton"
+      (uk2FooterCallBackButton)="uk2FooterCallBackButton()"
+    ></uk2-progress-bar>
+  `}
+/>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class MyCompany {
+      uk2IsLoading = false;
+      \r
+      uk2HeaderIconButton: Uk2ProgressBarLabeledIconButtonModel = new Uk2ProgressBarLabeledIconButtonModel({
+        svgIconName: 'uk2-log-out-R',
+        labelText: 'Save & Exit',
+      });
+      \r
+      uk2FooterIconButton: Uk2ProgressBarLabeledIconButtonModel = new Uk2ProgressBarLabeledIconButtonModel({
+        svgIconName: 'uk2-chevron-left',
+        labelText: 'Lorem Ipsum',
+      });
+      \r
+      uk2LogoImgPath = '';
+      uk2OrganizationName = '';
+      uk2ProgressBarValue = 70;
+      uk2HeaderText = 'Lorem ipsum dolor';
+      \r
+      constructor() {}
+      \r
+      uk2HeaderCallBackButton() {
+        alert('function was executed');
+      }
+      \r
+      uk2FooterCallBackButton() {
+        alert('function was executed');
+      }
+    }
+  `}
+/>
+
+

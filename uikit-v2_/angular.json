@@ -1,0 +1,191 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "uikit-v2-lib": {
+      "projectType": "library",
+      "root": "projects/uikit-v2-lib",
+      "sourceRoot": "projects/uikit-v2-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/uikit-v2-lib/tsconfig.lib.json",
+            "project": "projects/uikit-v2-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/uikit-v2-lib/tsconfig.lib.prod.json"
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/uikit-v2-lib/src/test.ts",
+            "tsConfig": "projects/uikit-v2-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/uikit-v2-lib/karma.conf.js",
+            "codeCoverageExclude": [
+              "projects/uikit-v2-lib/src/lib/**/index.ts",
+              "projects/uikit-v2-lib/src/lib/**/constants.ts"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/uikit-v2-lib/src/**/*.ts",
+              "projects/uikit-v2-lib/src/**/*.html",
+              "projects/uikit-v2-docs/src/**/*.ts",
+              "projects/uikit-v2-docs/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "uikit-v2-docs": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/uikit-v2-docs",
+      "sourceRoot": "projects/uikit-v2-docs/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/uikit-v2-docs",
+            "index": "projects/uikit-v2-docs/src/index.html",
+            "main": "projects/uikit-v2-docs/src/main.ts",
+            "polyfills": [ "zone.js" ],
+            "tsConfig": "projects/uikit-v2-docs/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/uikit-v2-docs/src/favicon.ico",
+              "projects/uikit-v2-docs/src/assets",
+              {
+                "input": "projects/uikit-v2-lib/src/assets/svg/icons",
+                "glob": "**/*",
+                "output": "uk2/assets/svg/icons"
+              },
+              {
+                "input": "projects/uikit-v2-lib/src/assets/svg/graphics",
+                "glob": "**/*",
+                "output": "uk2/assets/svg/graphics"
+              }
+            ],
+            "styles": [
+              "projects/uikit-v2-docs/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "8mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/uikit-v2-docs/src/environments/environment.ts",
+                  "with": "projects/uikit-v2-docs/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "uikit-v2-docs:build:production"
+            },
+            "development": {
+              "browserTarget": "uikit-v2-docs:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "uikit-v2-docs:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/uikit-v2-docs/src/test.ts",
+            "polyfills": [ "zone.js" ],
+            "tsConfig": "projects/uikit-v2-docs/tsconfig.spec.json",
+            "karmaConfig": "projects/uikit-v2-docs/karma.conf.js",
+            "assets": [
+              "projects/uikit-v2-docs/src/favicon.ico",
+              "projects/uikit-v2-docs/src/assets"
+            ],
+            "styles": [
+              "projects/uikit-v2-docs/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "browserTarget": "uikit-v2-docs:build:development",
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "browserTarget": "uikit-v2-docs:build:production"
+          }
+        }
+      }
+    }
+  }
+}

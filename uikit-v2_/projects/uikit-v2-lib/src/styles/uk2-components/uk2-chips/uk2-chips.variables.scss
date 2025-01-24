@@ -1,0 +1,26 @@
+// Chip variables mixin definition, do not use this specific variables for branding, use the variables defined on the chip storybook doc instead.
+
+// HSL accent functions cannot be called directly into a CSS custom property, so they need to be stored on a SCSS variable to be used
+$uk2-accent-100-hsl: accent-color-100-hsl();
+$uk2-accent-200-hsl: accent-color-200-hsl();
+$uk2-accent-400-hsl: accent-color-400-hsl();
+
+// These variables help set the accent value as a default value on the component if there's no branding present.
+// If a branding variable value is set (for example uk2-chips-text-color) it uses that value. Otherwise it defaults to HSL accent colors.
+@mixin chip-variables() {
+  --uk2-chips-aux-default-stroke-color: var(--uk2-chips-default-stroke-color, #{$uk2-accent-200-hsl});
+  --uk2-chips-aux-selected-stroke-color: var(--uk2-chips-selected-stroke-color, #{$uk2-accent-200-hsl});
+  --uk2-chips-aux-hover-stroke-color: var(--uk2-chips-hover-stroke-color, #{$uk2-accent-400-hsl});
+  --uk2-chips-aux-selected-surface-color: var(--uk2-chips-selected-surface-color, #{$uk2-accent-100-hsl});
+  --uk2-chips-aux-text-color: var(--uk2-chips-text-color, #{$uk2-accent-400-hsl});
+  --uk2-chips-aux-icon-color: var(--uk2-chips-icon-color, #{$uk2-accent-400-hsl});
+  --uk2-chips-aux-indicator-color: var(--uk2-chips-indicator-color, #{$uk2-accent-400-hsl});
+}
+
+// Variables with non accent values, these can be overriden directly by providing a variable with the same name for branding.
+:root {
+  --uk2-chips-default-surface-color: var(--uk2-neutral-white);
+  --uk2-chips-text-disabled-color: var(--uk2-neutral-slate-300);
+  --uk2-chips-icon-disabled-color: var(--uk2-neutral-slate-300);
+  --uk2-chips-disabled-stroke-color: var(--uk2-neutral-grey-300);
+}

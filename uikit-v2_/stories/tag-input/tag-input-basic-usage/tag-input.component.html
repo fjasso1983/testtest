@@ -1,0 +1,33 @@
+<section>
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+
+  <ul>
+    <li>Tag Input states (default, hover, skeleton and disabled).</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+    <li>Responsiveness on different screen sizes.</li>
+  </ul>
+
+  <mat-form-field appearance="outline" floatLabel="always" [hintLabel]="hintText">
+    <mat-label>{{ labelText }}</mat-label>
+    <mat-select
+      uk2Dropdown
+      [uk2IsLoading]="isLoading"
+      [uk2DropdownSize]="dropdownSize"
+      [formControl]="control"
+      [placeholder]="placeholderText"
+      multiple
+    >
+      <mat-select-trigger>
+        <mat-chip-listbox>
+          <mat-chip-option uk2TagInputChips *ngFor="let option of control.value" (removed)="onItemRemoved(option)">
+            {{ option }}
+            <mat-icon matChipRemove svgIcon="uk2-x"></mat-icon>
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </mat-select-trigger>
+
+      <mat-option *ngFor="let option of optionList" [value]="option">{{ option }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</section>

@@ -1,0 +1,28 @@
+@mixin progress-bar-styles {
+  height: 12px !important;
+  border-radius: 8px !important;
+  background-color: var(--uk2-neutral-grey-300) !important;
+
+  .uk2-inner-progress-bar {
+    height: 100%;
+    width: 8px;
+    z-index: 1;
+    border-radius: 8px;
+
+    box-sizing: border-box;
+    border-color: accent-color-400-hsl() !important;
+    background-color: accent-color-400-hsl() !important;
+
+    position: absolute;
+    transition: width 0.25s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  .mdc-linear-progress__bar-inner {
+    display: none;
+  }
+
+  .mdc-linear-progress__buffer-bar {
+    background-color: var(--uk2-neutral-grey-300) !important;
+  }
+}

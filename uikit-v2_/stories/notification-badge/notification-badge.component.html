@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Basic Usage</h1>
+  <p> This page showcase the following: </p>
+
+  <ul>
+    <li>Dynamic content when badge text is greater that 9</li>
+    <li>Notification badge states: Skeleton and hidden</li>
+  </ul>
+
+  <p>
+    Badge is a component that can be attached to other elements/components. This example only shows the behavior of
+    <br />
+    the badge as a standalone component other states of notification badge like hover and selected will be provided in
+    different pages.
+  </p>
+  <br />
+  <div>
+    <div
+      [matBadge]="text"
+      [matBadgeHidden]="isHidden"
+      [uk2IsLoading]="isLoading"
+      [uk2BadgeType]="type"
+      [uk2BadgeSelected]="isSelected"
+      [uk2BadgeEnableHoverState]="hasHover"
+      uk2NotificationBadge
+    ></div>
+  </div>
+  <br />
+  <br />
+</div>

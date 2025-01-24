@@ -1,0 +1,77 @@
+uk2-tile-header-link {
+  background-color: var(--uk2-neutral-white);
+  display: block;
+}
+
+.uk2-tile-header-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+
+  // Add space between chevron icon and text when hovered
+  &:has(a:hover, .uk2-tile-header-link-chevron:hover) {
+    gap: 8px !important;
+  }
+
+  // Chevron icon
+  > mat-icon {
+    cursor: pointer;
+  }
+
+  // Header container
+  .uk2-tile-header-link__text {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    color: var(--uk2-header-font-color) !important;
+    min-width: 1px !important;
+    &:hover {
+      color:  var(--uk2-header-font-hover-color) !important;
+    }
+
+    // Projected title section
+    .uk2-tile-header {
+      // Applying font styles for ellipsis text overflow
+      @include uk2-font__display-bold--300();
+
+      > * {
+        margin: 0 !important;
+        padding: 0 !important;
+        @include uk2-font__display-bold--300();
+      }
+    }
+  }
+
+  // Chevron icon
+  .uk2-tile-header-link-chevron {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0;
+    color: var(--uk2-header-font-color) !important;
+  }
+}
+
+// Sub-line text container
+.uk2-tile-header-sub-line {
+  @include uk2-font__body-regular--100;
+  color: var(--uk2-neutral-slate-400);
+}
+
+// Truncate/Wrap rules
+.uk2-product-tile-header.uk2-tile-header-truncate {
+  .uk2-tile-header {
+    min-width: 1px !important;
+    @include uk2-text-truncation-ellipsis;
+    > * {
+      @include uk2-text-truncation-ellipsis;
+    }
+  }
+
+  .uk2-tile-header-sub-line-container {
+    min-width: 1px !important;
+    @include uk2-text-truncation-ellipsis;
+    .uk2-tile-header-sub-line {
+      @include uk2-text-truncation-ellipsis;
+    }
+  }
+}

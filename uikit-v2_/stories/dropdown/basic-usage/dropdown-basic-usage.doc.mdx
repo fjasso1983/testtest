@@ -1,0 +1,386 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2Dropdown directive documentation
+## Introduction
+<p>
+  Uk2DropdownDirective is a directive designed to customize the styling of <strong><a href="https://v15.material.angular.io/components/select/overview" target="_blank">&lt;mat-select&gt;</a></strong> Angular Material component to adhere to Axos Design System.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong><a href="https://v15.material.angular.io/components/select/overview" target="_blank">&lt;mat-select&gt;</a></strong> elements, wrapped in <strong><a href="https://v15.material.angular.io/components/form-field/examples" target="_blank">&lt;mat-form-field&gt;</a></strong> component. It will add the <strong>uk2-dropdown</strong> css class name to handle styles.
+  </li>
+  <li>
+    <strong><a href="https://v15.material.angular.io/components/form-field/examples" target="_blank">&lt;mat-form-field&gt;</a></strong> component should have <strong>appearance="outline"</strong> and <strong>floatLabel="always"</strong> properties. Either globally or per usage basis.
+    <br />
+    See <a href="https://v15.material.angular.io/components/input/overview" target="_blank">Angular Material - Input Documentation</a> to see how this can be achieved.
+  </li>
+  <li>
+    In order to use hint please add [hintLabel]="your-hint" in <strong><a href="https://v15.material.angular.io/components/form-field/examples" target="_blank">&lt;mat-form-field&gt;</a></strong> and remove &lt;mat-hint&gt; element.
+  </li>
+  <li>
+    Is necessary to add the attribute <b>[disableRipple]</b> in &lt;mat-select&gt; element for the integration with &lt;bottom-sheet&gt; component.
+  </li>
+</ol>
+
+## Prerequisites
+### You need to import the next modules from @axos/uikit-v2-lib and @angular/material. To be able to access uk2Dropdown directive.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //angular
+      import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+      //@angular/material
+      import { MatSelectModule } from '@angular/material/select';
+      import { MatInputModule } from '@angular/material/input';
+      import { MatIconModule } from '@angular/material/icon';
+      //@axos/uikit-v2-lib
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li>[uk2DropdownSize] <u>Uk2DropdownSizeEnum</u> <i>(optional)</i> Size of the input field. It could be Uk2DropdownSizeEnum.large, Uk2DropdownSizeEnum.medium or Uk2DropdownSizeEnum.small. (<b>Default:</b> Uk2DropdownSizeEnum.large).</li>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle to skeleton state. (<b>Default:</b> false).</li>
+  <li>[uk2CSSProperties] <u>Uk2DropdownCSSProperty[]</u> <i>(optional)</i> CSS properties to be applied at dropdown menu in case of having multiple branding</li>
+</ul>
+
+## Enums
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2DropdownSizeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2DropdownSizeEnum {
+      large = 'large',
+      medium = 'medium',
+      small = 'small',
+    }
+  `}
+/>
+
+## Types
+
+- You need to import <strong>Uk2DropdownCSSProperty</strong> type from @axos/uikit-v2-lib to be used to overwrite uk2CSSProperties input when applicable. Refer to sample code below
+<Source
+  dark
+  language='ts'
+  code={
+    dedent`
+    export type Uk2DropdownCSSProperty = {
+      name: string;
+      value: string;
+    };
+    `
+  }
+/>
+
+## Sample code
+### Basic Usage
+
+In order to use the directive you need to add **uk2Dropdown** as an attribute of <strong>&lt;mat-select&gt;</strong> like in the next example.
+Note the use of hintLabel property of <strong>&lt;mat-form-field&gt;</strong> to set the helper text. Using this property instead of the <strong>&lt;mat-hint&gt;</strong> element, will allow us to display the same text inside the flyout, when the dropdown is active.
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option">
+    <mat-label>Options</mat-label>
+    <mat-select
+      uk2Dropdown
+      placeholder="Lorem Ipsum"
+      disableRipple
+    >
+      <mat-option>None</mat-option>
+      <mat-option value="option1">Option 1</mat-option>
+      ... your options
+    </mat-select>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+  `}
+/>
+
+### Toggling skeleton state
+Note the use of <strong>uk2IsLoading</strong> property to toggle skeleton state.
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option" [uk2IsLoading]="isLoading">
+    <mat-label>Options</mat-label>
+    <mat-select
+      uk2Dropdown
+      placeholder="Lorem Ipsum"
+      disableRipple
+    >
+      <mat-option>None</mat-option>
+      <mat-option value="option1">Option 1</mat-option>
+      ... your options
+    </mat-select>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  export class YourComponent {
+    isLoading: boolean = false;
+  }
+  `}
+/>
+
+### Integration with bottom sheet
+Uk2Dropdown can be linked with a bottom sheet component following the next steps:
+<ol>
+  <li>Import <b>Uk2BottomSheetModule</b> from @axos/uikit-v2-lib</li>
+  <li>Add <b>uk2BottomSheetLink</b> directive in a &lt;mat-select&gt;
+  <Source
+    dark
+    language='html'
+    code={dedent`
+    <mat-select
+      placeholder="Lorem Ipsum"
+      uk2Dropdown
+      disableRipple
+      <!-- changes -->
+      uk2BottomSheetLink
+    ></mat-select>
+    `}
+  />
+  </li>
+  <li>In template add a &lt;ng-template&gt; that contains a &lt;uk2-bottom-sheet-options&gt;
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <ng-template>
+        <uk2-bottom-sheet-options
+          title="INSERT_TITLE"
+          description="INSERT_DESCRIPTION"
+        ></uk2-bottom-sheet-options>
+      </ng-template>
+    `}
+  />
+  </li>
+  <li>Create a template variable in &lt;ng-template&gt; with the name you want
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <ng-template #bottomSheetRef>
+        <uk2-bottom-sheet-options
+          title="INSERT_TITLE"
+          description="INSERT_DESCRIPTION"
+        ></uk2-bottom-sheet-options>
+      </ng-template>
+    `}
+  />
+  </li>
+  <li>In &lt;mat-select&gt; add the following property binding <b>[uk2BottomSheetRef]="NAME_OF_TEMPLATE_VARIABLE"</b>
+  <Source
+    dark
+    language='html'
+    code={dedent`
+    <mat-select
+      placeholder="Lorem Ipsum"
+      uk2Dropdown
+      uk2BottomSheetLink
+      disableRipple
+      <!-- changes -->
+      [uk2BottomSheetRef]="bottomSheetRef"
+    ></mat-select>
+    `}
+  />
+  </li>
+  <li>Add a template variable in &lt;mat-select&gt; and use that name to pass options to &lt;uk2-bottom-sheet-options&gt; <b>[options]="select.options"</b>
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <mat-select
+        placeholder="Lorem Ipsum"
+        uk2Dropdown
+        uk2BottomSheetLink
+        disableRipple
+        [uk2BottomSheetRef]="bottomSheetRef"
+        <!-- changes -->
+        #uk2Select
+      ></mat-select>
+      ...
+      <ng-template #bottomSheetRef>
+        <uk2-bottom-sheet-options
+          title="INSERT_TITLE"
+          description="INSERT_DESCRIPTION"
+          <!-- changes -->
+          [options]="uk2Select.options"
+        ></uk2-bottom-sheet-options>
+      </ng-template>
+    `}
+  />
+  </li>
+</ol>
+
+### Customizing size
+Note the use of the <b>uk2DropdownSize</b>
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option" [uk2IsLoading]="isLoading">
+    <mat-label>Options</mat-label>
+    <mat-select
+      uk2Dropdown
+      [uk2DropdownSize]="uk2DropdownSize"
+      placeholder="Lorem Ipsum"
+      disableRipple
+    >
+      <mat-option>None</mat-option>
+      <mat-option value="option1">Option 1</mat-option>
+      ... your options
+    </mat-select>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  import { Uk2DropdownSizeEnum } from '@axos/uikit-v2-lib';
+  \r
+  export class YourComponent {
+    isLoading: boolean = false;
+    uk2DropdownSize = Uk2DropdownSizeEnum.large;
+    \r
+    constructor() {}
+  }
+  `}
+/>
+
+### Toggle multiple selection
+Adding this attribute, the user should be allowed to select multiple options.
+Note the use of the <b>multiple</b> attribute.
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option" [uk2IsLoading]="isLoading">
+    <mat-label>Options</mat-label>
+    <mat-select
+      uk2Dropdown
+      multiple
+      placeholder="Lorem Ipsum"
+      disableRipple
+    >
+      <mat-option>None</mat-option>
+      <mat-option value="option1">Option 1</mat-option>
+      ... your options
+    </mat-select>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  export class YourComponent {
+    isLoading: boolean = false;
+    \r
+    constructor() {}
+  }
+  `}
+/>
+
+### Customizing style
+You can specify a list of type Uk2DropdownCSSProperty to define the CSS variables you wish to modify. These CSS variables will exclusively affect the dropdown menu while it is open, ensuring that the changes do not impact any other stylesheets.
+\r
+Note the use of the <b>uk2CSSProperties</b>
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-form-field appearance="outline" floatLabel="always" hintLabel="Please select an option" [uk2IsLoading]="isLoading">
+    <mat-label>Options</mat-label>
+    <mat-select
+      uk2Dropdown
+      [uk2CSSProperties]="uk2DropdownCSSProperties"
+      placeholder="Lorem Ipsum"
+    >
+      <mat-option>None</mat-option>
+      <mat-option value="option1">Option 1</mat-option>
+      ... your options
+    </mat-select>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  import { Uk2DropdownCSSProperty } from '@axos/uikit-v2-lib';
+  \r
+  export class YourComponent {
+    isLoading: boolean = false;
+    uk2DropdownCSSProperties: Uk2DropdownCSSProperty[] =  [
+    {
+      name: '--uk2-accent-color-hsl',
+      value: 'hsl(210, 49%, 36%)'
+    }
+    {
+      name: '--uk2-accent-color-hsl-h'
+      value: '210',
+    },
+    {
+      name: '--uk2-accent-color-hsl-s'
+      value: '49%',
+    },
+    {
+      name: '--uk2-accent-color-hsl-l',
+      value: '36%',
+    },
+  ];
+    \r
+    constructor() {}
+  }
+  `}
+/>

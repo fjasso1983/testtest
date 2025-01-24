@@ -1,0 +1,152 @@
+<h1>Flyout action button directive documentation</h1>
+
+<p>
+  uk2FlyoutDirective is a directive that will only work on
+  <i>&lt;button&gt;</i>
+  components and it will add an overlay to the button when clicked
+</p>
+<button (click)="disableItems = !disableItems">Disable items (menu list only)</button>
+<br />
+<br />
+<button (click)="isLoadingItems = !isLoadingItems">Toggle items skeleton state (menu list only)</button>
+<br />
+<br />
+
+<div>
+  <p>Flyout button - default positions</p>
+  <br />
+  <small>Flyout with list item component</small><br />
+  <button
+    mat-button
+    uk2TextIconButton
+    uk2FlyoutMenu
+    disableRipple
+    [uk2FlyoutTemplate]="flyoutOverlay"
+    [uk2TextButtonVariant]="uk2TextButtonVariant"
+    [uk2ButtonSize]="buttonSize.small"
+    #flyoutMenu="uk2FlyoutMenu"
+    (click)="flyoutMenu.toggle()"
+  >
+    <mat-icon svgIcon="uk2-ellipses-vertical"></mat-icon>
+  </button>
+  <br />
+  <br />
+  <br />
+  <small>Flyout with menu item directive</small><br />
+  <button
+    mat-button
+    uk2TextIconButton
+    uk2FlyoutMenu
+    disableRipple
+    [uk2FlyoutTemplate]="menuItemFlyoutOverlay"
+    [uk2TextButtonVariant]="uk2TextButtonVariant"
+    [uk2ButtonSize]="buttonSize.small"
+    [uk2OverlayXPosition]="startPosition"
+    #flyoutMenuListitem="uk2FlyoutMenu"
+    (click)="flyoutMenuListitem.toggle()"
+  >
+    <mat-icon svgIcon="uk2-ellipses-vertical"></mat-icon
+  ></button>
+  <br />
+  <br />
+  <br />
+  <small>Flyout with menu item directive (checkboxes)</small><br />
+  <button
+    mat-button
+    uk2TextIconButton
+    uk2FlyoutMenu
+    disableRipple
+    [uk2FlyoutTemplate]="menuItemCheckboxesFlyoutOverlay"
+    [uk2TextButtonVariant]="uk2TextButtonVariant"
+    [uk2ButtonSize]="buttonSize.small"
+    [uk2OverlayXPosition]="startPosition"
+    #checkboxesFlyoutMenu="uk2FlyoutMenu"
+    (click)="checkboxesFlyoutMenu.toggle()"
+  >
+    <mat-icon svgIcon="uk2-ellipses-vertical"></mat-icon
+  ></button>
+  <br />
+  <br />
+  <br />
+  <small>Flyout with menu item directive and client styles</small><br />
+  <button
+    mat-button
+    uk2TextIconButton
+    uk2FlyoutMenu
+    disableRipple
+    [uk2FlyoutTemplate]="menuItemFlyoutCustomOverlay"
+    [uk2TextButtonVariant]="uk2TextButtonVariant"
+    [uk2ButtonSize]="buttonSize.small"
+    [uk2OverlayXPosition]="startPosition"
+    #customFlyoutMenu="uk2FlyoutMenu"
+    (click)="customFlyoutMenu.toggle()"
+  >
+    <mat-icon svgIcon="uk2-ellipses-vertical"></mat-icon
+  ></button>
+</div>
+<br />
+<br />
+<br />
+<p>
+  Selected item from flyout - <strong>{{ selectedItem }}</strong>
+</p>
+
+<ng-template #flyoutOverlay>
+  <div class="flyout-container">
+    <uk2-list-item
+      *ngFor="let item of flyoutList; last as isLast"
+      [uk2ListItem]="item"
+      [uk2ShowDividerLine]="!isLast"
+      (click)="clickOption(item)"
+    >
+    </uk2-list-item>
+  </div>
+</ng-template>
+
+<ng-template #menuItemFlyoutOverlay>
+  <div class="flyout-container">
+    <div
+      uk2MenuListItem
+      *ngFor="let item of flyoutList; last as isLast"
+      (click)="clickOption(item)"
+      [uk2IsDisabled]="disableItems"
+      [uk2IsActive]="selectedItem === item.value"
+      [uk2ShowDividerLine]="!isLast"
+      [uk2IsLoading]="isLoadingItems"
+    >
+      <mat-icon [svgIcon]="item.svgIconName!"></mat-icon>
+      <p>{{ item.bodyText }}</p>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #menuItemCheckboxesFlyoutOverlay>
+  <div class="large-flyout-container">
+    <div
+      uk2MenuListItem
+      *ngFor="let item of flyoutList; index as i; last as isLast"
+      (click)="clickCheckboxOption(i)"
+      [uk2IsDisabled]="disableItems"
+      [uk2IsActive]="selectedItems[i] === true"
+      [uk2IsLoading]="isLoadingItems"
+    >
+      <mat-checkbox uk2Checkbox disableRipple [checked]="selectedItems[i]"></mat-checkbox>
+      <p>{{ item.bodyText }}</p>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #menuItemFlyoutCustomOverlay>
+  <div class="custom-flyout-container">
+    <div
+      class="custom-styles"
+      uk2MenuListItem
+      *ngFor="let item of flyoutList; last as isLast"
+      (click)="clickOption(item)"
+    >
+      <mat-icon [svgIcon]="item.svgIconName!"></mat-icon>
+      <p>{{ item.bodyText }}</p>
+    </div>
+    <div class="uk2-menu-list-divider"></div>
+  </div>
+</ng-template>

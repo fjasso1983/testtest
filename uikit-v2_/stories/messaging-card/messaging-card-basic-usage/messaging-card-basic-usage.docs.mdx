@@ -1,0 +1,132 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2MessagingCard component documentation
+
+## Introduction
+<p>
+  <strong>Uk2MessagingCard</strong> is a custom component developed using <a href="https://v15.material.angular.io/" target="_blank">Angular Material</a> library, to achieve Messaging Card component which is part of <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?type=design&node-id=5072-7861&mode=design&t=V6jplSKFTYBLPB54-0" target="_blank">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+   Messaging Card can be expanded/collapsed on click on arrow icon if present (expanded/collapsed Behavior) or fixed (Status behavior, arrow icon not displayed)
+  </li>
+   <li>
+   Messaging Card have three possible theme: Default, Alert or Inform.
+  </li>
+  <li>
+   Type Inform of Messaging Card have default svg Icon, icon is customizable.
+  </li>
+  <li>
+   Type Default of Messaging Card no have default svg Icon, icon is customizable.
+  </li>
+  <li>
+   Type Alert of Messaging Card have forced svg Icon, icon is <strong>NOT</strong> customizable.
+  </li>
+  <li>
+   Messaging Card content is handled by client app.
+  </li>
+</ol>
+
+## Prerequisites
+
+
+- You need to import Uk2MessagingCardModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use uk2MessagingCard component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2MessagingCardModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li><strong>[uk2MessagingCardHeaderText]</strong> <u>String</u> <i>(required)</i> Header text of Messaging Card.</li>
+  <li><strong>[uk2MessagingCardSvgIconName]</strong> <u>Uk2Tier1UtilityEnum</u><i> (optional <strong>default: alert -> Uk2Tier1AlertsEnum.exclamationTriangle , inform -> Uk2Tier1AlertsEnum.infoCircle</strong>)</i> using for display icon.</li>
+  <li><strong>[uk2MessagingCardShowIcon]</strong> <u>boolean</u><i> (optional <strong>default: true</strong>)</i> using for show/hide icon.</li>
+  <li><strong>[uk2IsLoading]</strong> <u>boolean</u> <i>(optional, <strong>default: false</strong>)</i> used to display skeleton mode.</li>
+  <li><strong>[uk2MessagingCardType]</strong> <u>Uk2MessagingCardTypeEnum</u> <i>(required)</i> used to apply specific theme for Messaging Card.</li>
+  <li><strong>[uk2MessagingCardIsExpandable]</strong> <u>boolean</u> <i>(optional, <strong>default: true</strong>)</i> used to swith between expanded/collapsed behavior or Status Behavior.</li>
+  <li><strong>[uk2MessagingCardIsExpanded]</strong> <u>boolean</u> <i>(optional, <strong>default: false</strong>)</i> used to expande or collapse Messaging Card.</li>
+</ul>
+
+ ## Enums
+
+- You need to import <strong>Uk2MessagingCardTypeEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the type of the Messaging Card.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2MessagingCardTypeEnum} from '@axos/uikit-v2-lib';
+  `}
+/>
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export enum Uk2MessagingCardTypeEnum {
+      default = 'default',
+      inform = 'inform',
+      alert = 'alert',
+    }
+  `}
+/>
+
+## Sample code
+  <p>
+  Here are some examples on how to open Uk2MessagingCard from any component.
+  </p>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Component } from '@angular/core';
+      import { Uk2MessagingCardTypeEnum, Uk2Tier1UtilityEnum } from '@axos/uikit-v2-lib';
+      \r
+      export class YourComponent {
+        type: Uk2MessagingCardTypeEnum = Uk2MessagingCardTypeEnum.inform;
+        headerText = 'Lorem ipsum dolor sit amet';
+        isExpandable = true;
+        isExpanded = true;
+        isLoading = false;
+        svgIconName:Uk2Tier1AlertsEnum = Uk2Tier1AlertsEnum.infoCircle;
+        showIcon = true;
+        \r
+        constructor() {}
+        \r
+      }
+  `}
+/>
+
+### *.component.html
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      <uk2-messaging-card
+        [uk2MessagingCardType]="type"
+        [uk2MessagingCardHeaderText]="headerText"
+        [uk2MessagingCardIsExpandable]="isExpandable"
+        [uk2MessagingCardIsExpanded]="isExpanded"
+        [uk2IsLoading]="isLoading"
+        [uk2MessagingCardSvgIconName]="svgIconName"
+        [uk2MessagingCardShowIcon]="showIcon"
+      >
+        <div class="messaging-card-content">
+          <div>Vitae ornare nec pretium lacus aliquet amet</div>
+          <ul>
+            <li>Lorum: $12,345 ($34,567)</li>
+            <li>Ipsum: $12,345 ($34,567)</li>
+          </ul>
+        </div>
+      </uk2-messaging-card>
+  `}
+/>
+

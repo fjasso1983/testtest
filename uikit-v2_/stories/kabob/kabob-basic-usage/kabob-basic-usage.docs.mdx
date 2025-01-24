@@ -1,0 +1,117 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# uk2FlyoutMenu directive documentation
+
+## Introduction
+<p> uk2FlyoutMenuDirective is a directive that can work on any elements and it will display a flyout menu when clicked on it. </p>
+<p>You need to use uk2FlyoutMenu directive on a button elements with the mat-button disableRipple attributes &lt;a&gt;.</p>
+
+## Prerequisites
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+## Sample Code
+<Source
+  dark
+  code={dedent`
+      <button uk2FlyoutMenu mat-button disableRipple>
+        <mat-icon svgIcon="uk2-ellipses-vertical"></mat-icon>
+      </button>
+  `}
+/>
+
+## Inputs
+<ul>
+  <li> [uk2FlyoutTemplate] <u>TemplateRef</u> <i>(required)</i>Template for the content displayed on the flyout.</li>
+  <li> [uk2OriginXPosition] <u>Uk2FlyoutXPosition</u> <i>(optional)</i> Horizontal display position relative to the origin of the flyout (<strong>Default:</strong>  Uk2FlyoutXPosition.end)</li>
+  <li> [uk2OverlayXPosition] <u>Uk2FlyoutXPosition</u> <i>(optional)</i> Horizontal display position of the flyout (<strong>Default:</strong> Uk2FlyoutXPosition.end)</li>
+  <li> [uk2OriginYPosition] <u>Uk2FlyoutYPosition</u> <i>(optional)</i> Vertical display position relative to the origin of the flyout (<strong>Default:</strong> Uk2FlyoutYPosition.bottom)</li>
+  <li> [uk2OverlayYPosition] <u>Uk2FlyoutYPosition</u> <i>(optional)</i> Vertical display position of the flyout (<strong>Default:</strong> Uk2FlyoutYPosition.top)</li>
+  <li> [flyoutOverlayYOffset] <u>Number</u> <i>(optional)</i> Vertical distance in pixels between the flyout and it's origin (<strong>Default:</strong> 4)</li>
+</ul>
+
+## Enums
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Uk2FlyoutXPosition, Uk2FlyoutYPosition } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2FlyoutXPosition {
+      start = 'start',
+      center = 'center',
+      end = 'end',
+    }
+    \r
+    export enum Uk2FlyoutYPosition {
+      top = 'top',
+      center = 'center',
+      bottom = 'bottom',
+    }
+  `}
+/>
+
+## Sample Code
+
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class ExampleComponent {
+      @ViewChild('flyoutMenu') flyoutMenu!: Uk2FlyoutMenuDirective;
+      flyoutOriginXPosition: Uk2FlyoutXPosition = Uk2FlyoutXPosition.end;
+      flyoutOverlayXPosition: Uk2FlyoutXPosition = Uk2FlyoutXPosition.end;
+      \r
+      constructor() { }
+      \r
+       clickOption(option: Uk2ListItem) {
+        ...
+        this.flyoutMenu.close(); //Closes the flyout menu
+      }
+    }
+  `}
+/>
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+    <button
+      mat-button
+      uk2TextIconButton
+      uk2FlyoutMenu
+      disableRipple
+      [uk2FlyoutTemplate]="flyoutOverlay"
+      #flyoutMenu="uk2FlyoutMenu"
+      (click)="flyoutMenu.toggle()"
+    >
+      <mat-icon svgIcon="uk2-ellipses-vertical"></mat-icon>
+    </button>
+    \r
+    <ng-template #flyoutOverlay>
+      <div class="flyout-container">
+        <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="clickDownload()" >
+          <mat-icon [svgIcon]="firstItem.svgIconName!"></mat-icon>
+          <p>{{firstItem.bodyText}}</p>
+        </div>
+        <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="clickShare()" >
+          <mat-icon [svgIcon]="secondItem.svgIconName!"></mat-icon>
+          <p>{{secondItem.bodyText}}</p>
+        </div>
+        <div uk2MenuListItem [uk2ShowDividerLine]="false" (click)="clickUpload()" >
+          <mat-icon [svgIcon]="thirdItem.svgIconName!"></mat-icon>
+          <p>{{thirdItem.bodyText}}</p>
+        </div>
+      </div>
+    </ng-template>
+  `}
+/>

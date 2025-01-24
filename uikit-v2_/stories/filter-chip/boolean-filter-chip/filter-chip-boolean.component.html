@@ -1,0 +1,18 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>Interaction patterns (hover, selected, pressed, overlay and options)</li>
+  <li>Filter chip overlay interaction (clear selection and keyboard navigation)</li>
+  <li>Toggle multiple option selection</li>
+</ul>
+<uk2-filter-chip-boolean
+  [uk2Conditions]="conditions"
+  [uk2IsLoading]="isLoading"
+  [uk2Options]="options"
+  [uk2Identifier]="identifier"
+  [uk2OverlayMinWidth]="overlayMinWidth"
+  [uk2IsMultiple]="isMultiple"
+  (uk2DeleteFilter)="removeFilter.emit()"
+  (uk2FilterValueChanges)="filterChanged.emit($event)"
+></uk2-filter-chip-boolean>

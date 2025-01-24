@@ -1,0 +1,55 @@
+@import '../uk2-buttons.mixins.scss';
+
+@mixin uk2-primary-icon-button($button-size, $background-color, $text-color) {
+    border-radius: 8px !important;
+    white-space: nowrap !important;
+    padding: 0px 16px !important;
+    box-shadow: none !important;
+    letter-spacing: normal !important;
+    @include uk2-icon-button-responsive($button-size);
+    &:not(.uk2-primary-icon-button-skeleton) {
+      background: $background-color !important;
+      color: $text-color !important;
+    }
+}
+
+@mixin uk2-primary-icon-button-default($button-size){
+    @include uk2-primary-icon-button(
+      $button-size,
+      accent-color-400-hsl(),
+      var(--uk2-neutral-white)
+    );
+}
+
+@mixin uk2-primary-icon-button-hover($button-size) {
+    @include uk2-primary-icon-button(
+      $button-size,
+      accent-color-500-hsl(),
+      var(--uk2-neutral-white)
+    );
+}
+
+
+@mixin uk2-primary-icon-button-disabled($button-size){
+    opacity: 0.5 !important;
+    &.uk2-primary-icon-button-skeleton{
+      opacity: 1 !important;
+    }
+    @include uk2-primary-icon-button(
+      $button-size,
+      var(--uk2-neutral-grey-100),
+      var(--uk2-neutral-slate-300)
+    );
+}
+
+@mixin uk2-primary-icon-button-size($button-size){
+  @include uk2-button-selected-state();
+  @include uk2-primary-icon-button-default($button-size);
+  &:hover {
+    @include uk2-primary-icon-button-hover($button-size);
+  }
+
+  &[disabled] {
+    @include uk2-primary-icon-button-disabled($button-size);
+  }
+}

@@ -1,0 +1,85 @@
+<section class="body-docs">
+  <h1>Contextual top bar documentation</h1>
+
+  <uk2-brand-top-bar
+    *ngIf="showBranTopBar"
+    [uk2IsLoading]="uk2IsLoading"
+    [uk2LogoImgPath]="logoUrl"
+    [uk2OrganizationName]="organizationName"
+  ></uk2-brand-top-bar>
+
+  <section>
+    <br />
+    <br />
+    <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize" (click)="toggleLoading()">
+      Toggle loading
+    </button>
+
+    <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize" (click)="toggleBranTopBar()">
+      {{ showBranTopBar ? 'hide top bar' : 'show top bar' }}
+    </button>
+
+    <br />
+    <br />
+
+    <h2>Basic Sample</h2>
+
+    <mat-toolbar uk2ContextualTopBar [uk2IsLoading]="uk2IsLoading" [uk2IsSticky]="true" [uk2HasTopBar]="showBranTopBar">
+      <mat-toolbar-row class="uk2-contextual-top-bar-button-section">
+        <button
+          uk2TextIconButton
+          mat-button
+          disableRipple
+          [uk2ButtonSize]="buttonSize"
+          aria-label="Back"
+          (click)="goBack()"
+        >
+          <mat-icon [svgIcon]="arrowBackIcon"></mat-icon>
+        </button>
+      </mat-toolbar-row>
+
+      <mat-toolbar-row class="uk2-contextual-top-bar-header-section">
+        <div class="uk2-contextual-top-bar-header-section-title-container">
+          <h2>Title</h2>
+        </div>
+        <div class="uk2-contextual-top-bar-header-section-breadcrumb-container">
+          <uk2-breadcrumbs
+            #uk2Breadcrumbs
+            *ngIf="items.length > 0"
+            [items]="items"
+            [uk2IsLoading]="uk2IsLoading"
+          ></uk2-breadcrumbs>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <br />
+    <br />
+
+    <router-outlet></router-outlet>
+
+    <div class="layout-2">
+      <div class="content-mock height-500px"></div>
+      <div class="content-mock height-300px"></div>
+    </div>
+
+    <br />
+
+    <div class="content-mock height-500px"></div>
+
+    <br />
+
+    <div class="layout-3">
+      <div class="content-mock height-300px"></div>
+      <div class="content-mock height-300px"></div>
+      <div class="content-mock height-300px"></div>
+    </div>
+
+    <br />
+
+    <div class="layout-2">
+      <div class="content-mock height-500px"></div>
+      <div class="content-mock height-300px"></div>
+    </div>
+  </section>
+</section>

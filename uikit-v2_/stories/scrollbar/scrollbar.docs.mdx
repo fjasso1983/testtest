@@ -1,0 +1,54 @@
+import { Source, ArgsTable, Canvas, Meta, Story, PRIMARY_STORY } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+
+# Scrollbar documentation
+
+## Introduction
+<p>
+  <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?type=design&node-id=6441-2041&mode=design&t=pmX6cYRGwdblEkCQ-0">Axos Scrollbar</a> is a set of classes and mixins that are defined on the Axos Design System. The UI KIT is packed with all of those classes and mixins, for you to be able to use them in your application.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    Please note the scrollbar styling use BEM naming convention, refer to the following link:<a href="https://cssguidelin.es/#bem-like-naming"> BEM convention</a>
+  </li>
+  <li>
+    The application should be configured properly to be able to access the classes and mixins from the UI KIT. See the Code Sample section to know more.
+  </li>
+  <li>
+    <b>Firefox browser</b> doesn't allow entire customizacion of scrollbar.
+  </li>
+</ol>
+
+<br/>
+
+## Sample Code
+
+### Apply style from HTML
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="uk2-transparent-scrollbar--medium">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    </div>
+  `}
+/>
+
+### Apply style from SCSS
+<p>
+  You can use mixins to apply scrollbar style in our components, note that using mixins is very useful for handling responsive scrollbar styles.
+</p>
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+    .your-class{
+      @include uk2-transparent-scrollbar--medium();
+    }
+  `}
+/>

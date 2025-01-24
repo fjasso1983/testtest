@@ -1,0 +1,101 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>Menu item states (default, hover, active, disabled and skeleton).</li>
+  <li>Content customization (Icons, and displaying content as text or chip)</li>
+  <li>Checkbox or radio inputs for selecting items</li>
+  <li>Divider line</li>
+</ul>
+
+<div class="example-container">
+  <mat-radio-group [(ngModel)]="radioSelection">
+    <div
+      uk2MenuListItem
+      [uk2IsDisabled]="isDisabled"
+      [uk2IsActive]="firstItem.isSelected"
+      [uk2IsLoading]="isLoading"
+      [uk2ShowDividerLine]="hasDivider"
+      (click)="onActionClicked(firstItem)"
+    >
+      <mat-radio-button disableRipple uk2RadioButton value="option1" *ngIf="toggleInputDisplay === 'radio'">
+      </mat-radio-button>
+      <mat-checkbox
+        uk2Checkbox
+        disableRipple
+        *ngIf="toggleInputDisplay == 'checkbox'"
+        [checked]="firstItem.isSelected"
+      ></mat-checkbox>
+      <mat-icon *ngIf="toggleIconDisplay" [svgIcon]="item1Icon"></mat-icon>
+      <p *ngIf="!toggleChipDisplay">{{ item1Text }}</p>
+
+      <uk2-chip
+        *ngIf="toggleChipDisplay"
+        [uk2ChipSize]="chipSize"
+        [uk2ShowBorder]="true"
+        [uk2ChipType]="chipType"
+        [uk2HasChipIndicator]="true"
+      >
+        <p>{{ item1Text }}</p>
+      </uk2-chip>
+    </div>
+    <div
+      uk2MenuListItem
+      [uk2IsDisabled]="isDisabled"
+      [uk2IsActive]="secondItem.isSelected"
+      [uk2IsLoading]="isLoading"
+      [uk2ShowDividerLine]="hasDivider"
+      (click)="onActionClicked(secondItem)"
+    >
+      <mat-radio-button disableRipple uk2RadioButton value="option2" *ngIf="toggleInputDisplay === 'radio'">
+      </mat-radio-button>
+      <mat-checkbox
+        uk2Checkbox
+        disableRipple
+        *ngIf="toggleInputDisplay == 'checkbox'"
+        [checked]="secondItem.isSelected"
+      ></mat-checkbox>
+      <mat-icon *ngIf="toggleIconDisplay" [svgIcon]="secondItem.svgIconName"></mat-icon>
+      <p *ngIf="!toggleChipDisplay">{{ secondItem.bodyText }}</p>
+
+      <uk2-chip
+        *ngIf="toggleChipDisplay"
+        [uk2ChipSize]="chipSize"
+        [uk2ShowBorder]="true"
+        [uk2ChipType]="chipType"
+        [uk2HasChipIndicator]="true"
+      >
+        <p>{{ secondItem.bodyText }}</p>
+      </uk2-chip>
+    </div>
+    <div
+      uk2MenuListItem
+      [uk2IsDisabled]="isDisabled"
+      [uk2IsActive]="thirdItem.isSelected"
+      [uk2IsLoading]="isLoading"
+      [uk2ShowDividerLine]="hasDivider"
+      (click)="onActionClicked(thirdItem)"
+    >
+      <mat-radio-button disableRipple uk2RadioButton value="option3" *ngIf="toggleInputDisplay === 'radio'">
+      </mat-radio-button>
+      <mat-checkbox
+        uk2Checkbox
+        disableRipple
+        *ngIf="toggleInputDisplay == 'checkbox'"
+        [checked]="thirdItem.isSelected"
+      ></mat-checkbox>
+      <mat-icon *ngIf="toggleIconDisplay" [svgIcon]="thirdItem.svgIconName"></mat-icon>
+      <p *ngIf="!toggleChipDisplay">{{ thirdItem.bodyText }}</p>
+
+      <uk2-chip
+        *ngIf="toggleChipDisplay"
+        [uk2ChipSize]="chipSize"
+        [uk2ShowBorder]="true"
+        [uk2ChipType]="chipType"
+        [uk2HasChipIndicator]="true"
+      >
+        <p>{{ thirdItem.bodyText }}</p>
+      </uk2-chip>
+    </div>
+  </mat-radio-group>
+</div>

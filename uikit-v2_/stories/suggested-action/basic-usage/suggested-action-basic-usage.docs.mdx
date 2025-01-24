@@ -1,0 +1,150 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Suggested Action Module component documentation
+
+## Introduction
+
+<p>
+ <i>uk2-suggested-action</i>
+ is a component designed on the <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=635%3A22827&t=aYwvVFyEuFecvqBW-0" target="_blank">Axos Design System</a>. It is a reusable organism of components to provide specific context to the user alongside a next-best-action button. This module can provide more in-depth information via an expandable UX pattern depending on certain use cases.
+ <br/><br/>
+ Note that Suggested Action Module component uses Uk2TooltipComponent. Please refer to <a href="../?path=/story/components-tooltip--basic-usage" target="_blank">Tooltip documentation</a> to know more.
+</p>
+
+## Prerequisites
+ - You need to import Uk2SuggestedActionModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to access Uk2SuggestedActionComponent.
+<Source
+  dark
+  code={dedent`
+      import { Uk2SuggestedActionModule } from '@axos/uikit-v2-lib'
+  `}
+/>
+
+- You need to import Uk2Tier1AlertsEnum and Uk2Tier2ColoredWithAccentEnum from @axos/uikit-v2-lib to indicate the defaul icons that are used by the directive.
+<Source
+  dark
+  code={dedent`
+      import { Uk2Tier1AlertsEnum, Uk2Tier2ColoredWithAccentEnum } from '@axos/uikit-v2-lib'
+  `}
+/>
+
+
+- You need to import Uk2TooltipPlacementEnum and Uk2TooltipSuggestedActionConfigModel from @axos/uikit-v2-lib to configurate the tooltip (uk2Tooltip component).
+<Source
+  dark
+  code={dedent`
+      import { Uk2TooltipPlacementEnum, Uk2TooltipSuggestedActionConfigModel } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li><strong>[headerSvgIconName]</strong> <u>Uk2Icon</u> <i>(optional)</i> left icon.</li>
+  <li><strong>[panelTitle]</strong> <u>string</u> <i>(<strong> required</strong>)</i> title of the component.</li>
+  <li><strong>[tooltipConfig]</strong> <u>Uk2TooltipSuggestedActionConfigModel </u> <i>(optional)</i> used to handle tooltip configuration.</li>
+  <li><strong>[panelSubtitle]</strong> <u>string </u> <i>(optional)</i> subtitle of the component.</li>
+  <li><strong>[buttonText]</strong> <u>string </u> <i>(optional)</i> text of right button.</li>
+  <li><strong>[hideButton]</strong> <u>boolean </u> <i>(optional,  <strong> default value: false</strong>)</i> used to hide the right button.</li>
+  <li><strong>[isExpandable]</strong> <u>boolean </u> <i>(optional, <strong> default value: true</strong>)</i> used to authorize expension of component.</li>
+  <li><strong>[isExpanded]</strong> <u>boolean </u> <i>(optional,  <strong> default value: false</strong>)</i> used to expand or minimize the component.</li>
+</ul>
+
+## Outputs
+  <ul>
+    <li><strong>(buttonClickEvent)</strong> <i>(optional)</i> callback action to perform in consumer app on click button</li>
+  </ul>
+
+
+## Models
+
+- You need to import <strong>Uk2TooltipSuggestedActionConfigModel</strong> and create an instance with <strong>IUk2TooltipSuggestedActionConfig</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to use uk2Tooltip component.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export interface IUk2TooltipSuggestedActionConfig {
+      bodyText: string;  // required
+      arrowOffset?: number;
+      displayCloseButton?: boolean;
+      placement?: Uk2TooltipPlacementEnum;
+    }
+  `}
+/>
+
+
+## Sample Code
+This is the component you can use as a guidance:
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="container">
+      <uk2-suggested-action
+        [headerSvgIconName]=Uk2Tier2ColoredWithAccentEnum.bagHand
+        [panelTitle]="Brokerage Cash"
+        [tooltipConfig]="tooltipConfig"
+        [panelSubtitle]="$570.00"
+        [buttonText]="Add Funds"
+        [isExpandable]="true"
+        [isExpanded]="true">
+        <div class="items">
+          <div>Funds Available for Withdrawal</div>
+          <div>$2,000.00</div>
+        </div>
+      </uk2-suggested-action>
+    </div>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component, ViewEncapsulation } from '@angular/core';
+    import { Uk2TooltipPlacementEnum, Uk2TooltipSuggestedActionConfigModel } from '@axos/uikit-v2-lib';
+    \r
+    @Component({
+      selector: 'app-suggested-action',
+      templateUrl: './suggested-action.component.html',
+      styleUrls: ['./suggested-action.component.scss'],
+      encapsulation: ViewEncapsulation.None,
+    })
+    \r
+    export class SuggestedActionComponent {
+      tooltipConfig = new Uk2TooltipSuggestedActionConfigModel({
+        bodyText: 'hello from app consumer',   //required
+        displayCloseButton: true,  //optional
+        placement: Uk2TooltipPlacementEnum.top,  //optional
+        arrowOffset: 0,  //optional
+      });
+      \r
+      constructor() {}
+      \r
+      clickActionMethod(data: any) {
+        console.log('button clicked');
+      }
+    }
+  `}
+/>
+
+<p>*.component.scss</p>
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+    .container {
+      max-width: 850px;
+    }
+    .items {
+      margin-left: 45px;
+      float:left;
+    }
+  `}
+/>

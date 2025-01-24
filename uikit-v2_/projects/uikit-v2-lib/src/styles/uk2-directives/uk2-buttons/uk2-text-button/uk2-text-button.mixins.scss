@@ -1,0 +1,99 @@
+@import '../uk2-buttons.mixins.scss';
+
+@mixin uk2-text-button($button-size, $background-color, $text-color) {
+    border-radius: 8px !important;
+    white-space: nowrap !important;
+    padding: 0px 16px !important;
+    @include uk2-button-responsive($button-size);
+    &:not(.uk2-text-button-skeleton) {
+      background: $background-color !important;
+      color: $text-color !important;
+    }
+}
+
+@mixin uk2-text-button-default($button-size){
+    @include uk2-text-button(
+      $button-size,
+      none,
+      accent-color-400-hsl()
+    );
+    mat-icon{
+      height: 12px;
+      width: 22px;
+      top: 2px;
+      position: relative;
+      vertical-align: inherit !important;
+    }
+}
+
+@mixin uk2-text-button-hover($button-size){
+    @include uk2-text-button(
+      $button-size,
+      var(--uk2-neutral-grey-100),
+      accent-color-400-hsl()
+    );
+}
+
+@mixin uk2-text-button-disabled($button-size){
+    opacity: 0.5 !important;
+    &.uk2-text-button-skeleton{
+      opacity: 1 !important;
+    }
+    @include uk2-text-button(
+      $button-size,
+      transparent,
+      var(--uk2-neutral-slate-300)
+    );
+}
+
+@mixin uk2-text-button-size($button-size){
+  @include uk2-button-selected-state();
+  @include uk2-text-button-default($button-size);
+  &:hover {
+      @include uk2-text-button-hover($button-size);
+  }
+
+  &[disabled] {
+      @include uk2-text-button-disabled($button-size);
+  }
+}
+
+// Text Variant
+@mixin uk2-text-variant-default() {
+  width: fit-content;
+  min-width: unset;
+  margin: 0;
+  padding: 0 !important;
+  height: fit-content !important;
+  &:hover {
+    background-color: unset !important;
+    color: accent-color-500-hsl() !important;
+  }
+
+  &:focus-visible {
+    color: accent-color-500-hsl() !important;
+  }
+}
+
+@mixin uk2-text-variant-size-small() {
+  height: 16px !important;
+  line-height: 16px !important;
+    .mat-mdc-button-touch-target {
+      height: 16px;
+    }
+}
+@mixin uk2-text-variant-size-medium() {
+  height: 20px !important;
+  line-height: 20px !important;
+    .mat-mdc-button-touch-target {
+      height: 20px;
+    }
+}
+@mixin uk2-text-variant-size-large() {
+  height: 24px !important;
+  line-height: 24px !important;
+    .mat-mdc-button-touch-target {
+      height: 24px;
+    }
+}
+// End text variant

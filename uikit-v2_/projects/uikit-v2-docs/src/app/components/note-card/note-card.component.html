@@ -1,0 +1,193 @@
+<div class="container">
+  <h1>Note Card directive documentation</h1>
+
+  <h2>Large font size cards</h2>
+  <h3>Default card</h3>
+  <mat-card uk2NoteCard [uk2NoteCardFontSize]="fontSize.large" [uk2IsLoading]="isLoading">
+    <mat-card-content>
+      <label>
+        Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus. At
+        quis mi lacus odio auctor urna, orci.
+      </label>
+    </mat-card-content>
+  </mat-card>
+  <br />
+  <h3>Card with hyperlink</h3>
+  <mat-card uk2NoteCard [uk2NoteCardFontSize]="fontSize.large" [uk2IsLoading]="isLoading">
+    <mat-card-content>
+      <label>
+        Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus. At
+        quis mi lacus odio auctor urna, orci.
+        <a uk2Anchor routerLink="not/exiting/route">Hyperlink at end</a>
+      </label>
+    </mat-card-content>
+  </mat-card>
+  <br />
+  <h3>Card with checkbox</h3>
+  <mat-card
+    uk2NoteCard
+    [uk2NoteCardFontSize]="fontSize.large"
+    [uk2IsLoading]="isLoading"
+    [uk2NoteCardHasCheckbox]="true"
+  >
+    <mat-card-content>
+      <div class="uk2-checkbox-container">
+        <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+        <label>
+          Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+          At quis mi lacus odio auctor urna, orci.
+        </label>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <br />
+  <h3>Card with checkbox and hyperlink</h3>
+  <mat-card
+    uk2NoteCard
+    [uk2NoteCardFontSize]="fontSize.large"
+    [uk2IsLoading]="isLoading"
+    [uk2NoteCardHasCheckbox]="true"
+  >
+    <mat-card-content>
+      <div class="uk2-checkbox-container">
+        <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+        <label>
+          Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+          At quis mi lacus odio auctor urna, orci.
+          <a uk2Anchor routerLink="not/existing/route">Hyperlink at end</a>
+        </label>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+  <section>
+    <h2>Small font size cards</h2>
+    <h3>Default card</h3>
+    <mat-card uk2NoteCard [uk2NoteCardFontSize]="fontSize.small" [uk2IsLoading]="isLoading">
+      <mat-card-content>
+        <label>
+          Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+          At quis mi lacus odio auctor urna, orci.
+        </label>
+      </mat-card-content>
+    </mat-card>
+    <br />
+    <h3>Card with hyperlink</h3>
+    <mat-card uk2NoteCard [uk2NoteCardFontSize]="fontSize.small" [uk2IsLoading]="isLoading">
+      <mat-card-content>
+        <label>
+          Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+          At quis mi lacus odio auctor urna, orci.
+          <a uk2Anchor routerLink="not/exiting/route">Hyperlink at end</a>
+        </label>
+      </mat-card-content>
+    </mat-card>
+    <br />
+    <h3>Card with checkbox</h3>
+    <mat-card
+      uk2NoteCard
+      [uk2NoteCardFontSize]="fontSize.small"
+      [uk2IsLoading]="isLoading"
+      [uk2NoteCardHasCheckbox]="true"
+    >
+      <mat-card-content>
+        <div class="uk2-checkbox-container">
+          <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+          <label>
+            Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+            At quis mi lacus odio auctor urna, orci.
+          </label>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <br />
+    <h3>Card with checkbox and hyperlink</h3>
+    <mat-card
+      uk2NoteCard
+      [uk2NoteCardFontSize]="fontSize.small"
+      [uk2IsLoading]="isLoading"
+      [uk2NoteCardHasCheckbox]="true"
+    >
+      <mat-card-content>
+        <div class="uk2-checkbox-container">
+          <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+          <label>
+            Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+            At quis mi lacus odio auctor urna, orci.
+            <a uk2Anchor routerLink="not/existing/route">Hyperlink at end</a>
+          </label>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <h2>Skeleton cards</h2>
+  <div>
+    <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  </div>
+  <br />
+
+  <div>
+    <h3>Skeleton card with font size small</h3>
+    <mat-card
+      uk2NoteCard
+      [uk2NoteCardFontSize]="fontSize.small"
+      [uk2IsLoading]="isLoading"
+      [uk2NoteCardHasCheckbox]="true"
+    >
+      <mat-card-content>
+        <div class="uk2-checkbox-container">
+          <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+          <label>
+            Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+            At quis mi lacus odio auctor urna, orci.
+            <a uk2Anchor routerLink="not/exiting/route">Hyperlink at end</a>
+            <br />
+            <br />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus. At quis mi
+            lacus odio auctor urna, orci.
+          </label>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div>
+    <h3>Skeleton Card with font size large</h3>
+    <mat-card
+      uk2NoteCard
+      [uk2NoteCardFontSize]="fontSize.large"
+      [uk2IsLoading]="isLoading"
+      [uk2NoteCardHasCheckbox]="true"
+    >
+      <mat-card-content>
+        <div class="uk2-checkbox-container">
+          <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+          <label>
+            Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+            At quis mi lacus odio auctor urna, orci.
+            <a uk2Anchor routerLink="not/exiting/route">Hyperlink at end</a>
+          </label>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div>
+    <h3>Skeleton card no checkbox</h3>
+    <mat-card uk2NoteCard [uk2NoteCardFontSize]="fontSize.small" [uk2IsLoading]="isLoading">
+      <mat-card-content>
+        <label>
+          Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus.
+          At quis mi lacus odio auctor urna, orci.
+          <a uk2Anchor routerLink="not/exiting/route">Hyperlink at end</a>
+          <br />
+          <br />
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at neque interdum integer lacus. At quis mi
+          lacus odio auctor urna, orci.
+        </label>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

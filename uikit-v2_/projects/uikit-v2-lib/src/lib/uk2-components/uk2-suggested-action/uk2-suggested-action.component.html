@@ -1,0 +1,79 @@
+<mat-expansion-panel
+  [expanded]="isExpanded"
+  [hideToggle]="hideToggle"
+  [disabled]="clickButton || clickTooltip"
+  (click)="clickButton = false; clickTooltip = false"
+  [ngClass]="{
+    'uk2-suggested-action-panel-expanded': isExpanded,
+    'uk2-suggested-action-button-hidden': !displayButton
+  }"
+  class="uk2-suggested-action"
+>
+  <mat-expansion-panel-header
+    #panel
+    (click)="hideToggle ? panel._toggle() : null"
+    class="uk2-suggested-action-header"
+    [ngClass]="{ 'uk2-suggested-action-panel-cursor': hideToggle }"
+  >
+    <mat-panel-title>
+      <mat-icon class="uk2-suggested-action-icon" [svgIcon]="headerSvgIconName"></mat-icon>
+      <div class="uk2-suggested-action-panel">
+        <div class="uk2-suggested-action-panel-title">
+          <div class="uk2-suggested-action-panel-title-text title">
+            {{ panelTitle }}
+          </div>
+          <uk2-tooltip
+            (click)="clickTooltip = true"
+            *ngIf="displayTooltip"
+            [labelText]="tooltipConfig?.labelText!"
+            [bodyText]="tooltipConfig?.bodyText!"
+            [desktopOpenMode]="tooltipConfig?.desktopOpenMode!"
+            [placement]="tooltipConfig?.placement!"
+            [strategy]="tooltipConfig?.strategy!"
+            [svgIconName]="tooltipConfig?.svgIconName!"
+            [uk2IsLoading]="tooltipConfig?.uk2IsLoading!"
+            [arrowOffset]="tooltipConfig?.arrowOffset!"
+            [displayCloseButton]="tooltipConfig?.displayCloseButton!"
+          ></uk2-tooltip>
+        </div>
+        <div class="uk2-suggested-action-panel-title">
+          <div class="uk2-suggested-action-panel-title-text subtitle">
+            {{ panelSubtitle }}
+          </div>
+        </div>
+      </div>
+    </mat-panel-title>
+    <mat-panel-description>
+      <button
+        uk2PrimaryButton
+        mat-raised-button
+        disableRipple
+        [uk2ButtonSize]="buttonSize"
+        class="uk2-suggested-action-panel-header-button"
+        [ngClass]="{
+          'uk2-suggested-action-button': hideToggle
+        }"
+        (click)="buttonClicked()"
+        *ngIf="displayButton"
+      >
+        {{ buttonText }}
+      </button>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-content></ng-content>
+</mat-expansion-panel>
+<div class="uk2-suggested-action-responsive-action-row" *ngIf="displayButton">
+  <button
+    uk2PrimaryButton
+    mat-raised-button
+    disableRipple
+    [uk2ButtonSize]="buttonSize"
+    class="uk2-suggested-action-panel-content-button"
+    [ngClass]="{
+      'uk2-suggested-action-button': hideToggle
+    }"
+    (click)="buttonClicked()"
+  >
+    {{ buttonText }}
+  </button>
+</div>

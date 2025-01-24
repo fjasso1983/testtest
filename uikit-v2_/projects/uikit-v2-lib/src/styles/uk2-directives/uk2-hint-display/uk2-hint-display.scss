@@ -1,0 +1,5 @@
+@import './uk2-hint-display.mixins.scss';
+
+.uk2-form-field-hint-hidden {
+  @include hideMatFormFieldHint();
+}

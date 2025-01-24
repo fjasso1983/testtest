@@ -1,0 +1,42 @@
+.custom-content-class {
+  max-width: 480px !important;
+  .uk2-modal-centered-grid{
+    button{
+      min-width: 212px;
+    }
+  }
+}
+
+.uk2-modal-section-content {
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+}
+
+
+.timer-modal {
+  width: 100%;
+  max-width: 488px !important;
+
+  .image{
+    margin:auto;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .title{
+    color:#1E3860;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .text {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  uk2-timer{
+    text-align: center;
+  }
+  .uk2-modal-centered-grid{
+    button{
+      min-width: 212px;
+    }
+  }
+}

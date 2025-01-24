@@ -1,0 +1,263 @@
+/*
+ * menu button state mixins
+ */
+
+@mixin uk2-menu-button-pressed() {
+  &:not(.active):active {
+    @include uk2-menu-button(var(--uk2-neutral-grey-200), var(--uk2-neutral-slate-400), var(--uk2-neutral-grey-300));
+    .mdc-button__ripple {
+      opacity: 0;
+    }
+  }
+}
+
+@mixin uk2-menu-button-active-pressed() {
+  &.active:active {
+    @include uk2-menu-button(var(--uk2-neutral-grey-200), accent-color-500-hsl(), var(--uk2-neutral-grey-300));
+    .mdc-button__ripple {
+      opacity: 0;
+    }
+  }
+}
+
+@mixin uk2-menu-button-default() {
+  @include lg {
+    @include uk2-menu-button-pressed();
+    @include uk2-menu-button-active-pressed();
+  }
+  &:not(.active):not(:active) {
+    @include uk2-menu-button(var(--uk2-neutral-white), var(--uk2-neutral-slate-300), var(--uk2-neutral-grey-300));
+  }
+
+  &.active {
+    @include uk2-menu-button(var(--uk2-neutral-white), accent-color-400-hsl(), var(--uk2-neutral-grey-300));
+  }
+}
+
+@mixin uk2-menu-button-hover() {
+  @include lg {
+    @include uk2-menu-button-pressed();
+    @include uk2-menu-button-active-pressed();
+  }
+
+  &:not(.active) {
+    @include uk2-menu-button(var(--uk2-neutral-grey-100), var(--uk2-neutral-slate-300), var(--uk2-neutral-grey-300));
+  }
+
+  &.active {
+    @include uk2-menu-button(var(--uk2-neutral-grey-100), accent-color-400-hsl(), var(--uk2-neutral-grey-300));
+    .mdc-button__ripple {
+      opacity: 0;
+    }
+  }
+}
+
+@mixin uk2-menu-button-disabled() {
+  opacity: 0.5 !important;
+  &.uk2-menu-button-skeleton {
+    opacity: 1 !important;
+  }
+  @include uk2-menu-button(var(--uk2-neutral-white), var(--uk2-neutral-slate-300), var(--uk2-neutral-grey-300));
+}
+
+/*
+ * label menu button variant css rules mixin generator
+ */
+
+@mixin uk2-menu-button($background-color, $text-color, $border-color) {
+  outline: none !important;
+  white-space: nowrap !important;
+  box-shadow: none !important;
+
+  .mdc-button__label {
+    @include uk2-font__body-medium--50();
+  }
+
+  &:not(.icon-only) {
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    @include uk2-menu-button-default-size;
+    &.label-truncate {
+      .mdc-button__label {
+        @include uk2-max-number-of-lines(1);
+        @include uk2-text-truncation-ellipsis();
+        display: inline-block;
+      }
+    }
+  }
+
+  &.icon-only {
+    &:not(.uk2-menu-icon-button__custom) {
+      display: inline-flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      padding: 0px !important;
+      & mat-icon {
+        display: inline-flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0px !important;
+      }
+      padding: 8px 8px !important;
+      border-radius: 8px !important;
+      & mat-icon,
+      & mat-icon svg {
+        height: 16px !important;
+        min-height: 16px !important;
+        width: 16px !important;
+        min-width: 16px !important;
+      }
+      &,
+      span.mat-mdc-button-touch-target {
+        height: 32px !important;
+        min-height: 32px !important;
+        width: 32px !important;
+        min-width: 32px !important;
+      }
+      & span.mat-mdc-button-persistent-ripple.mdc-icon-button__ripple {
+        display: none;
+      }
+    }
+
+    .uk2-menu-button-icon {
+      margin: 0 !important;
+    }
+  }
+
+  &.no-border {
+    border: none !important;
+  }
+  &:not(.uk2-menu-button-skeleton) {
+    background: $background-color !important;
+    color: $text-color !important;
+  }
+
+  &:not(.uk2-menu-button-skeleton):not(.no-border) {
+    border: 1px solid $border-color !important;
+  }
+}
+
+@mixin uk2-menu-button-size() {
+  @include uk2-menu-button-default();
+
+  &:hover {
+    @include uk2-menu-button-hover();
+  }
+
+  &[disabled] {
+    @include uk2-menu-button-disabled();
+  }
+}
+
+/*
+ * menu icon button class generator mixins region
+ * @mixin uk2-menu-icon-button-custom-size-range creates a range of custom size classes for menu icon buttons
+ * @mixin uk2-menu-icon-button-unique-custom-size creates a single custom size class for menu icon buttons
+ */
+
+@mixin uk2-menu-icon-button-custom-size-range(
+  $range-start: 1,
+  $range-end: 10,
+  $steps: 2,
+  $spacing: 8,
+  $border-radius: 8
+) {
+  .uk2-menu-icon-button__custom {
+    @include uk2-menu-icon-button-set-default-properties($border-radius, $spacing);
+  }
+  @for $i from $range-start through $range-end {
+    $icon-size: $i * $steps;
+    // $border-box-added-spaces value holds the actual width and height of the button including padding
+    $button-size: $icon-size + ($spacing * 2);
+    @include uk2-menu-icon-button-custom-size($button-size, $icon-size);
+  }
+}
+
+@mixin uk2-menu-icon-button-unique-custom-size($icon-size, $spacing: 8, $border-radius: 8) {
+  .uk2-menu-icon-button__custom {
+    @include uk2-menu-icon-button-set-default-properties($border-radius, $spacing);
+  }
+  $border-box-added-spaces: $icon-size + ($spacing * 2);
+  @include uk2-menu-icon-button-custom-size($border-box-added-spaces, $icon-size);
+}
+
+/*
+ * utils region
+ */
+
+/*
+ * generates css class for custom menu button size
+ */
+
+@mixin uk2-menu-icon-button-custom-size($button-size, $icon-size) {
+  .uk2-menu-icon-button__custom-size-#{$button-size} {
+    @extend .uk2-menu-icon-button__custom;
+
+    & mat-icon.uk2-menu-button-icon,
+    mat-icon.uk2-menu-button-icon svg {
+      height: $icon-size + px !important;
+      min-height: $icon-size + px !important;
+      width: $icon-size + px !important;
+      min-width: $icon-size + px !important;
+    }
+
+    &,
+    span.mat-mdc-button-touch-target {
+      min-height: $button-size + px !important;
+      min-height: $button-size + px !important;
+      height: $button-size + px !important;
+      min-width: $button-size + px !important;
+      width: $button-size + px !important;
+    }
+  }
+}
+
+/*
+ * sets default properties for menu icon button variant
+ */
+
+@mixin uk2-menu-icon-button-set-default-properties($border-radius: 8, $padding: 8) {
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: $padding + px !important;
+  border-radius: $border-radius + px !important;
+  & mat-icon {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0px !important;
+  }
+}
+
+/*
+ * sets default properties for label menu button variant
+ */
+
+@mixin uk2-menu-button-default-size {
+  @include uk2-font__body-regular--50;
+  height: 32px !important;
+
+  mat-icon.mat-icon {
+    margin-left: 0;
+    margin-right: 4px !important;
+    width: 16px;
+    height: 16px;
+  }
+  @include xs {
+    min-width: 76px;
+    width: fit-content;
+    max-width: fit-content;
+    & span.mat-mdc-button-touch-target {
+      height: 32px !important;
+      min-width: 76px !important;
+      width: fit-content !important;
+      max-width: fit-content !important;
+    }
+  }
+  /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
+  & span.mat-button-wrapper {
+    display: block;
+    line-height: 1px;
+  }
+}

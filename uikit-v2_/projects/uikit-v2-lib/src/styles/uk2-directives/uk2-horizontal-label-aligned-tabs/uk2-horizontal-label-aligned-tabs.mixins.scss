@@ -1,0 +1,80 @@
+@mixin uk2-horizontal-tab-responsive-height {
+  height: 32px !important;
+  @include md {
+    height: 40px !important;
+  }
+}
+
+@mixin uk2-horizontal-tabs-link-transitions {
+  * {
+    transition: background-color ease 0.3s, color ease 0.3s;
+  }
+}
+
+@mixin uk2-default-horizontal-tabs-link {
+  .mdc-tab__content {
+    background-color: transparent;
+    .mdc-tab__text-label {
+      color: var(--uk2-neutral-slate-400);
+    }
+  }
+}
+
+@mixin uk2-default-horizontal-tabs-link-hover {
+  .mdc-tab__content {
+    background-color: var(--uk2-neutral-grey-100);
+    .mdc-tab__text-label {
+      color: var(--uk2-neutral-slate-400);
+    }
+  }
+}
+
+@mixin uk2-default-horizontal-tabs-link-selected {
+  .mdc-tab__content {
+    background-color: transparent;
+    .mdc-tab__text-label {
+      color: accent-color-400-hsl();
+    }
+  }
+}
+
+@mixin uk2-selected-horizontal-tabs-link-hover {
+  .mdc-tab__content {
+    background-color: var(--uk2-neutral-grey-200);
+    color: accent-color-400-hsl();
+  }
+}
+
+@mixin uk2-pressed-horizontal-tabs-link {
+  .mdc-tab__content {
+    background-color: var(--uk2-neutral-grey-200);
+    .mdc-tab__text-label {
+      color: var(--uk2-neutral-slate-400);
+    }
+  }
+}
+
+@mixin uk2-selected-horizontal-tabs-link-pressed {
+  .mdc-tab__content {
+    background-color: var(--uk2-neutral-grey-300);
+    .mdc-tab__text-label {
+      color: accent-color-500-hsl();
+    }
+  }
+}
+
+@mixin uk2-disabled-horizontal-tabs-link {
+  .uk2-notification-badge {
+    display: none !important;
+  }
+  .mdc-tab__content {
+    padding: 4px !important;
+    @include md {
+      padding: 6px 4px !important;
+    }
+    background-color: transparent !important;
+    .mdc-tab__text-label {
+      color: var(--uk2-neutral-slate-400) !important;
+    }
+  }
+}

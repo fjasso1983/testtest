@@ -1,0 +1,20 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# uk2Anchor directive documentation
+
+## Introduction
+<p> Uk2AnchorDirective is a directive that will only work on anchor elements &lt;a&gt; and it will add a class name to handle styles. </p>
+<p>You just need to use uk2Anchor directive on anchor elements &lt;a&gt;.</p>
+
+## Prerequisites
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+## Sample Code
+<Source
+  dark
+  code={dedent`
+      <a uk2Anchor routerLink="...">Hyperlink Text</a>
+  `}
+/>

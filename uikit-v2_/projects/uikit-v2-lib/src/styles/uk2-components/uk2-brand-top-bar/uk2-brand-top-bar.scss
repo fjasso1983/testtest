@@ -1,0 +1,9 @@
+@import './uk2-brand-top-bar.mixins';
+
+.uk2-brand-top-bar {
+  @include uk2-brand-top-bar;
+  @include uk2-brand-top-bar-with-button;
+  @include uk2-brand-top-bar-with-close-button;
+  @include uk2-brand-top-bar-responsive;
+  @include uk2-brand-top-bar-skeleton;
+}

@@ -1,0 +1,45 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2HintDisplayPattern directive documentation
+
+## Introduction
+<p>
+  uk2HintDisplayPattern is a directive developed to control the behavior of <a href="https://v15.material.angular.io/components/form-field/overview#hint-labels" target="_blank"><strong>&lt;mat-hint&gt;</strong></a> Angular Material component to adhere to <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=2068%3A51142&t=1jXs9N1aBFGFR7nl-0" target="_blank">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;input&gt;</strong> elements.
+  </li>
+  <li>
+    It should be wrapped in <strong>&lt;mat-form-field&gt;</strong> component.
+  </li>
+  <li>
+    Target input should use <strong>matInput</strong> directive.
+  </li>
+  <li>
+    <strong>&lt;mat-hint&gt;</strong> should be defined inside your mat-form-field Angular Material component.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the "color" attribute for the mat-form-field Angular Material component.
+  </li>
+</ol>
+
+## Prerequisites
+
+- You need to import Uk2DirectivesModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to access uk2HintDisplayPattern directive.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatFormFieldModule } from '@angular/material/form-field';
+      import { MatInputModule } from '@angular/material/input';
+      import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+<br/>

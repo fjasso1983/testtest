@@ -1,0 +1,42 @@
+<li>
+  <uk2-breadcrumb-item
+    [item]="items[0]"
+    [relativePosition]="getRelativePosition(0)"
+    (itemSelected)="onItemSelected($event)"
+  ></uk2-breadcrumb-item>
+</li>
+<li>
+  <uk2-breadcrumb-item
+    [attr.aria-label]="'additional breadcrumbs'"
+    [ariaExpanded]="open ? 'true' : 'false'"
+    [label]="'...'"
+    cdkOverlayOrigin
+    #ellipsisEl="cdkOverlayOrigin"
+    (click)="open = !open"
+    (keyup.enter)="open = true"
+  ></uk2-breadcrumb-item>
+</li>
+<li>
+  <div class="uk2-breadcrumb-item">
+    <label
+      tabindex="0"
+      aria-current="location"
+      [attr.aria-label]="getRelativePosition(items.length - 1)"
+      (click)="onItemSelected(items[items.length - 1])"
+      >{{ items[items.length - 1].label }}</label
+    >
+  </div>
+</li>
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="ellipsisEl"
+  [cdkConnectedOverlayOpen]="open"
+  (overlayOutsideClick)="open = false"
+  (detach)="overlayDetached()"
+>
+  <uk2-breadcrumb-overlay-list
+    [items]="items"
+    [uk2BreadcrumbsCssProperties]="uk2BreadcrumbsCssProperties"
+    (itemSelected)="onItemSelected($event)"
+  ></uk2-breadcrumb-overlay-list>
+</ng-template>

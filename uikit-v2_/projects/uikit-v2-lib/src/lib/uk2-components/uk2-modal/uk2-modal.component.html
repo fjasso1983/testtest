@@ -1,0 +1,78 @@
+<div class="uk2-modal">
+  <div mat-dialog-title *ngIf="data.showHeader" [ngClass]="getHeaderState()">
+    <div
+      class="uk2-modal-grid"
+      [ngClass]="closeButtonClass()"
+      *ngIf="data.headerVariant === headerVariant.defaultHeader; else universalHeader"
+    >
+      <div [ngClass]="titleAlignClass()">
+        <h2 *ngIf="data.title" class="uk2-modal-title" [ngClass]="getTitleClass()">
+          {{ data.title }}
+        </h2>
+        <h4 *ngIf="data.subtitle" class="uk2-modal-subtitle">{{ data.subtitle }}</h4>
+      </div>
+      <ng-container *ngIf="data.showCloseButton">
+        <button disableRipple mat-dialog-close mat-button title="Close {{ data.title }}" class="uk2-modal-x">
+          <mat-icon class="tier2" [svgIcon]="navigationX"></mat-icon>
+        </button>
+      </ng-container>
+    </div>
+    <ng-template #universalHeader>
+      <div class="uk2-modal-header-skeleton-title"></div>
+      <div *ngIf="!data.headerIsLoading">
+        <button
+          *ngIf="data.showBackButton"
+          uk2TextIconButton
+          disableRipple
+          mat-button
+          class="uk2-modal-icon-button"
+          [uk2ButtonSize]="buttonSize"
+          [uk2TextButtonVariant]="buttonVariant"
+          (click)="onClickBackButton()"
+        >
+          <mat-icon class="tier2" [svgIcon]="navigationBack"></mat-icon>
+        </button>
+        <h2 class="uk2-modal-title" [ngClass]="{ 'uk2-text-truncate': data.truncateUniversalHeader }">{{
+          data.title
+        }}</h2>
+        <ng-container *ngIf="data.showCloseButton">
+          <button
+            uk2TextIconButton
+            mat-button
+            disableRipple
+            mat-dialog-close
+            mat-button
+            title="Close"
+            class="uk2-modal-x"
+            [uk2ButtonSize]="buttonSize"
+            [uk2TextButtonVariant]="buttonVariant"
+          >
+            <mat-icon class="tier2" [svgIcon]="navigationX"></mat-icon>
+          </button>
+        </ng-container>
+      </div>
+    </ng-template>
+  </div>
+  <ng-container *ngIf="data.showTitleDivider && data.showHeader">
+    <mat-divider
+      [ngClass]="data.headerVariant === headerVariant.universalHeader ? 'uk2-modal-universal-header-divider' : ''"
+    ></mat-divider>
+  </ng-container>
+  <ng-container *ngIf="data.content">
+    <div mat-dialog-content>
+      <section class="uk2-modal-section-content" #uk2ModalContentSection (window:resize)="onResize()">
+        <div [ngClass]="bodyAlignClass()">
+          <ng-container [ngTemplateOutlet]="data.content"></ng-container>
+        </div>
+      </section>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="data.showActionsDivider">
+    <mat-divider></mat-divider>
+  </ng-container>
+  <ng-container *ngIf="data.actions">
+    <div mat-dialog-actions [ngClass]="actionGridRender()">
+      <ng-container [ngTemplateOutlet]="data.actions"></ng-container>
+    </div>
+  </ng-container>
+</div>

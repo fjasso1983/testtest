@@ -1,0 +1,13 @@
+.uk2-powered-by {
+  padding: 2px 17px;
+
+  &-text {
+    @include uk2-format-text('Roboto', 12px, 400, 16px);
+    padding-right: 4px;
+    color: var(--uk2-neutral-slate-400);
+  }
+
+  &-img {
+    height: 12px;
+  }
+}

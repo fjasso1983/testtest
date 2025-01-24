@@ -1,0 +1,128 @@
+@mixin defineColorHSL($color, $hue, $saturation, $lightness){
+  #{$color}: unquote("hsl(#{$hue}, #{$saturation}, #{$lightness})");#{$color}-h: #{$hue};#{$color}-s: #{$saturation};#{$color}-l: #{$lightness};
+}
+
+// replace substring with another string
+// credits: https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+// return css color variable with different opacity value
+@function alpha-hsl($color, $opacity){
+  $color: str-replace($color, 'var(');
+  $color: str-replace($color, ')');
+  $color-h: var(#{$color+'-h'});
+  $color-s: var(#{$color+'-s'});
+  $color-l: var(#{$color+'-l'});
+  @return hsla($color-h, $color-s, $color-l, $opacity);
+}
+
+@function saturation-hsl($color, $saturationMultiplier){
+  $color: str-replace($color, 'var(');
+  $color: str-replace($color, ')');
+  $color-h: var(#{$color+'-h'});
+  $color-s: var(#{$color+'-s'});
+  $color-l: var(#{$color+'-l'});
+  @return hsl($color-h, calc(#{$color-s} * #{$saturationMultiplier}), $color-l);
+}
+
+@function lightness-hsl($color, $lightnessMultiplier){
+  $color: str-replace($color, 'var(');
+  $color: str-replace($color, ')');
+  $color-h: var(#{$color+'-h'});
+  $color-s: var(#{$color+'-s'});
+  $color-l: var(#{$color+'-l'});
+  @return hsl($color-h, $color-s, calc(#{$color-l} * #{$lightnessMultiplier}));
+}
+
+@function adjust-hsl($color, $hueAdjustment, $saturationAdjustment, $lightnessAdjustment) {
+  $color: str-replace($color, 'var(');
+  $color: str-replace($color, ')');
+  $color-h: var(#{$color+'-h'});
+  $color-s: var(#{$color+'-s'});
+  $color-l: var(#{$color+'-l'});
+
+  $adjustedLightness: calc(#{$color-l} #{$lightnessAdjustment});
+  $adjustedLightness: max(min($adjustedLightness, 98%), 0%);
+
+  @return hsl(calc(#{$color-h} #{$hueAdjustment}), calc(#{$color-s} #{$saturationAdjustment}), $adjustedLightness);
+}
+
+
+@function accent-color-600-hsl() {
+  @return adjust-hsl(var(--uk2-accent-color-hsl), '+' 8, '+' 36%, '-' 23%);
+}
+
+@function accent-color-500-hsl() {
+  @return adjust-hsl(var(--uk2-accent-color-hsl), '+' 6, '+' 3%, '-' 11%);
+}
+
+@function accent-color-400-hsl() {
+  //* This is the color received. So, no modifications.
+  @return adjust-hsl(var(--uk2-accent-color-hsl), '+' 0, '+' 0%, '-' 0%);
+}
+
+@function accent-color-300-hsl() {
+  @return adjust-hsl(var(--uk2-accent-color-hsl), '-' 4, '-' 10%, '+' 14%);
+}
+
+@function accent-color-200-hsl() {
+  @return adjust-hsl(var(--uk2-accent-color-hsl), '-' 7, '+' 1%, '+' 33%);
+}
+
+@function accent-color-100-hsl() {
+  @return adjust-hsl(var(--uk2-accent-color-hsl), '-' 10, '+' 51%, '+' 58%);
+}
+
+@function accent-color-50-hsl() {
+  @return adjust-hsl(var(--uk2-accent-color-hsl), '-' 9, '+' 51%, '+' 61%);
+}
+
+@function accent-color-25-hsl() {
+  @return adjust-hsl(var(--uk2-accent-color-hsl), '-' 10, '+' 51%, '+' 64%);
+}
+
+.uk2-accent-600 {
+  height: 100px;
+  background-color: accent-color-600-hsl();
+}
+
+.uk2-accent-500 {
+  height: 100px;
+  background-color: accent-color-500-hsl();
+}
+
+.uk2-accent-400 {
+  height: 100px;
+  background-color: accent-color-400-hsl();
+}
+
+.uk2-accent-300 {
+  height: 100px;
+  background-color: accent-color-300-hsl();
+}
+
+.uk2-accent-200 {
+  height: 100px;
+  background-color: accent-color-200-hsl();
+}
+
+.uk2-accent-100 {
+  height: 100px;
+  background-color: accent-color-100-hsl();
+}
+
+.uk2-accent-50 {
+  height: 100px;
+  background-color: accent-color-50-hsl();
+}
+
+.uk2-accent-25 {
+  height: 100px;
+  background-color: accent-color-25-hsl();
+}

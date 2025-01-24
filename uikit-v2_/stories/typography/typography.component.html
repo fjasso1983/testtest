@@ -1,0 +1,70 @@
+<h1>Axos Typography</h1>
+<p>
+  UI KIT expose useful CSS classes and mixins that client applications can use to implement common styling. That means
+  that, once you install
+  <strong>@axos/uikit-v2-lib</strong>
+  you will have access to all font classes and mixins.
+</p>
+<section>
+  <h1>Type Scale - display</h1>
+  <ng-container *ngFor="let fontWeight of fontWeights">
+    <div class="font-container">
+      <h2 class="font-size-title">{{ fontWeight }}</h2>
+      <div class="font-tile" *ngFor="let fontNumber of fontNumbers">
+        <div class="section no-shrink">
+          <b>CLASS NAME:</b><br />
+          <ng-container *ngFor="let fontVariant of displayFontVariants">
+            <span>{{ 'body/' + fontWeight + '/' + fontVariant + '/' + fontNumber }}</span>
+          </ng-container>
+        </div>
+        <div
+          class="section no-shrink"
+          [class]="getCssClass('display', fontWeight, 'default', fontNumber)"
+          #displayTexts
+        ></div>
+        <div class="section">
+          <b>EXAMPLE:</b><br />
+          <div class="example-grid">
+            <ng-container *ngFor="let fontVariant of displayFontVariants">
+              <span [class]="getCssClass('display', fontWeight, fontVariant, fontNumber)">
+                Lorem ipsum dolor sit amet,<br />
+                consectetur
+              </span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <h1>Type Scale - body</h1>
+  <ng-container *ngFor="let fontWeight of fontWeights">
+    <div class="font-container">
+      <h2 class="font-size-title">{{ fontWeight }}</h2>
+      <div class="font-tile" *ngFor="let fontNumber of fontNumbers">
+        <div class="section no-shrink">
+          <b>CLASS NAME:</b><br />
+          <ng-container *ngFor="let fontVariant of bodyFontVariants">
+            <span>{{ 'body/' + fontWeight + '/' + fontVariant + '/' + fontNumber }}</span>
+          </ng-container>
+        </div>
+        <div
+          class="section no-shrink"
+          [class]="getCssClass('body', fontWeight, 'default', fontNumber)"
+          #bodyTexts
+        ></div>
+        <div class="section">
+          <b>EXAMPLE:</b><br />
+          <div class="example-grid">
+            <ng-container *ngFor="let fontVariant of bodyFontVariants">
+              <span [class]="getCssClass('body', fontWeight, fontVariant, fontNumber)">
+                Lorem ipsum dolor sit amet,<br />
+                consectetur
+              </span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</section>

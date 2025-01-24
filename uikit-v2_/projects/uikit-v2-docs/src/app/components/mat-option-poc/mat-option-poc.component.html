@@ -1,0 +1,23 @@
+<form [formGroup]="form">
+  <div>
+    <mat-form-field appearance="outline" floatLabel="always" hintLabel="Choose best option">
+      <mat-label>Choose one option</mat-label>
+      <mat-select uk2Dropdown formControlName="toppings" [disableRipple]="true" placeholder="Lorem Ipsum">
+        <mat-select-trigger>{{ this.form.controls.toppings.value }}</mat-select-trigger>
+        <mat-option>Clear</mat-option>
+        <mat-option *ngFor="let credit of credits" [value]="credit.value">
+          <uk2-dropdown-list-item-chevron
+            [uk2ListItem]="credit"
+            [uk2IsDisabled]="credit.uk2IsDisabled"
+            [uk2IsPending]="credit.uk2IsPending"
+          ></uk2-dropdown-list-item-chevron>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button type="button" (click)="updateCredits()">Update options</button>
+  </div>
+</form>
+<h4>Results</h4>
+<div>
+  {{ this.form.value | json }}
+</div>

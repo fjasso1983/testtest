@@ -1,0 +1,129 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2TableInlineActions documentation
+
+## Introduction
+<p> Uk2TableInlineActions is a custom component designed to provide the functionality of action buttons on a table as part of the <a href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=928-15341&node-type=frame&m=dev" target="_blank">Axos Design System</a></p>
+
+## Prerequisites
+- Please follow this guide to install tippy library <a href="https://atomiks.github.io/tippyjs/v6/getting-started/" target="_blank">Tippy getting started</a>
+
+- You need to import Uk2TableInlineActionsModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use Uk2TableInlineActions component.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2TableInlineActionsModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li><strong>[uk2ActionList]</strong> <u>Uk2TableInlineAction[]</u> <i>(required)</i> List of items cotaining each action.</li>
+  <li><strong>[uk2MaxInlineActions]</strong> <u>number</u> <i>(optional)</i> Maximum number of actions that can be displayed individually, if the quantity of items exceds this number, a flyout menu button is displayed with the remaining options. (<strong>Default:</strong> 2)</li>
+  <li><strong>[uk2RowValue]</strong> <u>any</u> <i>(optional)</i> Optional data emitted when selecting option to help identify the table row when an action requires it. (<strong>Default:</strong> undefined)</li>
+</ul>
+
+## Outputs
+<ul>
+  <li>(uk2OnActionSelect) <u>EventEmitter&lt;Uk2TableInlineActionOutput&gt;</u> <i>(optional)</i> It is the function that will be triggered when clicking on an option. It returns the selected option and the uk2RowValue value.</li>
+</ul>
+
+## Types
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2TableInlineAction, Uk2TableInlineActionOutput } from '@axos/uikit-v2-lib';
+    \r
+    export type Uk2TableInlineAction = {
+      actionId: string;
+      svgIcon: string;
+      description: string;
+      showTooltip?: boolean;
+      displayOrder: number;
+    };
+    \r
+    export type Uk2TableInlineActionOutput = {
+      actionId: string;
+      rowValue: any;
+    };
+  `}
+/>
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>[--uk2-table-inline-button-icon-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> is the action button icon color.</li>
+  <li><strong>[--uk2-table-inline-button-hover-color]</strong> <i>(default: --uk2-neutral-grey-200)</i> is the action button hover background color.</li>
+  <li><strong>[--uk2-table-inline-button-active-color]</strong> <i>(default: --uk2-neutral-grey-300)</i> is the action button pressed background color.</li>
+</ul>
+
+
+## Sample Code
+
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...    
+    })
+    export class TableActionsExample {
+      tableActions: Uk2TableInlineAction[] = [
+        {
+          actionId: 'approve',
+          svgIcon: 'uk2-thumbs-up',
+          description: 'Approve',
+          showTooltip: true,
+          displayOrder: 0,
+        },
+        {
+          actionId: 'download',
+          svgIcon: 'uk2-download',
+          description: 'Download',
+          showTooltip: true,
+          displayOrder: 1,
+        },
+        {
+          actionId: 'delete',
+          svgIcon: 'uk2-trash',
+          description: 'Delete',
+          showTooltip: false,
+          displayOrder: 2,
+        },
+      ];
+      maxTableActions = 3
+      \r
+      actionSelect(output: Uk2TableInlineActionOutput) {
+        ...
+      }
+    }
+  `}
+/>
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+    ...
+    <div class="table-row" *ngFor="let row of rows">
+      ...
+      <div class="table-cell">
+        <uk2-table-inline-actions
+          [uk2ActionList]="tableActions"
+          [uk2MaxInlineActions]="maxTableActions"
+          [uk2RowValue]="row.id"
+          (uk2OnActionSelect)="actionSelect($event)"
+        ></uk2-table-inline-actions>
+      </div>
+    </div>
+  `}
+/>

@@ -1,0 +1,139 @@
+<h1 class="title">Value movement documentation</h1>
+<p>
+  Uk2ValueMovementComponent is created based on Angular Material components library, enhanced with custom behavior and
+  styling. It can be used specifying thenext input parameters.
+  <br />
+</p>
+<h3>Requisites</h3>
+<pre>
+  <code>
+    <b>@import Uk2ValueMovementType.</b>
+    <b>@import Uk2IconValueMovement (There would be a change in the way the icons are organized in the Library).</b>
+    <b>@import Uk2IconRegistryService from '@axos/uikit-v2-lib' to registry in the app.component the icons that will be used </b>
+    <b>Example: iconRegistryService.registerIconsFromEnumValues(Object.values(Uk2IconValueMovement), '../assets/svg/icons');</b>
+    <b>@import ValueMovementComponent into the component module in which be located the component that will implement the uk2-value-movement control. </b>
+    <b>Note: Until the change takes effect, the icons will have to be added to the project in which the control will be used.</b>
+  </code>
+</pre>
+<p>This control accept four parameters:</p>
+<h3>@ Amount.</h3>
+<p>It is a string value. Represent the dolars amount formated a USD currency.</p>
+<h3>@ Percentage.</h3>
+<p>It is a string value. It represents a percentage, attaching the % character.</p>
+<h3>@ Description.</h3>
+<p>It is a string value. It is the text describing the amount and percentage.</p>
+<h3>@ ValueMovementType.</h3>
+<p>It is an enum. This enum will let to change the control state.</p>
+<h3>@ isLoading.</h3>
+<p>
+  It is a boolean value. It indicates an undefined state, useful when waiting for a service response or from a process
+  to finish.
+</p>
+<p>This is an live example on how it behaves when switching from true to false.</p>
+<div>
+  <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  {{ isLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+<h3>@ isEmpty.</h3>
+<p>It is a boolean value. It indicates is an empty state.</p>
+<p>This is an live example on how it behaves when switching from true to false.</p>
+<div>
+  <button (click)="toggleisEmpty()">Reload empty (3s)</button>
+  {{ isEmpty ? 'Skeleton display' : 'Regular display' }}
+</div>
+<br />
+<h3>@ isIconOnly.</h3>
+<p>It is a boolean value. It indicates is an icon only state.</p>
+<p>This is an live example on how it behaves when switching from true to false.</p>
+<div>
+  <button (click)="toggleisIconOnly()">Reload Icon only (3s)</button>
+  {{ isIconOnly ? 'Skeleton display' : 'Regular display' }}
+</div>
+<br />
+<p class="tab">These are the six posible values for the enum:</p>
+<ul class="tab-2">
+  <!--IncreasePositive-->
+  <li>
+    <p>Uk2ValueMovementType.IncreasePositive</p>
+    <p>This is the control state when pasing this enum:</p>
+    <uk2-value-movement
+      [uk2IsLoading]="isLoading"
+      [amount]="valueMovementsIncreasePositive.amount"
+      [percentage]="valueMovementsIncreasePositive.percentage"
+      [description]="valueMovementsIncreasePositive.description"
+      [valueMovementType]="valueMovementsIncreasePositive.valueMovementType"
+      [isEmpty]="isEmpty"
+      [isIconOnly]="isIconOnly"
+    ></uk2-value-movement>
+    <br />
+  </li>
+  <!--IncreaseNegative-->
+  <li>
+    <p>Uk2ValueMovementType.IncreaseNegative</p>
+    <p>This is the control state when pasing this enum:</p>
+    <uk2-value-movement
+      [uk2IsLoading]="isLoading"
+      [amount]="valueMovementsIncreaseNegative.amount"
+      [percentage]="valueMovementsIncreaseNegative.percentage"
+      [description]="valueMovementsIncreaseNegative.description"
+      [valueMovementType]="valueMovementsIncreaseNegative.valueMovementType"
+      [isEmpty]="isEmpty"
+      [isIconOnly]="isIconOnly"
+    ></uk2-value-movement>
+    <br />
+  </li>
+  <!--DecreasePositive-->
+  <li>
+    <p>Uk2ValueMovementType.DecreasePositive</p>
+    <p>This is the control state when pasing this enum:</p>
+    <uk2-value-movement
+      [uk2IsLoading]="isLoading"
+      [amount]="valueMovementsDecreasePositive.amount"
+      [percentage]="valueMovementsDecreasePositive.percentage"
+      [description]="valueMovementsDecreasePositive.description"
+      [valueMovementType]="valueMovementsDecreasePositive.valueMovementType"
+      [isEmpty]="isEmpty"
+      [isIconOnly]="isIconOnly"
+    ></uk2-value-movement>
+    <br />
+  </li>
+  <!--DecreaseNegative-->
+  <li>
+    <p>Uk2ValueMovementType.DecreaseNegative</p>
+    <p>This is the control state when pasing this enum:</p>
+    <uk2-value-movement
+      [uk2IsLoading]="isLoading"
+      [amount]="valueMovementsDecreaseNegative.amount"
+      [percentage]="valueMovementsDecreaseNegative.percentage"
+      [description]="valueMovementsDecreaseNegative.description"
+      [valueMovementType]="valueMovementsDecreaseNegative.valueMovementType"
+      [isEmpty]="isEmpty"
+      [isIconOnly]="isIconOnly"
+    ></uk2-value-movement>
+    <br />
+  </li>
+  <!--None-->
+  <li>
+    <p>Uk2ValueMovementType.None</p>
+    <p>This is the control state when pasing this enum:</p>
+    <uk2-value-movement
+      [uk2IsLoading]="isLoading"
+      [amount]="valueMovementsNone.amount"
+      [percentage]="valueMovementsNone.percentage"
+      [description]="valueMovementsNone.description"
+      [valueMovementType]="valueMovementsNone.valueMovementType"
+      [isEmpty]="isEmpty"
+      [isIconOnly]="isIconOnly"
+    ></uk2-value-movement>
+    <br />
+  </li>
+</ul>
+<br />
+<h3>Code</h3>
+<pre>
+  {{ basicExample }}
+</pre>
+<h3>Data</h3>
+<pre>
+  {{ basicExampleData }}
+</pre>

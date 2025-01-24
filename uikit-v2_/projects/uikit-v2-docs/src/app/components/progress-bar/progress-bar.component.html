@@ -1,0 +1,27 @@
+<div>
+  <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  {{ uk2IsLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+
+<br />
+<br />
+<br />
+
+<uk2-progress-bar
+  [uk2LogoImgPath]="uk2LogoImgPath"
+  [uk2OrganizationName]="uk2OrganizationName"
+  [uk2IsLoading]="uk2IsLoading"
+  [uk2ProgressBarValue]="uk2ProgressBarValue"
+  [uk2HeaderText]="uk2HeaderText"
+  [uk2HeaderIconButton]="uk2HeaderIconButton"
+  (uk2HeaderCallBackButton)="uk2HeaderCallBackButton()"
+  [uk2FooterIconButton]="uk2FooterIconButton"
+  (uk2FooterCallBackButton)="uk2FooterCallBackButton()"
+></uk2-progress-bar>
+
+<br />
+<br />
+<br />
+
+<h2>Standalone Uk2ProgressBarDirective directive</h2>
+<mat-progress-bar uk2DeterminateProgressBar mode="determinate" value="40"></mat-progress-bar>

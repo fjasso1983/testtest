@@ -1,0 +1,115 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+## Inputs
+<ul>
+  <li>
+    [uk2ListItem] <u>Uk2ListItem</u> <i>(required)</i> is the model of an account used to display list-item
+  </li>
+  <li>
+    [uk2IsDisabled] <u>boolean</u> <i>(optional)</i> is flag to activate disable state of list-item
+  </li>
+  <li>
+    [uk2IsPending] <u>boolean</u> <i>(optional)</i> is flag to activate pending state of list-item
+  </li>
+  <li>
+    [uk2IsLoading] <u>boolean</u> <i>(optional)</i> is flag to activate skeleton state of list-item
+  </li>
+  <li>
+    [uk2ShowDividerLine] <u>boolean</u> <i>(optional)</i> is a flag to append a divider line at the end of list-item
+  </li>
+  <li>
+    [uk2CurrencyOptions] <u>Uk2ListItemCurrencyOptions</u> <i>(optional)</i> is a configuration object to format money amount more details if <a href="https://angular.io/api/common/CurrencyPipe" target="_blank">angular documentation</a>
+  </li>
+</ul>
+
+## Models
+
+Uk2ListItem
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    interface Uk2ListItem {
+      showControl?: boolean;
+      svgIconName?: string;
+      imageUrl?: string;
+      headerLabelName?: string;
+      headerLabelIdentifier?: string;
+      moneyAmount?: number;
+      bodyText?: string;
+      uk2IsPending?: boolean;
+      uk2IsDisabled?: boolean;
+      uk2ShowDividerLine?: boolean;
+      uk2IsLoading?: boolean;
+      uk2CurrencyOptions?: IUk2ListItemCurrencyOptions;
+      value: any;
+    }
+  `}
+/>
+Uk2ListItemCurrencyOptions
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    interface Uk2ListItemCurrencyOptions {
+      currencyCode?: string;
+      display?: string;
+      digitsInfo?: string;
+      locale?: string;
+    }
+  `}
+/>
+
+## Directives
+### Uk2ListItemClickableDirective <i>[uk2Clickable]</i>
+This directive is applied on the list-item component <b>uk2-list-item[uk2Clickable]</b> and it makes the list-item listen to click events that can toggle the selected/checked state of angular material radio button or angular material checkbox.
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+  <uk2-list-item
+      uk2Clickable
+      [uk2ListItem]="listItem"
+      [uk2IsDisabled]="disabled"
+      [uk2IsPending]="pending"
+      [uk2IsLoading]="isLoading"
+      [uk2ShowDividerLine]="showDivider"
+      [uk2CurrencyOptions]="currencyOptions"
+    >
+    <!-- Projecting a checkbox element -->
+    <mat-checkbox uk2Checkbox disableRipple formControlName="checkboxControl"></mat-checkbox>
+    <!-- Projecting a radio element -->
+    <mat-radio-button disableRipple uk2RadioButton [value]="item.headerLabelName"> </mat-radio-button>
+  </uk2-list-item>
+  `}
+/>
+
+## Dynamic content inside list item
+<p>
+  Uk2ListItemComponent supports content projection, allowing client to insert dynamic content inside list-item, this content can be another component or html elements. Uk2ListItemComponent supports integration with material radio button and material checkbox, when this input elements are selected that would change the styles from list-item.
+</p>
+
+Example of content projection
+<Source
+  dark
+  language="html"
+  code={dedent`
+<uk2-list-item
+    uk2Clickable
+    [uk2ListItem]="listItem"
+    [uk2IsDisabled]="disabled"
+    [uk2IsPending]="pending"
+    [uk2IsLoading]="isLoading"
+    [uk2ShowDividerLine]="showDivider"
+    [uk2CurrencyOptions]="currencyOptions"
+  >
+  <!-- Dynamic content -->
+  <mat-icon svgIcon="uk2-chevron-right"></mat-icon>
+</uk2-list-item>
+`}
+/>

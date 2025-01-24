@@ -1,0 +1,20 @@
+<uk2-filter-chip-button #chipButton (click)="openOverlay()" [uk2IsLoading]="uk2IsLoading">
+  <uk2-filter-chip-label></uk2-filter-chip-label>
+</uk2-filter-chip-button>
+<uk2-filter-chip-overlay #filterChipOverlay [uk2AttachedElement]="chipButton.elementRef">
+  <uk2-filter-chip-overlay-label
+    #filterChipOverlayLabel
+    [uk2Conditions]="uk2Conditions"
+  ></uk2-filter-chip-overlay-label>
+  <uk2-filter-chip-overlay-option
+    *ngFor="let option of uk2Options"
+    [uk2Value]="option.value"
+    [uk2Multiple]="uk2IsMultiple"
+    (click)="handleOptionSelected()"
+    (keydown.enter)="handleOptionSelected()"
+    (keydown.space)="handleOptionSelected()"
+    (keydown.escape)="closeOverlay()"
+  >
+    {{ option.value }}
+  </uk2-filter-chip-overlay-option>
+</uk2-filter-chip-overlay>

@@ -1,0 +1,117 @@
+<h2>Forms Integration</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Input size (large, medium y small).</li>
+  <li>Input interaction patterns when used in forms.</li>
+  <li>Loading state of Input when used in forms.</li>
+  <li>Input error states.</li>
+</ul>
+<br />
+<form [formGroup]="form">
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      uk2Input
+      [uk2IsLoading]="uk2IsLoading"
+      placeholder="input placeholder"
+      [formControl]="email"
+      [uk2InputSize]="inputSize"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="form.controls['email'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form.patchValue({ email: '' })"
+      tabindex="-1"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>This is an example of simple email input.</mat-hint>
+    <mat-error *ngIf="email.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Email is required
+    </mat-error>
+    <mat-error *ngIf="email.hasError('email')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      A valid email is required
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>First Name</mat-label>
+    <input
+      matInput
+      uk2Input
+      [uk2IsLoading]="uk2IsLoading"
+      [formControl]="name"
+      placeholder="input placeholder"
+      [uk2InputSize]="inputSize"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="form.controls['name'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form.patchValue({ name: '' })"
+      tabindex="-1"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>This is an example of simple text input.</mat-hint>
+    <mat-error *ngIf="name.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Fisrt Name is required
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Phone with prefix</mat-label>
+    <span matTextPrefix>+521 &nbsp;</span>
+    <input
+      matInput
+      uk2Input
+      [formControl]="phone"
+      [uk2IsLoading]="uk2IsLoading"
+      type="phone"
+      placeholder="phone placeholder"
+      [uk2InputSize]="inputSize"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="form.controls['phone'].value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="form.patchValue({ phone: '' })"
+      tabindex="-1"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>This is an example of input with prefix.</mat-hint>
+    <mat-error *ngIf="phone.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Phone number is required
+    </mat-error>
+    <mat-error *ngIf="phone.hasError('pattern')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Phone number is invalid
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <button
+    uk2TextButton
+    disableRipple
+    [uk2ButtonSize]="'medium'"
+    [uk2IsLoading]="uk2IsLoading"
+    mat-button
+    [disabled]="!form.valid"
+    (click)="onSubmit()"
+  >
+    Submit
+  </button>
+  <br />
+</form>

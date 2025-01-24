@@ -1,0 +1,74 @@
+<!-- <ng-template #uk2PanelTemplate>
+  <div
+    uk2BottomSheetWidth="uk2BottomSheetWidth"
+    uk2ElementResize
+    [uk2Position]="uk2BottomSheetPosition"
+    [uk2MinWidth]="uk2BottomSheetMinWidth"
+    [uk2MaxWidth]="uk2BottomSheetMaxWidth"
+    [uk2Width]="uk2BottomSheetWidth"
+    [uk2IsElementResizable]="uk2IsBottomSeetResizable"
+    (click)="openBottomSheet()"
+  >
+    Div template</div
+  >
+</ng-template> -->
+
+<div
+  uk2BottomSheetWidth="uk2BottomSheetWidth"
+  uk2ElementResize
+  [uk2Position]="uk2BottomSheetPosition"
+  [uk2MinWidth]="uk2BottomSheetMinWidth"
+  [uk2MaxWidth]="uk2BottomSheetMaxWidth"
+  [uk2Width]="uk2BottomSheetWidth"
+  [uk2IsElementResizable]="uk2IsBottomSeetResizable"
+  (click)="openBottomSheet()"
+>
+  <section id="uk2-bottom-sheet" uk2BottomSheetCalculator uk2BottomSheetStyle [uk2IsLoading]="uk2IsLoading">
+    <section id="uk2-bottom-sheet-bar" uk2BottomSheetTouchDismiss (swipeDown)="closeBottomSheet()">
+      <div id="uk2-bottom-sheet-grabber"></div>
+    </section>
+    <ng-container *ngIf="!uk2IsLoading; else skeleton">
+      <section id="uk2-bottom-sheet-title-container">
+        <uk2-bottom-sheet-header-icon
+          [titleheadericon]="titleheadericon"
+          [showTitleDivider]="showTitleDivider"
+          (close)="closeBottomSheet()"
+        ></uk2-bottom-sheet-header-icon>
+
+        <uk2-bottom-sheet-header [title]="title" [description]="description"></uk2-bottom-sheet-header>
+      </section>
+      <section id="uk2-bottom-sheet-body-container">
+        <ng-content select="#uk2-bottom-sheet-body"></ng-content>
+        <div id="uk2-bottom-sheet-body-transparency"></div>
+      </section>
+      <section id="uk2-bottom-sheet-footer-container">
+        <ng-content select="#uk2-bottom-sheet-footer"></ng-content>
+      </section>
+    </ng-container>
+
+    <ng-template #skeleton>
+      <section id="uk2-bottom-sheet-skeleton">
+        <div id="uk2-bottom-sheet-skeleton-title">
+          <div class="uk2-bottom-sheet-skeleton-bar"></div>
+          <div class="uk2-bottom-sheet-skeleton-bar"></div>
+        </div>
+        <div id="uk2-bottom-sheet-skeleton-body">
+          <div class="uk2-bottom-sheet-skeleton-item">
+            <div class="uk2-bottom-sheet-thumbnail"></div>
+            <div class="uk2-bottom-sheet-skeleton-item-bars">
+              <div class="uk2-bottom-sheet-skeleton-bar"></div>
+              <div class="uk2-bottom-sheet-skeleton-bar"></div>
+            </div>
+          </div>
+          <div class="uk2-bottom-sheet-skeleton-item">
+            <div class="uk2-bottom-sheet-thumbnail"></div>
+            <div class="uk2-bottom-sheet-skeleton-item-bars">
+              <div class="uk2-bottom-sheet-skeleton-bar"></div>
+              <div class="uk2-bottom-sheet-skeleton-bar"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-template>
+  </section>
+</div>

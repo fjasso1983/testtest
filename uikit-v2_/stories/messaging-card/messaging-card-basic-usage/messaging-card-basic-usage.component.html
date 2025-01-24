@@ -1,0 +1,28 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Messaging card types (Default, Alert and Inform).</li>
+  <li>Messaging card Behavior (Expandable or not).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Messaging card responsiveness on each size.</li>
+  <li>Header truncation behavior.</li>
+  <li>Show/hide, default and custom Icon.</li>
+</ul>
+
+<uk2-messaging-card
+  [uk2MessagingCardType]="type"
+  [uk2MessagingCardHeaderText]="headerText"
+  [uk2MessagingCardIsExpandable]="isExpandable"
+  [uk2MessagingCardIsExpanded]="isExpanded"
+  [uk2IsLoading]="isLoading"
+  [uk2MessagingCardSvgIconName]="svgIconName"
+  [uk2MessagingCardShowIcon]="showIcon"
+>
+  <div class="messaging-card-content">
+    <div>Vitae ornare nec pretium lacus aliquet amet</div>
+    <ul>
+      <li>Lorum: $12,345 ($34,567)</li>
+      <li>Ipsum: $12,345 ($34,567)</li>
+    </ul>
+  </div>
+</uk2-messaging-card>

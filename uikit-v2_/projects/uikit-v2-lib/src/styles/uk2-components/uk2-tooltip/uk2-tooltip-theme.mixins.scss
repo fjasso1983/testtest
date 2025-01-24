@@ -1,0 +1,25 @@
+@mixin uk2-tooltip-tippy-box-theme($background-color: white){
+  background-color: $background-color;
+  border: none;
+  border-radius: 8px;
+  height: auto;
+  padding: 0px;
+  position: relative;
+  color: var(--uk2-neutral-slate-500);
+
+  & > .tippy-svg-arrow {
+    fill: $background-color;
+  }
+
+  .tippy-content {
+    padding: 0;
+  }
+}
+
+@mixin uk2-tooltip-tippy-box-theme-responsive(){
+  @include md {
+    filter: drop-shadow(0px 0px 24px rgba(74, 85, 96, 0.15));
+  }
+}
+
+

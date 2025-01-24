@@ -1,0 +1,61 @@
+<div>
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Search input states (default, empty, filled and skeleton).</li>
+    <li>Show different densities of search input.</li>
+    <li>Integration of input with search results.</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  </ul>
+</div>
+
+<form>
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label [innerHTML]="formFieldLabel"></mat-label>
+    <input
+      type="text"
+      autocomplete="off"
+      matInput
+      uk2Input
+      [placeholder]="placeholderText"
+      [formControl]="formControl"
+      [uk2IsLoading]="isLoading"
+      [uk2InputSize]="inputSize"
+      [uk2SearchMenu]="templateReference"
+      [uk2SearchMenuMinimumLength]="minimumLengthForSearch"
+      [uk2SearchInputCustomLabel]="customFormLabel"
+      #inputElement
+      #searchMenuDirective="uk2SearchMenu"
+    />
+    <button
+      matSuffix
+      mat-icon-button
+      uk2SearchInputClearIcon
+      [uk2SearchMenu]="searchMenuDirective"
+      *ngIf="inputElement.value"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <button class="uk2-search-input-icon" matPrefix mat-icon-button aria-label="Search input">
+      <mat-icon svgIcon="uk2-magnifying-glass"></mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+<ng-template #templateReference>
+  <div
+    [uk2SearchMenuOverlay]="searchMenuDirective"
+    [uk2SearchMenuFilterDelay]="filterDelay"
+    [uk2SearchMenuOptionsLimit]="optionsLimit"
+  >
+    <uk2-dropdown-list-item-chevron
+      [uk2ListItem]="option"
+      [uk2IsDisabled]="false"
+      [uk2IsPending]="false"
+      [uk2IsLoading]="false"
+      [uk2ShowDividerLine]="false"
+      uk2SearchMenuItem
+      (uk2SearchMenuItemSelected)="formControl.setValue($any(option).headerLabelName)"
+      *ngFor="let option of options"
+    ></uk2-dropdown-list-item-chevron>
+  </div>
+</ng-template>

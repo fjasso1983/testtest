@@ -1,0 +1,19 @@
+@import './uk2-primary-icon-button.mixins';
+
+button.uk2-primary-icon-button-small {
+    @include uk2-primary-icon-button-size($uk2-button-small);
+}
+
+button.uk2-primary-icon-button-medium {
+    @include uk2-primary-icon-button-size($uk2-button-medium);
+}
+
+button.uk2-primary-icon-button-large {
+    @include uk2-primary-icon-button-size($uk2-button-large);
+}
+
+button.uk2-primary-icon-button-skeleton {
+    pointer-events: none;
+    color: transparent !important;
+    background-color: var(--uk2-neutral-grey-300) !important;
+}

@@ -1,0 +1,95 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Menu List Component documentation
+
+## Introduction
+
+<p>
+  <strong>Uk2MenuListItemDirective</strong> is a custom directive that can be used to offer more flexibility and customization compared to the list item component.
+</p>
+
+## Prerequisites
+
+- You need to import Uk2MenuListItemModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      import { Uk2MenuListItemModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+## Constraints
+<ol>
+  <li>The directive should only be applied to <strong>div</strong> container elements.</li>
+</ol>
+<br/>
+
+## Inputs
+
+<ul>
+  <li><strong>[uk2IsDisabled]</strong> <u>string</u> <i>(optional)</i> Disables the item.</li>
+  <li><strong>[uk2IsActive]</strong> <u>string</u> <i>(optional)</i> Toggles the active state of the item.</li>
+  <li><strong>[uk2IsLoading]</strong> <u>string</u> <i>(optional)</i> Toggles the loading state of the item.</li>
+  <li><strong>[uk2ShowDividerLine]</strong> <u>string</u> <i>(optional)</i> Shows a divider line bellow the item.</li>
+</ul>
+<br/>
+
+## Component-specific CSS variables
+<ul>
+  <li><strong>[--uk2-menu-list-item-surface-default-color]</strong> <i>(default: --uk2-neutral-white)</i> Is the default background color of the item.</li>
+  <li><strong>[--uk2-menu-list-item-surface-hover-color]</strong> <i>(default: --uk2-neutral-grey-100)</i> Is the background color of the item when hovering the mouse.</li>
+  <li><strong>[--uk2-menu-list-item-surface-active-color]</strong> <i>(default: accent-color-100-hsl)</i> Is the background color of the item when active.</li>
+  <li><strong>[--uk2-menu-list-item-text-default-color]</strong> <i>(default: --uk2-neutral-slate-500)</i> Is the default color of the text.</li>
+  <li><strong>[--uk2-menu-list-item-text-hover-color]</strong> <i>(default: --uk2-neutral-slate-500)</i> Is the color of the text when hovering the mouse.</li>
+  <li><strong>[--uk2-menu-list-item-text-active-color]</strong> <i>(default: accent-color-400-hsl)</i> Is the active color of the text.</li>
+  <li><strong>[--uk2-menu-list-item-icon-default-color]</strong> <i>(default: --uk2-neutral-slate-500)</i> Is the default color of the icon.</li>
+  <li><strong>[--uk2-menu-list-item-icon-active-color]</strong> <i>(default: --uk2-neutral-slate-500)</i> Is the active color of the icon.</li>
+  <li><strong>[--uk2-menu-list-item-icon-hover-color]</strong> <i>(default: --uk2-neutral-slate-500)</i> Is the color of the icon when hovering the mouse.</li>
+  <li><strong>[--uk2-menu-list-item-divider-color]</strong> <i>(default: --uk2-neutral-grey-200)</i> Is the color of the divider line.</li>
+</ul>
+<br/>
+
+## Sample Code
+
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class MenuListItemComponent {
+      isActive = false;
+      isDisabled = false;
+      isLoading = false;
+      hasDivider = true;
+      \r
+      itemData = {
+        bodyText: 'Lorem Ipsum...',
+        svgIconName: 'uk2-info-circle'
+      }
+    }
+  `}
+/>
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+    <div 
+    uk2MenuListItem
+    [uk2IsDisabled]="isDisabled"
+    [uk2IsActive]="isActive"
+    [uk2IsLoading]="isLoading"
+    [uk2ShowDividerLine]="hasDivider">
+      <mat-icon [svgIcon]="itemData.svgIconName"></mat-icon>
+      <p>{{ itemData.bodyText }}</p>
+    </div>
+  `}
+/>

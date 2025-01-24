@@ -1,0 +1,42 @@
+<h1>Uk2 Slider</h1>
+<div class="container">
+  <uk2-slider
+    [maxValueLabel]="maxText.value ?? ''"
+    [minValueLabel]="minText.value ?? ''"
+    [minValue]="minValue"
+    [maxValue]="maxValue"
+    [step]="step"
+    [variant]="variant"
+    [value]="value.value ?? 0"
+    [uk2IsLoading]="isLoading"
+    (valueChange)="onValueUpdate($event)"
+  ></uk2-slider>
+</div>
+<br />
+<form>
+  <h2>Controls</h2>
+  <div>
+    <label for="maxText">Max Text:</label>
+    <input type="text" id="maxText" [formControl]="maxText" />
+  </div>
+  <br />
+  <div>
+    <label for="minText">Min Text:</label>
+    <input type="text" id="minText" [formControl]="minText" />
+  </div>
+</form>
+<br />
+<div>
+  <h2>Current value</h2>
+  <form>
+    <input type="text" [formControl]="value" />
+  </form>
+  <p>Variant: {{ variant === uk2SliderVariantEnum.solid ? 'Solid' : 'Gradient' }}</p>
+  <br />
+  <div>
+    <button (click)="toggleVariant()">Toggle variant</button>
+  </div>
+  <div>
+    <button (click)="toggleSkeleton()">Toggle Skeleton</button>
+  </div>
+</div>

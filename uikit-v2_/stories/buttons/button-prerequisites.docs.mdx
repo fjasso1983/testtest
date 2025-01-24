@@ -1,0 +1,23 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../directives-docs/directives-prerequisites.docs.mdx';
+
+<br/>
+
+## Prerequisites
+
+- You need to import MatButtonModule from @angular/material/button.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatButtonModule } from '@angular/material/button';
+  `}
+/>
+
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+

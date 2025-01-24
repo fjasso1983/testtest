@@ -1,0 +1,11 @@
+.example {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-left: 15px;
+  div {
+    a {
+      margin-left: 5px;
+    }
+  }
+}

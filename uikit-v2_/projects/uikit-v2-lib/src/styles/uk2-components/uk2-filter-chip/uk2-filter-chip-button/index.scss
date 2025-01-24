@@ -1,0 +1,35 @@
+uk2-filter-chip-button {
+  display: inline-block;
+}
+
+.uk2-filter-chip-button {
+  box-sizing: border-box;
+  padding: 5px 8px;
+  border: 1px solid var(--uk2-neutral-grey-300);
+  border-radius: 8px;
+  background-color: var(--uk2-neutral-white);
+  cursor: pointer;
+  max-width: 327px;
+  overflow: hidden;
+
+  //Hover state
+  &:hover,
+  &.uk2-filter-chip-button-active {
+    background-color: var(--uk2-neutral-grey-100);
+  }
+
+  //Pressed state
+  &:active {
+    background-color: var(--uk2-neutral-grey-200);
+  }
+
+}
+
+// skeleton
+.uk2-filter-chip-button-skeleton {
+  display: inline-block;
+  width: 111px;
+  height: 32px;
+  border-radius: 4px;
+  @include uk2-loading-skeleton-animation(--uk2-neutral-grey-300, --uk2-neutral-grey-200)
+}

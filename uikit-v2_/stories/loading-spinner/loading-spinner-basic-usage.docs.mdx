@@ -1,0 +1,74 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2LoadingSpinnerDirective directive documentation
+
+## Introduction
+<p> Uk2LoadingSpinnerDirective is a directive designed to update the styling of an Angular material <a href="https://v15.material.angular.io/components/progress-spinner/overview" target='_blank'>progress spinner</a> in order to adhere to the <a href='https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=6050-2352&node-type=frame&m=dev' target='_blank'>Axos Design System.</a> </p>
+
+## Prerequisites
+
+- You need to import Uk2LoadingSpinnerModule from @axos/uikit-v2-lib and MatProgressSpinnerModule from @angular/material/\* into the desired module of your Angular App.
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+      import { Uk2LoadingSpinnerModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+## Constraints
+<ol>
+  <li>It must be applied to a mat-spinner element (mat-progress-spinner is not supported).</li>
+  <li>It must not have a color attribute set.</li>
+</ol>
+
+
+## Accesibility
+<p>Each spinner instance should contain a text describing it's function as an aria-label. Please refer to the Angular material <a href='https://v15.material.angular.io/components/progress-spinner/overview#accessibility' target='_blank'>progress spinner</a> documentation for further reference</p>
+
+
+## Inputs
+
+<ul>
+  <li><strong>[uk2Diameter]</strong> <u>number</u> <i>(optional)</i> Diameter size of the spinner. (<strong>Default:</strong> 32).</li>
+  <li><strong>[uk2StrokeWidth]</strong> <u>number</u> <i>(optional)</i> Stroke width of the spinner. (<strong>Default:</strong> 4).</li>
+</ul>
+<br/>
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>[--uk2-loading-spinner-stroke-color]</strong> <i>(default: --uk2-accent-color-hsl)</i> Is the color of the spinner stroke.</li>
+</ul>
+<br/>
+
+## Sample Code
+
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...    
+    })
+    export class SpinnerExample {
+      ...
+      diameter = 64;
+      stroke = 8;
+    }
+  `}
+/>
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+    <mat-spinner uk2LoadingSpinner aria-label="Loading" [uk2Diameter]="diameter" [uk2StrokeWidth]="stroke"></mat-spinner>
+  `}
+/>

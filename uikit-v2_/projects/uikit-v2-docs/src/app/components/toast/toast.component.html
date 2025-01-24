@@ -1,0 +1,16 @@
+<p>toast works!</p>
+<!-- <uk2-toast></uk2-toast> -->
+<mat-form-field appearance="fill">
+  <mat-label>Snack bar duration (seconds)</mat-label>
+  <input type="number" [(ngModel)]="durationInSeconds" matInput />
+</mat-form-field>
+
+<div id="actions">
+  <button mat-stroked-button (click)="openSnackBarAlert()">Alert</button>
+  <button mat-stroked-button (click)="openSnackBarSuccess()">Success</button>
+  <button mat-stroked-button (click)="openSnackBarErrorType()">Type error (should not open)</button>
+  <button mat-stroked-button (click)="openSnackBarErrorMessage()">Message error (should not open)</button>
+  <button mat-stroked-button (click)="openSnackBarSuccessBig()">Success big message</button>
+  <button mat-stroked-button (click)="openSnackBarSkeleton()">Skeleton</button>
+  <button mat-stroked-button (click)="openSnackBarWithoutDuration()">Toast with no duration</button>
+</div>

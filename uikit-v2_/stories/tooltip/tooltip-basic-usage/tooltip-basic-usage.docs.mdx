@@ -1,0 +1,213 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# uk2Tooltip component documentation
+
+## Introduction
+<p>
+  <strong>uk2Tooltip</strong> is a custom component developed using <a href="https://atomiks.github.io/tippyjs/" target="_blank">tippy.js</a> library to achieve Tooltip component which is part of <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=1294-29553&t=02FNjVtfP1jGKXQf-0" target="_blank">Axos Design System</a>.
+  </p>
+
+## Prerequisites
+
+- Please follow this guide to install tippy library <a href="https://atomiks.github.io/tippyjs/v6/getting-started/" target="_blank">Tippy getting started</a>
+
+- You need to import MatIconModule and MatButtonModule from @angular/material/* into the desired module of your Angular App. To be able to use uk2Tooltip component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatIconModule } from '@angular/material/icon';
+      import { MatButtonModule } from '@angular/material/button';
+  `}
+/>
+
+- You need to import Uk2TooltipModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use uk2Tooltip component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2TooltipModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+
+
+
+
+## Inputs
+<ul>
+  <li><strong>[labelText]</strong> <u>String</u> <i>(required)</i> label text of component.</li>
+  <li><strong>[size]</strong> <u>Uk2TooltipSizeEnum</u> <i>(optional, <strong>default: 'large'</strong>)</i>Defines the size used for the label and icon button.</li>
+  <li><strong>[svgIconName]</strong> <u>String</u> <i>(required)</i> icon name from axos icon service.</li>
+  <li><strong>[bodyText]</strong> <u>String</u> <i>(required)</i> body text of tooltip box.</li>
+  <li><strong>[displayCloseButton]</strong> <u>Boolean </u> <i>(optional, <strong>default: false</strong>)</i> used to display the close button.</li>
+  <li><strong>[uk2IsLoading]</strong> <u>Boolean</u> <i>(optional, <strong>default: false</strong>)</i> used to display skeleton mode.</li>
+  <li><strong>[arrowOffset]</strong> <u>Boolean</u> <i>(optional, <strong>default: 0</strong>)</i> offset for arrow tooltip box position.</li>
+  <li><strong>[placement]</strong> <u>Uk2TooltipPlacementEnum</u> <i>(optional, <strong>default: 'auto'</strong>)</i> The <strong>preferred</strong> placement of the Tooltip box. Note that Tooltip's flip modifier can change this to the opposite placement if it has more space.</li>
+  <li><strong>[desktopOpenMode]</strong> <u>Uk2TooltipTriggerEnum</u> <i>(optional, <strong>default: 'hover'</strong>)</i> The <strong>preferred</strong> placement of the Tooltip box. Note that Tooltip's flip modifier can change this to the opposite placement if it has more space.</li>
+  <li><strong>[strategy]</strong> <u>Uk2TooltipStrategyEnum</u> <i>(optional, <strong>default: 'absolute'</strong>)</i> Describes the positioning strategy to use. By default, it is absolute, which in the simplest cases does not require repositioning of the popper. If your reference element is in a fixed container, use the fixed strategy.</li>
+</ul>
+
+## Content projection sections
+
+
+<p><b>uk2Tooltip</b> has one content projection sections</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+      <section>
+        <!-- Your content -->
+      </section>
+  `}
+/>
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>[--uk2-tooltip-label-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> is the label tooltip color.</li>
+  <li><strong>[--uk2-tooltip-icon-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> is the icon tooltip color.</li>
+</ul>
+
+## Outputs
+<ul>
+  <li><strong>(closeButtonClick)</strong> <u>Function</u> <i>(optional)</i> Callback function click close button.</li>
+ </ul>
+
+## Enums
+
+-  You need to import Uk2TooltipPlacementEnum from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to use uk2Tooltip component and preferred placement.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export enum Uk2TooltipPlacementEnum {
+      top = 'top',
+      topStart = 'top-start',
+      topEnd = 'top-end',
+      right = 'right',
+      rightStart = 'right-start',
+      rightEnd = 'right-end',
+      bottom = 'bottom',
+      bottomStart = 'bottom-start',
+      bottomEnd = 'bottom-end',
+      left = 'left',
+      leftStart = 'left-start',
+      leftEnd = 'left-end',
+      auto = 'auto',          // Default value
+      autoStart = 'auto-start',
+      autoEnd = 'auto-end',
+    }
+  `}
+/>
+
+
+-  You need to import Uk2TooltipTriggerEnum from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to use uk2Tooltip component and handle trigger event.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export enum Uk2TooltipTriggerEnum {
+      hover = 'mouseenter focus',  // Default value
+      click = 'click',
+    }
+  `}
+/>
+
+-  You need to import Uk2TooltipStrategyEnum from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to use uk2Tooltip component and handle strategy reference.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+      export enum Uk2TooltipStrategyEnum {
+        absolute = 'absolute',
+        fixed = 'fixed',
+      }
+    }
+  `}
+/>
+
+-  You need to import Uk2TooltipSizeEnum from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to use uk2Tooltip component and handle size of label text and icon button.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+      export enum Uk2TooltipSizEenum {
+        small = 'small',
+        medium = 'medium',
+        large = 'large',
+      }
+    }
+  `}
+/>
+
+## Sample code
+  <p>
+  Here are some examples on how to achieve the branding for some entities on this component.
+  </p>
+
+### *.component.html
+<Source
+  dark
+  code={dedent`
+    <uk2-tooltip
+      [labelText]="labelText"
+      [size]="size"
+      [bodyText]="bodyText"
+      [uk2IsLoading]="uk2IsLoading"
+      [displayCloseButton]="displayCloseButton"
+      [arrowOffset]="arrowOffset"
+      [svgIconName]="svgIconName"
+      [placement]="placement"
+      [desktopOpenMode]="desktopOpenMode"
+      [strategy]="strategy"
+      (closeButtonClick)="closeButtonClick()"
+    >
+      <div>
+        <h2>test</h2>
+        <br />
+        <strong>test</strong>
+        <p>test</p>
+      </div>
+    </uk2-tooltip>
+  `}
+/>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component } from '@angular/core';
+  import { Uk2TooltipPlacementEnum, Uk2TooltipTriggerEnum, Uk2TooltipStrategyEnum, Uk2TooltipSizeEnum } from '@axos/uikit-v2-lib';
+  \r
+  export class YourComponent {
+    \r
+    uk2IsLoading = false;
+    labelText = "Didn't receive the code?";
+    size: Uk2TooltipSizeEnum = Uk2TooltipSizeEnum.large;
+    bodyText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+    displayCloseButton = true;
+    svgIconName = 'uk2-info-circle';
+    arrowOffset = 0;
+    placement: Uk2TooltipPlacementEnum = Uk2TooltipPlacementEnum.auto;
+    desktopOpenMode: Uk2TooltipTriggerEnum = Uk2TooltipTriggerEnum.hover;
+    strategy: Uk2TooltipStrategyEnum = Uk2TooltipTriggerEnum.absolute;
+    \r
+    constructor() {}
+    \r
+    closeButtonClick() {
+      console.log('close button click');
+    }
+  };
+  `}
+/>
+
+

@@ -1,0 +1,12 @@
+<div
+  tabindex="0"
+  class="uk2-filter-chip-option"
+  uk2MenuListItem
+  [uk2IsActive]="checked && !uk2Multiple"
+  (click)="onClick()"
+  (keydown.enter)="onClick()"
+  (keydown.space)="onClick()"
+>
+  <mat-checkbox tabIndex="-1" uk2Checkbox disableRipple [checked]="checked" *ngIf="uk2Multiple"></mat-checkbox>
+  <span class="uk2-filter-chip-option-text"><ng-content></ng-content></span>
+</div>

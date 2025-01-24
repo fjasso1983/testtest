@@ -1,0 +1,9 @@
+.scrollbar-content{
+  width: 300px;
+  height: 200px;
+  padding:16px;
+  &.scroll-x{
+    white-space: nowrap;
+    height: 50px;
+  }
+}

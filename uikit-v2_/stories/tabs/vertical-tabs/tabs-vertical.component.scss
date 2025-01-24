@@ -1,0 +1,16 @@
+.custom-tab {
+  gap: 20px;
+  flex-basis: auto;
+  flex-grow: 2;
+
+  .mat-mdc-tab-label-container {
+    width: 200px;
+  }
+}
+
+.tab-content {
+  background-color: #EBEBEB;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}

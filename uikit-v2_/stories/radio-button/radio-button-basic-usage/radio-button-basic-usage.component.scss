@@ -1,0 +1,13 @@
+mat-radio-group:not(.is-horizontal) {
+  display: flex;
+  flex-direction: column;
+  // space between radio buttons
+  gap: 0px;
+}
+
+mat-radio-group.is-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  // space between radio buttons
+  gap: 5px 40px;
+}

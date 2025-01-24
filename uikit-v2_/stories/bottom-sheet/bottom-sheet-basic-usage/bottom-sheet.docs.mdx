@@ -1,0 +1,200 @@
+import { Source, ArgsTable, Canvas, Meta, Story, PRIMARY_STORY } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2BottomSheetComponent component documentation
+
+## Introduction
+<p>
+  <b>Uk2BottomSheetComponent</b> is a component that work along with Angular Material <a target="_blank" href="https://v15.material.angular.io/components/bottom-sheet/overview">bottom sheet</a> component the main purpose of the component is to adhere to <a target="_blank" href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?node-id=739%3A20183&mode=dev">Axos Design System</a>.
+</p>
+
+
+### Constraints
+<ol>
+  <li>
+    Component should be used as a template using <b>&lt;ng-template&gt;</b>
+  </li>
+  <li>
+    Uk2BottomSheetModule content is divided in two sections body and footer. To project content in this sections you need to define your HTML element container with the following id attributes: id="uk2-bottom-sheet-body" for body content and id="uk2-bottom-sheet-footer" for the footer. Examples below.
+  </li>
+</ol>
+
+## Prerequisites
+
+- You need to import Uk2BottomSheetModule from @axos/uikit-v2-lib.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2BottomSheetModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+
+## Inputs
+
+<ul>
+  <li>[title] <u>string</u> <i>(optional)</i> is the text for bottom sheet header title.</li>
+  <li>[description] <u>string</u> <i><i>(optional)</i></i> is the text for bottom sheet header description.</li>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle to skeleton state when this is true.</li>
+</ul>
+
+## Content projection sections
+
+<p><b>Uk2BottomSheetComponent</b> has two content projection sections</p>
+
+### Bottom sheet body
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+      <section id="uk2-bottom-sheet-body">
+        <!-- Your content -->
+      </section>
+  `}
+/>
+
+### Bottom sheet footer
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+      <section id="uk2-bottom-sheet-footer">
+        <!-- Your content -->
+      </section>
+  `}
+/>
+
+## Sample Code
+### .component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="openBottomSheet()">Open bottom sheet</button>
+<ng-template #listBottomSheet>
+  <uk2-bottom-sheet [title]="title" [description]="description" [uk2IsLoading]="uk2IsLoading">
+    <section id="uk2-bottom-sheet-body">
+      <!-- Your content -->
+    </section>
+    <section id="uk2-bottom-sheet-footer">
+      <!-- Your content -->
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>
+`}
+/>
+
+### .component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+    import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+    // ...
+    export class YourComponent {
+      @Input() uk2IsLoading = false;
+      @Input() title = 'Lorem ipsum dolor sit amet consecteur augu turpis';
+      @Input() description =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus neque et amet consequat nam pulvinar ipsum turpis ipsum dolor sit amet, consectetur adipiscing elit. Purus neque et amet consequat nam pulvinar ipsum turpis.';
+      @ViewChild('listBottomSheet') bottomSheetTemplate!: TemplateRef<any>;
+      completeTemplateRef!: MatBottomSheetRef;
+      constructor(private bottomSheetService: MatBottomSheet) {}
+      openBottomSheet() {
+        this.bottomSheetService.open(this.completeTemplate);
+      }
+    }
+  `}
+/>
+
+## Options List Code Sample
+### component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2RadioButtonAlignmentEnum, Uk2RadioButtonSizeEnum } from '@axos/uikit-v2-lib';
+    //...
+    export class YourComponent {
+      alignment = Uk2RadioButtonAlignmentEnum.left;
+      size = Uk2RadioButtonSizeEnum.medium;
+      //...
+    }
+  `}
+/>
+
+### component.css/scss
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+    mat-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 16px 0;
+    }
+    mat-radio-group mat-radio-button {
+      display: block;
+    }
+    .radio-label-description {
+      margin: 0;
+      font-size: 0.5rem;
+      color: grey;
+    }
+  `}
+/>
+
+### component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-radio-group>
+      <mat-radio-button
+        value="agree"
+        disableRipple="true"
+        uk2RadioButton
+        [disabled]="isDisabled"
+        [uk2RadioButtonSize]="size"
+        [uk2IsLoading]="isLoading"
+        [uk2Alignment]="alignment"
+      >
+        Lorem ipsum dolor
+        <p class="radio-label-description">Consecutar sit perlabum</p>
+      </mat-radio-button>
+      <mat-radio-button
+        value="value2"
+        disableRipple="true"
+        uk2RadioButton
+        [disabled]="isDisabled"
+        [uk2RadioButtonSize]="size"
+        [uk2IsLoading]="isLoading"
+        [uk2Alignment]="alignment"
+      >
+        Lorem ipsum dolor
+        <p class="radio-label-description">Consecutar sit perlabum</p>
+      </mat-radio-button>
+      <mat-radio-button
+        value="value3"
+        disableRipple="true"
+        uk2RadioButton
+        [disabled]="isDisabled"
+        [uk2RadioButtonSize]="size"
+        [uk2IsLoading]="isLoading"
+        [uk2Alignment]="alignment"
+      >
+        Lorem ipsum dolor
+        <p class="radio-label-description">Consecutar sit perlabum</p>
+      </mat-radio-button>
+    </mat-radio-group>
+  `}
+/>

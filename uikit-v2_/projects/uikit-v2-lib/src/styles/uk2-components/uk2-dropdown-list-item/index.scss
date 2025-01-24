@@ -1,0 +1,69 @@
+uk2-dropdown-list-item-chevron {
+  background-color: inherit;
+  .uk2-list-item {
+    .uk2-list-item-header {
+      order: unset;
+    }
+
+    .uk2-list-item-money-amount {
+      order: unset;
+    }
+  }
+}
+
+// Selected state
+uk2-dropdown-list-item-chevron {
+  .uk2-list-item-selected {
+    .uk2-list-item {
+      background-color: accent-color-100-hsl();
+
+      &:hover {
+        background-color: accent-color-100-hsl();
+      }
+
+      .uk2-list-item-header {
+        .uk2-list-item-header-container {
+          .uk2-list-item-header-label {
+            color: accent-color-400-hsl();
+          }
+
+          .uk2-list-item-body-text {
+            color: accent-color-400-hsl();
+          }
+        }
+      }
+
+      .uk2-list-item-money-amount {
+        color: accent-color-400-hsl();
+      }
+
+      mat-icon {
+        color: accent-color-400-hsl();
+      }
+    }
+  }
+}
+// End selected state
+
+// Angular Material behavior
+.mat-mdc-option {
+  &.uk2-dropdown-list-item {
+    padding: 0;
+
+    &:hover {
+      background-color: unset;
+    }
+
+    &.mdc-list-item--disabled {
+      opacity: unset;
+      cursor: default;
+    }
+  }
+}
+
+.uk2-dropdown-list-item {
+  .uk2-radio-button.mat-mdc-radio-button .mdc-form-field {
+    gap: unset;
+  }
+}
+// End Angular Material behavior

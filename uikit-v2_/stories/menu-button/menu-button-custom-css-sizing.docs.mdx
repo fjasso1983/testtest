@@ -1,0 +1,70 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+## Using custom sizing classes for icon only menu button variant
+
+<p>To use custom sizes for icon only menu button variant not supported via [uk2ButtonSize] you can use the following set of mixins to extend the sizing variants. <br/> this mixins need to be used on a global scope style file for them to apply correctly to the menu button component.</p>
+<p>Once the css class is provided as input it will override any inherit default sizing css properties from the label menu button variant</p>
+<br/>
+
+### uk2-menu-icon-button-custom-size-range
+----
+<p>Creates a range of sizing css classes by providing different parameters following the <code>.uk2-menu-icon-button__custom-size-[$button-size]</code> named pattern</p>
+
+<Source
+  dark
+  language='scss'
+  code={dedent`
+    @import '../uk2-buttons.mixins.scss';
+    $range-start: 2; // defines number that will be used in combination with $steps to define the starting number of the range
+    $range-end: 10; // defines number that will be used in combination with $steps to define the ending number of the range
+    $steps: 4; // defines the dimensions for each step ($range-start: 2 * $steps: 4) = 8px as the height and width of the button
+    $spacing: 4; // defines the dimensions for each step ($range-start: 2 * $steps: 4 - $spacing: 4) = 4px as the height and width of the icon within the button
+    $border-radius: 8; // defines the border radius of the button
+    @include uk2-menu-icon-button-custom-size-range(
+      $range-start,
+      $range-end,
+      $steps,
+      $spacing,
+      $border-radius,
+    );
+  `}
+/>
+
+
+### uk2-menu-icon-button-unique-custom-size
+----
+<p>Creates a single css class following the <code>.uk2-menu-icon-button__custom-size-[$button-size]</code> naming pattern</p>
+
+<Source
+  dark
+  language='scss'
+  code={dedent`
+    @import '../uk2-buttons.mixins.scss';
+    $button-size: 100;
+    $icon-size: 25;
+    $border-radius: 10;
+    @include uk2-menu-icon-button-unique-custom-size($button-size, $icon-size, $border-radius);
+  `}
+/>
+
+<p> This will generate a css class <code>.uk2-menu-icon-button__custom-size-100</code> that can be used as input value for <strong>[uk2IconButtonSizeClass]</strong> used in combination with <strong>[uk2IconOnly]</strong></p>
+
+<p>*.component.html</p>
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-menu-button
+      [uk2ButtonSize]="buttonSize"
+      [uk2SvgIconName]="icon"
+      [uk2IconOnly]="iconOnly"
+      uk2IconButtonSizeClass="uk2-menu-icon-button__custom-size-100"
+     >
+       <ng-template #option let-context> {{ context.option.text }} </ng-template>
+     </uk2-menu-button>
+  `}
+/>
+
+
+<br/>

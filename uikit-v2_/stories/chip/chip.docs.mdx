@@ -1,0 +1,201 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Chip component documentation
+
+## Introduction
+
+<p>
+  <strong>uk2Chip</strong> is a custom component designed to create chips as part of <a
+    href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=926-38071&t=3Pqs0mj3bWuYkkFe-1"
+    target="_blank">
+    Axos Design System
+  </a>.
+</p>
+
+## Prerequisites
+
+- You need to import Uk2ChipModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      import { Uk2ChipModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+- You also need to import MatIconModule from @angular/material/\* into the desired module of your Angular App. To be able to use icons on your Chip component.
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      import { MatIconModule } from '@angular/material/icon';
+  `}
+  />
+
+  ## Inputs
+
+  <ul>
+    <li><strong>[uk2ChipSize]</strong> <u>Uk2ChipSizesEnum</u> <i>(optional)</i> Size of the chip. (<strong>Default:</strong> Uk2ChipSizesEnum.small).</li>
+    <li><strong>[uk2ChipType]</strong> <u>Uk2ChipTypesEnum</u> <i>(optional)</i> Type of the chip. (<strong>Default:</strong> Uk2ChipTypesEnum.square).</li>
+    <li><strong>[uk2ChipLeadingIcon]</strong> <u>Uk2Icon</u> <i>(optional)</i> Leading icon displayed before the text content.</li>
+    <li><strong>[uk2ChipTrailingIcon]</strong> <u>Uk2Icon</u> <i>(optional)</i> Trailing icon displayed after the text content.</li>
+    <li><strong>[uk2HasChipIndicator]</strong> <u>string</u> <i>(optional)</i> Toggles the chip indicator in rounded chips.</li>
+    <li><strong>[uk2ChipClass]</strong> <u>string</u> <i>(optional)</i> Optional CSS class for chip component to customize the styles or colors as needed.</li>
+    <li><strong>[uk2IsDisabled]</strong> <u>string</u> <i>(optional)</i> Disables the chip component.</li>
+    <li><strong>[uk2IsActive]</strong> <u>string</u> <i>(optional)</i> Toggles the active state of the chip component.</li>
+    <li><strong>[uk2IsLoading]</strong> <u>string</u> <i>(optional)</i> Toggles the loading state of the chip component.</li>
+  </ul>
+  <br/>
+
+  ## Outputs
+
+  <ul>
+    <li>(uk2ChipClick) <u>EventEmitter</u> <i>(optional)</i> It is the function that will be triggered when clicking on chip.</li>
+  </ul>
+  <br/>
+
+  ## Enums
+  - You need to import <strong>Uk2ChipTypesEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the type of the Chip.
+
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+        import { Uk2ChipTypesEnum } from '@axos/uikit-v2-lib';
+    `}
+  />
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      export enum Uk2ChipTypesEnum {
+        square = 'square',
+        rounded = 'rounded',
+      }
+    `}
+  />
+
+  - You need to import <strong>Uk2ChipSizesEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the size of the Chip.
+
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+        import { Uk2ChipSizesEnum } from '@axos/uikit-v2-lib';
+    `}
+  />
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      export enum Uk2ChipSizesEnum {
+        large = 'lrg',
+        medium = 'med',
+        small = 'sm',
+        extraSmall = 'xs',
+      }
+    `}
+  />
+
+  ## Component-specific CSS variables
+
+  <ul>
+    <li><strong>[--uk2-chips-default-surface-color]</strong> <i>(default: --uk2-neutral-white)</i> Is the background color of the chip.</li>
+    <li><strong>[--uk2-chips-selected-surface-color]</strong> <i>(default: accent-color-100-hsl)</i> Is the background color of an active chip.</li>
+    <li><strong>[--uk2-chips-text-color]</strong> <i>(default: accent-color-400-hsl)</i> Is the color of the text.</li>
+    <li><strong>[--uk2-chips-icon-color]</strong> <i>(default: accent-color-400-hsl)</i> Is the color of the icons.</li>
+    <li><strong>[--uk2-chips-indicator-color]</strong> <i>(default: --uk2-axos-primary-blue-400)</i> Is the color of the indicators.</li>
+    <li><strong>[--uk2-chips-text-disabled-color]</strong> <i>(default: --uk2-neutral-slate-300)</i> Is the color of the text when the chip is disabled.</li>
+    <li><strong>[--uk2-chips-icon-disabled-color]</strong> <i>(default: --uk2-neutral-slate-300)</i> Is the color of the icons when the chip is disabled.</li>
+    <li><strong>[--uk2-chips-default-stroke-color]</strong> <i>(default: accent-color-200-hsl)</i> it is the color of the border.</li>
+    <li><strong>[--uk2-chips-selected-stroke-color]</strong> <i>(default: accent-color-200-hsl)</i> it is the color of the border on an active chip.</li>
+    <li><strong>[--uk2-chips-hover-stroke-color]</strong> <i>(default: accent-color-400-hsl)</i> it is the color of the border on a hovered chip with a function assigned.</li>
+    <li><strong>[--uk2-chips-disabled-stroke-color]</strong> <i>(default: --uk2-neutral-grey-300)</i> Is the color of the border when the chip is disabled.</li>
+  </ul>
+  <br/>
+## Sample Code
+
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+      encapsulation: ViewEncapsulation.None,
+    })
+    export class ChipComponent {
+      chipSize = Uk2ChipSizesEnum;
+      chipType = Uk2ChipTypesEnum;
+      leadingIcon = Uk2Tier1AlertsEnum.infoCircle;
+      trailingIcon = Uk2Tier1AlertsEnum.infoCircle;
+      hasChipIndicator = false;
+      customChipClass = 'custom-chip-class';
+      disableChip = false;
+      activeChip = false;
+      isLoading = false;
+      textBehavior = Uk2ChipTextBehaviorEnum.truncate;
+      \r
+      onChipClick() {
+        ...
+      }
+    }
+  `}
+/>
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+    <uk2-chip
+      *ngIf="clickableChip"
+      [uk2ChipLeadingIcon]="leadingIcon"
+      [uk2ChipTrailingIcon]="trailingIcon"
+      [uk2ChipSize]="chipSize"
+      [uk2ShowBorder]="showBorder"
+      [uk2IsActive]="chipActive"
+      [uk2IsDisabled]="disabled"
+      (uk2ChipClick)="clickChip()"
+      [uk2IsLoading]="isLoading"
+      [uk2ChipType]="chipType"
+      [uk2HasChipIndicator]="hasChipIndicator"
+    >
+      Lorem ipsum
+    </uk2-chip
+  `}
+/>
+
+### Custom chip color example
+
+<p>You can achieve different colored chips using [uk2ChipClass] for a custom colored class and adding the styles on the global CSS file (or disabling encapsulation on the component) </p>
+
+<Source
+  dark
+  language="css"
+  code={dedent`
+    .custom-red-chip-color{
+      --uk2-chips-text-color: #c01349;
+      --uk2-chips-icon-color: #c01349;
+      --uk2-chips-indicator-color: #c01349;
+      --uk2-chips-default-surface-color: #fff7f9;
+      --uk2-chips-default-stroke-color: #ffe1e8;
+    }
+  `}
+/>
+
+  <Source
+  dark
+  language="html"
+  code={dedent`
+      <uk2-chip
+        ...
+        [uk2ChipClass]="'custom-red-chip-color'"
+      >
+    </uk2-chip>
+  `}
+/>
+

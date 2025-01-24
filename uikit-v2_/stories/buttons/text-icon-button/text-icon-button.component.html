@@ -1,0 +1,20 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Text Icon Button states (default, hover, skeleton and disabled).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Text Icon Button size (large, medium and small)</li>
+</ul>
+
+<button
+  uk2TextIconButton
+  mat-button
+  disableRipple
+  [uk2ButtonSize]="uk2ButtonSize"
+  [uk2IsLoading]="uk2IsLoading"
+  [uk2NeutralColor]="uk2NeutralColor"
+  [uk2TextButtonVariant]="uk2TextButtonVariant"
+  [disabled]="isDisabled"
+>
+  <mat-icon [svgIcon]="svgIconName"></mat-icon>
+</button>

@@ -1,0 +1,66 @@
+<nav
+  aria-label="breadcrumb"
+  class="uk2-breadcrumbs uk2-breadcrumbs-visible"
+  role="navigation"
+  *ngIf="!uk2IsLoading; else skeleton"
+>
+  <ol>
+    <ng-container *ngIf="!showTruncatedBreadcrumbs; else truncatedBreadcrumbs">
+      <ng-container *ngFor="let item of items; last as lastItem; let i = index">
+        <ng-container *ngIf="!lastItem; else label">
+          <li>
+            <uk2-breadcrumb-item
+              [item]="item"
+              [relativePosition]="getRelativePosition(i)"
+              (itemSelected)="onItemSelected($event)"
+            ></uk2-breadcrumb-item>
+          </li>
+        </ng-container>
+        <ng-template #label>
+          <li>
+            <div class="uk2-breadcrumb-item">
+              <label
+                tabindex="0"
+                aria-current="location"
+                [attr.aria-label]="getRelativePosition(items.length - 1)"
+                (click)="onItemSelected(item)"
+                >{{ item.label }}</label
+              >
+            </div>
+          </li>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+  </ol>
+</nav>
+<div class="uk2-breadcrumbs-container" aria-hidden="true">
+  <nav class="uk2-breadcrumbs uk2-breadcrumbs-hidden" aria-hidden="true">
+    <ol aria-hidden="true">
+      <li class="uk2-breadcrumb-item-size" aria-hidden="true" *ngFor="let item of items; last as lastItem">
+        <div class="uk2-breadcrumb-item">
+          <ng-container *ngIf="!lastItem; else label">
+            <uk2-breadcrumb-item aria-hidden="true" [hidden]="true" [label]="item.label"></uk2-breadcrumb-item>
+          </ng-container>
+        </div>
+        <ng-template #label>
+          <div class="uk2-breadcrumb-item" aria-hidden="true">
+            <label aria-hidden="true">
+              {{ item.label }}
+            </label>
+          </div>
+        </ng-template>
+      </li>
+    </ol>
+  </nav>
+</div>
+
+<ng-template #truncatedBreadcrumbs>
+  <uk2-breadcrumb-truncated
+    [items]="items"
+    [uk2BreadcrumbsCssProperties]="uk2BreadcrumbsCssProperties"
+    (itemSelected)="onItemSelected($event)"
+  ></uk2-breadcrumb-truncated>
+</ng-template>
+<ng-template #skeleton>
+  <div class="uk2-breadcrumbs uk2-breadcrumbs-skeleton" aria-busy="true"></div>
+</ng-template>

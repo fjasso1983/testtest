@@ -1,0 +1,22 @@
+button {
+  margin: 16px 0;
+}
+
+.container-divider {
+  display: flex;
+  > div {
+    flex: 1;
+  }
+}
+
+.menu-fixed-width {
+  width: 200px !important;
+  margin: 0 auto;
+}
+
+.loading-test {
+  text-align: center;
+  uk2-menu-button {
+    margin: 0 32px;
+  }
+}

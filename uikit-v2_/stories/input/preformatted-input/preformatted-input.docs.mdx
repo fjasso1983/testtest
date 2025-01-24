@@ -1,0 +1,447 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source, Canvas } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+
+# Pre-formatted inputs documentation
+
+## Introduction
+<p>
+  Pre-formatted inputs are achieved using <a href="https://github.com/JsDaddy/ngx-mask#quickstart-if-ngx-mask-version--1500-1">
+  ngx-mask v11.1.4 library.</a>
+</p>
+
+## Prerequisites
+<ol>
+  <li>
+    Install ngx-mask v11.1.4 library on your application.
+  </li>
+  <li>
+    Import NgxMaskModule from 'ngx-mask' into de desired module of your Angular application. To be able to use the library.
+    Refer to the library documentation to know more.
+    <Source
+      dark
+      language='ts'
+      code = {dedent`
+        import { NgxMaskModule } from 'ngx-mask';
+        \r
+        @NgModule({
+          declarations: [AppComponent],
+          imports: [ NgxMaskModule.forRoot(), ],
+          bootstrap: [AppComponent],
+        })
+        export class AppModule {}
+        \r
+      `}
+    />
+  </li>
+</ol>
+
+## Sample Code
+
+### Phone format
+<p>*.component.html</p>
+<Source
+  dark
+  code={dedent`
+    <form [formGroup]="form" *ngIf="form && phoneMaskConfig">
+      <mat-form-field appearance="outline" floatLabel="always" (click)="setCursorPhone()">
+        <mat-label>Mobile Phone Number</mat-label>
+        <span matTextPrefix>+1</span>
+        <input
+          #phoneInput
+          matInput
+          uk2Input
+          type="tel"
+          [placeholder]="phoneMaskConfig.placeHolder"
+          [mask]="phoneMaskConfig.inputMask"
+          [placeHolderCharacter]="phoneMaskConfig.placeHolderCharacter"
+          [showMaskTyped]="phoneMaskConfig.showMaskTyped"
+          [dropSpecialCharacters]="phoneMaskConfig.dropSpecialCharacters"
+          [prefix]="phoneMaskConfig.prefix"
+          id="phoneInput"
+          formControlName="mobilePhoneNumber"
+          autocomplete="0"
+          (keydown)="setCursorPhone()"
+          (keyup)="setCursorPhone()"
+          (input)="handleSelectPhone($event)"
+          (mousedown)="handleSelectPhone($event)"
+        />
+        <button
+          *ngIf="showClearButton('mobilePhoneNumber')"
+          type="button"
+          mat-icon-button
+          matSuffix
+          (mousedown)="clearPhoneField()"
+          [attr.aria-label]="'clean input'"
+          [attr.aria-pressed]="'clean input'"
+        >
+          <mat-icon svgIcon="uk2-x"></mat-icon>
+        </button>
+        <mat-error *ngIf="mobilePhoneNumber.invalid">
+          <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+          Error message emplacement
+        </mat-error>
+      </mat-form-field>
+    </form>
+  `}
+/>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class MyComponent implements OnInit {
+      @ViewChild('phoneInput', { static: false }) phoneInput?: ElementRef;
+      \r
+      form!: FormGroup;
+      phoneMaskConfig = {
+        inputMask: '000) 000 - 0000',
+        showMaskTyped: true,
+        dropSpecialCharacters: true,
+        placeHolder: ' (XXX) XXX - XXXX',
+        placeHolderCharacter: 'X',
+        prefix: ' (',
+      };
+      \r
+      constructor(private formBuilder: FormBuilder, private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      ngOnInit(): void {
+        this.form = this.formBuilder.group({
+          mobilePhoneNumber: ['', [Validators.required]],
+        });
+      }
+      \r
+      get mobilePhoneNumber(): any {
+        return this.form.get('mobilePhoneNumber');
+      }
+      \r
+      handleSelectPhone(event: any) {
+        event.preventDefault();
+        this.setCursorPhone();
+      }
+      \r
+      setCursorPhone() {
+        const value = this.phoneInput?.nativeElement.value;
+        let lastDigitIndex = -1;
+        if (this.phoneMaskConfig.placeHolderCharacter == 'X') {
+          if (value.indexOf('X') > 2) {
+            this.phoneMaskConfig.placeHolderCharacter = '_';
+          }
+        }
+        if (value.indexOf('_') != -1) {
+          lastDigitIndex = value.indexOf('_');
+        } else {
+          lastDigitIndex = value.indexOf('X');
+        }
+        if (lastDigitIndex != 13 && lastDigitIndex != 7) {
+          this.phoneInput?.nativeElement.setSelectionRange(lastDigitIndex, lastDigitIndex);
+        }
+      }
+      \r
+      clearPhoneField() {
+        this.form.controls['mobilePhoneNumber'].reset();
+        this.phoneMaskConfig = {
+          inputMask: '000) 000 - 0000',
+          showMaskTyped: true,
+          dropSpecialCharacters: true,
+          placeHolder: ' (XXX) XXX - XXXX',
+          placeHolderCharacter: 'X',
+          prefix: ' (',
+        };
+        this.phoneMaskConfig.placeHolderCharacter = '_';
+      }
+      \r
+      showClearButton(name: string) {
+        const value = this.form.controls[name].value;
+        return value !== null && value !== undefined && value !== '';
+      }
+    }
+  `}
+/>
+
+
+### SSN format
+<p>*.component.html</p>
+<Source
+  dark
+  code={dedent`
+    <form [formGroup]="form" *ngIf="form && ssnMaskConfig">
+      <mat-form-field appearance="outline" floatLabel="always" (click)="setCursorSSN()">
+        <mat-label>Social Security Number</mat-label>
+        <input
+          id="ssn"
+          #ssnInput
+          matInput
+          uk2Input
+          [type]="showSSN ? 'text' : 'password'"
+          formControlName="ssn"
+          autocomplete="0"
+          [placeholder]="ssnMaskConfig.placeHolder"
+          [mask]="showSSN ? ssnMaskConfig.visibleInputMask : ssnMaskConfig.hiddenInputMask"
+          [showMaskTyped]="showSSN"
+          [dropSpecialCharacters]="ssnMaskConfig.dropSpecialCharacters"
+          (keydown)="setCursorSSN()"
+          (mousedown)="handleSelectSSN($event)"
+        />
+        <button
+          id="toggleShowSSN"
+          type="button"
+          matSuffix
+          mat-icon-button
+          aria-label="Show Social Security Number"
+          (click)="toggleShowSSN($event)"
+        >
+          <mat-icon [svgIcon]="showSSN ? 'uk2-eye' : 'uk2-eye-hide'"></mat-icon>
+        </button>
+        <mat-hint>We use bank-level TLS 1.2 encryption to keep your data safe.</mat-hint>
+        <mat-error *ngIf="ssn.invalid">
+          <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+          Error message emplacement
+        </mat-error>
+      </mat-form-field>
+    </form>
+  `}
+/>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class MyComponent implements OnInit {
+      @ViewChild('ssnInput', { static: false }) ssnInput?: ElementRef;
+      \r
+      form!: FormGroup;
+      showSSN = false;
+      ssnMaskConfig = {
+        visibleInputMask: 'AAA-AA-AAAA',
+        hiddenInputMask: 'AAAAAAAAA',
+        showMaskTyped: false,
+        dropSpecialCharacters: true,
+        placeHolder: 'XXX - XX - XXXX',
+      };
+      \r
+      constructor(private formBuilder: FormBuilder, private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      ngOnInit(): void {
+        this.form = this.formBuilder.group({
+          ssn: ['', [Validators.required]],
+        });
+      }
+      \r
+      get ssn(): any {
+        return this.form.get('ssn');
+      }
+      \r
+       handleSelectSSN(event: any) {
+        event.preventDefault();
+        this.setCursorSSN();
+      }
+      \r
+      toggleShowSSN(event: MouseEvent): void {
+        this.showSSN = !this.showSSN;
+        event.stopPropagation();
+      }
+      \r
+      setCursorSSN() {
+        const value = this.ssnInput?.nativeElement.value;
+        let lastDigitIndex = -1;
+        if (this.showSSN && value.indexOf('_') != -1) {
+          lastDigitIndex = value.indexOf('_');
+        } else {
+          lastDigitIndex = value.length;
+        }
+        if (lastDigitIndex !== -1) {
+          if (lastDigitIndex != 4 && lastDigitIndex != 7) {
+            this.ssnInput?.nativeElement.setSelectionRange(lastDigitIndex, lastDigitIndex);
+          }
+          if (this.ssnInput?.nativeElement.selectionStart == 0) {
+            this.ssnInput?.nativeElement.setSelectionRange(lastDigitIndex, lastDigitIndex);
+          }
+        }
+      }
+    }
+  `}
+/>
+
+
+### Dollar amount format
+<p>*.component.html</p>
+<Source
+  dark
+  code={dedent`
+    <form [formGroup]="form" *ngIf="form">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Amount</mat-label>
+        <span matTextPrefix>$</span>
+        <input
+          matInput
+          uk2Input
+          placeholder="0.00"
+          mask="separator.2"
+          thousandSeparator=","
+          type="text"
+          id="amount"
+          autocomplete="0"
+          formControlName="amount"
+          (blur)="onBlur($event.target.value)"
+        />
+        <button
+          *ngIf="showClearButton('amount')"
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="this.form.controls['amount'].reset()"
+          [attr.aria-label]="'clean input'"
+          [attr.aria-pressed]="'clean input'"
+        >
+          <mat-icon svgIcon="uk2-x"></mat-icon>
+        </button>
+        <mat-hint>With initial value.</mat-hint>
+        <mat-error *ngIf="amount.invalid">
+          <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+          Error message emplacement
+        </mat-error>
+      </mat-form-field>
+    </form>
+  `}
+/>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class MyComponent implements OnInit {
+      form!: FormGroup;
+      \r
+      constructor(private formBuilder: FormBuilder, private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      ngOnInit(): void {
+        this.form = this.formBuilder.group({
+          amount: ['', [Validators.required]],
+        });
+      }
+      \r
+      get amount(): any {
+        return this.form.get('amount');
+      }
+      \r
+      showClearButton(name: string) {
+        const value = this.form.controls[name].value;
+        return value !== null && value !== undefined && value !== '';
+      }
+      \r
+      onBlur(inputValue: string) {
+        if (inputValue !== null && inputValue !== undefined && inputValue !== '') {
+          if (inputValue.length >= 1 && !inputValue.includes('.')) {
+            const newValue = inputValue + '.00';
+            this.form.controls['amount'].setValue(newValue);
+          } else if (inputValue.split('.')[1].length !== 2) {
+            let val = inputValue;
+            while (val.split('.')[1].length !== 2) {
+              val = val + '0';
+            }
+            this.form.controls['amount'].setValue(val);
+          }
+        }
+      }
+    }
+  `}
+/>
+
+
+### Percentage format
+<p>*.component.html</p>
+<Source
+  dark
+  code={dedent`
+    <form [formGroup]="form" *ngIf="form">
+      <mat-form-field appearance="outline" floatLabel="always" class="uk2-preformatted-input-percentage">
+        <mat-label>Percentage</mat-label>
+        <input
+          #percentageInput
+          matInput
+          uk2Input
+          id="percentage"
+          formControlName="percentage"
+          type="text"
+          mask="separator"
+          separatorLimit="100"
+          placeholder="0"
+          autocomplete="0"
+          (input)="setPercentageFieldWidth($event.target.value)"
+        />
+        <span matTextSuffix>%</span>
+        <button
+          *ngIf="showClearButton('percentage')"
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="clearPercentageField()"
+          [attr.aria-label]="'clean input'"
+          [attr.aria-pressed]="'clean input'"
+        >
+          <mat-icon svgIcon="uk2-x"></mat-icon>
+        </button>
+        <mat-hint>With initial value.</mat-hint>
+        <mat-error *ngIf="percentage.invalid">
+          <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+          Error message emplacement
+        </mat-error>
+      </mat-form-field>
+    </form>
+  `}
+/>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class MyComponent implements OnInit {
+      form!: FormGroup;
+      @ViewChild('percentageInput') percentageInput?: ElementRef;
+      \r
+      constructor(private formBuilder: FormBuilder, private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      ngOnInit(): void {
+        this.form = this.formBuilder.group({
+          percentage: ['', [Validators.required]],
+        });
+      }
+      \r
+      get percentage(): any {
+        return this.form.get('percentage');
+      }
+      \r
+      showClearButton(name: string) {
+        const value = this.form.controls[name].value;
+        return value !== null && value !== undefined && value !== '';
+      }
+      \r
+      setPercentageFieldWidth(value: string) {
+        if (this.percentageInput) {
+          this.percentageInput.nativeElement.parentElement.style.width =
+            value.length == 0 ? '10px' : value.length * 10 + 'px';
+        }
+      }
+      \r
+      clearPercentageField() {
+        this.form.controls['percentage'].reset();
+        this.setPercentageFieldWidth('');
+      }
+    }
+  `}
+/>
+

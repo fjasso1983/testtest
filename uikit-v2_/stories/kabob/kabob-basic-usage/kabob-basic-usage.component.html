@@ -1,0 +1,54 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>Toggle the flyout display when clicking the button</li>
+  <li
+    >Flyout horizontal and vertical display positions.
+    <small>(<i>For horizontal positions, its recomended to center the button on this example</i>)</small></li
+  >
+  <li>Close flyout when clicking on an item.</li>
+  <li>Close flyout when clicking outside.</li>
+</ul>
+<br />
+
+<div class="btn-container">
+  <button
+    mat-button
+    uk2TextIconButton
+    uk2FlyoutMenu
+    disableRipple
+    [uk2FlyoutTemplate]="flyoutOverlay"
+    [uk2OriginXPosition]="flyoutOriginXPosition"
+    [uk2OverlayXPosition]="flyoutOverlayXPosition"
+    [uk2OriginYPosition]="flyoutOriginYPosition"
+    [uk2OverlayYPosition]="flyoutOverlayYPosition"
+    [uk2CloseOnClickOutside]="closeOnClickOutside"
+    [uk2OverlayYOffset]="flyoutOverlayYOffset"
+    [uk2OverlayHasBackdrop]="flyoutOverlayHasBackdrop"
+    [uk2TextButtonVariant]="uk2TextButtonVariant"
+    [uk2ButtonSize]="buttonSize"
+    [ngClass]="buttonCentered ? 'center-button' : ''"
+    #flyoutMenu="uk2FlyoutMenu"
+    (click)="flyoutMenu.toggle()"
+  >
+    <mat-icon [svgIcon]="buttonIcon"></mat-icon>
+  </button>
+</div>
+
+<ng-template #flyoutOverlay>
+  <div class="flyout-container">
+    <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="clickDownload()">
+      <mat-icon [svgIcon]="firstItem.svgIconName!"></mat-icon>
+      <p>{{ firstItem.bodyText }}</p>
+    </div>
+    <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="clickShare()">
+      <mat-icon [svgIcon]="secondItem.svgIconName!"></mat-icon>
+      <p>{{ secondItem.bodyText }}</p>
+    </div>
+    <div uk2MenuListItem [uk2ShowDividerLine]="false" (click)="clickUpload()">
+      <mat-icon [svgIcon]="thirdItem.svgIconName!"></mat-icon>
+      <p>{{ thirdItem.bodyText }}</p>
+    </div>
+  </div>
+</ng-template>

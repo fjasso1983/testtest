@@ -1,0 +1,29 @@
+@import './uk2-menu-list-items.variables.scss';
+@import './uk2-menu-list-items.mixins.scss';
+
+.uk2-menu-list-item {
+  @include menu-list-items-variables();
+  @include default-item-styles();
+
+  &.uk2-menu-list-disabled {
+    @include disabled-item-styles();
+  }
+
+  &.uk2-menu-list-active {
+    @include active-item-styles();
+  }
+
+  &.uk2-menu-list-loading {
+    @include skeleton-item-styles();
+  }
+
+  .uk2-menu-list-divider {
+    @include divider-styles();
+  }
+
+  @include checkbox-size(24px);
+}
+
+.uk2-menu-list-container {
+  @include container-styles();
+}

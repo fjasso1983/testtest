@@ -1,0 +1,293 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+export const Template = (args) => ({ props: args });
+
+# Value movement component documentation
+<br/>
+
+## Introduction
+
+<p> Uk2ValueMovement is a component designed on the <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/👷‍♂️-Framework-Core---Web-2.0?node-id=647%3A9378&t=pvcNxC35RkZ05y97-0" target="_blank">Axos Design System</a>. It is a reusable organism of components to provide specific context to the user related to amounts.</p>
+
+## Prerequisites
+
+  - You need to import Uk2ValueMovementModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to access ValueMovementComponent.
+<Source
+  dark
+  language='javascript'
+  code={dedent`
+      import { Uk2ValueMovementModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Enums.
+
+  - You need to import Uk2ValueMovementTypeEnum from @axos/uikit-v2-lib to indicate the @valueMovementType property. 
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2ValueMovementTypeEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2ValueMovementTypeEnum {
+      increasePositive = 'increase-positive',
+      increaseNegative = 'increase-negative',
+      decreasePositive = 'decrease-positive',
+      decreaseNegative = 'decrease-negative',
+      none = 'none',
+      undefined = 'undefined',
+    }
+  `}
+/>
+  - You need to import Uk2ValueMovementDisplayTypeEnum from @axos/uikit-v2-lib to indicate the @displayType property. 
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2ValueMovementDisplayTypeEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2ValueMovementDisplayTypeEnum {
+      noContainer = 'no-container',
+      chip = 'chip',
+      display = 'display',
+    }
+  `}
+/>
+  - You need to import Uk2ValueMovementTrendFormatEnum from @axos/uikit-v2-lib to indicate the @trendFormat property. 
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2ValueMovementTrendFormatEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2ValueMovementTrendFormatEnum {
+      triangle = 'triangle',
+      symbol = 'symbol',
+    }
+  `}
+/>
+  - You need to import Uk2ValueMovementSizeEnum from @axos/uikit-v2-lib to indicate the @size property. 
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2ValueMovementSizeEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2ValueMovementSizeEnum {
+      extraSmall = 'extra-small',
+      small = 'small',
+      medium = 'medium',
+      large = 'large',
+    }
+  `}
+/>
+
+## CSS Variables.
+You can customize CSS theming by modifying these variables.
+<Source
+  dark
+  language='css'
+  code={dedent`
+      /* Default description color */
+      --uk2-value-movement-description-color: #4A5560;
+      /* Default colors for symbol, amount and percentage */
+      --uk2-value-movement-type-positive-color: var(--uk2-semantic-green);
+      --uk2-value-movement-type-negative-color: var(--uk2-semantic-red);
+      --uk2-value-movement-type-neutral-color: var(--uk2-semantic-blue);
+      /* Default background color for chip type */
+      --uk2-value-movement-chip-type-positive-background-color: var(--uk2-specialty-green-100);
+      --uk2-value-movement-chip-type-negative-background-color: var(--uk2-specialty-red-100);
+      --uk2-value-movement-chip-type-neutral-background-color: var(--uk2-specialty-blue-100);
+      /* Default description color for chip type */
+      --uk2-value-movement-chip-type-description-positive-color: var(--uk2-semantic-green);
+      --uk2-value-movement-chip-type-description-negative-color: var(--uk2-semantic-red);
+      --uk2-value-movement-chip-type-description-neutral-color: var(--uk2-semantic-blue);
+  `}
+/>
+
+## Sample Code
+  This is the component you can use as a guidance:
+  <br/>
+  *.component.html
+
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <uk2-value-movement
+        [uk2IsLoading]="[boolean]"
+        [amount]="[number]"
+        [percentage]="[number]"
+        [description]="[string]"
+        [valueMovementType]="[Uk2ValueMovementTypeEnum]"
+        [isEmpty]="[boolean]"
+        [isIconOnly]="[boolean]">
+      </uk2-value-movement>
+    `}
+  />
+
+  *.component.ts
+
+  <Source
+    dark
+    language='javascript'
+    code={dedent`
+      valueMovementType: Uk2ValueMovementTypeEnum = Uk2ValueMovementTypeEnum.increasePositive
+    `}
+  />
+
+## Display Type - Sample Code
+  You can specify [displayType] to customize the way the component shows, noContainer is set as default if [displayType] input is not provided.
+  <br/>
+  *.component.html
+
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <uk2-value-movement
+        [uk2IsLoading]="[boolean]"
+        [amount]="[number]"
+        [percentage]="[number]"
+        [description]="[string]"
+        [valueMovementType]="[Uk2ValueMovementTypeEnum]"
+        [displayType]="[Uk2ValueMovementDisplayTypeEnum]"
+        [isEmpty]="[boolean]"
+        [isIconOnly]="[boolean]">
+      </uk2-value-movement>
+    `}
+  />
+
+  *.component.ts
+
+  <Source
+    dark
+    language='javascript'
+    code={dedent`
+      displayType: Uk2ValueMovementDisplayTypeEnum = Uk2ValueMovementDisplayTypeEnum.noContainer;
+    `}
+  />
+
+## Trend Format - Sample Code
+  You can specify [trendFormat] to customize the way the component shows, triangle is set as default if [trendFormat] input is not provided.
+  <br/>
+  *.component.html
+
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <uk2-value-movement
+        [uk2IsLoading]="[boolean]"
+        [amount]="[number]"
+        [percentage]="[number]"
+        [description]="[string]"
+        [valueMovementType]="[Uk2ValueMovementTypeEnum]"
+        [trendFormat]="[Uk2ValueMovementTrendFormatEnum]"
+        [isEmpty]="[boolean]"
+        [isIconOnly]="[boolean]">
+      </uk2-value-movement>
+    `}
+  />
+
+  *.component.ts
+
+  <Source
+    dark
+    language='javascript'
+    code={dedent`
+      trendFormat: Uk2ValueMovementTrendFormatEnum = Uk2ValueMovementTrendFormatEnum.triangle;
+    `}
+  />
+
+## Size - Sample Code
+  You can specify [size] to customize the size of the componet (extraSmall, small, medium and large), [size] is medium by default.
+  <br/>
+  *.component.html
+
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <uk2-value-movement
+        [uk2IsLoading]="[boolean]"
+        [amount]="[number]"
+        [percentage]="[number]"
+        [description]="[string]"
+        [valueMovementType]="[Uk2ValueMovementTypeEnum]"
+        [size]="[Uk2ValueMovementSizeEnum]"
+        [isEmpty]="[boolean]"
+        [isIconOnly]="[boolean]">
+      </uk2-value-movement>
+    `}
+  />
+
+  *.component.ts
+
+  <Source
+    dark
+    language='javascript'
+    code={dedent`
+      size: Uk2ValueMovementSizeEnum = Uk2ValueMovementSizeEnum.medium;
+    `}
+  />  
+
+## Optional Amount - Sample Code
+  If you only need to show [percentage] you can skip [amount] input or send undefined and it won't be shown:
+  <br/>
+  *.component.html
+
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <uk2-value-movement
+        [uk2IsLoading]="[boolean]"
+        [percentage]="[number]"
+        [description]="[string]"
+        [isEmpty]="[boolean]"
+        [isIconOnly]="[boolean]">
+      </uk2-value-movement>
+    `}
+  />
+
+## Optional Percentage - Sample Code
+  If you only need to show [amount] you can skip [percentage] input or send undefined and it won't be shown:
+  <br/>
+  *.component.html
+
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <uk2-value-movement
+        [uk2IsLoading]="[boolean]"
+        [amount]="[number]"
+        [description]="[string]"
+        [isEmpty]="[boolean]"
+        [isIconOnly]="[boolean]">
+      </uk2-value-movement>
+    `}
+  />
+
+## Description (deprecated) and projected content - Sample Code
+  We still can provide [description] input to display custom text next to percentage value, but now we can show projected instead.
+  Notice that [description] has a priority over projected content to keep backwards compatibility, if you provide both, [description] value will be displayed and projected content is hidden. 
+  <br/>
+  *.component.html
+
+  <Source
+    dark
+    language='html'
+    code={dedent`
+      <uk2-value-movement
+        [uk2IsLoading]="[boolean]"
+        [description]="[string]"
+        [valueMovementType]="[Uk2ValueMovementTypeEnum]"
+        [isEmpty]="[boolean]"
+        [isIconOnly]="[boolean]">
+        <span>Projected <i>content</i></span>
+      </uk2-value-movement>
+    `}
+  />

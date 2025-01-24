@@ -1,0 +1,281 @@
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2FilterBarDirective documentation
+## Introduction
+
+<p>
+  [uk2FilterBar] is a directive that provides layout styles for filter chip components inside of it, also styles inner <b>[uk2TextButton]</b> and <b>[uk2TextIconButton]</b> buttons. It offers a method to clear all filter chips inside of it, you can access the directive API by viewChildren or with template variable. Designed to adhere to <a target="_blank" href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=2554-93729&node-type=frame&m=dev">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>Filter bar responsibility is to style the layout of text-buttons, text-icon-button and filter chips.</li>
+  <li>Drag and drop must be implemented by client, see example below.</li>
+  <li>Add button and clear filters button must be inserted by the client including overlay menu.</li>
+  <li>Filter chips must be inserted by the client.</li>
+  <li>To set the visibility of add button only on hover add this css class to it <b>"uk2-filter-bar-add-filter-button"</b>, full example below.</li>
+</ol>
+
+### Prerequisites
+### You need to import this modules from @axos/uikit-v2-lib, To be able to access uk2FilterBar directive.
+
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //@axos/uikit-v2-lib
+      import { Uk2FilterBarDirectiveModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+### Additionally you need to import the following modules from @axos/uikit-v2-lib, @angular/cdk and @angular/material. to integrate filter bar with filter chips, buttons, overlay and drag and drop. This example is importing boolean filter chip but it can work with other filter chips.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //@axos/uikit-v2-lib
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+      \r
+      //@angular/cdk
+      import { DragDropModule } from '@angular/cdk/drag-drop';
+      import { OverlayModule } from '@angular/cdk/overlay';
+      \r
+      //@angular/material
+      import { MatIconModule } from '@angular/material/icon';
+      import { MatButtonModule } from '@angular/material/button';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>[uk2RelatedContainer] <u>HTMLElement</u> <i>(optional)</i> HTML element that can show filter bar add button when is hovered</li>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle skeleton mode</li>
+</ul>
+
+
+## Sample code
+### Basic Usage (This example is using boolean filter chip but it can work with other filter chips as well.)
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <div
+    uk2FilterBar
+    #filterBar="uk2FilterBar"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    [uk2IsLoading]="isLoading"
+    [uk2RelatedContainer]="element"
+    (cdkDropListDropped)="handleDropEvent($event)"
+  >
+    <uk2-filter-chip-boolean
+      cdkDrag
+      [uk2Options]="item.options"
+      [uk2Identifier]="item.label"
+      [uk2FilterValue]="item.value"
+      (uk2DeleteFilter)="removeFilter(item)"
+      (uk2FilterValueChanges)="filterChanged($event)"
+      *ngFor="let item of items"
+    ></uk2-filter-chip-boolean>
+    \r
+    <button
+      class="uk2-filter-bar-add-filter-button"
+      [class.visible]="showAddFilterButton && !isLoading"
+      mat-button
+      uk2TextIconButton
+      disableRipple
+      [uk2ButtonSize]="smallSize"
+      cdkOverlayOrigin
+      #addFilterButton="cdkOverlayOrigin"
+      (click)="addFilterMenuOpen = !addFilterMenuOpen; showAddFilterButton = true"
+    >
+      <mat-icon [svgIcon]="'uk2-plus'"></mat-icon>
+    </button>
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="addFilterButton"
+      [cdkConnectedOverlayOpen]="addFilterMenuOpen"
+      (overlayOutsideClick)="addFilterMenuOpen = false; showAddFilterButton = false"
+    >
+      <div class="uk2-filter-bar-add-filter-menu">
+        <div
+          class="uk2-filter-bar-add-filter-menu-option uk2-font__body-regular--75"
+          *ngFor="let column of columnOptions"
+          (click)="addFilter(column); addFilterMenuOpen = false"
+        >
+          {{ column | titlecase }}
+        </div>
+      </div>
+    </ng-template>
+    <button mat-button uk2TextButton disableRipple [uk2ButtonSize]="smallSize" (click)="filterBar.clearFilters()">
+      Clear filters
+    </button>
+  </div>
+  \r
+  <mat-table #element>
+    ...
+  </mat-table>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  export class YourComponent {
+    isLoading = false;
+    columns: any = {
+      name: {
+        options: ['Luis', 'John', 'Maria', 'Sara'],
+      },
+      'Last name': {
+        options: ['Doe', 'Smith', 'Johnson', 'Garcia'],
+      },
+      'Is admin': {
+        options: ['Yes', 'No'],
+      },
+      'Record name': {
+        options: ['Record 1', 'Record 2', 'Record 3', 'Record 4'],
+      },
+      'Money amount': {
+        options: ['100', '200', '300', '400'],
+      },
+      description: {
+        options: ['Description 1', 'Description 2', 'Description 3', 'Description 4'],
+      },
+    };
+    smallSize = Uk2ButtonSizeEnum.small;
+    addFilterMenuOpen = false;
+    columnOptions = Object.keys(this.columns);
+    \r
+    items = [
+      {
+        label: 'Name',
+        options: ['Luis', 'John', 'Maria', 'Sara'],
+        value: 'Sara',
+      },
+      {
+        label: 'Last name',
+        options: ['Doe', 'Smith', 'Johnson', 'Garcia'],
+      },
+    ];
+    \r
+    handleDropEvent(event: CdkDragDrop<string[]>) {
+      moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+    }
+    \r
+    addFilter(column: string) {
+      this.items.push({
+        label: column,
+        options: this.columns[column].options,
+      });
+    }
+    \r
+    removeFilter(item: any) {
+      this.items = this.items.filter(i => i !== item);
+    }
+    \r
+    filterChanged(event: any) {
+      console.log(event);
+    }
+  }
+  `}
+/>
+
+<p>*.component.scss</p>
+<p>Optional styles to make add button visible when overlay is open and hover is not on add button</p>
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+  [uk2FilterBar] button.uk2-text-icon-button-small.visible {
+    display: inline-flex !important;
+  }
+  `}
+/>
+
+<p>Optional styles for add filter overlay</p>
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+  .uk2-filter-bar-add-filter-menu {
+    box-shadow: 0px 8px 16px 0px #00000033;
+    background-color: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid var(--uk2-neutral-grey-200);
+    \r
+    .uk2-filter-bar-add-filter-menu-option {
+      color: var(--uk2-neutral-slate-500);
+      padding: 6px 24px;
+      background-color: var(--uk2-neutral-white);
+      min-height: auto;
+    }
+  }
+  `}
+/>
+
+
+## Pre-populate filter bar
+
+<p>To pre-populate filter bar you need to pass an extra input to filter chip component <b>[uk2FilterValue]</b>, see next example.</p>
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <div
+    uk2FilterBar
+    #filterBar="uk2FilterBar"
+    ...
+  >
+    <uk2-filter-chip-boolean
+      [uk2Options]="item.options"
+      [uk2Identifier]="item.label"
+      [uk2FilterValue]="item.value"
+      *ngFor="let item of items"
+    ></uk2-filter-chip-boolean>
+  </div>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    class YourComponent {
+      // First item has a default value maria
+      items = [
+        {
+          label: 'Name',
+          options: ['Luis', 'John', 'Maria', 'Sara'],
+          value: 'Maria',
+        },
+        {
+          label: 'Last name',
+          options: ['Doe', 'Smith', 'Johnson', 'Garcia'],
+          value: '',
+        },
+      ];
+    }
+  `}
+/>

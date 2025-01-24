@@ -1,0 +1,30 @@
+@import './uk2-suggested-action.mixins';
+
+.uk2-suggested-action {
+  min-width: 280px;
+  box-shadow: none !important;
+  color: var(--uk2-neutral-slate-400) !important;
+  --uk2-tooltip-icon-color: var(--uk2-neutral-slate-400) !important;
+  @include uk2-suggested-action-theming;
+  .mat-content.mat-content-hide-toggle {
+    margin-right: 0;
+  }
+}
+
+.uk2-suggested-action-tooltip {
+  font-size: 16px;
+}
+
+.uk2-suggested-action-responsive-action-row{
+  min-width: 280px;
+  background: var(--uk2-neutral-white);
+  border-radius: 0 0 16px 16px;
+  display: flex;
+  button {
+    margin: 0 24px 16px 16px;
+    width: 100%;
+  }
+  @include lg {
+    display: none;
+  }
+}

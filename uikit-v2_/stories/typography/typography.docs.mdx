@@ -1,0 +1,62 @@
+import { Source, ArgsTable, Canvas, Meta, Story, PRIMARY_STORY } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+
+# Typography documentation
+
+## Introduction
+<p>
+  <a href="https://www.figma.com/file/xCDKNBqKMecxk7xcbSdS9o/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---outsystems---web-2.0?type=design&node-id=4502-94394&mode=design&t=dZyIRScyhjfJuoto-0">Axos Typography</a> is a set of classes and mixins that are defined on the Axos Design System. The UI KIT is packed with all of those classes and mixins, for you to be able to use them in your application.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    Please note the typography styling use BEM naming convention, refer to the following link:<a href="https://cssguidelin.es/#bem-like-naming"> BEM convention</a>
+  </li>
+  <li>
+    The application should be configured properly to be able to access the classes and mixins from the UI KIT. See the Code Sample section to know more.
+  </li>
+</ol>
+
+<br/>
+
+## Sample Code
+
+### Apply style from HTML
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="uk2-font__body-light--100">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    </div>
+  `}
+/>
+
+### Apply style from SCSS
+<p>
+  You can use mixins to apply font style in our components, note that using mixins is very useful for handling responsive text format.
+</p>
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+    .your-class{
+      @include uk2-font__body-light--100();
+    }
+  `}
+/>
+
+
+
+## Note for UiKit Developer
+
+### Generate Mixins
+<p>
+  Mixins are generated with an npm command based on file:  <br/><b> projects\uikit-v2-lib\src\styles\uk2-common\uk2-font\uk2-font.scss </b>
+  <br/> <br/> If you make some modification on this file to create or modify classes, please run the following npm command to generate corresponding mixins:  <br/><b> sass projects/uikit-v2-lib/src/styles/uk2-common/uk2-font/uk2-font.scss  projects/uikit-v2-lib/src/styles/uk2-common/uk2-font/uk2-font.css &&  node projects/uikit-v2-lib/generate-font-mixins.js </b>
+  <br/> <br/> You can run it directly from our <b>NPM SCRIPT</b> with  <br/> <b>"generate-font-mixins"</b>
+</p>

@@ -1,0 +1,247 @@
+@import '../uk2-checkbox/uk2-checkbox.mixins';
+
+@mixin uk2-checkbox-selection-cards-default() {
+  // List option
+  &.mat-mdc-list-base .mat-mdc-list-item,
+  .mat-mdc-list-base .mat-mdc-list-option {
+    height: auto;
+    background-color: var(--uk2-neutral-white);
+    margin-bottom: 16px;
+    padding: 24px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--uk2-neutral-grey-300);
+    box-sizing: border-box;
+    z-index: 1;
+
+    // List option layer avoid adding extra background color from material
+    &::before {
+      opacity: 0;
+    }
+
+    // List option container
+    .mat-mdc-list-item-unscoped-content {
+      display: flex;
+    }
+
+    // Chevron icon
+    .uk2-checkbox-selection-cards-single-option-icon {
+      display: none;
+      width: 32px;
+    }
+
+    // List option button section
+    .mdc-list-item__end {
+      align-self: flex-start !important;
+      margin-right: 0px !important;
+      margin-left: 0px !important;
+
+      .mdc-checkbox {
+        border-radius: 4px;
+      }
+      .mdc-radio {
+        border-radius: 50%;
+      }
+
+      // Radio/Checkbox button
+      .mdc-radio,
+      .mdc-checkbox {
+        padding: 0px !important;
+        width: 32px;
+        height: 32px;
+        &:hover {
+          background-color: var(--uk2-neutral-grey-200) !important;
+        }
+
+        .mdc-checkbox__background,
+        .mdc-radio__background {
+          position: relative;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        // Checkbox background
+        .mdc-checkbox__background {
+          @include uk2-size(24px, 24px);
+          border: 2px solid var(--uk2-neutral-grey-600) !important;
+          border-radius: 4px;
+          .mdc-checkbox__checkmark {
+            color: var(--uk2-neutral-white) !important;
+            @include uk2-size(20px, 18px);
+            top: 1px !important;
+          }
+        }
+        //Checkbox enabled
+        .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
+          background-color: accent-color-400-hsl() !important;
+          border-color: accent-color-400-hsl() !important;
+        }
+
+        // Radio button unselected
+        .mdc-radio__native-control:enabled:not(:checked) + .mdc-radio__background {
+          .mdc-radio__outer-circle {
+            border-color: var(--uk2-neutral-grey-600) !important;
+          }
+        }
+        //Radio button enabled
+        .mdc-radio__native-control:enabled + .mdc-radio__background {
+          .mdc-radio__inner-circle {
+            border-color: accent-color-400-hsl() !important;
+          }
+          .mdc-radio__outer-circle {
+            border-color: accent-color-400-hsl() !important;
+          }
+        }
+      }
+    }
+  }
+
+  // List option hover
+  &.mat-mdc-list-base .mat-mdc-list-item:not(.mdc-list-item--disabled):hover,
+  .mat-mdc-list-base .mat-mdc-list-option:not(.mdc-list-item--disabled):hover {
+    border: 1px solid accent-color-300-hsl();
+  }
+
+  // Radio list option
+  &.uk2-hide-radio-section .mat-mdc-list-item,
+  .mat-mdc-list-base .mat-mdc-list-option {
+    // Radio button section
+    .mdc-list-item__end {
+      display: none;
+    }
+    // Chevron icon
+    .uk2-checkbox-selection-cards-single-option-icon {
+      display: block;
+    }
+  }
+
+  .uk2-checkbox-selection-cards-text-container {
+    margin-right: 16px !important;
+    overflow: hidden;
+    width: 100%;
+    label {
+      @include uk2-text-truncation-ellipsis();
+      @include uk2-max-number-of-lines(1);
+      @include uk2-format-text('Roboto', 18px !important, 700 !important, 26px !important);
+      color: var(--uk2-neutral-slate-500);
+      cursor: pointer;
+      display: block;
+    }
+    p {
+      @include uk2-text-truncation-ellipsis();
+      @include uk2-max-number-of-lines(3);
+      @include uk2-format-text('Roboto', 16px !important, 400 !important, 24px !important);
+      color: var(--uk2-neutral-slate-400);
+      white-space: normal;
+      margin-bottom: 0;
+      display: block;
+    }
+  }
+
+  .uk2-checkbox-selection-cards-icon-container {
+    margin-right: 16px !important;
+    color:var(--uk2-neutral-slate-500) !important;
+  }
+
+  .uk2-checkbox-selection-cards-single-option-icon {
+    width: 10px;
+    height: 19px;
+    .uk2-checkbox-selection-cards-icon {
+      border: none;
+      margin-left: auto;
+      margin-right: 6px;
+      width: 10px;
+      height: 19px;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      background-color: var(--uk2-neutral-slate-400);
+      -webkit-mask-position: center;
+      mask-position: center;
+    }
+  }
+}
+
+@mixin uk2-checkbox-selection-cards-selected() {
+  .mat-list-single-selected-option {
+    &:not(.mdc-list-item--disabled) {
+      background-color: accent-color-100-hsl() !important;
+      border: 1px solid accent-color-400-hsl() !important;
+      .uk2-checkbox-selection-cards-text-container {
+        label {
+          color: var(--uk2-checkbox-selection-cards-label-selected) !important;
+        }
+        p {
+          color: var(--uk2-checkbox-selection-cards-text-selected) !important;
+        }
+      }
+
+      .uk2-checkbox-selection-cards-single-option-icon {
+        .uk2-checkbox-selection-cards-icon {
+          background-color: var(--uk2-checkbox-selection-cards-chevron-icon-selected) !important;
+        }
+      }
+
+      .uk2-checkbox-selection-cards-icon-container {
+        color: var(--uk2-checkbox-selection-cards-left-icon-selected) !important;
+      }
+    }
+  }
+  .mat-list-single-selected-option:hover {
+    box-shadow: 0 0 0 1px accent-color-400-hsl() !important;
+  }
+}
+
+@mixin uk2-checkbox-selection-cards-skeleton-default() {
+  padding: 24px;
+  background-color: var(--uk2-neutral-grey-300);
+  border-radius: 8px;
+  .uk2-checkbox-selection-cards-skeleton-container-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-right: 0px !important;
+    .uk2-checkbox-selection-cards-skeleton-icon-container {
+      width: 32px;
+      min-width: 32px;
+      height: 32px;
+      background: var(--uk2-neutral-grey-400);
+      border-radius: 8px;
+    }
+    .uk2-checkbox-selection-cards-skeleton-text-container {
+      padding-left: 16px;
+      width: 100%;
+      height: auto;
+      .uk2-checkbox-selection-cards-skeleton-text-start {
+        height: 21px;
+        width: 100%;
+        background: var(--uk2-neutral-grey-400);
+        border-radius: 8px;
+      }
+      .uk2-checkbox-selection-cards-skeleton-text-middle {
+        height: 18px;
+        width: 90%;
+        background: var(--uk2-neutral-grey-400);
+        border-radius: 8px;
+        margin-top: 8px;
+      }
+      .uk2-checkbox-selection-cards-skeleton-text-end {
+        height: 19px;
+        width: 70%;
+        background: var(--uk2-neutral-grey-400);
+        border-radius: 8px;
+        margin-top: 8px;
+      }
+    }
+  }
+}
+
+@mixin uk2-checkbox-selection-cards-skeleton-responsive() {
+  @include lg {
+    .uk2-checkbox-selection-cards-skeleton-text-end {
+      display: none;
+    }
+    .uk2-checkbox-selection-cards-skeleton-text-middle {
+      height: 21px !important;
+      width: 100% !important;
+    }
+  }
+}

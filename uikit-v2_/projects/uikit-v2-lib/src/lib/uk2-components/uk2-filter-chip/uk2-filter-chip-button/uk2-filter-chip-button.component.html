@@ -1,0 +1,13 @@
+<button
+  class="uk2-filter-chip-button"
+  [class.uk2-filter-chip-button-active]="isPressed$ | async"
+  (keydown.enter)="openOverlay()"
+  (click)="openOverlay()"
+  *ngIf="!uk2IsLoading; else skeleton"
+>
+  <ng-content></ng-content>
+</button>
+
+<ng-template #skeleton>
+  <div class="uk2-filter-chip-button-skeleton"></div>
+</ng-template>

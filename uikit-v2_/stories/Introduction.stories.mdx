@@ -1,0 +1,58 @@
+import { Meta, Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+<Meta title="Introduction" />
+
+<style>
+  {``}
+</style>
+
+# Welcome to UI-KIT
+
+The UI Kit is an atomic component library meant to be used and maintained by multiple teams. The library is currently based off Angular Material 11 and UI Kit specifications supplied by the UI/UX team. It can contain, but is not limited directives (which are used to customize existing Angular Material components to make them look and behave as described in the Axos design system), services, models, and custom components (which can/cannot contain Angular Material components).
+
+## Getting Started with UI-KIT
+- Want to use UI-KIT in you application? Refer to the following link:
+https://bofidev.atlassian.net/wiki/spaces/DOC/pages/3222866493829/UI+Kit+V2
+
+- Want to enhance the UI-KIT? Refer to the following link:
+https://bofidev.atlassian.net/wiki/spaces/DOC/pages/3222713761813/UIKIT+development+guide
+
+<br/>
+
+## How to install package (latest version)
+Go to your Angular project which you want to use UI Kit and use the code snippet below to install the library.
+<Source
+  dark
+  code={dedent`
+    npm install @axos/uikit-v2-lib
+  `}
+/>
+
+## How to update package to latest/specific version
+<h3>Update UI-KIT to latest version</h3>
+<Source
+  dark
+  code={dedent`
+    npm update @axos/uikit-v2-lib
+  `}
+/>
+
+<h3>Update UI-KIT to specific version. For example: Update UI-KIT to version 0.13.0</h3>
+<Source
+  dark
+  code={dedent`
+    npm install @axos/uikit-v2-lib@0.13.0
+  `}
+/>
+
+## How to import uikit-v2-lib style in your application
+
+Import the SASS file in your Angular App <i>styles.scss</i>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      @import 'node_modules/@axos/uikit-v2-lib/src/styles/uk2.scss';
+  `}
+/>

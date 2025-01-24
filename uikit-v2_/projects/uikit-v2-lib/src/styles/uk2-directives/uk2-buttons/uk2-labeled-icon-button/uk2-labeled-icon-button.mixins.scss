@@ -1,0 +1,89 @@
+@import '../uk2-buttons.mixins.scss';
+
+@mixin uk2-labeled-icon-button($button-size, $background-color, $text-color) {
+    border-radius: 4px !important;
+    white-space: nowrap !important;
+    padding: 8px 4px 8px 4px !important;
+    font-weight: 500 !important;
+    @include uk2-button-responsive($button-size);
+    @include uk2-button-selected-state();
+    .mdc-button__label{
+      @include uk2-max-number-of-lines(1);
+      @include uk2-text-truncation-ellipsis();
+      display: inline-block;
+    }
+    &:not(.uk2-labeled-icon-button-skeleton) {
+      background: $background-color !important;
+      color: $text-color !important;
+    }
+}
+
+@mixin uk2-labeled-icon-button-default($button-size){
+    @include uk2-labeled-icon-button(
+      $button-size,
+      none,
+      var(--uk2-labeled-icon-button-color)
+    );
+    border: 2px solid transparent;
+
+
+    & mat-icon{
+      margin-right: 8px;
+      margin-left: 0px;
+    }
+}
+
+@mixin uk2-labeled-icon-button-hover($button-size){
+    @include uk2-labeled-icon-button(
+      $button-size,
+      var(--uk2-neutral-grey-100),
+      var(--uk2-labeled-icon-button-color)
+    );
+    border: 2px solid transparent;
+}
+
+@mixin uk2-labeled-icon-button-selected($button-size){
+  @include uk2-labeled-icon-button(
+    $button-size,
+    transparent,
+    var(--uk2-labeled-icon-button-color)
+  );
+  border: 2px solid transparent;
+}
+
+@mixin uk2-labeled-icon-button-disabled($button-size){
+  @include uk2-labeled-icon-button(
+    $button-size,
+    transparent,
+    var(--uk2-neutral-slate-400)
+  );
+  opacity:0.5;
+}
+
+@mixin uk2-labeled-icon-button-size($button-size){
+  @include uk2-labeled-icon-button-default($button-size);
+  &.hover {
+      @include uk2-labeled-icon-button-hover($button-size);
+  }
+  &:hover, &:active {
+    .mat-mdc-button-persistent-ripple::before {
+      background-color: var(--uk2-neutral-grey-100);
+      opacity: 1;
+    }
+  }
+  &:focus {
+
+    &:not(.mat-button-disabled){
+      @include uk2-labeled-icon-button-selected($button-size);
+      border: 2px solid transparent;
+
+      &:hover {
+        border: 2px solid transparent !important;
+      }
+    }
+
+  }
+  &[disabled] {
+      @include uk2-labeled-icon-button-disabled($button-size);
+  }
+}

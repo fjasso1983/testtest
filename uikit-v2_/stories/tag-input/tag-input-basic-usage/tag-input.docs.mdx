@@ -1,0 +1,136 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2TagInputChipsDirective directive documentation
+
+## Introduction
+<p>
+  <b>Uk2TagInputChipsDirective</b> is a directive designed to customize the styling of <strong><a href="https://v15.material.angular.io/components/chips/api#MatChipOption" target="_blank">&lt;mat-chip-option&gt;</a></strong> inside a <strong><a href="https://v15.material.angular.io/components/chips/api#MatChipListbox" target="_blank">&lt;mat-chip-listbox&gt;</a></strong> Angular material component. Which combined with the <b>Uk2DropdownDirective</b> applied to <strong><a href="https://v15.material.angular.io/components/select/api" target="_blank">&lt;mat-select&gt;</a></strong>, allowed us to achieve the Tag Input Field control from <strong><a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?type=design&node-id=6241-22738&mode=design&t=tZ5tagAdkOMOqEjh-0" target="_blank">Axos Design System</a></strong>.
+</p>
+
+
+### Constraints
+<ol>
+  <li>
+    It should be applied to <strong><a href="https://v15.material.angular.io/components/chips/api#MatChipOption" target="_blank">&lt;mat-chip-option&gt;</a></strong>, wrapped in <strong><a href="https://v15.material.angular.io/components/chips/api#MatChipListbox" target="_blank">&lt;mat-chip-listbox&gt;</a></strong>. It will add the .uk2-tag-input-field-chips and .uk2-tag-input-field-listbox CSS classes respectively to handle styling.
+  </li>
+  <li>
+    <strong><a href="https://v15.material.angular.io/components/chips/api#MatChipListbox" target="_blank">&lt;mat-chip-listbox&gt;</a></strong> should be wrapped in <strong><a href="https://v15.material.angular.io/components/select/api#MatSelectTrigger" target="_blank">&lt;mat-select-trigger&gt;</a></strong>, which is also wrapped in <strong><a href="https://v15.material.angular.io/components/select/api" target="_blank">&lt;mat-select&gt;</a></strong> with uk2Dropdown directive + multiple attribute applied to the last one. Refer to <strong><a href="/docs/components-dropdown--basic-usage#toggle-multiple-selection">Dropdown documentation</a></strong> to know more.
+  </li>
+</ol>
+
+### Considerations
+<ol>
+  <li>
+    <b>Uk2TagInputChipsDirective</b> was developed to handle the styling for the selected options from the dropdown when multi selection is enabled. All functionality related to the <b>labels</b>, <b>hints</b>, <b>error states</b>, <b>options list</b>, <b>form integration</b>, <b>selection</b> and <b>size</b> is handled by the <b>dropdown</b> itself. So, understanding the <b>Uk2Dropdown directive</b> is a prerequisite to implement this one.
+  </li>
+</ol>
+
+## Prerequisites
+
+In addition to the prerequisites for the <strong><a href="/docs/components-dropdown--basic-usage">dropdown component</a></strong>, the following modules are required to implement the Tag Input Field control successfully.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //angular
+      import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+      //@angular/material
+      import { MatChipsModule } from '@angular/material/chips';
+      //@axos/uikit-v2-lib
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Sample Code
+
+### Basic Usage
+
+<ol>
+  <li>
+    Note the use of <b>uk2Dropdown directive</b>, as well as the <b>[multiple]</b> attribute set to <b>"true"</b> in <b>&lt;mat-select&gt; component</b>.
+  </li>
+  <li>
+    Note the inputs, including the size, handled by the <b>uk2Dropdown directive</b>.
+  </li>
+  <li>
+    Note the use of <b>uk2TagInputChips directive</b> in <b>&lt;mat-chip-option&gt; component</b>.
+  </li>
+  <li>
+    Note the <b>markup</b> to remove selected options.
+  </li>
+</ol>
+
+### *.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+      <mat-form-field appearance="outline" floatLabel="always" [hintLabel]="hintText">
+        <mat-label>{{ labelText }}</mat-label>
+        <mat-select
+          uk2Dropdown
+          [uk2IsLoading]="isLoading"
+          [uk2DropdownSize]="uk2DropdownSize"
+          [formControl]="control"
+          [placeholder]="placeholderText"
+          multiple
+        >
+          <mat-select-trigger>
+            <mat-chip-listbox>
+              <mat-chip-option uk2TagInputChips *ngFor="let option of control.value" (removed)="onItemRemoved(option)">
+                {{ option }}
+                <mat-icon matChipRemove svgIcon="uk2-x"></mat-icon>
+              </mat-chip-option>
+            </mat-chip-listbox>
+          </mat-select-trigger>
+          <mat-option *ngFor="let option of optionList" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+        <mat-error>Field required</mat-error>
+      </mat-form-field>
+`}
+/>
+
+### *.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    import { FormControl } from '@angular/forms';
+    import { Uk2DropdownSizeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export class YourComponent {
+      isLoading = false;
+      uk2DropdownSize = Uk2DropdownSizeEnum.small;
+      hintText = 'Please select an option';
+      placeholderText = 'Lorem ipsum';
+      labelText = 'Options';
+      optionList = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6', 'Option 7'];
+      control = new FormControl([]);
+      \r
+      constructor() {
+        \r
+      }
+      \r
+      onItemRemoved(item: string) {
+        const items = this.control.value!;
+        this.removeFirst(items, item);
+        this.control.setValue(items);
+      }
+      \r
+      removeFirst<T>(array: T[], toRemove: T): void {
+        const index = array.indexOf(toRemove);
+        if (index !== -1) {
+          array.splice(index, 1);
+        }
+      }
+    }
+  `}
+/>

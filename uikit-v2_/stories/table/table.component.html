@@ -1,0 +1,109 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+
+<ul>
+  <li>Table states (default, hover, selected and skeleton).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Table densities small, medium and large.</li>
+  <li>Table text behavior.</li>
+  <li>Table border styles.</li>
+</ul>
+
+<mat-table
+  uk2Table
+  [dataSource]="dataSource"
+  [uk2TableBorderType]="tableBorderType"
+  [uk2TableDensity]="tableDensity"
+  [uk2IsLoading]="isLoading"
+  [uk2TextBehavior]="tableTextBehavior"
+>
+  <ng-container matColumnDef="checkbox" sticky>
+    <mat-header-cell class="uk2-checkbox-column" *matHeaderCellDef>
+      <mat-checkbox
+        uk2Checkbox
+        disableRipple
+        (change)="$event ? toggleAllRows() : null"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()"
+      ></mat-checkbox>
+    </mat-header-cell>
+    <mat-cell class="uk2-checkbox-column" *matCellDef="let element">
+      <mat-checkbox
+        uk2Checkbox
+        disableRipple
+        (click)="$event.stopPropagation()"
+        (change)="$event ? selection.toggle(element) : null"
+        [checked]="selection.isSelected(element)"
+      ></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="record" sticky>
+    <mat-header-cell *matHeaderCellDef> Record </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div
+        ><p>Multiline column</p><p>{{ element.propertyA }}</p></div
+      >
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyA">
+    <mat-header-cell *matHeaderCellDef> Property A </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div>
+        {{ element.propertyA }}
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyB">
+    <mat-header-cell *matHeaderCellDef> Property B </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div>
+        {{ element.propertyB }}
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyC">
+    <mat-header-cell *matHeaderCellDef> Property C </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div>
+        {{ element.propertyC }}
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+    <mat-cell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
+      <div>
+        <p>
+          {{ element.amount }}
+        </p>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="longColumn">
+    <mat-header-cell *matHeaderCellDef> Long Text Column </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div>
+        {{ element.longColumn }}
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="options" stickyEnd>
+    <mat-header-cell class="uk2-options-column" *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="uk2-options-column" *matCellDef="let element">
+      <mat-icon class="uk2-option-icon" [svgIcon]="ellipsisIcon"></mat-icon>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <div class="mat-row no-data-example" *matNoDataRow>
+    <div>&lt;&lt; No results custom template here &gt;&gt;</div>
+  </div>
+
+  <ng-container matColumnDef="groupHeader" stickyEnd>
+    <mat-header-cell class="uk2-options-column" *matCellDef="let groupBy">
+      <strong>{{groupBy.group}}</strong>
+    </mat-header-cell>
+  </ng-container>
+  <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" class="uk2-group-header"> </mat-row>
+
+</mat-table>

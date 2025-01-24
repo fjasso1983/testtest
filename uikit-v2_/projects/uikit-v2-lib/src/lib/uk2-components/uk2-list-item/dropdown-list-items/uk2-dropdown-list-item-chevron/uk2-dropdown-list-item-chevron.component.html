@@ -1,0 +1,15 @@
+<uk2-list-item
+  [uk2ListItem]="uk2ListItem"
+  [uk2IsDisabled]="uk2IsDisabled"
+  [uk2IsPending]="uk2IsPending"
+  [uk2IsLoading]="uk2IsLoading"
+  [uk2ShowDividerLine]="uk2ShowDividerLine"
+  [uk2CurrencyOptions]="uk2CurrencyOptions"
+>
+  <mat-icon
+    class="uk2-dropdown-list-item-icon-chevron"
+    aria-hidden="true"
+    [svgIcon]="chevronRightIcon"
+    *ngIf="uk2ListItem?.showControl"
+  ></mat-icon>
+</uk2-list-item>

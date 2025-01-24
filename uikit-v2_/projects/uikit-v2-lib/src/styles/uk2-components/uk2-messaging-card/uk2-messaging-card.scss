@@ -1,0 +1,11 @@
+@import './uk2-messaging-card.mixins';
+
+.uk2-messaging-card{
+  @include uk2-messaging-card;
+  @include uk2-messaging-card-expanded;
+  @include uk2-messaging-card-default;
+  @include uk2-messaging-card-alert;
+  @include uk2-messaging-card-inform;
+  @include uk2-messaging-card-skeleton;
+  @include uk2-messaging-card-responsive;
+}

@@ -1,0 +1,98 @@
+.uk2-notification-badge-hidden {
+  .uk2-notification-badge.mat-badge-content {
+    display: none;
+  }
+}
+
+.uk2-notification-badge.mat-badge-content {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--uk2-neutral-white);
+  @include uk2-font__body-medium--25;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // when text content is 9+
+  &.uk2-notification-badge-wider {
+    width: 22px;
+  }
+}
+
+// Notification Badge
+// Normal state
+.uk2-notification-badge.mat-badge-content {
+  background-color: var(--uk2-specialty-gold-500);
+  color: accent-color-500-hsl();
+}
+
+// Hover state
+.uk2-badge-hover:not(.uk2-selected) {
+  .uk2-notification-badge.mat-badge-content:not(.uk2-notification-badge-skeleton) {
+    &:hover {
+      border-color: var(--uk2-neutral-grey-100);
+    }
+
+    pointer-events: all;
+    cursor: default;
+  }
+}
+
+// Selected state
+.uk2-selected {
+  .uk2-notification-badge.mat-badge-content:not(.uk2-notification-badge-skeleton) {
+    border-color: accent-color-100-hsl();
+  }
+}
+
+// Badge Type
+.uk2-badge {
+
+  // Normal state
+  .uk2-notification-badge.mat-badge-content {
+    border-color: var(--uk2-neutral-white);
+    background-color: var(--uk2-neutral-grey-100);
+    color: accent-color-400-hsl();
+  }
+
+  // Selected state
+  &.uk2-selected {
+    .uk2-notification-badge.mat-badge-content:not(.uk2-notification-badge-skeleton) {
+      border-color: var(--uk2-neutral-grey-200);
+      background-color: var(--uk2-neutral-grey-300);
+      color: accent-color-500-hsl();
+    }
+  }
+
+  // Hover state
+  &.uk2-badge-hover:not(.uk2-selected) {
+    &:hover {
+      .uk2-notification-badge.mat-badge-content:not(.uk2-notification-badge-skeleton) {
+        border-color: var(--uk2-neutral-grey-100);
+        background-color: var(--uk2-neutral-grey-200);
+      }
+    }
+  }
+}
+
+
+
+// Skeleton state
+.uk2-notification-badge.mat-badge-content.uk2-notification-badge-skeleton {
+  border-color: transparent !important;
+  background-color: transparent !important;
+
+  &::before {
+    background-color: var(--uk2-neutral-grey-400);
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+}
+
+// End skeleton state

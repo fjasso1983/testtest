@@ -1,0 +1,15 @@
+export const uk2IconSetsSvgFileNames = {
+  alerts: 'alerts',
+  biometrics: 'biometrics',
+  communication: 'communication',
+  files: 'files',
+  financial: 'financial',
+  invest: 'invest',
+  misc: 'misc',
+  navigation: 'navigation',
+  utility: 'utility',
+  mono: 'mono',
+  tier3: 'tier3',
+  valueMovements: 'value-movements',
+  coloredWithAccent: 'colored-with-accent',
+};

@@ -1,0 +1,122 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# uk2Timer component documentation
+
+## Introduction
+<p>
+  <strong>uk2Timer</strong> is a custom component developed using to achieve Timer component which is part of <a href="https://www.figma.com/file/3CwnK5zehP0VPswaJ5w3ed/design-patterns?type=design&node-id=4334-435&mode=design&t=DXUQn9eJ15PVpRmh-0" target="_blank">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+   Timer can be initialized with time value between 1s and 3600s (1 hour).
+  </li>
+   <li>
+   Timer can be started or Paused.
+  </li>
+  <li>
+   Timer can be stopped and Reset.
+  </li>
+</ol>
+
+## Prerequisites
+
+- You need to import Uk2TimerModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use uk2Timer component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2TimerModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>[--uk2-timer-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> is the timer color.</li>
+</ul>
+
+## Inputs
+<ul>
+  <li><strong>[uk2StartTime]</strong> <u>number</u> <i>(optional, default 1s)</i> Value of Time start in seconds.</li>
+</ul>
+
+## Inputs/Outputs - 2 way bindings
+<ul>
+  <li><strong>[(uk2TimerRunning)]</strong> <u>boolean</u> <i>(optional, default false)</i> Control to start and pause the timer.</li>
+  <li><strong>[(uk2TimerStopAndReset)]</strong> <u>boolean</u> <i>(optional, default false)</i> Control to stop and reset the timer, when uk2TimerStopAndReset pass to true, timer will be reset and paused, so uk2TimerStopAndReset and uk2TimerRunning will pass to false just after reset.</li>
+</ul>
+
+## Outputs
+<ul>
+  <li><strong>(uk2TimerEvent)</strong> <u>Function</u> <i>(optional)</i> Callback function on timer event ('started', 'paused', 'reset' and 'ended'). 'ended' event is dispatched when timer reaches 0.</li>
+ </ul>
+
+## Sample code
+  <p>
+  Here are some examples on how to open uk2Timer from any component.
+  </p>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    \r
+    export class YourComponent {
+      isRunning = false;
+      isStop = false;
+      \r
+      running() {
+        this.isRunning = !this.isRunning;
+      }
+      \r
+      stop() {
+        this.isStop = !this.isStop;
+      }
+      \r
+      uk2TimerEvent(value: any) {
+        console.log(value);
+      }
+    }
+  `}
+/>
+
+### *.component.html
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    <uk2-timer
+      [uk2StartTime]="5"
+      [(uk2TimerRunning)]="isRunning"
+      [(uk2TimerStopAndReset)]="isStop"
+      (uk2TimerEvent)="uk2TimerEvent($event)"
+    ></uk2-timer>
+  `}
+/>
+
+#### Component-specific CSS class
+
+<ul>
+   <li> You can override font style using our exposed font classes directly on <strong>uk2-timer</strong> component: <a href="https://uikit.dev.axosbank.com/?path=/story/typography--typography"  target="_blank"> see typography classes</a>.</li>
+</ul>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    <uk2-timer
+      [uk2StartTime]="5"
+      [(uk2TimerRunning)]="isRunning"
+      [(uk2TimerStopAndReset)]="isStop"
+      (uk2TimerEvent)="uk2TimerEvent($event)"
+      class="uk2-font__body-light--25"
+    ></uk2-timer>
+  `}
+/>
+

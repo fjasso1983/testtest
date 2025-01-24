@@ -1,0 +1,129 @@
+import { Source, ArgsTable, Canvas, Meta, Story, PRIMARY_STORY } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import dedent from 'ts-dedent';
+
+# Uk2ButtonToggleGroupDirective documentation
+
+## Introduction
+<p>
+<strong>Uk2ButtonToggleGroupDirective</strong> is a directive designed to customize the styling of <strong>mat-button-toggle-group</strong> from <a target="_blank" href='https://v15.material.angular.io/components/button-toggle/overview'>Angular Material</a> to adhere to <a target="_blank" href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=867-21909&t=aW28YlG4p3l5d6sp-0">Axos Design System</a>.
+</p>
+
+<br/>
+
+## Prerequisites
+
+- You need to import MatButtonToggleModule from @angular into the desired module of your Angular App.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { MatButtonToggleModule } from '@angular/material/button-toggle';
+  `}
+/>
+
+- You need to import Uk2DirectivesModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2DirectivesModule } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
+  `}
+/>
+
+## Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;mat-button-toggle-group&gt;</strong> elements from <a target="_blank" href='https://v15.material.angular.io/components/button-toggle/overview'>Angular Material</a>. It will add the css class name to handle styles.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the "appearance" attribute for the <a target="_blank" href='https://v15.material.angular.io/components/button-toggle/overview'>Angular Material</a> component.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the "multiple" attribute for the <a target="_blank" href='https://v15.material.angular.io/components/button-toggle/overview'>Angular Material</a> component.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the "vertical" attribute for the <a target="_blank" href='https://v15.material.angular.io/components/button-toggle/overview'>Angular Material</a> component.
+  </li>
+</ol>
+
+## Inputs
+
+<ul>
+  <li>[uk2IsLoading] <u>string</u> <i>(optional)</i> is a flag for toggle between default state to skeleton state.</li>
+  <li>[size] <u>string</u> <i><i>(optional)</i></i> is the size of buttons</li>
+</ul>
+
+## Enums
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2ButtonToggleGroupSizeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2ButtonToggleGroupSizeEnum {
+      small = 'small',
+      medium = 'medium',
+    }
+  `}
+/>
+
+## Sample Code
+
+### .component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-button-toggle-group
+      uk2ButtonToggleGroup
+      [uk2IsLoading]="isLoading"
+      [size]="size"
+      value="3M"
+      (change)="onValueChange($event.value)"
+    >
+      <mat-button-toggle value="3M">
+        <label>3M</label>
+      </mat-button-toggle>
+      <mat-button-toggle value="6M">
+        <label>6M</label>
+      </mat-button-toggle>
+      <mat-button-toggle value="YDT">
+        <label>YDT</label>
+      </mat-button-toggle>
+      <mat-button-toggle value="1Y">
+        <label>1Y</label>
+      </mat-button-toggle>
+      <mat-button-toggle value="3Y">
+        <label>3Y</label>
+      </mat-button-toggle>
+      <mat-button-toggle value="5Y">
+        <label>5Y</label>
+      </mat-button-toggle>
+      <mat-button-toggle value="ALL">
+        <label>ALL</label>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  `}
+/>
+
+### .component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class MyComponent {
+      @Input() isLoading = false;
+      @Input() size = Uk2ButtonToggleGroupSizeEnum.large;
+      @Output() clickEvent = new EventEmitter<any>();
+      \r
+      constructor() {}
+      \r
+      onValueChange(value: any) {
+        this.clickEvent.emit(value);
+      }
+    }
+  `}
+/>

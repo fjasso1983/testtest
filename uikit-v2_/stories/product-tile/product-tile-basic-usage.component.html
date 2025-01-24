@@ -1,0 +1,153 @@
+<section>
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with)</li>
+    <li>Product tile layout</li>
+    <li>Product tile integration with different list-items and alert-banner component</li>
+    <li>Product tile responsiveness</li>
+    <li>Product tile tab-bar layout behavior</li>
+    <li>Product tile states full-width and skeleton</li>
+  </ul>
+  <p>Note: UI-kit doesn't have a component with graphs to add as a example</p>
+</section>
+<section id="product-tile-container" [class.full-width]="isTileFullWidth">
+  <mat-card
+    uk2ProductTile
+    [class.fixed-height]="fixedHeight"
+    [uk2IsSquareTile]="tileBorderSquare"
+    [uk2IsLoading]="isLoading"
+    [uk2IsTileFullWidth]="isTileFullWidth"
+  >
+    <mat-card-header uk2ProductTileGrid [uk2ComponentPosition]="tileHeaderComponentPosition">
+      <uk2-tile-header-link
+        uk2IconName="uk2-info-circle"
+        uk2ProductTileHeader
+        uk2TooltipIconName="uk2-info-circle"
+        [uk2ShowTooltip]="showTooltip"
+        [uk2TextBehavior]="textBehavior"
+        (uk2ChevronClick)="clickEvent.emit()"
+      >
+        <div class="uk2-tile-header">
+          <ng-container *ngIf="!isHeaderAnchor; else anchorSection">
+            <h2>{{ headerText }}</h2>
+          </ng-container>
+          <ng-template #anchorSection>
+            <a target="_blank" (click)="clickEvent.emit()">{{ headerText }}</a>
+          </ng-template>
+        </div>
+        <div class="uk2-tile-tooltip-content">{{ tooltipText }}</div>
+        <div class="uk2-tile-header-sub-line">{{ subLineText }}</div>
+      </uk2-tile-header-link>
+
+      <div uk2ProductTileActions *ngIf="showTileActions">
+        <ng-container [ngSwitch]="tileActionsType">
+          <button
+            uk2PrimaryButton
+            disableRipple
+            mat-raised-button
+            [uk2ButtonSize]="buttonSmallSize"
+            *ngSwitchCase="'primary-button'"
+          >
+            <mat-icon matPrefix svgIcon="uk2-plus"></mat-icon>
+            Lorem Ipsum
+          </button>
+          <ng-container *ngSwitchCase="'menu-buttons'">
+            <uk2-menu-button
+              uk2SvgIconName="uk2-ellipses-vertical"
+              [uk2ButtonType]="singleType"
+              [uk2ItemList]="menuSingleItems"
+              [uk2IsLoading]="false"
+              [uk2IsDisabled]="false"
+              [uk2ActiveStateText]="' '"
+              [uk2DefaultStateText]="' '"
+              [uk2IsIconOnly]="true"
+              [uk2DisplayBorder]="false"
+            >
+              <ng-template #option let-context> {{ context.option.text }}</ng-template>
+            </uk2-menu-button>
+            <uk2-menu-button
+              uk2SvgIconName="uk2-cog"
+              [uk2ButtonType]="multipleType"
+              [uk2ItemList]="menuItems"
+              [uk2IsLoading]="false"
+              [uk2IsDisabled]="false"
+              [uk2ActiveStateText]="' '"
+              [uk2DefaultStateText]="' '"
+              [uk2IsIconOnly]="true"
+              [uk2DisplayBorder]="false"
+            >
+              <ng-template #option let-context> {{ context.option.text }}</ng-template>
+            </uk2-menu-button>
+          </ng-container>
+          <uk2-menu-button
+            uk2SvgIconName="uk2-filter-funnel"
+            [uk2ButtonType]="singleType"
+            [uk2ItemList]="menuItems"
+            [uk2IsLoading]="false"
+            [uk2IsDisabled]="false"
+            [uk2ActiveStateText]="' '"
+            [uk2DefaultStateText]="' '"
+            [uk2IsIconOnly]="true"
+            [uk2DisplayBorder]="true"
+            *ngSwitchCase="'filter-button'"
+          >
+            <ng-template #option let-context> {{ context.option.text }}</ng-template>
+          </uk2-menu-button>
+        </ng-container>
+      </div>
+
+      <mat-tab-group
+        id="tab-bar"
+        uk2StretchTabs
+        disableRipple
+        mat-stretch-tabs
+        animationDuration="0ms"
+        uk2ProductTileComponent
+        [uk2StretchTabsSize]="tabSmallSize"
+        [class.hidden]="!showHeaderTabBar"
+      >
+        <mat-tab #tab1 label="First tab"></mat-tab>
+        <mat-tab #tab2>
+          <ng-template mat-tab-label>
+            <span class="uk2-stretch-tab-label">Second tab with a long label, very very long label</span>
+            <span class="uk2-stretch-tab-element-counter">(2)</span>
+          </ng-template>
+        </mat-tab>
+        <mat-tab #tab3 label="Graph"></mat-tab>
+      </mat-tab-group>
+    </mat-card-header>
+    <mat-divider *ngIf="showHeaderDivider"></mat-divider>
+    <mat-card-content>
+      <div id="tab-1" *ngIf="tab1.isActive">
+        <uk2-list-item
+          *ngFor="let listItem of listItems"
+          uk2Clickable
+          [uk2ListItem]="listItem"
+          [uk2IsLoading]="isLoading"
+        ></uk2-list-item>
+      </div>
+      <div id="tab-2" *ngIf="tab2.isActive">
+        <uk2-alert-banner
+          uk2AlertBannerBodyText="lorem ipsum dolor sit amet consectetur adipisicing elit"
+          uk2AlertBannerHeaderText="Alert 1"
+          uk2AlertBannerSvgIconName="uk2-cog"
+          uk2AlertBannerHyperlinkText="Learn More"
+          [uk2AlertBannerType]="alertType"
+          [uk2IsLoading]="isLoading"
+          [uk2AlertBannerBehavior]="alertPersistent"
+        ></uk2-alert-banner>
+      </div>
+      <div id="tab-3" *ngIf="tab3.isActive">
+        <span *ngIf="!isLoading">Graph goes here</span>
+        <div class="skeleton-block" *ngIf="isLoading"></div>
+      </div>
+    </mat-card-content>
+    <mat-divider *ngIf="showFooterDivider"></mat-divider>
+    <mat-card-actions *ngIf="showFooter">
+      <div uk2JustifyContentCenter>
+        <a uk2Anchor (click)="clickEvent.emit()">View Details</a>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</section>

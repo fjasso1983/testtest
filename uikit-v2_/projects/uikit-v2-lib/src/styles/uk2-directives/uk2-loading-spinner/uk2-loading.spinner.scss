@@ -1,0 +1,10 @@
+@import './uk2-loading-spinner.variables.scss';
+
+.uk2-loading-spinner {
+  @include loading-spinner-variables();
+  &.mdc-circular-progress--indeterminate {
+    svg {
+      stroke: var(--uk2-loading-aux-spinner-stroke-color);
+    }
+  }
+}

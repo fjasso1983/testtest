@@ -1,0 +1,249 @@
+<!-- Custom-MDX-Documentation.mdx -->
+
+import { Source } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+
+# uk2DatePicker directive documentation
+
+## Introduction
+
+<p>
+  uk2DatePicker is a directive designed to customize the styling of <strong>&lt;mat-datepicker&gt;</strong> component to
+  adhere to Axos Design System.
+</p>
+
+### Constraints
+
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;mat-datepicker&gt;</strong> Angular Material component. It will add the <strong>uk2-datepicker</strong> css class name to handle styles.
+  </li>
+  <li>
+   The <strong>&lt;input&gt;</strong> html element should implement the <strong>uk2Input</strong> directive.
+   Refer to Input component to know more about <strong>uk2Input</strong> constraints.
+  </li>
+  <li>
+    White label styling is only supported without setting the "color" attribute for the mat-datepicker Angular Material component.
+  </li>
+</ol>
+
+## Prerequisites
+
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+- Please follow this guide to install momentjs library <a href="https://momentjs.com/" target="_blank">Momentjs getting started</a>
+- You need to import the following into the desired module of your Angular App
+  - DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE and MAT_DATE_FORMATS from @angular/material/core
+  - MatDatepickerModule from '@angular/material/datepicker';
+- You need to declare a date format on your module in order to have the format 01/01/2021 in your date from the datepicker.
+- You need to add your imports to the providers section to bind the Date Format to the datepicker
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+      import { MatDatepickerModule } from '@angular/material/datepicker';
+      const DATE_FORMAT = {
+        parse: {
+          dateInput: 'MM-DD-YYYY',
+        },
+        display: {
+          dateInput: 'MM/DD/YYYY',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        },
+      };
+      @NgModule({
+        providers: [
+          { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+          { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+          { provide: MAT_DATE_FORMATS, useValue: DATE_FORMAT },
+        ],
+      })
+  `}
+/>
+
+## Inputs
+<ul>
+  <li>[uk2InputSize] <u>Uk2InputSizeEnum</u> <i>(optional)</i> Size of the input field. (<b>Default:</b> Uk2InputSizeEnum.large).</li>
+</ul>
+
+## Enums
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2InputSizeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2InputSizeEnum {
+      large = 'large',
+      medium = 'medium',
+      small = 'small',
+    }
+  `}
+/>
+
+## Sample Code
+
+### *.component.html
+
+<ul>
+  <li>
+   Note the use of <strong>uk2DatePicker</strong> directive, applied to the <strong>&lt;mat-datepicker&gt;</strong>{' '}
+   element.
+  </li>
+  <li>
+    Note the use of <strong>uk2Input</strong> directive, applied to the `input` element.
+  </li>
+  <li>
+   Setting the disabled property will help to make the calendar follow the same value as the input
+  </li>
+  <li>
+    Note the use of <strong>uk2-calendar</strong> icon for the <strong>&lt;mat-datepicker-toggle&gt;</strong> and the <strong>uk2-exclamation-triangle</strong> for the error text.
+    Those can be used from the corresponding icon enums. See the icons page to know more.
+  </li>
+</ul>
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Date</mat-label>
+    <input
+      uk2Input
+      matInput
+      [matDatepicker]="myPicker"
+      placeholder="MM/DD/YYYY"
+    />
+    <mat-datepicker-toggle matSuffix [for]="myPicker">
+      <mat-icon matDatepickerToggleIcon svgIcon="uk2-calendar"></mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker uk2DatePicker #myPicker [disabled]="isDisabled"></mat-datepicker>
+    <mat-hint>
+     Please  select a date
+    </mat-hint>
+    <mat-error>
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      Date is required
+    </mat-error>
+  </mat-form-field>
+  `}
+/>
+
+### Customizing size
+Note the use of the <b>uk2InputSize</b> in <b>&lt;input&gt;</b> element
+<p>*.component.html</p>
+  <Source
+    dark
+    language='html'
+    code={dedent`
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Date</mat-label>
+      <input
+        uk2Input
+        matInput
+        [matDatepicker]="myPicker"
+        placeholder="MM/DD/YYYY"
+        [uk2InputSize]="uk2InputSize"
+      />
+      <mat-datepicker-toggle matSuffix [for]="myPicker">
+        <mat-icon matDatepickerToggleIcon svgIcon="uk2-calendar"></mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker uk2DatePicker #myPicker [disabled]="isDisabled"></mat-datepicker>
+      <mat-hint>
+        Please  select a date
+      </mat-hint>
+      <mat-error>
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Date is required
+      </mat-error>
+    </mat-form-field>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2InputSizeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export class YourComponent {
+      uk2InputSize = Uk2InputSizeEnum.large;
+      \r
+      constructor() {}
+      ...
+    }
+  `}
+/>
+
+### Integrating clear button
+
+To add clear button you would need to insert the following code between input and mat-datepicker-toggle element in your component template.
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <button
+      class="uk2-input-clear-button"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      tabindex="-1"
+      *ngIf="valueInput"
+      (mousedown)="valueInput = ''"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+  `}
+/>
+
+Full example with clear button
+
+<p>*.component.html</p>
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>{{ labelText }}</mat-label>
+      <input
+        name="dateOfBirth"
+        matInput
+        uk2Input
+        #tdfDate="ngModel"
+        [(ngModel)]="dateOfBirth"
+        [matDatepicker]="picker"
+        [uk2IsLoading]="uk2IsLoading"
+        [placeholder]="placeholderText"
+        [required]="isRequired"
+        [disabled]="isDisabled"
+        [uk2InputSize]="uk2InputSize"
+      />
+      \r
+      <!-- Clear button -->
+      <button
+        class="uk2-input-clear-button"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        tabindex="-1"
+        *ngIf="valueInput"
+        (mousedown)="valueInput = ''"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      \r
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon [svgIcon]="svgIconName"></mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker uk2DatePicker #picker [disabled]="isDisabled"></mat-datepicker>
+    </mat-form-field>
+  `}
+/>

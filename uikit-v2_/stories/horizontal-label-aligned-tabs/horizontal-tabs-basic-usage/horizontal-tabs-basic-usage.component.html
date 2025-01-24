@@ -1,0 +1,55 @@
+<nav
+  [uk2IsLoading]="isLoading"
+  [mat-stretch-tabs]="false"
+  disableRipple
+  dynamicHeight
+  uk2HorizontalLabelAlignedTabs
+  mat-tab-nav-bar
+  [tabPanel]="tabPanel"
+>
+  <a
+    *ngFor="let tab of tabsList; index as i"
+    uk2NotificationBadge
+    matBadge="!"
+    [disabled]="disabled"
+    mat-tab-link
+    [matBadgeHidden]="badgesHidden"
+    [active]="i === selectedTab"
+    (click)="tabChange(i)"
+  >
+    <mat-icon *ngIf="!iconsHidden" [svgIcon]="alertsIcons.xCircle"></mat-icon>
+    {{ tab.title }}
+  </a>
+</nav>
+<section #tabPanel>
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngFor="let tab of tabsList; index as i">
+      <div *ngIf="i === selectedTab">
+        <p> {{ tab.content }} </p>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>
+
+<section class="buttons-trail">
+  <button
+    uk2PrimaryButton
+    [uk2ButtonSize]="buttonSize"
+    disableRipple
+    mat-raised-button
+    type="button"
+    (click)="addTab()"
+  >
+    add new button
+  </button>
+  <button
+    uk2PrimaryButton
+    [uk2ButtonSize]="buttonSize"
+    disableRipple
+    mat-raised-button
+    type="button"
+    (click)="removeTab()"
+  >
+    remove new button
+  </button>
+</section>

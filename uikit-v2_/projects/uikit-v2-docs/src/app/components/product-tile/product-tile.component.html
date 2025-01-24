@@ -1,0 +1,555 @@
+<section id="header">
+  <p>Tile state actions</p>
+  <div class="actions">
+    <button uk2PrimaryButton disableRipple mat-raised-button [uk2ButtonSize]="smallSize" (click)="handleLoadingClick()"
+      >Toggle loading state</button
+    >
+    <button
+      uk2PrimaryButton
+      disableRipple
+      mat-raised-button
+      [uk2ButtonSize]="smallSize"
+      (click)="toggleComponentPosition()"
+      >Toggle component position</button
+    >
+    <button uk2PrimaryButton disableRipple mat-raised-button [uk2ButtonSize]="smallSize" (click)="toggleTextBehavior()"
+      >Toggle text behavior</button
+    >
+  </div>
+
+  <h3><b>Fixed height:</b></h3>
+  <p
+    >To achieve gradient scroll in tile content change <b>&lt;mat-card&gt;</b> css property height to a fixed value
+    (e.g. 300px)</p
+  >
+  <pre>
+<code [innerText]="fixedHeightCodeSnippet"></code>
+  </pre>
+
+  <h3><b>Handle click events in header title and chevron icon:</b></h3>
+  <p
+    >uk2-tile-header-link component has an output to handle chevron clicks and additionally client can add click events
+    in the projected elements inside title section</p
+  >
+  <pre>
+<code [innerText]="clickEventsCodeSnippet"></code>
+  </pre>
+
+  <h3><b>Projecting header elements:</b></h3>
+  <div>
+    <p>uk2-tile-header-link component accept content projection in three parts</p>
+    <ol>
+      <li>
+        Title section
+        <pre>
+<code [innerText]="titleSectionCodeSnippet"></code>
+        </pre>
+      </li>
+      <li>
+        Sub-line section
+        <pre>
+<code [innerText]="subLineSectionCodeSnippet"></code>
+        </pre>
+      </li>
+      <li>
+        Tooltip content section
+        <pre>
+<code [innerText]="tooltipSectionCodeSnippet"></code>
+        </pre>
+      </li>
+    </ol>
+    <p
+      >Be aware that some elements that will be projected have spacing styles and that can break the alignment with the
+      icons, remember to remove spacing styles on the first child and last child of projected elements</p
+    >
+  </div>
+</section>
+
+<div class="full-width-example">
+  <h2 class="full-width-example-title">Full width tile</h2>
+  <mat-card uk2ProductTile [uk2IsSquareTile]="true" [uk2IsLoading]="loading" [uk2IsTileFullWidth]="true">
+    <mat-card-header>
+      <div uk2ProductTileGrid [uk2ComponentPosition]="componentPosition">
+        <uk2-tile-header-link uk2ProductTileHeader [uk2TextBehavior]="textBehavior">
+          <div class="uk2-tile-header">
+            <h2>Lorem Ipsum</h2>
+          </div>
+        </uk2-tile-header-link>
+
+        <div uk2ProductTileActions>
+          <button
+            uk2PrimaryButton
+            disableRipple
+            mat-raised-button
+            [uk2ButtonSize]="smallSize"
+            (click)="bannerLoading = !bannerLoading"
+          >
+            Toggle alert loading
+            <mat-icon svgIcon="uk2-plus"></mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div>
+        <uk2-alert-banner
+          uk2AlertBannerBodyText="lorem ipsum dolor sit amet consectetur adipisicing elit"
+          uk2AlertBannerHeaderText="Alert 1"
+          uk2AlertBannerSvgIconName="uk2-cog"
+          uk2AlertBannerHyperlinkText="Learn More"
+          [uk2AlertBannerType]="alertType"
+          [uk2IsLoading]="bannerLoading || loading"
+          [uk2AlertBannerBehavior]="alertPersistent"
+        ></uk2-alert-banner>
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <div uk2JustifyContentCenter>
+        <a uk2Anchor>View Details</a>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div class="tiles-container">
+  <mat-card
+    uk2ProductTile
+    [class.fixed-height]="isHeightFixed"
+    [uk2IsSquareTile]="tileSquareBorder"
+    [uk2IsLoading]="loading"
+  >
+    <mat-card-header>
+      <div uk2ProductTileGrid [uk2ComponentPosition]="componentPosition">
+        <uk2-tile-header-link
+          uk2ProductTileHeader
+          uk2TooltipIconName="uk2-info-circle"
+          [uk2ShowTooltip]="true"
+          [uk2TextBehavior]="textBehavior"
+        >
+          <div class="uk2-tile-header">
+            <h2 *ngIf="!showAnchor">Lorem ipsum dolor</h2>
+            <a uk2Anchor *ngIf="showAnchor">Lorem ipsum dolor</a>
+          </div>
+          <div class="uk2-tile-header-sub-line"> Amet consecutar etum - 1234 </div>
+
+          <div class="uk2-tile-tooltip-content"> Quae minus sapiente possimus officia iure! </div>
+        </uk2-tile-header-link>
+
+        <div uk2ProductTileActions>
+          <uk2-menu-button
+            [uk2ButtonType]="multipleType"
+            [uk2ItemList]="testItems1"
+            [uk2IsLoading]="false"
+            [uk2IsDisabled]="false"
+            [uk2ActiveStateText]="''"
+            [uk2DefaultStateText]="''"
+            [uk2SvgIconName]="filterIcon"
+          >
+            <ng-template #option let-context> {{ context.option.text }}</ng-template>
+          </uk2-menu-button>
+        </div>
+
+        <mat-tab-group
+          uk2StretchTabs
+          disableRipple
+          mat-stretch-tabs
+          animationDuration="0ms"
+          [uk2StretchTabsSize]="tabSizeSmall"
+          uk2ProductTileComponent
+        >
+          <mat-tab #tab1 label="First tab"></mat-tab>
+          <mat-tab #tab2>
+            <ng-template mat-tab-label>
+              <span class="uk2-stretch-tab-label">Second tab with a long label, very very long label</span>
+              <span class="uk2-stretch-tab-element-counter">(2)</span>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="margin-top-bottom">
+        <div class="content-space-x">
+          <b>States</b>
+          <div class="content-space-x">
+            <b>Border:</b> {{ tileSquareBorder ? 'Square' : 'Rounded' }}
+            <button
+              type="button"
+              uk2TextButton
+              disableRipple
+              mat-button
+              [uk2ButtonSize]="smallSize"
+              (click)="tileSquareBorder = !tileSquareBorder"
+            >
+              Toggle border
+            </button>
+          </div>
+
+          <div class="content-space-x">
+            <b>Position:</b> {{ componentPosition === componentPositionTop ? 'Top' : 'Bottom' }}
+            <button
+              type="button"
+              uk2TextButton
+              disableRipple
+              mat-button
+              [uk2ButtonSize]="smallSize"
+              (click)="toggleComponentPosition()"
+            >
+              Toggle header component position
+            </button>
+          </div>
+
+          <div class="content-space-x">
+            <b>Fixed height:</b> {{ isHeightFixed ? 'Fixed' : 'Auto' }}
+            <button
+              type="button"
+              uk2TextButton
+              disableRipple
+              mat-button
+              [uk2ButtonSize]="smallSize"
+              (click)="isHeightFixed = !isHeightFixed"
+            >
+              Toggle fixed height
+            </button>
+          </div>
+
+          <div class="content-space-x">
+            <b>Toggle anchor:</b> {{ showAnchor ? 'Anchor' : 'Text' }}
+            <button
+              type="button"
+              uk2TextButton
+              disableRipple
+              mat-button
+              [uk2ButtonSize]="smallSize"
+              (click)="showAnchor = !showAnchor"
+            >
+              Toggle anchor/text
+            </button>
+          </div>
+        </div>
+        <div class="content-space-x" id="tab-1" *ngIf="tab1.isActive">
+          <h1>Tab 1</h1>
+          <p>{{ longText }}</p>
+          <p>{{ longText }}</p>
+          <p>{{ longText }}</p>
+        </div>
+        <div class="content-space-x" id="tab-2" *ngIf="tab2.isActive">
+          <h1>Tab 2</h1>
+          <p
+            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quod illo non. Iusto exercitationem,
+            ipsam ipsa sed ex ut neque, molestias aut accusamus nesciunt quod. In optio nihil nostrum voluptatem? Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Recusandae provident neque nemo ut corrupti
+            reprehenderit deserunt, suscipit vero? Consequuntur enim necessitatibus ab accusantium sunt molestiae ad
+            culpa, dignissimos aperiam quae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quasi
+            accusantium commodi iusto hic sequi dolorum necessitatibus reprehenderit, facere possimus sed et, labore
+            laboriosam? Laudantium dolore eos debitis quasi quibusdam!
+          </p>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <div uk2JustifyContentCenter>
+        <a uk2Anchor>Lorem ipsum dolor sit amet</a>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card uk2ProductTile [uk2IsLoading]="loading">
+    <mat-card-header uk2ProductTileGrid [uk2ComponentPosition]="topComponentPosition">
+      <uk2-tile-header-link
+        uk2ProductTileHeader
+        uk2TooltipIconName="uk2-info-circle"
+        [uk2ShowTooltip]="true"
+        [uk2TextBehavior]="textBehavior"
+      >
+        <div class="uk2-tile-header">
+          <h2>Lorem Ipsum</h2>
+        </div>
+        <div class="uk2-tile-tooltip-content">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </div>
+      </uk2-tile-header-link>
+
+      <div uk2ProductTileActions>
+        <button uk2SecondaryIconButton mat-stroked-button disableRipple [uk2ButtonSize]="smallSize">
+          <mat-icon svgIcon="uk2-filter-funnel"></mat-icon>
+        </button>
+      </div>
+
+      <mat-tab-group uk2StretchTabs disableRipple mat-stretch-tabs animationDuration="0ms" uk2ProductTileComponent>
+        <mat-tab #tab3>
+          <ng-template mat-tab-label>
+            <span class="uk2-stretch-tab-label">First with a long label, very very long label</span>
+            <span class="uk2-stretch-tab-element-counter">(3)</span>
+          </ng-template>
+        </mat-tab>
+        <mat-tab #tab4>
+          <ng-template mat-tab-label>
+            <span class="uk2-stretch-tab-label">First with a long label, very very long label</span>
+            <span class="uk2-stretch-tab-element-counter">(3)</span>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="content-space-x" id="tab-3" *ngIf="tab3.isActive">
+        <h1>Tab 1</h1>
+        <p>{{ longText }}</p>
+      </div>
+      <div class="content-space-x" id="tab-4" *ngIf="tab4.isActive">
+        <h1>Tab 2</h1>
+        <p
+          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quod illo non. Iusto exercitationem, ipsam
+          ipsa sed ex ut neque, molestias aut accusamus nesciunt quod. In optio nihil nostrum voluptatem? Lorem ipsum,
+          dolor sit amet consectetur adipisicing elit. Recusandae provident neque nemo ut corrupti reprehenderit
+          deserunt, suscipit vero? Consequuntur enim necessitatibus ab accusantium sunt molestiae ad culpa, dignissimos
+          aperiam quae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quasi accusantium commodi iusto
+          hic sequi dolorum necessitatibus reprehenderit, facere possimus sed et, labore laboriosam? Laudantium dolore
+          eos debitis quasi quibusdam!
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="footer-actions space-gap" uk2JustifyContentCenter>
+        <a uk2Anchor>Lorem ipsum dolor</a>
+        <mat-icon svgIcon="uk2-cog"></mat-icon>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card uk2ProductTile [uk2IsLoading]="loading">
+    <mat-card-header uk2ProductTileGrid>
+      <uk2-tile-header-link
+        uk2ProductTileHeader
+        uk2TooltipIconName="uk2-info-circle"
+        [uk2ShowTooltip]="true"
+        [uk2TextBehavior]="textBehavior"
+      >
+        <div class="uk2-tile-header">
+          <h2>Lorem Ipsum</h2>
+        </div>
+        <div class="uk2-tile-tooltip-content">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </div>
+      </uk2-tile-header-link>
+
+      <div uk2ProductTileActions>
+        <button uk2TextIconButton mat-button disableRipple [uk2ButtonSize]="smallSize">
+          <mat-icon svgIcon="uk2-ellipses-vertical"></mat-icon>
+        </button>
+        <button uk2TextIconButton mat-button disableRipple [uk2ButtonSize]="smallSize">
+          <mat-icon svgIcon="uk2-cog"></mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="content-space-x">{{ longText }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card uk2ProductTile [uk2IsLoading]="loading">
+    <mat-card-header uk2ProductTileGrid>
+      <uk2-tile-header-link
+        uk2ProductTileHeader
+        uk2TooltipIconName="uk2-info-circle"
+        [uk2ShowTooltip]="showTooltip"
+        [uk2TextBehavior]="textBehavior"
+        (uk2ChevronClick)="chevronClicked()"
+      >
+        <div class="uk2-tile-header">
+          <a uk2Anchor (click)="linkClicked()">Lorem ipsum long title (1234)</a> <br />
+        </div>
+        <div class="uk2-tile-header-sub-line"> Lorem ipsum dolor sit amet consectetur adipisicing. </div>
+        <div class="uk2-tile-tooltip-content">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </div>
+      </uk2-tile-header-link>
+      <div uk2ProductTileActions>
+        <button uk2TextIconButton mat-button disableRipple [uk2ButtonSize]="smallSize">
+          <mat-icon svgIcon="uk2-ellipses-vertical"></mat-icon>
+        </button>
+        <button uk2TextIconButton mat-button disableRipple [uk2ButtonSize]="smallSize">
+          <mat-icon svgIcon="uk2-cog"></mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="content-space-x">{{ longText }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <div uk2JustifyContentCenter>
+        <a uk2Anchor (click)="showTooltip = !showTooltip">Toggle tooltip</a>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card uk2ProductTile [uk2IsLoading]="loading" [class.fixed-height]="isFixedHeight">
+    <mat-card-header uk2ProductTileGrid>
+      <uk2-tile-header-link
+        uk2ProductTileHeader
+        uk2TooltipIconName="uk2-info-circle"
+        [uk2ShowTooltip]="true"
+        [uk2TextBehavior]="textBehavior"
+      >
+        <div class="uk2-tile-header">
+          <h2>Lorem Ipsum</h2>
+        </div>
+        <div class="uk2-tile-tooltip-content">
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+            laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente
+            possimus officia iure!
+          </p>
+        </div>
+      </uk2-tile-header-link>
+
+      <div uk2ProductTileActions>
+        <button
+          uk2PrimaryButton
+          disableRipple
+          mat-raised-button
+          [uk2ButtonSize]="smallSize"
+          (click)="isFixedHeight = !isFixedHeight"
+        >
+          Toggle fixed size
+          <mat-icon svgIcon="uk2-plus"></mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="content-space-x">
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div uk2JustifyContentCenter>
+        <a uk2Anchor>View Details</a>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div style="padding: 15px">
+  <mat-card uk2ProductTile [uk2IsLoading]="loading">
+    <mat-card-header uk2ProductTileGrid>
+      <uk2-tile-header-link
+        uk2ProductTileHeader
+        uk2TooltipIconName="uk2-info-circle"
+        [uk2ShowTooltip]="true"
+        [uk2TextBehavior]="textBehavior"
+      >
+        <div class="uk2-tile-header">
+          <a uk2Anchor>Account - 7838</a>
+        </div>
+        <div class="uk2-tile-tooltip-content">
+          Details for the account number 7838. Lorem ipsum dolor sit, amet consectetur adipisicing elit
+        </div>
+      </uk2-tile-header-link>
+      <div uk2ProductTileActions>
+        <button uk2PrimaryIconButton mat-icon-button disableRipple [uk2ButtonSize]="smallSize">
+          <mat-icon svgIcon="uk2-plus"></mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="content-space-x content-space-y">
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat maxime deleniti veniam eaque itaque
+          laboriosam tempora modi ullam temporibus eius fugit assumenda quidem, voluptate, quae minus sapiente possimus
+          officia iure!
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <div uk2JustifyContentCenter>
+        <a uk2Anchor>View Details</a>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

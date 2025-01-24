@@ -1,0 +1,11 @@
+<uk2-timer
+  [uk2StartTime]="70"
+  [(uk2TimerRunning)]="isRunning"
+  [(uk2TimerStopAndReset)]="isStop"
+  (uk2TimerEvent)="uk2TimerEvent($event)"
+></uk2-timer>
+
+<button (click)="running()">Start/Pause -> Running: {{ isRunning }}</button>
+<br />
+<br />
+<button (click)="stop()">Stop {{ isStop }}</button>

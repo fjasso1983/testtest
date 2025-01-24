@@ -1,0 +1,15 @@
+@import './uk2-form-field.mixins';
+@import './uk2-form-field-density.mixins';
+@import '../uk2-datepicker/uk2-datepicker.mixins';
+@import '../uk2-dropdown/uk2-dropdown.mixins';
+@import '../uk2-input/uk2-input.mixins';
+
+.uk2-form-field {
+  @include uk2-form-field-responsive;
+  @include uk2-form-field-default();
+  @include uk2-form-field-filled();
+  @include uk2-form-field-invalid();
+  @include uk2-form-field-focused();
+  @include uk2-form-field-disabled();
+  @include uk2-form-field-density();
+}

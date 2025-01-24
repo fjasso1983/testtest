@@ -1,0 +1,52 @@
+<div class="container">
+  <h1>Text Tile component documentation</h1>
+
+  <uk2-text-tile
+    [uk2TextTileIsStandaloneTile]="true"
+    [uk2TextTileDisplayBackground]="true"
+    [uk2TextTileTitle]="'Lorem ipsum dolor sit amet consectetur.'"
+  >
+    Lorem ipsum dolor sit amet consectetur. Tempor nulla mauris fames dolor convallis ut purus pharetra consequat. Ut
+    consequat pharetra a risus nisi donec dui diam.
+  </uk2-text-tile>
+  <br />
+
+  <uk2-text-tile
+    [uk2TextTileIsStandaloneTile]="false"
+    [uk2TextTileDisplayBackground]="true"
+    [uk2TextTileTitle]="'Lorem ipsum dolor sit amet consectetur.'"
+  >
+    Lorem ipsum dolor sit amet consectetur. Tempor nulla mauris fames dolor convallis ut purus pharetra consequat. Ut
+    consequat pharetra a risus nisi donec dui diam.
+  </uk2-text-tile>
+  <br />
+
+  <uk2-text-tile
+    [uk2TextTileSvgIconName]="utilityIcons.bell"
+    [uk2TextTileIsStandaloneTile]="false"
+    [uk2TextTileDisplayBackground]="false"
+    [uk2TextTileTitle]="'Lorem ipsum dolor sit amet consectetur.'"
+  >
+    Lorem ipsum dolor sit amet consectetur. Tempor nulla mauris fames dolor convallis ut purus pharetra consequat. Ut
+    consequat pharetra a risus nisi donec dui diam.
+  </uk2-text-tile>
+  <br />
+
+  <uk2-text-tile
+    [uk2TextTileSvgIconName]="utilityIcons.box"
+    [uk2TextTileIsStandaloneTile]="true"
+    [uk2TextTileDisplayBackground]="true"
+    [uk2TextTileTitle]="'Lorem ipsum dolor sit amet consectetur.'"
+  >
+    <p style="color: cornflowerblue">
+      Lorem ipsum dolor sit amet consectetur.
+      <strong>Tempor nulla mauris fames dolor convallis</strong>
+      ut purus pharetra consequat. Ut consequat pharetra a risus nisi donec dui diam.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur.
+      <strong>Tempor nulla mauris fames dolor convallis</strong>
+      ut purus pharetra consequat. Ut consequat pharetra a risus nisi donec dui diam.
+    </p>
+  </uk2-text-tile>
+</div>

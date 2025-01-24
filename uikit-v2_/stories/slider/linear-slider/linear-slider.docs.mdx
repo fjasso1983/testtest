@@ -1,0 +1,111 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# uk2Slider component documentation
+
+## Introduction
+<p>
+Uk2Slider is a component to customize the styling and behavior of <strong>mat-slider</strong> component from <a href="https://v15.material.angular.io/components/slider/api">Angular Material Slider</a> wrapping it and following <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?type=design&node-id=5131%3A1105&mode=design&t=drL95zq7JuiVVDPm-1">Axos Design System</a>.
+</p>
+
+## Prerequisites
+
+- You need to import Uk2SliderModule from @axos/uikit-v2-lib.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2SliderModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>[maxValueLabel] <u>string</u> <i>(optional)</i> is the text below right side of slider</li>
+  <li>[minValueLabel] <u>string</u> <i>(optional)</i> is the text below left side of slider</li>
+  <li>[minValue] <u>number</u> <i>(optional)</i> is the value used to set minimun value</li>
+  <li>[maxValue] <u>number</u> <i>(optional)</i> is the value used to set maximum value</li>
+  <li>[step] <u>number</u> <i>(optional)</i> is the number used to increment/decrement slider's value</li>
+  <li>[variant] <u>Uk2SliderVariantEnum</u> <i>(optional)</i> toggle to solid/gradient state</li>
+  <li>[value] <u>number</u> <i>(optional)</i> sets slider with default value</li>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> toggle skeleton state</li>
+</ul>
+
+## Outputs
+
+<ul>
+  <li>(valueChange) <i>(optional)</i> emits the current value of slider</li>
+</ul>
+
+## Enums
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2SliderVariantEnum } from '@axos/uikit-v2-lib';
+      \r
+      export enum Uk2SliderVariantEnum {
+        solid,
+        gradient,
+      }
+  `}
+/>
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>--uk2-slider-track-inactive-color</strong> <i>(default: --uk2-neutral-grey-200)</i> color of the inactive part of slider's bar</li>
+  <li><strong>--uk2-slider-track-active-color</strong> <i>(default: --uk2-axos-primary-blue-500)</i> color of the active part of slider's bar</li>
+  <li><strong>--uk2-slider-thumb-knob-border-color</strong> <i>(default: --uk2-axos-primary-blue-400)</i> border color of the circle selector</li>
+  <li><strong>--uk2-slider-thumb-knob-background-color</strong> <i>(default: --uk2-neutral-white)</i> background color of the circle selector</li>
+  <li><strong>--uk2-slider-track-gradient-color-left</strong> <i>(default: --uk2-specialty-blue-500)</i> color used as gradient on the left part of slider's bar</li>
+  <li><strong>--uk2-slider-track-gradient-color-right</strong> <i>(default: --uk2-specialty-green-500)</i> color used as gradient on the right part of slider's bar</li>
+  <li><strong>--uk2-slider-thumb-gradient-knob-border-color</strong> <i>(default: --uk2-axos-primary-blue-400)</i> border color of the circle selector in gradient variant</li>
+  <li><strong>--uk2-slider-thumb-gradient-knob-background-color</strong> <i>(default: --uk2-neutral-white)</i> background color of the circle selector in gradient variant</li>
+</ul>
+
+## Sample Code
+### .component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+<uk2-slider
+  [maxValueLabel]="maxText.value ?? ''"
+  [minValueLabel]="minText.value ?? ''"
+  [minValue]="minValue"
+  [maxValue]="maxValue"
+  [step]="step"
+  [variant]="variant"
+  [value]="value"
+  [uk2IsLoading]="isLoading"
+  (valueChange)="onValueUpdate($event)"
+></uk2-slider>
+  `}
+/>
+
+### .component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class YourComponent {
+      maxText = 'Max';
+      minText = 'Min';
+      minValue = 0;
+      maxValue = 100;
+      step = 1;
+      sliderValue = 0;
+      value = 44;
+      variant = Uk2SliderVariantEnum.solid;
+      isLoading = false;
+\r
+      onValueUpdate(val: number) {
+        this.sliderValue = val;
+      }
+    }
+  `}
+/>

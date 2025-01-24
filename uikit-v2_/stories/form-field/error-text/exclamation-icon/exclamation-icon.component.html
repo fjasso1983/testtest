@@ -1,0 +1,19 @@
+<h1>Error Text: Display Exclamation Icon</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>The look and feel of input in error state, displaying a leading icon. (Not supported on Angular Material out of the box)</li>
+  <li>The customization for helper text</li>
+  <li>The customization for error text</li>
+  <li>The customization for required and non-required field to be able to see error text with icon (true) or the helper text</li>
+</ul>
+
+<mat-form-field floatLabel="always" appearance="outline">
+  <mat-label>Enter your name</mat-label>
+  <input uk2Input type="text" matInput  [formControl]="nameInput" />
+  <mat-hint>{{ helperText }}</mat-hint>
+  <mat-error>
+    <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+    {{ errorText }}
+  </mat-error>
+</mat-form-field>

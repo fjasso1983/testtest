@@ -1,0 +1,192 @@
+<p>Checkbox Selection Cards</p>
+<div>
+  <button (click)="toggleLoading()">Change Skeleton Mode</button>
+  {{ isLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+<br />
+<div>
+  <button (click)="toggleDisable()">Change Disabled Mode</button>
+  {{ isDisabled ? 'Disabled' : 'Enabled' }}
+</div>
+<br />
+<mat-selection-list
+  uk2CheckboxSelectionCards
+  disableRipple
+  [disabled]="isDisabled"
+  [uk2IsLoading]="isLoading"
+  [uk2IsRadio]="true"
+  [multiple]="false"
+  #singleOption
+>
+  <mat-list-option *ngFor="let shoe of typesOfShoes; index as i" [value]="shoe">
+    <div class="uk2-checkbox-selection-cards-icon-container">
+      <mat-icon class="uk2-icon-tier-1" [svgIcon]="'uk2-home'"></mat-icon>
+    </div>
+    <div class="uk2-checkbox-selection-cards-text-container">
+      <label>{{ shoe }} - Change Skeleton Mode - Change Skeleton Mode- Change Skeleton Mode</label>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+    </div>
+  </mat-list-option>
+</mat-selection-list>
+<br />
+<br />
+<br />
+<h1>Multiple option</h1>
+<br />
+<mat-selection-list
+  uk2CheckboxSelectionCards
+  disableRipple
+  [uk2IsLoading]="isLoading"
+  [uk2IsRadio]="true"
+  #multipleOption
+  [disabled]="isDisabled"
+>
+  <mat-list-option *ngFor="let shoe of typesOfShoes; index as i">
+    <!-- <div class="uk2-checkbox-selection-cards-icon-container">
+      <mat-icon class="uk2-icon-tier-2" [svgIcon]="'uk2-color-piggy'"></mat-icon>
+    </div> -->
+    <div class="uk2-checkbox-selection-cards-text-container">
+      <label>{{ shoe }}</label>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+    </div>
+  </mat-list-option>
+</mat-selection-list>
+<p>
+  Options selected:
+  <span *ngFor="let value of multipleOption.selectedOptions.selected">{{ value }}</span>
+</p>
+<br />
+<br />
+<p>Reactive Form integration</p>
+<br />
+<form [formGroup]="form" (ngSubmit)="onReactiveFormSubmit()">
+  <mat-selection-list
+    uk2CheckboxSelectionCards
+    disableRipple
+    [uk2IsLoading]="isLoading"
+    [formControl]="selectedAddress"
+  >
+    <mat-list-option *ngFor="let address of addresses; index as i" [value]="address">
+      <div class="uk2-checkbox-selection-cards-icon-container">
+        <mat-icon class="uk2-icon-tier-3" [svgIcon]="'uk2-tier3-money-heart'"></mat-icon>
+      </div>
+      <div class="uk2-checkbox-selection-cards-text-container">
+        <label>{{ address.name }}</label>
+        <p>
+          {{ address.description }}
+        </p>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+  <br />
+  <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>
+<br />
+<form [formGroup]="form" (ngSubmit)="onReactiveFormSubmit()">
+  <mat-selection-list
+    uk2CheckboxSelectionCards
+    disableRipple
+    [uk2IsLoading]="isLoading"
+    [multiple]="false"
+    [formControl]="selectedAddress"
+  >
+    <mat-list-option *ngFor="let address of addresses; index as i" [value]="address">
+      <div class="uk2-checkbox-selection-cards-icon-container">
+        <mat-icon [svgIcon]="'uk2-location-pin'"></mat-icon>
+      </div>
+      <div class="uk2-checkbox-selection-cards-text-container">
+        <label>{{ address.name }}</label>
+        <p>
+          {{ address.description }}
+        </p>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+  <br />
+  <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>
+<br />
+<br />
+<p>Template Driven Form integration</p>
+<br />
+<form #myForm="ngForm" (ngSubmit)="onTemplateDrivenFormSubmit()">
+  <mat-selection-list
+    uk2CheckboxSelectionCards
+    disableRipple
+    [uk2IsLoading]="isLoading"
+    required
+    name="multipleSelectedAddress"
+    #multipleSelectedAddress
+    [(ngModel)]="user.multipleSelectedAddress"
+  >
+    <mat-list-option *ngFor="let address of addresses; index as i" [value]="address">
+      <div class="uk2-checkbox-selection-cards-icon-container">
+        <mat-icon [svgIcon]="'uk2-location-pin'"></mat-icon>
+      </div>
+      <div class="uk2-checkbox-selection-cards-text-container">
+        <label>{{ address.name }}</label>
+        <p>
+          {{ address.description }}
+        </p>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+  <br />
+  <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>
+<br />
+<form #myForm="ngForm" (ngSubmit)="onTemplateDrivenFormSubmit()">
+  <mat-selection-list
+    uk2CheckboxSelectionCards
+    disableRipple
+    [uk2IsLoading]="isLoading"
+    [multiple]="false"
+    required
+    name="singleSelectedAddress"
+    #singleSelectedAddress
+    [(ngModel)]="user.singleSelectedAddress"
+  >
+    <mat-list-option *ngFor="let address of addresses; index as i" [value]="address">
+      <div class="uk2-checkbox-selection-cards-icon-container">
+        <mat-icon [svgIcon]="'uk2-location-pin'"></mat-icon>
+      </div>
+      <div class="uk2-checkbox-selection-cards-text-container">
+        <label>{{ address.name }}</label>
+        <p>
+          {{ address.description }}
+        </p>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+  <br />
+  <button type="submit" [disabled]="!form.valid">Submit</button>
+</form>
+
+<br />
+<br />
+<br />
+<p>Scenario when the data is coming delayed</p>
+<mat-selection-list
+  uk2CheckboxSelectionCards
+  disableRipple
+  [multiple]="false"
+  [uk2IsRadio]="false"
+  [uk2IsLoading]="isLoading"
+  #singleOption
+>
+  <mat-list-option *ngFor="let phone of phoneList" [value]="phone.value">
+    <div class="uk2-checkbox-selection-cards-icon-container">
+      <mat-icon class="uk2-icon-tier-1" svgIcon="uk2-speech-bubble-text"></mat-icon>
+    </div>
+    <div class="uk2-checkbox-selection-cards-text-container">
+      <label>{{ phone.name }}</label>
+      <p class="method-list-container__description">Description here</p>
+    </div>
+  </mat-list-option>
+</mat-selection-list>

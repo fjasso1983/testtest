@@ -1,0 +1,67 @@
+@import './uk2-menu-button.mixins.scss';
+
+.uk2-menu-button-backdrop {
+  &.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 40% !important;
+    background: var(--uk2-neutral-black-600) !important;
+  }
+}
+
+.uk2-menu-button-flyout {
+  @include uk2-menu-button-flyout();
+
+  .uk2-menu-button-item {
+    @include uk2-menu-button-item();
+  }
+
+  .uk2-menu-button-item-divider-line {
+    @include uk2-menu-divider-line();
+  }
+}
+
+uk2-menu-button {
+  position: relative;
+  display: inline-block;
+}
+
+@include uk2-menu-button-badge();
+
+// Bottom sheet
+mat-bottom-sheet-container {
+  .uk2-menu-button-flyout {
+    background-color: var(--uk2-neutral-white);
+    border: unset;
+    box-shadow: unset;
+    border-radius: 0;
+    min-width: unset;
+  }
+}
+
+mat-bottom-sheet-container:has(.uk2-menu-button-flyout) {
+  padding: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  max-height: unset;
+}
+
+mat-bottom-sheet-container {
+  .uk2-menu-button-flyout {
+    #uk2-bottom-sheet-footer-container {
+      padding: 16px 24px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-top: 1px solid var(--uk2-neutral-grey-200);
+
+      &.uk2-bottom-sheet-footer-spacer {
+        min-height: 64px;
+        padding: 0 !important;
+      }
+    }
+  }
+}
+
+// End bottom sheet
+
+// generate default menu button item content and divider line styles with 16px padding to all sides.
+@include uk2-menu-button-item-content();

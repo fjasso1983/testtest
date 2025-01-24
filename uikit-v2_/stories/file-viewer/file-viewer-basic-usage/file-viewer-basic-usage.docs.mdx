@@ -1,0 +1,401 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# Uk2FileViewer directives documentation
+
+<p>File viewer is a combination of directives in different elements to create a file preview component that adheres to the <a href="https://www.figma.com/design/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?node-id=5735-6752&node-type=canvas&m=dev" target="_blank">Axos Design System</a>.</p>
+<p>The file viewer controls and elements are designed mainly for displaying PDF documents. In order to support displaying PDF documents, we need to use the <a href='https://github.com/VadimDez/ng2-pdf-viewer' target='_blank'>Angular PDF Viewer (ng2-pdf-viewer)</a> library. If needed please refer to the library documentation for any changes in the configuration of the PDF viewer</p>
+
+## Prerequisites
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+- You need to import Uk2FlyoutMenuModule from @axos/uikit-v2-lib on your application module to access flyout menus.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2FlyoutMenuModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+- You also need to install ng2-pdf-viewer library v9.1.5 on your application.
+- You need to import PdfViewerModule into your module to be able to visualize PDF files.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { PDFDocumentProxy } from 'ng2-pdf-viewer';
+  `}
+/>
+
+## File viewer structure & elements
+<p>The file viewer is divided into several directives corresponding to the container, footer and header elements. No directive is required for the content preview</p>
+
+<p>The structure for all the directives can be visualized in the following diagram:</p>
+<img style={{marginBottom:"16px"}} src="/assets/uk2/components/file-viewer/assets/images/file-viewer-structure.png"/>
+
+<p>In adition to the structure of this directives, footer and header elements need to indicate their position via different directive for correct styling.</p>
+<p>The structure of the position directive and it's values is visualized on the following diagram:</p>
+<img style={{marginBottom:"16px"}} src="/assets/uk2/components/file-viewer/assets/images/file-viewer-position-structure.png"/>
+
+## Container directive
+<p>The container has a single directive which encapsulates both footer and header directives.</p>
+
+<ul>
+    <li>
+      <b>[uk2FileViewerContainer]</b> Main container of the file viewer. In charge of controling the file viewer size & borders.
+    </li>
+</ul>
+
+### uk2FileViewerContainer - Inputs
+
+<ul>
+    <li> <b>[uk2FileViewerWidth]</b> <u>string</u> <i>(optional)</i> Width of the file viewer. It should represent a valid CSS unit (e.g. '100%', '80vh', '800px') (<strong>Default:</strong> '1152px')</li>
+    <li> <b>[uk2FileViewerHeight]</b> <u>string</u> <i>(optional)</i> Height of the file viewer. It should represent a valid CSS unit (e.g. '100%', '80vh', '800px') (<strong>Default:</strong> '760px')</li>
+    <li> <b>[uk2FileViewerNoBorder]</b> <u>boolean</u> <i>(optional)</i> Hides the borders from the header footer, and if used, also for the PDF viewer (<strong>Default:</strong> false)</li>
+</ul>
+
+
+## Header directives
+<p>The header consists of a single directive responsible for adding the proper styles along with three subdirectives. </p>
+<p><i>Note: Any UK2 button elements on the header should use the small size in order to visualize correctly</i></p>
+
+<ul>
+    <li><b>[uk2FileViewerHeader]</b> File viewer header directive. It adds the proper CSS class to style the file viewer header.</li>
+</ul>
+
+<p>The following directives can be used inside the previous header directive depending on the desired implementation</p>
+<ul>
+    <li><b>[uk2FileViewerPageControl]</b> Page control directive. Responsible for setting the proper styles for the page number input.</li>
+    <li><b>[uk2FileViewerZoomControl]</b> Zoom controls directive. Responsible for setting the proper styles from the zoom controls</li>
+    <li><b>[uk2FileViewerActionControl]</b> Action controls directive. Responsible for setting the proper styles for any button on the right corner of the file viewer.</li>
+</ul>
+
+### uk2FileViewerPageControl - Inputs
+<ul>
+    <li> <b>[uk2FileViewerPageSize]</b> <u>number</u> <i>(optional)</i> Number of pages for the file viewer component. Based on this, the page number input size is adjusted to be able to contain the max number of pages with no overflow. (<strong>Default:</strong> <i>undefined</i>)</li>
+</ul>
+
+## Footer directives
+<p>The footer directive consists of a single directive responsible for adding the proper styles, along with another subdirective</p>
+
+<ul>
+    <li><b>[uk2FileViewerFooter]</b> File viewer footer directive. It adds the proper CSS class to style the file viewer footer.</li>
+</ul>
+
+<p>The following directive should be used inside the previous footer directive</p>
+
+<ul>
+    <li><b>[uk2FileViewerFileName]</b> File name directive. Responsible for setting the proper styles to the displayed file name.</li>
+</ul>
+
+## Position directives
+<p>Both footer and header elements need to indicate their position for correct styling.</p>
+
+<ul>
+    <li><b>[uk2FileViewerElementPosition]</b> File position directive. Sets the correct style needed for the position of an element in the file viewer footer or header.</li>
+</ul>
+
+<ul>
+    <li> <b>[uk2FileViewerElementPosition]</b> <u>Uk2FileViewerElementPositionEnum</u> <i>(optional)</i> Sets the position of where the element is located on the footer or header of the file viewer. (<strong>Default:</strong> Uk2FileViewerElementPositionEnum.center)</li>
+</ul>
+
+## Visualizing PDF documents example
+<p>The following is a basic example for how to use ng2-pdf-viewer to display a PDF file</p>
+
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class PDFExample {
+      pdfSrc = 'https://route-to-document/files/document.pdf';
+      pdf: PDFDocumentProxy | undefined = undefined;
+      pdfPage = 1;
+      \r
+      constructor() { }
+      \r
+      onLoadPDFCallback(pdf: PDFDocumentProxy) {
+        this.pdf = pdf; //PDF Document instance
+        this.changeDetectorRef.detectChanges();
+      }
+    }
+  `}
+/>
+
+### .component.html
+
+<Source
+    dark
+    language="html"
+    code={dedent`
+    <pdf-viewer
+        [src]="pdfSrc"
+        [render-text]="true"
+        [original-size]="false"
+        [zoom-scale]="'page-width'"
+        [autoresize]="true"
+        [(page)]="pdfPage"
+        [show-borders]="true"
+        (after-load-complete)="onLoadPDFCallback($event)"
+    ></pdf-viewer>
+    `}
+/>
+
+## File viewer full example
+<p>The following is a full example using all of the elements to display a PDF File, including ng2-pdf-viewer and a basic flyout overlay example for a kabob button.</p>
+
+### .component.ts
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class FileViewerExample implements DoCheck {
+      //Instance for the flyout menu
+      @ViewChild('flyoutMenu') flyoutMenu!: Uk2FlyoutMenuDirective;
+      \r
+      //Button icons
+      svgExpand = Uk2Tier1MiscEnum.expandImage;
+      svgCollapse = Uk2Tier1MiscEnum.collapseImage;
+      svgEllipses = Uk2Tier1NavigationEnum.ellipsesVertical;
+      svgClose = Uk2Tier1NavigationEnum.x;
+      svgWindow = Uk2Tier1UtilityEnum.newWindow;
+      svgZoomLess = Uk2Tier1UtilityEnum.magnifyMinus;
+      svgZoomMore = Uk2Tier1UtilityEnum.magnifyPlus;
+      \r
+      //File viewer container configuration
+      fileViewerWidth: string = '800px';
+      fileViewerHeight = '600px';
+      fileViewerHideBorder = false;
+      \r
+      //File viewer position declarations to use on the viewer
+      positionLeft = Uk2FileViewerElementPositionEnum.left;
+      positionCenter = Uk2FileViewerElementPositionEnum.center;
+      positionRight = Uk2FileViewerElementPositionEnum.right;
+      \r
+      //Button config
+      buttonSmallSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.small;
+      buttonVariant: Uk2TextButtonVariant = Uk2TextButtonVariant.button;
+      \r
+      //Zoom config
+      zoom = 100;
+      zoomValues: number[] = [25, 50, 75, 80, 90, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500];
+      \r
+      //PDF library configuration
+      pdfSrc = 'https://route-to-document/files/document.pdf';
+      pdf: PDFDocumentProxy | undefined = undefined;
+      pdfPage = 1;
+      inputPage = 1;//Auxiliary page number for the input
+      private previousPdfPage = 1;
+      private pageInputChange = false;
+      \r
+      constructor() {}
+      \r
+      //Prevents a bug when the input is left empty by the user before blur
+      ngDoCheck(): void {
+        if (this.pdfPage !== this.previousPdfPage && !this.pageInputChange) {
+          this.inputPage = this.pdfPage;
+          this.previousPdfPage = this.pdfPage;
+        }
+        this.pageInputChange = false;
+      }
+      \r
+      onLoadPDFCallback(pdf: PDFDocumentProxy) {
+        this.pdf = pdf; //PDF Document instance
+      }
+      \r
+      setZoomValue(action: string) {
+        const isZoomIn = action === 'plus';
+        const filteredZoomValues = this.zoomValues.filter(value => (isZoomIn ? value > this.zoom : value < this.zoom));
+        if (filteredZoomValues.length > 0) {
+          this.zoom = isZoomIn ? filteredZoomValues[0] : filteredZoomValues[filteredZoomValues.length - 1];
+        }
+      }
+      \r
+      onBlur(event: FocusEvent): void {
+        const input = event.target as HTMLInputElement;
+        this.updateZoom(input.value);
+        input.value = this.zoom + '%';
+      }
+      \r
+      updatePage(event: FocusEvent) {
+        const input = event.target as HTMLInputElement;
+        const value = parseInt(input.value);
+        this.syncInputPdfPage(value);
+      }
+      \r
+      keydownPage(keyDownEvent: KeyboardEvent) {
+        const key = keyDownEvent.key.toLowerCase();
+        if (key === 'enter') {
+          keyDownEvent.stopPropagation();
+          keyDownEvent.preventDefault();
+          this.syncInputPdfPage(this.inputPage);
+        }
+      }
+      \r
+      onFocus(event: FocusEvent): void {
+        const input = event.target as HTMLInputElement;
+        const cursorPosition = input.selectionStart ?? 0;
+        const percentagePosition = input.value.length - 1;
+        if (cursorPosition > percentagePosition) {
+          this.setCursorPosition(input);
+        }
+      }
+      \r
+      updateZoom(value: string): void {
+        let numericValue = parseFloat(value.replace('%', ''));
+        if (isNaN(numericValue) || value === '') {
+          this.zoom = 25;
+        } else {
+          this.zoom = Math.min(Math.max(numericValue, 25), 500);
+        }
+      }
+      \r
+      setCursorPosition(input: HTMLInputElement): void {
+        const position = input.value.length - 1;
+        setTimeout(() => {
+          input.setSelectionRange(position, position);
+        }, 0);
+      }
+      \r
+      private syncInputPdfPage(page: number) {
+        if (page) {
+          if (page > this.pdf?.numPages!) {
+            this.pdfPage = this.pdf?.numPages!;
+          } else {
+            this.pdfPage = page;
+          }
+        } else {
+          this.pdfPage = 1;
+        }
+        this.inputPage = this.pdfPage;
+        this.pageInputChange = true;
+      }
+    }
+  `}
+/>
+
+### .component.html
+
+<Source
+    dark
+    language="html"
+    code={dedent`
+    <div
+      uk2FileViewerContainer
+      [uk2FileViewerWidth]="fileViewerWidth"
+      [uk2FileViewerHeight]="fileViewerHeight"
+      [uk2FileViewerNoBorder]="fileViewerHideBorder"
+    >
+      <div uk2FileViewerHeader>
+        <div
+          [uk2FileViewerElementPosition]="positionLeft"
+          [uk2FileViewerPageSize]="pdf?.numPages"
+          uk2FileViewerPageControl
+        >
+          <input
+            [(ngModel)]="inputPage"
+            (keydown)="keydownPage($event)"
+            (blur)="updatePage($event)"
+            autocomplete="off"
+            type="number"
+            id="page"
+          />
+          of {{ pdf?.numPages }}
+        </div>
+        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+          <button
+            (click)="setZoomValue('minus')"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSmallSize"
+            ><mat-icon [svgIcon]="svgZoomLess"></mat-icon
+          ></button>
+          <input
+            type="text"
+            [value]="zoom + '%'"
+            (blur)="onBlur($event)"
+            (click)="onFocus($event)"
+            autocomplete="off"
+            id="page"
+            placeholder="100%"
+          />
+          <button
+            (click)="setZoomValue('plus')"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSmallSize"
+            ><mat-icon [svgIcon]="svgZoomMore"></mat-icon
+          ></button>
+        </div>
+        <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+          <button
+            mat-button
+            uk2TextIconButton
+            uk2FlyoutMenu
+            disableRipple
+            [uk2FlyoutTemplate]="flyoutOverlay"
+            [uk2TextButtonVariant]="buttonVariant"
+            [uk2ButtonSize]="buttonSmallSize"
+            #flyoutMenu="uk2FlyoutMenu"
+            (click)="flyoutMenu.toggle()"
+          >
+            <mat-icon [svgIcon]="svgEllipses"></mat-icon>
+          </button>
+          <ng-template #flyoutOverlay>
+            <div class="flyout-container">
+              ...
+            </div>
+          </ng-template>
+          <button mat-button uk2TextIconButton disableRipple [uk2ButtonSize]="buttonSmallSize" (click)="onClose()">
+            <mat-icon [svgIcon]="svgClose"></mat-icon>
+          </button>
+        </div>
+      </div>
+      pdf-viewer
+        [src]="pdfSrc"
+        [render-text]="true"
+        [original-size]="false"
+        [zoom-scale]="'page-width'"
+        [zoom]="zoom / 100"
+        [autoresize]="true"
+        [(page)]="pdfPage"
+        [show-borders]="true"
+        (after-load-complete)="onLoadPDFCallback($event)"
+      ></pdf-viewer>
+      <div uk2FileViewerFooter>
+        <div [uk2FileViewerElementPosition]="positionLeft">
+          <button (click)="onExpand()" uk2TextIconButton disableRipple mat-button [uk2ButtonSize]="buttonSmallSize">
+            <mat-icon [svgIcon]="svgExpand" *ngIf="!expanded"></mat-icon>
+            <mat-icon [svgIcon]="svgCollapse" *ngIf="expanded"></mat-icon>
+          </button>
+        </div>
+        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+          {{ pdfName }}
+        </div>
+        <div [uk2FileViewerElementPosition]="positionRight">
+          <button
+            (click)="openFullScreen()"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSmallSize"
+            ><mat-icon [svgIcon]="svgWindow"></mat-icon></button
+        ></div>
+      </div>
+    </div>
+    `}
+/>

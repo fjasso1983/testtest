@@ -1,0 +1,599 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2ProductTile documentation
+
+<p>Product tile needs different directives and components to work correctly, every component will be explained with examples below as well as a complete example using all the components/directives at the end.</p>
+
+## Uk2ProductTile elements
+
+<p>
+  Uk2ProductTile is composed by a set of components/directives to achieve a dynamic way to create tiles.
+</p>
+
+### Components
+
+<ul>
+    <li>
+      <b>uk2-product-tile-header-link:</b> Component in charge of render the header title, sub-line, tooltip and chevron icon
+    </li>
+</ul>
+
+### Directives
+
+<ul>
+    <li>
+      <b>uk2-product-tile-container:</b> Directive in charge of product tile layout (header, content, footer) adding styles and overflow behavior
+    </li>
+</ul>
+
+### Layout directives
+
+<ul>
+    <li>
+      <b>uk2-justify-content-center:</b> Directive that applies flex layout with justify content center
+    </li>
+    <li>
+      <b>uk2-justify-content-space-between:</b> Directive that applies flex layout with justify content space between
+    </li>
+    <li>
+      <b>uk2-product-tile-grid:</b> Directive to configure the layout of product tile header using CSS grid this directive handle the position of the 3 elements of product tile header (Action section, Tab bar section and Header title section) this directive needs to be combined with these other directives uk2-product-tile-grid-header, uk2-product-tile-grid-component and uk2-product-tile-grid-actions
+    </li>
+    <li>
+      <b>uk2-product-tile-grid-header:</b> Directive to specify the header section of the grid, this section contains header text or uk2-product-tile-header-link component
+    </li>
+    <li>
+      <b>uk2-product-tile-grid-component:</b> Directive to specify the component section of the grid, this section will contains components like tab-bar
+    </li>
+    <li>
+      <b>uk2-product-tile-grid-actions:</b> Directive to specify the actions section of the grid, this section should contains buttons of a button container
+    </li>
+</ul>
+
+
+# Uk2TileHeaderLinkComponent (uk2-tile-header-link)
+
+## Introduction
+
+<p>
+  <b>Uk2TileHeaderLinkComponent</b> is a component that controls product tile header text elements (Title, Sub-line, tooltip and chevron icon) position and behavior.
+</p>
+
+## Constraints
+
+<p>
+  <ul>
+    <li>If an anchor element is projected inside <b>&lt;div class=".uk2-tile-header"&gt;</b>, a chevron icon will be rendered on the rigth side of the title text</li>
+    <li>Be careful with projecting elements that have spacing, because it can alter the aligment of the title with the actions section or the component section of product tile, try to remove spacing on the first and last child or just project text</li>
+  </ul>
+</p>
+
+## Prerequisites
+
+<p>
+  Import Uk2TileHeaderLinkModule from @axos/uikit-v2-lib
+</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2TileHeaderLinkModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>
+    [uk2TooltipIconName] <u>string</u> <i>(required if tooltip is visible)</i> Icon name used to render tooltip
+  </li>
+  <li>
+    [uk2ShowTooltip] <u>boolean</u> <i>(optional)</i> Shows tooltip if value is true
+  </li>
+  <li>
+    [uk2TextBehavior] <u>Uk2TileHeaderTextBehaviorEnum</u> <i>(optional)</i> Change text overflow to be truncated or wrap
+  </li>
+</ul>
+
+## Outputs
+
+<ul>
+  <li>
+    (uk2ChevronClick) <u>EventEmitter&lt;void&gt;</u> <i>(optional)</i> Fires event when chevron is clicked
+  </li>
+</ul>
+
+## Projection sections
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Required</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><b>&lt;div class="uk2-tile-header"&gt;</b></td>
+    <td><u>Projected element</u></td>
+    <td><i>Optional</i></td>
+    <td>HTML element that will be projected as the header title text can contain any HTML element</td>
+  </tr>
+  <tr>
+    <td><b>&lt;div class="uk2-tile-tooltip-content"&gt;</b></td>
+    <td><u>Projected element</u></td>
+    <td><i>Optional</i></td>
+    <td>HTML element that will be projected inside tooltip content can contain any HTML element</td>
+  </tr>
+  <tr>
+    <td><b>&lt;div class="uk2-tile-header-sub-line"&gt;</b></td>
+    <td><u>Projected element</u></td>
+    <td><i>Optional</i></td>
+    <td>HTML element that will be projected as the sub-line text can contain any HTML element</td>
+  </tr>
+</table>
+
+## Enums
+
+<p>
+  <u>Uk2TileHeaderTextBehaviorEnum</u>
+</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2TileHeaderTextBehaviorEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2TileHeaderTextBehaviorEnum {
+      wrap = 'wrap',
+      truncate = 'truncate',
+    }
+  `}
+/>
+
+## Sample code
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-tile-header-link
+      [uk2TooltipIconName]="tooltipIconName"
+      [uk2ShowTooltip]="showTooltip"
+      [uk2TextBehavior]="textBehavior"
+      (uk2ChevronClick)="onChevronClick()"
+    >
+      <div class="uk2-tile-header">[TILE TEXT]</div>
+      <div class="uk2-tile-tooltip-content">[TOOLTIP TEXT]</div>
+      <div class="uk2-tile-header-sub-line">[SUBLINE TEXT]</div>
+    </uk2-tile-header-link>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2TileHeaderTextBehaviorEnum } from '@axos/uikit-v2-lib';
+    \r
+    export class MyComponent {
+      tooltipIconName = 'uk2-info-circle';
+      showTooltip = true;
+      textBehavior = Uk2TileHeaderTextBehaviorEnum.wrap;
+      \r
+      onChevronClick() {
+        console.log('Chevron clicked');
+      }
+    }
+  `}
+/>
+
+# Uk2ProductTileDirective mat-card[uk2ProductTile]
+
+## Introduction
+<p>
+  <b>Uk2ProductTileDirective</b> is a directive that adds styles to a mat-card to match Axos Design System, it also offers a skeleton state and changes the behavior of tile content when the height is fixed, adding a scrollbar and a visual gradient at the bottom.
+</p>
+
+## Prerequisites
+<p>
+  Import MatCardModule module from @angular/material/card
+</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { MatCardModule } from '@angular/material/card';
+    import { MatListModule } from "@angular/material/list";
+  `}
+/>
+
+<p>
+  Import Uk2DirectivesModule module from @axos/uikit-v2-lib
+</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Constraints
+<ul>
+  <li>
+    Is only applied to &lt;mat-card&gt; with the attribute <strong>[uk2ProductTile]</strong> from <a target="_blank" href='https://v15.material.angular.io/components/card/overview'>Angular Material card</a>.
+  </li>
+  <li>
+    Directive style the following angular material elements &lt;mat-card-header&gt;, &lt;mat-card-actions&gt; and &lt;mat-card-content&gt;.
+  </li>
+  <li>
+    Directive will add a horizontal gradient and a scrollbar at the bottom of the tile content when the height is fixed.
+  </li>
+  <li>
+    In order to make the tile occupy full width, parent container should not have padding nor margin.
+  </li>
+  <li>
+    Skeleton state is only applied in header and footer sections. Components inside the content section should handle their own skeleton state.
+  </li>
+</ul>
+
+## Inputs
+
+<ul>
+  <li>
+    [uk2SquareTile] <u>boolean</u> <i>(optional)</i> Set tile borders to be square when input is true
+  </li>
+  <li>
+    [uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle to switch from default state to skeleton state when input is true.
+  </li>
+  <li>
+    [uk2IsTileFullWidth] <u>boolean</u> <i>(optional)</i> Makes the product tile occupy parent 100% width when input is true.
+  </li>
+</ul>
+
+## Sample code
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-card
+      uk2ProductTile
+      [uk2IsLoading]="isLoading"
+      [uk2IsSquareTile]="isSquareTile"
+      [uk2IsTileFullWidth]="isTileFullWidth"
+    >
+      <mat-card-header> [HEADER CONTENT] </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content> [TILE CONTENT] </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions> [TILE FOOTER] </mat-card-actions>
+    </mat-card>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    export class MyComponent {
+      isLoading = false;
+      isSquareTile = false;
+      isTileFullWidth = false;
+    }
+  `}
+/>
+
+# Uk2ProductTileGridDirective [uk2ProductTileGrid]
+
+## Introduction
+
+<p>
+  <b>Uk2ProductTileGridDirective</b> is a directive that configures the layout of the product tile header using CSS grid. In the following examples this directive will be used along with other three directives <b>[uk2ProductTileActions]</b>, <b>[uk2ProductTileComponent]</b> and <b>[uk2ProductTileHeader]</b> these directives assign areas for CSS Grid and can be used in any HTML element.
+</p>
+
+### <b>Grid areas</b>
+
+<p>
+  Here are all the layouts for the grid in which black square will be occupied by <b>[uk2ProductTileHeader]</b>, orange square will be occupied by <b>[uk2ProductTileActions]</b> and grey square will be occupied by <b>[uk2ProductTileComponent].</b>
+  <br/>
+  <br/>
+  Component: <b>[uk2ProductTileComponent]</b><br/>
+  Actions: <b>[uk2ProductTileActions]</b><br/>
+  Header: <b>[uk2ProductTileHeader]</b><br/>
+</p>
+
+<div>
+  <p>Mobile screen size with component position top</p>
+  <img style={{marginBottom:"15px"}} src="/assets/uk2/components/product-tile/assets/images/mobile-product-tile-grid-position-top.png"/>
+</div>
+
+<div>
+  <p>Mobile screen size with component position bottom</p>
+  <img style={{marginBottom:"15px"}} src="/assets/uk2/components/product-tile/assets/images/mobile-product-tile-grid-position-bottom.png"/>
+</div>
+
+<div>
+  <p>Desktop screen size with component position top</p>
+  <img style={{marginBottom:"15px"}} src="/assets/uk2/components/product-tile/assets/images/product-tile-grid-position-top.png"/>
+</div>
+
+<div>
+  <p>Desktop screen size with component position bottom</p>
+  <img style={{marginBottom:"15px"}} src="/assets/uk2/components/product-tile/assets/images/product-tile-grid-position-bottom.png"/>
+</div>
+
+## Prerequisites
+
+<p>
+  Import Uk2DirectivesModule module from @axos/uikit-v2-lib
+</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Constraints
+
+<ul>
+  <li>[uk2ProductTileGrid] must be child of &lt;mat-card&gt; component with [uk2ProductTile] directive</li>
+  <li>[uk2ProductTileGrid] directive must be used in &lt;mat-card-header&gt; component</li>
+  <li>[uk2ProductTileHeader], [uk2ProductTileActions], [uk2ProductTileComponent] grid directives needs to be childs of a &lt;mat-card-header&gt; with [uk2ProductTileGrid] directive see examples below</li>
+  <li>[uk2ProductTileActions] adds flex styles to separate elements inside of it, if you add an inner container for the action elements it will not add the space styles correctly</li>
+</ul>
+
+## Inputs
+
+<ul>
+  <li>
+    [uk2ComponentPosition] <u>Uk2ProductTileComponentPositionEnum</u> <i>(optional)</i> Set the position of component section to top or bottom
+  </li>
+</ul>
+
+## Enums
+
+<p>
+  <u>Uk2ProductTileComponentPositionEnum</u>
+</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2ProductTileComponentPositionEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2ProductTileComponentPositionEnum {
+      top = 'top',
+      bottom = 'bottom',
+    }
+  `}
+/>
+
+# Layout directives
+
+<p>
+[uk2JustifyContentSpaceBetween] and [uk2JustifyContentCenter] are directives that apply flex layout with justify content space between and justify content center respectively.
+</p>
+<p>
+This directives are used in the full example below. To style &lt;mat-card-actions&gt;, these layout directives can be used anywhere.
+</p>
+
+## Prerequisites
+
+<p>
+  Import Uk2DirectivesModule module from @axos/uikit-v2-lib
+</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+<div>
+<p>
+  <b>[uk2JustifyContentSpaceBetween]</b> directive applies the following styles<br/>
+  <Source
+    dark
+    language='css'
+    code={dedent`
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    `}
+  />
+</p>
+<p>
+  <b>[uk2JustifyContentCenter]</b> directive applies the following styles<br/>
+  <Source
+    dark
+    language='css'
+    code={dedent`
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    `}
+  />
+</p>
+</div>
+
+# Full example
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-card
+      uk2ProductTile
+      [uk2IsLoading]="isLoading"
+      [uk2IsSquareTile]="isSquareTile"
+      [uk2IsTileFullWidth]="isTileFullWidth"
+    >
+      <!-- Adding uk2ProductTileGrid directive to mat-card-header and setting component position input -->
+      <mat-card-header uk2ProductTileGrid [uk2ComponentPosition]="componentPosition">
+        <!-- Adding uk2ProductTileHeader directive to uk2-tile-header-link to occupy header section -->
+        <uk2-tile-header-link
+          uk2ProductTileHeader
+          [uk2TooltipIconName]="tooltipIconName"
+          [uk2ShowTooltip]="showTooltip"
+          [uk2TextBehavior]="textBehavior"
+          (uk2ChevronClick)="onChevronClick()"
+        >
+          <div class="uk2-tile-header">[TILE TEXT]</div>
+          <div class="uk2-tile-tooltip-content">[TOOLTIP TEXT]</div>
+          <div class="uk2-tile-header-sub-line">[SUBLINE TEXT]</div>
+        </uk2-tile-header-link>
+        \r
+        <!-- Adding uk2ProductTileComponent directive to mat-tab-group component to occupy component section -->
+        <mat-tab-group
+          uk2StretchTabs
+          disableRipple
+          mat-stretch-tabs
+          animationDuration="0ms"
+          uk2ProductTileComponent
+          [uk2StretchTabsSize]="smallTab"
+        >
+          <mat-tab #listTab label="[TAB 1]"></mat-tab>
+          <mat-tab #alertTab label="[TAB 2]"></mat-tab>
+        </mat-tab-group>
+        \r
+        <!-- Adding uk2ProductTileActions directive to button to occupy actions section -->
+        <div uk2ProductTileActions>
+          <button uk2SecondaryIconButton mat-stroked-button disableRipple [uk2ButtonSize]="smallSize">
+            <mat-icon svgIcon="uk2-filter-funnel"></mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      \r
+      <mat-card-content>
+        <!-- content of first tab -->
+        <div id="tab-1" *ngIf="listTab.isActive">
+          <uk2-list-item uk2Clickable [uk2ListItem]="listItem" [uk2IsLoading]="isLoading"></uk2-list-item>
+        </div>
+        <!-- content of second tab -->
+        <div id="tab-2" *ngIf="alertTab.isActive">
+          <uk2-alert-banner
+            uk2AlertBannerBodyText="lorem ipsum dolor sit amet consectetur adipisicing elit"
+            uk2AlertBannerHeaderText="Alert 1"
+            uk2AlertBannerSvgIconName="uk2-cog"
+            uk2AlertBannerHyperlinkText="Learn More"
+            [uk2AlertBannerType]="alertType"
+            [uk2IsLoading]="isLoading"
+            [uk2AlertBannerBehavior]="alertPersistent"
+          ></uk2-alert-banner>
+        </div>
+      </mat-card-content>
+      \r
+      <mat-card-actions>
+        <!-- using flex directive -->
+        <div uk2JustifyContentCenter>
+          <a uk2Anchor>[LINK]</a>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  `}
+/>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import {
+      Uk2ProductTileComponentPositionEnum,
+      Uk2TileHeaderTextBehaviorEnum,
+      Uk2ButtonSizeEnum,
+      Uk2ListItem,
+      Uk2AlertBannerTypeEnum,
+      Uk2AlertBannerBehaviorEnum,
+      Uk2StretchTabsSizeEnum,
+    } from '@axos/uikit-v2-lib';
+    \r
+    export class MyComponent {
+      // uk2-product-tile
+      isLoading = false;
+      isSquareTile = false;
+      isTileFullWidth = false;
+      \r
+      // uk2-product-tile-grid
+      componentPosition: Uk2ProductTileComponentPositionEnum = Uk2ProductTileComponentPositionEnum.top;
+      \r
+      // uk2-tile-header-link
+      tooltipIconName = 'uk2-info-circle';
+      showTooltip = true;
+      textBehavior = Uk2TileHeaderTextBehaviorEnum.wrap;
+      onChevronClick() {
+        console.log('Chevron clicked');
+      }
+      \r
+      // different uk2-components
+      smallTab = Uk2StretchTabsSizeEnum.small;
+      smallSize = Uk2ButtonSizeEnum.small;
+      listItem: Uk2ListItem = {
+        imageUrl: '',
+        moneyAmount: 100,
+        svgIconName: 'uk2-payment-due',
+        bodyText: 'Lorem ipsum dolor ',
+        headerLabelName: 'Option 1',
+        headerLabelIdentifier: '3543',
+        value: 'option1',
+      };
+      alertType: Uk2AlertBannerTypeEnum = Uk2AlertBannerTypeEnum.inform;
+      alertPersistent: Uk2AlertBannerBehaviorEnum = Uk2AlertBannerBehaviorEnum.persistent;
+    }
+  `}
+/>
+
+<p>*.module.ts</p>
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { NgModule } from '@angular/core';
+    import { CommonModule } from '@angular/common';
+    \r
+    import { MatCardModule } from '@angular/material/card';
+    import { MatButtonModule } from '@angular/material/button';
+    import { MatIconModule } from '@angular/material/icon';
+    import { MatTabsModule } from '@angular/material/tabs';
+    \r
+    import {
+      Uk2DirectivesModule,
+      Uk2TileHeaderLinkModule,
+      Uk2AlertBannerModule,
+      Uk2ListItemModule,
+    } from '@axos/uikit-v2-lib';
+    \r
+    @NgModule({
+      // declarations, providers, etc. ...
+      imports: [
+        CommonModule,
+        MatTabsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatCardModule,
+        Uk2TileHeaderLinkModule,
+        Uk2DirectivesModule,
+        Uk2ListItemModule,
+        Uk2AlertBannerModule,
+      ],
+    })
+    export class MyModule { }
+  `}
+/>

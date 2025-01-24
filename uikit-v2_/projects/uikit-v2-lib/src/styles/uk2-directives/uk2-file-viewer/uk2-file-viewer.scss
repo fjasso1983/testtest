@@ -1,0 +1,52 @@
+@import './uk2-file-viewer.mixins';
+
+.uk2-file-viewer-container-extended {
+  background-color: var(--uk2-neutral-white);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  button[class^='uk2-text-icon-button'],
+  button[class*='uk2-text-icon-button'],
+  button[class*='uk2-text-icon-button']:hover:not(.uk2-text-icon-button-skeleton) {
+    color: var(--uk2-file-viewer-color) !important;
+  }
+
+  pdf-viewer {
+    flex: 1;
+    background-color: var(--uk2-neutral-white);
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    .pdfViewer .page {
+      border: none !important;
+    }
+  }
+  
+  &.uk2-file-viewer-border{
+    @include uk2-file-viewer-border-mode();
+  }
+
+  .uk2-file-viewer-header {
+    @include uk2-file-viewer-header();
+  }
+
+  .uk2-file-viewer-footer {
+    @include uk2-file-viewer-footer();
+  }
+
+  .uk2-file-viewer-item {
+    &.uk2-file-viewer-item-left {
+      @include uk2-file-viewer-position(left);
+    }
+
+    &.uk2-file-viewer-item-center {
+      @include uk2-file-viewer-position(center);
+    }
+
+    &.uk2-file-viewer-item-right {
+      @include uk2-file-viewer-position(right);
+    }
+  }
+}

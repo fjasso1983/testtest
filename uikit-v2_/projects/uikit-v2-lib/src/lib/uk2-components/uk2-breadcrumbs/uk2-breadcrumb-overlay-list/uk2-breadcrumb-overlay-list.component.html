@@ -1,0 +1,16 @@
+<div class="uk2-breadcrumb-overlay" [attr.aria-label]="'additional breadcrumbs overlay'" cdkTrapFocus>
+  <ol>
+    <ng-container *ngFor="let item of _items; let i = index">
+      <li class="uk2-breadcrumb-overlay-item">
+        <a
+          class="uk2-font__body-regular--100"
+          [attr.aria-label]="getRelativePosition(i + 1)"
+          [routerLink]="item.url"
+          (click)="onItemSelected(item)"
+        >
+          {{ item.label }}
+        </a>
+      </li>
+    </ng-container>
+  </ol>
+</div>

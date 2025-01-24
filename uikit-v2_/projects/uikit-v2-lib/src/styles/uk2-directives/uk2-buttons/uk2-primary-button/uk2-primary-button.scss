@@ -1,0 +1,27 @@
+@import './uk2-primary-button.mixins';
+
+button.uk2-primary-button-small {
+    @include uk2-primary-button-size($uk2-button-small);
+}
+
+button.uk2-primary-button-medium {
+    @include uk2-primary-button-size($uk2-button-medium);
+}
+
+button.uk2-primary-button-large {
+    @include uk2-primary-button-size($uk2-button-large);
+}
+
+button.uk2-primary-button-skeleton {
+    pointer-events: none;
+    color: transparent !important;
+    @include uk2-loading-skeleton-animation('--uk2-neutral-grey-300', '--uk2-neutral-grey-200');
+    &.mat-mdc-raised-button:not(:disabled) {
+      background-color: var(--uk2-neutral-grey-300);
+    }
+    &.mat-mdc-raised-button {
+      &:disabled {
+        background-color: var(--uk2-neutral-grey-300);
+      }
+    }
+}

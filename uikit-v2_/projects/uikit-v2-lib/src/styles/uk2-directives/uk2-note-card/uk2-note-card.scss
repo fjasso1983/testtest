@@ -1,0 +1,25 @@
+@import './uk2-note-card.mixins';
+
+.uk2-skeleton-note-card-no-checkbox {
+    @include uk2-skeleton-note-card($uk2-no-checkbox);
+    @include uk2-note-card-responsive;
+}
+
+.uk2-skeleton-note-card {
+  @include uk2-skeleton-note-card($uk2-checkbox);
+  @include uk2-note-card-responsive;
+}
+
+.uk2-note-card-large {
+     @include uk2-note-card($uk2-text-large);
+     @include uk2-note-card-responsive;
+}
+
+.uk2-note-card-small {
+    @include uk2-note-card($uk2-text-small);
+    @include uk2-note-card-responsive;
+}
+
+.uk2-note-card-checkbox {
+    margin-right: 8px !important;
+}

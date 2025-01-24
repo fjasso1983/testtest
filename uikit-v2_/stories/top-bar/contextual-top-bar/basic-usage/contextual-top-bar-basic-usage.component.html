@@ -1,0 +1,136 @@
+<uk2-brand-top-bar
+  *ngIf="hasTopBar"
+  [uk2IsLoading]="isLoading"
+  [uk2IsAxos]="isAxos"
+  [uk2LogoImgPath]="logoUrl"
+  [uk2LogoRedirectionUrl]="urlRedirectionConfig"
+  [uk2OrganizationName]="organizationName"
+  [uk2HasContextualTopBar]="hasTopBar"
+  [uk2LabeledIconButton]="labeledIconButton"
+  [uk2ShowCloseButton]="showCloseButton"
+  [uk2MobileLogoPath]="mobileLogoUrl"
+  [uk2MobilePageTitle]="title"
+  (uk2CallBackButton)="goBack()"
+></uk2-brand-top-bar>
+
+<div class="wrapper">
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+
+  <ul>
+    <li>Contextual Top Bar responsiveness. Shows how the Contextual top bar looks in different resolutions</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+    <li>Contextual Top Bar states (default and skeleton).</li>
+    <li>Text truncation. Use the preview size control above to see this.</li>
+    <li>Show how Contextual Top Bar behaves when being sticky.</li>
+    <li>Back button on mobiles screens</li>
+  </ul>
+</div>
+
+<mat-toolbar uk2ContextualTopBar [uk2IsLoading]="isLoading" [uk2IsSticky]="isSticky" [uk2HasTopBar]="hasTopBar">
+  <mat-toolbar-row
+    uk2ContextualTopBarActionsRow
+    [uk2BackButton]="contextualTopBarBackButton"
+    [uk2CloseButton]="contextualTopBarCloseButton"
+    class="uk2-contextual-top-actions-section"
+  >
+    <div class="uk2-contextual-top-bar-header-section">
+      <uk2-breadcrumbs
+        #uk2Breadcrumbs
+        *ngIf="items.length > 0 && hasBreadCrumbs"
+        [items]="breadcrumbItems"
+        [uk2IsLoading]="isLoading"
+        (itemSelected)="onItemSelected($event)"
+      ></uk2-breadcrumbs>
+      <div class="uk2-contextual-top-bar-header-section-title-container">
+        <h2>{{ title }}</h2>
+      </div>
+    </div>
+    <div *ngIf="itHasContextualArea" class="uk2-contextual-top-bar-contextual-section">
+      <button
+        uk2PrimaryButton
+        disableRipple
+        mat-raised-button
+        [uk2ButtonSize]="uk2ButtonSize"
+        [uk2IsLoading]="isLoading"
+      >
+        Lorem Ipsum
+      </button>
+      <button
+        uk2SecondaryButton
+        disableRipple
+        mat-stroked-button
+        [uk2ButtonSize]="uk2ButtonSize"
+        [uk2IsLoading]="isLoading"
+      >
+        Lorem Ipsum
+      </button>
+    </div>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="uk2-contextual-top-tabs-section" *ngIf="hasGlobalTabs">
+    <nav
+      [uk2IsLoading]="isLoading"
+      [mat-stretch-tabs]="false"
+      disableRipple
+      dynamicHeight
+      uk2HorizontalLabelAlignedTabs
+      mat-tab-nav-bar
+      [tabPanel]="tabPanel"
+    >
+      <a
+        *ngFor="let tab of items; index as i"
+        uk2NotificationBadge
+        matBadge="!"
+        [disabled]="horizontalTabsDisabled"
+        mat-tab-link
+        [matBadgeHidden]="horizontalTabsBadgesHidden"
+        [active]="i === selectedTab"
+        (click)="tabChange(i)"
+      >
+        <mat-icon *ngIf="!horizontalTabsIconsHidden" [svgIcon]="alertIcons.xCircle"></mat-icon>
+        {{ tab.label }}
+      </a>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>
+<section #tabPanel>
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngFor="let tab of items; index as i">
+      <div *ngIf="i === selectedTab">
+        <p> {{ tab.label }} </p>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>
+<section *ngIf="isSticky" style="height: 100vh">
+  <p>Content</p>
+</section>
+
+<ng-template #contextualTopBarBackButton>
+  <button
+    uk2TextIconButton
+    mat-button
+    disableRipple
+    [uk2ButtonSize]="leftButtonSize"
+    [style.visibility]="!!labeledIconButton ? 'visible' : 'hidden'"
+    class="uk2-brand-top-bar-top-left-button-responsive uk2-contextual-top-bar-size-button"
+    aria-label="Top bar button"
+  >
+    <mat-icon class="uk2-brand-top-bar-top-left-icon" [svgIcon]="arrowBackIcon"></mat-icon>
+  </button>
+</ng-template>
+
+<ng-template #contextualTopBarCloseButton>
+  <button
+    id="uk2BrandTopBarCloseButton"
+    uk2TextIconButton
+    mat-button
+    disableRipple
+    [style.visibility]="showCloseButton ? 'visible' : 'hidden'"
+    [uk2ButtonSize]="leftButtonSize"
+    class="uk2-brand-top-bar-top-close-button-responsive uk2-contextual-top-bar-size-button"
+    aria-label="Top bar close button"
+  >
+    <mat-icon class="uk2-brand-top-bar-top-close-button-icon" [svgIcon]="closeIconButton"></mat-icon>
+  </button>
+</ng-template>

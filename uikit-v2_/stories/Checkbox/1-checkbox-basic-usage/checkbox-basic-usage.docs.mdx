@@ -1,0 +1,35 @@
+import IntroductionLayout from '../checkbox-introduction.docs.mdx';
+import { Source, Canvas } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2Checkbox directive documentation
+
+<IntroductionLayout></IntroductionLayout>
+
+## Sample code
+
+<Source
+  dark
+  code={dedent`
+    <div class="uk2-checkbox-container">
+      <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading" [disabled]="disabled" [indeterminate]="indeterminate" [checked]="isChecked"></mat-checkbox>
+      <label>{{ text }}</label>
+    </div>
+  `}
+/>
+
+
+## Sample code with Hyperlink
+
+<Source
+  dark
+  code={dedent`
+    <div class="uk2-checkbox-container">
+      <mat-checkbox uk2Checkbox  [uk2IsLoading]="isLoading" [disabled]="disabled" [indeterminate]="indeterminate" [checked]="isChecked"></mat-checkbox>
+      <label>
+        {{ text }}
+        <a uk2Anchor [href]="'new/url'" target="_blank">link</a>
+      </label>
+    </div>
+  `}
+/>

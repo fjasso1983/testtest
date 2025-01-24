@@ -1,0 +1,52 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+
+<ul>
+  <li>Breadcrumbs states (default and skeleton).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>
+    Note that responsiveness is not included in this page since this component is meant to be used with the Contextual
+    Top Bar component. Which will handle the corresponding size for this on the different screen sizes.
+  </li>
+  <li>Breadcrumbs back navigation behavior.</li>
+  <li>Breadcrumbs text truncation. Use the preview size control above to see this.</li>
+  <li>
+    Please use the
+    <b>Reset items</b>
+    button to restore the links after navigating back with the breadcrumbs
+  </li>
+</ul>
+
+<br />
+<mat-toolbar>
+  <mat-toolbar-row>
+    <uk2-breadcrumbs
+      [items]="breadcrumbItems"
+      [uk2IsLoading]="uk2IsLoading"
+      (itemSelected)="onItemSelected($event)"
+    ></uk2-breadcrumbs>
+  </mat-toolbar-row>
+</mat-toolbar>
+<br />
+<div class="button-container">
+  <button
+    uk2PrimaryButton
+    disableRipple
+    mat-raised-button
+    [uk2ButtonSize]="uk2ButtonSize"
+    type="button"
+    (click)="addItem()"
+  >
+    Add item
+  </button>
+  <button
+    uk2PrimaryButton
+    disableRipple
+    mat-raised-button
+    [uk2ButtonSize]="uk2ButtonSize"
+    type="button"
+    (click)="resetItems()"
+  >
+    Reset items
+  </button>
+</div>

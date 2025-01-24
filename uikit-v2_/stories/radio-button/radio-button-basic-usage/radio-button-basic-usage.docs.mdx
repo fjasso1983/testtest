@@ -1,0 +1,151 @@
+import { Source } from '@storybook/addon-docs';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+
+# uk2RadioButton directive documentation
+
+## Introduction
+<p>
+<strong>Uk2RadioButtonDirective</strong> is a directive designed to customize the styling of <i>&lt;mat-radio-button&gt;</i> <a target="_blank" href='https://v15.material.angular.io/components/radio/overview'>Angular Material component</a> to adhere to Axos Design System check <a target="_blank" href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=1863%3A29623&t=vhfNsqizBpEoXKq5-0">Radio button</a> and <a target="_blank" href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?type=design&node-id=5510-17153&mode=design&t=kP2afOgD1qvgk5z7-0">Labeled radio button</a> figma links.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;mat-radio-button&gt;</strong> Angular Material component. It will add the <strong> uk2-radio-button </strong> css class name to handle styles.
+  </li>
+  <li>
+    Required attributes <span style={{backgroundColor: '#F0F0F0', borderRadius: '5px', padding: '3px'}}>disableRipple="true"</span> in <strong>&lt;mat-radio-button&gt;</strong>.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the **color** attribute for the Angular Material component for example <span style={{backgroundColor: '#F0F0F0', borderRadius: '5px', padding: '3px'}}>[color]="'warn'"</span>.
+  </li>
+</ol>
+
+## Prerequisites
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+<ul>
+  <li>Import *@angular/material* required module for radio button.</li>
+</ul>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { MatRadioModule } from '@angular/material/radio';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle to skeleton state when this is true.</li>
+  <li>[uk2RadioButtonSize] <u>Uk2RadioButtonSizeEnum</u> <i>(optional)</i> Allow change the size of radio button to medium size or small size.</li>
+  <li>[uk2Alignment] <u>Uk2RadioButtonAlignmentEnum</u> <i>(optional)</i> Allow change the text position to left or right.</li>
+</ul>
+
+## Enums
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2RadioButtonSizeEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2RadioButtonSizeEnum {
+      medium = 'medium',
+      small = 'small',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2RadioButtonAlignmentEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2RadioButtonAlignmentEnum {
+      left = 'left',
+      right = 'right',
+    }
+  `}
+/>
+
+
+## Sample code
+
+<Source
+  dark
+  code={dedent`
+    <mat-radio-group>
+      <mat-radio-button
+        value="agree"
+        disableRipple="true"
+        uk2RadioButton
+        [disabled]="isDisabled"
+        [uk2RadioButtonSize]="size"
+        [uk2IsLoading]="isLoading"
+        [uk2Alignment]="alignment"
+      >
+        I agree
+      </mat-radio-button>
+  </mat-radio-group>
+  `}
+/>
+
+
+## Sample code with Hyperlink
+
+<Source
+  dark
+  code={dedent`
+    <mat-radio-group>
+      <mat-radio-button
+        value="agree"
+        disableRipple="true"
+        uk2RadioButton
+        [disabled]="isDisabled"
+        [uk2RadioButtonSize]="size"
+        [uk2IsLoading]="isLoading"
+        [uk2Alignment]="alignment"
+      >
+        I agree <a uk2Anchor target="_blank" href="/terms-and-conditions">terms & conditions</a>
+      </mat-radio-button>
+    </mat-radio-group>
+  `}
+/>
+
+## Displaying radios vertically and horizontally
+
+### Suggested styles to apply to achieve both variants depending on the requirement
+
+**Vertical**
+<Source
+  dark
+  language="css"
+  code={dedent`
+    mat-radio-group {
+      display: flex;
+      flex-direction: column;
+      // space between radio buttons
+      gap: 0px;
+    }
+  `}
+/>
+
+**Horizontal**
+<Source
+  dark
+  language="css"
+  code={dedent`
+    mat-radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      // space between radio buttons
+      gap: 5px 40px;
+    }
+  `}
+/>

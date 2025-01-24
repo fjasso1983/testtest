@@ -1,0 +1,209 @@
+@mixin uk2-messaging-card(){
+  &.mat-expansion-panel{
+    overflow: hidden;
+    gap:16px;
+    box-shadow: none;
+    border-radius: 8px;
+    .mat-expansion-panel-header{
+      padding:16px;
+      height: 100%;
+      pointer-events: none;
+      align-items: normal;
+
+      .uk2-messaging-card-icon{
+        min-height: 24px;
+        min-width: 24px;
+      }
+      .uk2-messaging-card-header-text{
+        margin-left: 8px;
+        color: var(--uk2-neutral-slate-500);
+        @include uk2-font__body-medium--100();
+        @include uk2-max-number-of-lines(1);
+      }
+    }
+
+
+    .mat-expansion-panel-body{
+      position: relative;
+      top: -16px;
+      margin-left: 26px;
+      transition: opacity 0.2s ;
+      opacity: 0;
+      color: var(--uk2-neutral-slate-400);
+      padding: 0 46px 16px 24px;
+      @include uk2-font__body-regular--75();
+    }
+
+    .mat-expansion-panel-header:hover {
+      background: transparent !important;
+    }
+
+    .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+      align-items: normal;
+      margin-right: 0px;
+      word-break: break-all;
+    }
+
+    .mat-expansion-panel-header-description {
+      flex-grow: 0;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      margin-left:8px;
+      max-height: 24px;
+      max-width: 24px;
+      box-sizing: border-box;
+      .uk2-messaging-card-expand-icon{
+        pointer-events: fill;
+        transform: rotate(0deg);
+        transition: transform 0.2s;
+      }
+    }
+
+    .mat-content.mat-content-hide-toggle {
+      margin-right: 0px;
+    }
+  }
+}
+
+@mixin uk2-messaging-card-expanded{
+  &.mat-expansion-panel{
+    &.mat-expanded{
+
+      .mat-expansion-panel-body {
+        opacity: 1;
+        padding-bottom: 0;
+      }
+
+      .uk2-messaging-card-header-text{
+        @include uk2-max-number-of-lines(2);
+      }
+    }
+
+    .mat-expansion-panel-header-description {
+      .uk2-messaging-card-expand-icon{
+        &.uk2-messaging-card-expanded{
+          transform: rotate(180deg);
+          transition: transform 0.2s;
+        }
+      }
+    }
+  }
+}
+
+@mixin uk2-messaging-card-default{
+  &.uk2-messaging-card-default{
+    background-color: var(--uk2-neutral-white);
+    .uk2-messaging-card-icon{
+      color: var(--uk2-neutral-slate-400);
+    }
+    .mat-expansion-panel-header-description:hover {
+      background:var(--uk2-neutral-grey-100);
+      box-sizing: border-box;
+    }
+  }
+}
+
+@mixin uk2-messaging-card-alert{
+  &.uk2-messaging-card-alert{
+    background-color: var(--uk2-specialty-yellow-100);
+    .uk2-messaging-card-icon{
+      color: var(--uk2-semantic-red);
+    }
+    .mat-expansion-panel-header-description:hover {
+      border:1px solid var(--uk2-specialty-yellow-600);
+      box-sizing: border-box;
+    }
+  }
+}
+
+
+@mixin uk2-messaging-card-inform{
+  &.uk2-messaging-card-inform{
+    background-color: var(--uk2-axos-primary-blue-100);
+    .uk2-messaging-card-icon{
+      color: var(--uk2-axos-primary-blue-400);
+    }
+    .mat-expansion-panel-header-description:hover {
+      border:1px solid var(--uk2-axos-primary-blue-400);
+      box-sizing: border-box;
+    }
+  }
+}
+
+
+@mixin uk2-messaging-card-skeleton(){
+  &.uk2-messaging-card-skeleton{
+    border-radius: 8px;
+    min-height: 56px;
+    background-color: var(--uk2-neutral-grey-300);
+    .uk2-messaging-card-expanded-skeleton{
+      padding:16px;
+      .uk2-messaging-card-expanded-header-skeleton{
+        display: flex;
+        flex-direction: row;
+        .uk2-messaging-card-expanded-header-icon-skeleton{
+          border-radius: 8px;
+          min-height: 24px;
+          min-width: 24px;
+          height: 24px;
+          width: 24px;
+          background-color: var(--uk2-neutral-grey-400);
+        }
+        .uk2-messaging-card-expanded-container-skeleton{
+            width: 100%;
+            padding: 0 8px;
+          .uk2-messaging-card-expanded-header-title-skeleton{
+            border-radius: 8px;
+            height: 32px;
+            width: 70%;
+            background-color: var(--uk2-neutral-grey-400);
+          }
+          .uk2-messaging-card-expanded-content-1-skeleton{
+            margin-top:16px;
+            border-radius: 8px;
+            height: 24px;
+            width: 100%;
+            background-color: var(--uk2-neutral-grey-400);
+          }
+          .uk2-messaging-card-expanded-content-2-skeleton{
+            margin-top:16px;
+            border-radius: 8px;
+            height: 24px;
+            width: 88%;
+            background-color: var(--uk2-neutral-grey-400);
+          }
+          .uk2-messaging-card-expanded-content-3-skeleton{
+            margin-top:16px;
+            border-radius: 8px;
+            height: 32px;
+            width: 70%;
+            background-color: var(--uk2-neutral-grey-400);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin uk2-messaging-card-responsive(){
+  @include xs {
+    &.mat-expansion-panel{
+      &.uk2-messaging-card-expandable{
+        .mat-expansion-panel-header{
+          pointer-events: fill !important;
+        }
+      }
+    }
+  }
+
+  @include md {
+    &.mat-expansion-panel{
+      &.uk2-messaging-card-expandable{
+        .mat-expansion-panel-header{
+          pointer-events: none !important;
+        }
+      }
+    }
+  }
+}
+

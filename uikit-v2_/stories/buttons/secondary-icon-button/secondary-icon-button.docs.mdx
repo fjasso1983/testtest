@@ -1,0 +1,80 @@
+import { Source, ArgsTable, Canvas, Meta, Story, PRIMARY_STORY } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import { MatButtonModule } from '@angular/material/button';
+import PrerequisitesDoc from '../button-prerequisites.docs.mdx';
+import InputEnumDoc from '../input-enum-docs.docs.mdx';
+import dedent from 'ts-dedent';
+
+# Uk2SecondaryIconButton directive documentation
+
+## Introduction
+<p>
+<strong>Uk2SecondaryIconButtonDirective</strong> is a directive designed to customize the styling of <strong>mat-stroked-button</strong> directive from <a target="_blank" href='https://v15.material.angular.io/components/button/overview'>Angular Material</a> to adhere to <a target="_blank" href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=752%3A27363&t=zlTHs2LZclf3UA1Z-0">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    It should only be applied to <strong>&lt;button&gt;</strong> elements with  mat-stroked-button directive from <a target="_blank" href='https://v15.material.angular.io/components/button/overview'>Angular Material</a>. It will add the <strong> uk2-secondary-icon-button-[large,medium,small] </strong> css class name to handle styles.
+  </li>
+  <li>
+    It should only be applied to <strong>&lt;button&gt;</strong> elements with disableRipple directive. To avoid breaking the predefined styles.
+  </li>
+  <li>
+    White label styling is only supported <strong>without</strong> setting the "color" attribute for the <a target="_blank" href='https://v15.material.angular.io/components/button/overview'>Angular Material</a> component.
+  </li>
+</ol>
+
+<PrerequisitesDoc></PrerequisitesDoc>
+
+<p>
+  Note that this directive uses icons and these are part of the @axos/uikit-v2-lib iconography. To see more information go to <a href="/docs/iconography--iconography">iconography.</a>
+</p>
+
+<InputEnumDoc></InputEnumDoc>
+
+## Sample Code
+### .component.html
+<p>
+  Note the use of <strong>uk2SecondaryIconButton</strong> directive, applied to the <strong>&lt;button&gt;</strong> element.
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <button
+      uk2SecondaryIconButton
+      mat-stroked-button
+      disableRipple
+      [uk2ButtonSize]="uk2ButtonSize"
+      [uk2IsLoading]="uk2IsLoading"
+      [disabled]="isDisabled"
+    >
+      <mat-icon [svgIcon]="svgIconName"></mat-icon>
+    </button>
+  `}
+/>
+
+### .component.html
+<p>
+  Note that svgIconName is part of the @axos/uikit-v2-lib iconography. To see more information go to <a href="/docs/iconography--iconography">iconography.</a>
+</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    export class MyComponent {
+      @Input() uk2ButtonSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.large;
+      @Input() uk2IsLoading = false;
+      @Input() isDisabled = false;
+      @Input() svgIconName = 'uk2-printer';
+      \r
+      constructor() {
+      }
+    }
+  `}
+/>
+

@@ -1,0 +1,60 @@
+<div
+  uk2FileViewerContainer
+  [uk2FileViewerWidth]="'auto'"
+  [uk2FileViewerHeight]="'400px'"
+  [uk2FileViewerNoBorder]="true"
+>
+  <div uk2FileViewerHeader>
+    <div [uk2FileViewerElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
+      <input
+        [(ngModel)]="inputPage"
+        (blur)="updatePage($event)"
+        (keydown)="keydownPage($event)"
+        type="number"
+        id="page"
+        autocomplete="off"
+      />
+      of {{ pdf?.numPages }}
+    </div>
+    <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+      <button
+        (click)="setZoomValue('minus')"
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        [uk2IsLoading]="isLoading"
+        ><mat-icon [svgIcon]="iconZoomLess"></mat-icon
+      ></button>
+      <input
+        type="text"
+        [value]="zoom + '%'"
+        (blur)="onBlur($event)"
+        (click)="onFocus($event)"
+        autocomplete="off"
+        id="page"
+        placeholder="100%" />
+      <button
+        (click)="setZoomValue('plus')"
+        uk2TextIconButton
+        disableRipple
+        mat-button
+        [uk2ButtonSize]="buttonSize.small"
+        [uk2IsLoading]="isLoading"
+        ><mat-icon [svgIcon]="iconZoomMore"></mat-icon></button
+    ></div>
+    <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl></div>
+  </div>
+  <pdf-viewer
+    *ngIf="pdfSrc"
+    [src]="pdfSrc"
+    [render-text]="true"
+    [original-size]="false"
+    [zoom-scale]="'page-width'"
+    [zoom]="zoom / 100"
+    [autoresize]="true"
+    [(page)]="pdfPage"
+    [show-borders]="true"
+    (after-load-complete)="callBackPDFLoaded($event)"
+  ></pdf-viewer>
+</div>

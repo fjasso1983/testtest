@@ -1,0 +1,26 @@
+.flyout-container {
+  width: 145px;
+  border-radius: inherit;
+}
+
+.large-flyout-container {
+  width: 250px;
+  border-radius: inherit;
+  .uk2-menu-list-content {
+    min-height: 40px;
+  }
+}
+
+.custom-flyout-container {
+  width: 250px;
+  .custom-styles {
+    height: 56px;
+    padding: 16px;
+    p {
+      color: #000;
+    }
+    mat-icon {
+      color: red;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<h2>UiKit V2 Datepicker documentation</h2>
+
+<p>
+  <i>Uk2DatePicker</i>
+  is a directive that will control the display behavior of &lt;mat-datepicker&gt; element
+</p>
+
+<h3>Requisites</h3>
+<ul>
+  <li>
+    You need to import the SASS file in your Angular App
+    <i>styles.scss</i>
+    .
+  </li>
+</ul>
+<pre>
+  <code>
+    <b>@import '~@axos/uikit-v2-lib/src/assets/scss/uk2-theming.scss';</b>
+  </code>
+</pre>
+<ul>
+  <li>Directive must be wrapped inside a mat-form-field element or it will throw an error, see example code below</li>
+</ul>
+
+<h3>Basic Example</h3>
+<div>
+  <form [formGroup]="form">
+    <h3>Skeleton Datepicker</h3>
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Choose date</mat-label>
+      <input
+        id="inputDate"
+        matInput
+        [formControl]="date2"
+        [matDatepicker]="picker"
+        [uk2IsLoading]="true"
+        placeholder="MM/DD/YYYY"
+        uk2Input
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker uk2DatePicker #picker></mat-datepicker>
+      <mat-hint>
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        This is an example of date.
+      </mat-hint>
+    </mat-form-field>
+    <h3>Basic Datepicker</h3>
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Choose date</mat-label>
+      <input
+        id="inputDate"
+        matInput
+        [matDatepicker]="picker2"
+        [formControl]="date1"
+        placeholder="MM/DD/YYYY"
+        uk2Input
+        type="text"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2">
+        <mat-icon matDatepickerToggleIcon svgIcon="uk2-calendar"></mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker uk2DatePicker #picker2 (openedStream)="streamOpened()" [opened]="opened"></mat-datepicker>
+      <mat-hint>
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        This is an example of date.
+      </mat-hint>
+      <mat-error>Date Required</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<br />

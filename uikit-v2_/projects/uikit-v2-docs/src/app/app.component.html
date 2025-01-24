@@ -1,0 +1,58 @@
+<mat-toolbar class="nav">
+  <mat-toolbar-row>
+    <span>
+      UI Kit V2 showcase
+      <span class="small-font">(Theme: {{ currentTheme }})</span>
+      <div class="color-list small-font">
+        <div class="color-list-item">
+          <div class="color-title">primary/accent 100</div>
+          <div class="color-square uk2-accent-100"></div>
+        </div>
+        <div class="color-list-item">
+          <div class="color-title">primary/accent 200</div>
+          <div class="color-square uk2-accent-200"></div>
+        </div>
+        <div class="color-list-item">
+          <div class="color-title">primary/accent 300</div>
+          <div class="color-square uk2-accent-300"></div>
+        </div>
+        <div class="color-list-item">
+          <div class="color-title">primary/accent 400</div>
+          <div class="color-square uk2-accent-400"></div>
+        </div>
+        <div class="color-list-item">
+          <div class="color-title">primary/accent 500</div>
+          <div class="color-square uk2-accent-500"></div>
+        </div>
+        <div class="color-list-item">
+          <div class="color-title">primary/accent 600</div>
+          <div class="color-square uk2-accent-600"></div>
+        </div>
+      </div>
+    </span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container autosize role="main" class="side-nav-container">
+  <mat-drawer #drawer class="side-nav" mode="side" [opened]="true" [disableClose]="true" role="navigation">
+    <mat-nav-list role="navigation">
+      <mat-list-item *ngFor="let item of routes" class="side-nav-item" routerLinkActive="active">
+        <a class="side-nav-link" [routerLink]="item.route">{{ item.label }}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="side-nav-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item *ngFor="let theme of themesList" (click)="loadTheme(theme)">
+    <mat-icon>format_paint</mat-icon>
+    <span>{{ theme }}</span>
+  </button>
+</mat-menu>

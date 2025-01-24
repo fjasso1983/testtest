@@ -1,0 +1,577 @@
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2TableDirective directive documentation
+
+## Introduction
+<p>
+  <b>Uk2TableDirective</b> is a directive designed to customize the styling of <strong><a href="https://v15.material.angular.io/components/table/overview" target="_blank">&lt;mat-table&gt;</a></strong> Angular material component following <strong><a href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=928-2284&t=1BbdqL2B8BGHb96e-0" target="_blank">Axos Design System</a></strong>.
+</p>
+
+
+### Constraints
+<ol>
+  <li>
+    It should be applied to <strong><a href="https://v15.material.angular.io/components/table/overview" target="_blank">&lt;mat-table&gt;</a></strong>.
+  </li>
+  <li>
+    Material table should use flex display like this example from <a href='https://v15.material.angular.io/components/table/overview#tables-with-display-flex' target='_blank'>material documentation</a>
+  </li>
+  <li>
+    To apply text truncation in the table, every &lt;mat-cell&gt; content must be wrapped in a &lt;div&gt; or other block-level element.
+  </li>
+  <li>
+    Angular Material add custom css classes to each column and row, to apply custom styles to the table follow material <a href="https://v15.material.angular.io/components/table/overview#styling-columns" target="_blank">documentation</a>.
+  </li>
+  <li>
+    Table selection functionality needs to be added by client follow material <a href="https://v15.material.angular.io/components/table/examples#table-selection" target="_blank">documentation</a>.
+  </li>
+</ol>
+
+## Prerequisites
+
+Import angular material table module and uk2 directives module.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //@angular/material
+      import { MatTableModule } from '@angular/material/table';
+      //@axos/uikit-v2-lib
+      import { Uk2DirectivesModule, Uk2TableDirectiveModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> toggle skeleton state</li>
+  <li>[uk2TextBehavior] <u>Uk2TableTextBehaviorEnum</u> <i>(optional)</i> set text behavior to wrap content or to apply truncation in every cell.</li>
+  <li>[uk2TableDensity] <u>Uk2TableDensityEnum</u> <i>(optional)</i> change the space in every row depending on the value.</li>
+  <li>[uk2TableBorderType] <u>Uk2TableBorderStyleEnum</u> <i>(optional)</i> change the border radius of the table depending on the value.</li>
+</ul>
+
+## Enums
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Uk2TableBorderStyleEnum, Uk2TableDensityEnum, Uk2TableTextBehaviorEnum } from '@axos/uikit-v2-lib';
+    \r
+    export enum Uk2TableBorderStyleEnum {
+      none = 'none',
+      borderRadius8 = 'borderRadius8',
+      borderRadius16 = 'borderRadius16',
+    }
+    \r
+    export enum Uk2TableDensityEnum {
+      small = 'small',
+      medium = 'medium',
+      large = 'large',
+    }
+    \r
+    export enum Uk2TableTextBehaviorEnum {
+      truncate = 'truncate',
+      wrap = 'wrap',
+    }
+  `}
+/>
+
+## CSS Classes
+
+To achieve special columns styling, you can use the following classes:
+
+### Checkbox column
+
+<p>
+To use checkbox column add the class <strong>uk2-checkbox-column</strong> to the <strong>mat-header-cell</strong> and <strong>mat-cell</strong> elements. Example below
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <ng-container matColumnDef="yourColumn">
+      <mat-header-cell class="uk2-checkbox-column" *matHeaderCellDef>
+        <input type="checkbox" />
+      </mat-header-cell>
+      <mat-cell class="uk2-checkbox-column" *matCellDef="let element"> <input type="checkbox" /> </mat-cell>
+    </ng-container>
+  `}
+/>
+
+### Option column
+
+<p>
+To use option column add the class <strong>uk2-options-column</strong> to the <strong>mat-header-cell</strong> and <strong>mat-cell</strong> elements and inside of the cell add mat-icon component with class <strong>uk2-option-icon</strong>. Example below
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <ng-container matColumnDef="yourColumn">
+      <mat-header-cell class="uk2-options-column" *matHeaderCellDef></mat-header-cell>
+      <mat-cell class="uk2-options-column" *matCellDef="let element">
+        <mat-icon class="uk2-option-icon" [svgIcon]="ellipsisIcon"></mat-icon>
+      </mat-cell>
+    </ng-container>
+  `}
+/>
+
+### Skip text formatting class
+
+<p>
+Uk2Table has text truncate and wrap behavior in row cells adding "uk2-skip-cell-truncate-and-wrap" in <strong>mat-cell</strong> it will skip the formatting behavior for example for amount truncation.
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <ng-container matColumnDef="yourColumn">
+      <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+      <mat-cell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
+        <!-- it will not truncate or wrap the content -->
+        <div>{{ element.amount }}</div>
+      </mat-cell>
+    </ng-container>
+  `}
+/>
+
+### Group header class
+
+<p>
+To highlight in the grouping headers row cells adding  <strong>uk2-group-header</strong> class in the groupHeader <strong>mat-row</strong>
+</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <ng-container matColumnDef="groupHeader" stickyEnd>
+      <mat-header-cell class="uk2-options-column" *matCellDef="let groupBy">
+        <strong>{{groupBy.group}}</strong>
+      </mat-header-cell>
+    </ng-container>
+    <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" class="uk2-group-header"> </mat-row>
+  `}
+/>
+
+## Component-specific CSS variables
+
+  <ul>
+    <li><strong>[--uk2-table-border-color]</strong> <i>(default:--uk2-neutral-grey-200)</i> Is the color of table border.</li>
+    <li><strong>[--uk2-table-header-background-color]</strong> <i>(default: --uk2-neutral-grey-50)</i> Is the background color of the header cells.</li>
+    <li><strong>[--uk2-table-header-text-color]</strong> <i>(default: --uk2-neutral-slate-3000)</i> Is the color of the header cells text.</li>
+    <li><strong>[--uk2-table-row-hover-background-color]</strong> <i>(default: --uk2-neutral-grey-50)</i> Is the background color when you hover a default row</li>
+    <li><strong>[--uk2-table-active-row-color]</strong> <i>(default: accent-color-50-hsl())</i> Is the background color of a selected row.</li>
+    <li><strong>[--uk2-table-active-selected-row-color]</strong> <i>(default: accent-color-100-hsl())</i> Is the background color of a selected row when you hover it.</li>
+  </ul>
+
+## Sample Code
+
+### Basic Usage
+
+### *.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-table
+      uk2Table
+      [dataSource]="dataSource"
+      [uk2TableBorderType]="tableBorderType"
+      [uk2TableDensity]="tableDensity"
+      [uk2IsLoading]="isLoading"
+      [uk2TextBehavior]="tableTextBehavior"
+    >
+      <ng-container matColumnDef="checkbox" sticky>
+        <mat-header-cell class="uk2-checkbox-column" *matHeaderCellDef>
+          <mat-checkbox
+            uk2Checkbox
+            disableRipple
+            (change)="$event ? toggleAllRows() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+          ></mat-checkbox>
+        </mat-header-cell>
+        <mat-cell class="uk2-checkbox-column" *matCellDef="let element">
+          <mat-checkbox
+            uk2Checkbox
+            disableRipple
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(element) : null"
+            [checked]="selection.isSelected(element)"
+          ></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="record" sticky>
+        <mat-header-cell *matHeaderCellDef> Record </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div
+            ><p>Multiline column</p><p>{{ element.propertyA }}</p></div
+          >
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="propertyA">
+        <mat-header-cell *matHeaderCellDef> Property A </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div>
+            {{ element.propertyA }}
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="propertyB">
+        <mat-header-cell *matHeaderCellDef> Property B </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div>
+            {{ element.propertyB }}
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="propertyC">
+        <mat-header-cell *matHeaderCellDef> Property C </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div>
+            {{ element.propertyC }}
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+        <mat-cell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
+          <div>
+            <p>
+              {{ element.amount }}
+            </p>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="longColumn">
+        <mat-header-cell *matHeaderCellDef> Long Text Column </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div>
+            {{ element.longColumn }}
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="options" stickyEnd>
+        <mat-header-cell class="uk2-options-column" *matHeaderCellDef></mat-header-cell>
+        <mat-cell class="uk2-options-column" *matCellDef="let element">
+          <mat-icon class="uk2-option-icon" [svgIcon]="ellipsisIcon"></mat-icon>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      <div class="mat-row no-data-example" *matNoDataRow>
+        <div>&lt;&lt; No results custom template here &gt;&gt;</div>
+      </div>
+    </mat-table>
+`}
+/>
+
+### *.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    \r
+    import { MatTableDataSource } from '@angular/material/table';
+    import { SelectionModel } from '@angular/cdk/collections';
+    \r
+    import {
+      Uk2TableBorderStyleEnum,
+      Uk2TableDensityEnum,
+      Uk2TableTextBehaviorEnum,
+      Uk2Tier1NavigationEnum,
+    } from '@axos/uikit-v2-lib';
+    \r
+    @Component({
+      selector: 'your-table',
+      templateUrl: './table.component.html',
+    })
+    export class YourComponent {
+      isLoading = false;
+      tableDensity: Uk2TableDensityEnum = Uk2TableDensityEnum.medium;
+      tableBorderType: Uk2TableBorderStyleEnum = Uk2TableBorderStyleEnum.borderRadius8;
+      tableTextBehavior: Uk2TableTextBehaviorEnum = Uk2TableTextBehaviorEnum.wrap;
+      \r
+      displayedColumns: string[] = ['checkbox', 'record', 'propertyA', 'propertyB', 'propertyC', 'amount', 'options'];
+      dataSource = TableData;
+      ellipsisIcon = Uk2Tier1NavigationEnum.ellipsesVertical;
+      selection = new SelectionModel<RecordTable>(true, []);
+      \r
+      isAllSelected() {
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.data.length;
+        return numSelected === numRows;
+      }
+      \r
+      toggleAllRows() {
+        if (this.isAllSelected()) {
+          this.selection.clear();
+          return;
+        }
+        this.selection.select(...this.dataSource.data);
+      }
+      \r
+      checkboxLabel(row?: RecordTable): string {
+        if (!row) {
+          return \`\${this.isAllSelected() ? 'deselect' : 'select'} all\`;
+        }
+        return \`\${this.selection.isSelected(row) ? 'deselect' : 'select'} row \${row.record + 1}\`;
+      }
+    }
+    \r
+    interface RecordTable {
+      record: number;
+      propertyA: string;
+      propertyB: string;
+      propertyC: string;
+      amount: number;
+    }
+    \r
+    const TableData: RecordTable[] = [
+      {
+        record: 1,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 2,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 3,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 4,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 5,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 6,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 7,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 8,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 9,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+      {
+        record: 10,
+        propertyA: 'Lorem Ipsum',
+        propertyB: 'Lorem Ipsum',
+        propertyC: 'Lorem Ipsum',
+        longColumn: 'Lorem Ipsum with more text to show the text behavior truncation ellipsis and word wrapping',
+        amount: 1234.56,
+      },
+    ];
+  `}
+/>
+
+### *.component.scss
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+    .no-data-example {
+      display: flex;
+      padding: 20px;
+      justify-content: center;
+      align-content: center;
+      font-size: 17px;
+      font-weight: bold;
+    }
+    \r
+    // Styling sticky left column
+    .mat-mdc-table-sticky-border-elem-left {
+      font-weight: bold !important;
+      border-right: 1px solid #e4e4e4 !important;
+    }
+    \r
+    mat-table {
+      // UK2 Table CSS variables
+      // --uk2-table-border-color: var(--uk2-neutral-grey-200);
+    }
+  `}
+/>
+
+## Grouping Example
+
+### *.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    \r
+    import { MatTableDataSource } from '@angular/material/table';
+    import { SelectionModel } from '@angular/cdk/collections';
+    \r
+    import {
+      Uk2TableBorderStyleEnum,
+      Uk2TableDensityEnum,
+      Uk2TableTextBehaviorEnum,
+      Uk2Tier1NavigationEnum,
+    } from '@axos/uikit-v2-lib';
+    \r
+    @Component({
+      selector: 'your-table',
+      templateUrl: './table.component.html',
+    })
+    export class YourComponent {
+      // Properties Definition...
+      \r
+      displayedColumns: string[] = ['checkbox', 'record', 'propertyA', 'propertyB', 'propertyC', 'amount', 'options'];
+      // Assign the grouped TableData to the dataSource
+      dataSource = this.groupBy(TableData, 'propertyA');
+      \r
+      // Component methods...
+      \r
+      // Implement the grouping logic
+      groupBy(data: RecordTable[], key: string) {
+        let new_data=  data.reduce((rv: Record<string, RecordTable[]>, x: RecordTable) => {
+          if (!rv[x[key]]) {
+            rv[x[key]] = [];
+          }
+          rv[x[key]].push(x);
+          return rv;
+        }, {});
+        \r
+        let grouped_data_source:any[] = [];
+        Object.keys(new_data).forEach(key => {
+          grouped_data_source.push({group: key, isGroupBy:true});
+          let values :any[]= new_data[key];
+          values.forEach((element:any) => {
+            grouped_data_source.push(element);
+          });
+        });
+        return grouped_data_source;
+      }
+      // Method to display the group row header
+      isGroup(index:any, item:any):boolean{
+        return item.isGroupBy;
+      }
+    }
+    interface RecordTable {
+      record: number;
+      propertyA: string;
+      propertyB: string;
+      propertyC: string;
+      longColumn: string;
+      amount: number;
+      // Add the key selection by string on the interface
+      [key: string]: any;
+    }
+`}
+/>
+
+
+### *.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-table
+      uk2Table
+      [dataSource]="dataSource"
+      ...
+    >
+      <!-- Columns definition... -->
+      ...
+      <!-- Define the group headers and rows -->
+        <ng-container matColumnDef="groupHeader" stickyEnd>
+        <!-- Use the grouping logic method 'groupBy' -->
+          <mat-header-cell class="uk2-options-column" *matCellDef="let groupBy">
+            <!-- Set the display group name -->
+            <strong>Group={{groupBy.group}}</strong>
+          </mat-header-cell>
+        </ng-container>
+        <!-- Display the group rows using the boolean grouping method 'isGroup' -->
+        <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" class="group">
+        </mat-row>
+    </mat-table>
+`}
+/>
+
+
+## No Data Example
+
+### *.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-table
+      uk2Table
+      ...
+    >
+      <!-- Columns definition... -->
+      ...
+      <!-- Using matNoDataRow directive define a template when data source is empty... -->
+      <div *matNoDataRow>
+        <!-- HTML Elements, components, images, etc... -->
+      </div>
+    </mat-table>
+`}
+/>
+

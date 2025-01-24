@@ -1,0 +1,274 @@
+<p>tabs works!</p>
+<div>
+  <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  {{ isLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+<div>
+  <button (click)="toggleSize('small')">Small</button>
+</div>
+<div>
+  <button (click)="toggleSize('medium')">medium</button>
+</div>
+<br />
+<br />
+<mat-tab-group
+  uk2StretchTabs
+  disableRipple
+  [uk2StretchTabsSize]="sizeTabs"
+  mat-stretch-tabs
+  [uk2IsLoading]="isLoading"
+  animationDuration="0ms"
+>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span class="uk2-stretch-tab-label">First with a long label, very very long label</span>
+      <span class="uk2-stretch-tab-element-counter">(3)</span>
+    </ng-template>
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+    <br />
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+    <br />
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+  </mat-tab>
+  <mat-tab label="Second with no counter">
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+    <br />
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+  </mat-tab>
+  <mat-tab uk2Tab label="Third with counter">
+    <ng-template mat-tab-label>
+      <span class="uk2-stretch-tab-label">Tercera tabs with counter</span>
+      <span class="uk2-stretch-tab-element-counter">(6)</span>
+    </ng-template>
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+    <br />
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+    <br />
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+    <br />
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+    <br />
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+    <br />
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      titleInfoSvgIconName="uk2-info-circle"
+      titleInfoTooltip="Example tooltip test"
+      [isExpandable]="true"
+      [isExpanded]="false"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+  </mat-tab>
+</mat-tab-group>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<mat-tab-group
+  disableRipple
+  animationDuration="0ms"
+  mat-stretch-tabs="false"
+  uk2VerticalTabs
+  [uk2IsLoading]="isLoading"
+  [uk2TabSize]="verticalSizeTabs"
+  [uk2IsDisabled]="isDisabled"
+>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <div matBadge="!" uk2NotificationBadge>Account</div>
+    </ng-template>
+    <div class="tab-content"> Content 1 </div>
+  </mat-tab>
+  <mat-tab label="My Portfolio">
+    <div class="tab-content"> Content 2 </div>
+  </mat-tab>
+  <mat-tab label="People">
+    <div class="tab-content"> Content 3 </div>
+  </mat-tab>
+</mat-tab-group>

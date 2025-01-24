@@ -1,0 +1,161 @@
+@import "./uk2-breadcrumbs.mixins.scss";
+
+uk2-breadcrumbs {
+  display: block;
+  width: 100%;
+
+  ol {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    display: inline;
+  }
+}
+
+.uk2-breadcrumbs-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.uk2-breadcrumbs-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.uk2-breadcrumbs {
+  color: var(--uk2-neutral-slate-400);
+  @include uk2-font__body-regular--50();
+
+  li {
+    uk2-breadcrumb-item {
+      a {
+        text-decoration: none;
+
+        &:link {
+          color: var(--uk2-neutral-slate-400);
+        }
+
+        &:visited {
+          color: var(--uk2-neutral-slate-400);
+        }
+
+        &:active {
+          color: var(--uk2-neutral-slate-400);
+        }
+
+        &:hover {
+          color: var(--uk2-neutral-slate-400);
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+      p {
+        display: inline;
+        text-underline-offset: 1px;
+        &:hover {
+          color: var(--uk2-neutral-slate-400);
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &:not(:first-child) {
+      uk2-breadcrumb-item {
+        a {
+          margin: 0 8px;
+        }
+        p {
+          margin: 0 8px;
+        }
+      }
+    }
+
+    &:first-child {
+      uk2-breadcrumb-item {
+        a, p {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    &:last-child {
+      &:not(:first-child) {
+        .uk2-breadcrumb-item {
+          label {
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  .uk2-breadcrumb-item {
+    display: inline-block;
+  }
+
+  label {
+    color: var(--uk2-neutral-slate-400);
+    cursor: default;
+  }
+  mat-icon {
+    color: var(--uk2-neutral-slate-400);
+    cursor: default;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+  }
+
+  &.uk2-breadcrumbs-skeleton {
+    @include uk2-skeleton-breadcrumbs;
+  }
+}
+
+// Breadcrumb overlay start
+.uk2-breadcrumb-overlay {
+  background-color: var(--uk2-neutral-white);
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid accent-color-400-hsl();;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+  ol {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.uk2-breadcrumb-overlay-item {
+  padding: 4px 8px;
+  display: block;
+
+  a {
+    text-decoration: none;
+    color: var(--uk2-neutral-slate-500);
+
+    &:link {
+      color: var(--uk2-neutral-slate-500);
+    }
+
+    &:visited {
+      color: var(--uk2-neutral-slate-500);
+    }
+
+    &:active {
+      color: var(--uk2-neutral-slate-500);
+    }
+
+    &:hover {
+      color: var(--uk2-neutral-slate-500);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+// Breadcrumb overlay end

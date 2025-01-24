@@ -1,0 +1,58 @@
+<div>
+  <h2>Forms integration</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Checkbox Forms integration</li>
+    <li>Checkbox and input with skeleton state</li>
+    <li>Only the input field is required</li>
+    <li>Reactive forms with checkbox</li>
+  </ul>
+</div>
+
+<h1>We just sent you a text</h1>
+<h4>Enter the verification code sent to (XXX) XXX-1234</h4>
+
+<br />
+<br />
+<form [formGroup]="form">
+  <div style="height: 60.5px; width: auto">
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Verification Code</mat-label>
+      <input
+        matInput
+        [uk2IsLoading]="isLoading"
+        uk2Input
+        type="text"
+        placeholder=""
+        id="verificationCode"
+        formControlName="verificationCode"
+      />
+    </mat-form-field>
+  </div>
+
+  <br />
+
+  <div class="uk2-checkbox-container">
+    <mat-checkbox
+      uk2Checkbox
+      disableRipple
+      [uk2IsLoading]="isLoading"
+      id="rememberMe"
+      formControlName="rememberMe"
+    ></mat-checkbox>
+    <label>Remember this device</label>
+  </div>
+
+  <br />
+
+  <button
+    uk2TextButton
+    disableRipple
+    [uk2ButtonSize]="'large'"
+    [uk2IsLoading]="isLoading"
+    mat-button
+    [disabled]="!form.valid"
+  >
+    Submit
+  </button>
+</form>

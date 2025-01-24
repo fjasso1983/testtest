@@ -1,0 +1,29 @@
+<h1>Axos Scrollbar</h1>
+<p>
+  UI KIT expose useful CSS classes and mixins that client applications can use to handle scrollbar styling. That means
+  that, once you install
+  <strong>@axos/uikit-v2-lib</strong>
+  you will have access to all font classes and mixins.
+  <br />
+  <br />
+  <i>Note: Firefox browser doesn't allow entire customizacion of scrollbar.</i>
+</p>
+<section>
+  <b>Example vertical scroll: {{ class }}</b>
+  <div class="scrollbar-content" [ngClass]="class" [ngStyle]="{ 'background-color': backgroundColor }">
+    <ng-container *ngFor="let _ of [].constructor(20); let i = index">
+      <b>Line {{ i }}</b>
+      <br />
+    </ng-container>
+  </div>
+  <br />
+  <b>Example horizontal scroll: {{ class }}</b>
+  <div class="scrollbar-content scroll-x" [ngClass]="class" [ngStyle]="{ 'background-color': backgroundColor }">
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip "
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+</section>

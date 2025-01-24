@@ -1,0 +1,85 @@
+<h2>UiKit V2 Uk2 Expansion mat-expansion-panel-header documentation</h2>
+
+<p>
+  <i>uk2-suggested-action</i>
+  is a directive that will control the display behavior of &lt;mat-expansion-panel&gt; element
+</p>
+
+<div class="row">
+  <h2>Basic Example</h2>
+  <div>
+    <button (click)="changeButtonDisplay()">Show/Hide button</button>
+  </div>
+  <br />
+  <div class="fields">
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      [hideButton]="hideButton"
+      [isExpandable]="true"
+      [isExpanded]="false"
+      [tooltipConfig]="tooltipConfig"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+        Funds Available for Withdrawal
+      </div>
+    </uk2-suggested-action>
+  </div>
+  <div class="fields">
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(1)"
+      [isExpandable]="true"
+      [isExpanded]="false"
+      [tooltipConfig]="tooltipConfig"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+        Funds Available for Withdrawal
+      </div>
+    </uk2-suggested-action>
+  </div>
+  <div class="fields">
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$5,000.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(2)"
+      [isExpanded]="true"
+    >
+      <div class="items">
+        <div>Funds Available for Withdrawal</div>
+        <div>$2,000.00</div>
+      </div>
+    </uk2-suggested-action>
+  </div>
+  <div class="fields">
+    <uk2-suggested-action
+      headerSvgIconName="uk2-color-bag-hand"
+      panelTitle="Brokerage Cash"
+      panelSubtitle="$0.00"
+      buttonText="Add Funds"
+      (buttonClickEvent)="clickActionMethod(3)"
+      titleInfoSvgIconName="uk2-info-circle"
+      [isExpandable]="false"
+    ></uk2-suggested-action>
+  </div>
+  <div class="fields">
+    {{ clickedbutton }}
+  </div>
+</div>
+<div class="row">
+  <h2>Code</h2>
+  <pre>
+    {{ basicExample }}
+  </pre>
+</div>

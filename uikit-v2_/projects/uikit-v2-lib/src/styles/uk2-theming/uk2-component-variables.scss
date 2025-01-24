@@ -1,0 +1,34 @@
+@import './uk2-color-customization';
+
+//* Component-specific variables use the following naming convention --uk2-[component-name]-[ui-element]-[style-property].
+//* Components with White Label tokens should use component-specific css variables to the styling for the custom UI elements.
+//* Component-specific css variables should be defaulted to global css variables which will be defaulted to design system variables (hierarchy: component -> global -> design system).
+//* Fixed colors like semantic, neutral, specialty, etc should use the corresponding variables from the design system. Refer to _uk2-design-system.scss.
+
+:root {
+  --uk2-icons-tier2-accent-color: #87b9d7; // Primary / Blue 400
+  --uk2-form-field-general-active-color: var(--uk2-axos-primary-blue-400);
+  --uk2-tooltip-label-color: var(--uk2-axos-primary-blue-400);
+  --uk2-tooltip-icon-color: var(--uk2-axos-primary-blue-400);
+  --uk2-labeled-icon-button-color: var(--uk2-axos-primary-blue-400);
+  --uk2-checkbox-selection-cards-label-selected: var(--uk2-axos-primary-blue-500);
+  --uk2-checkbox-selection-cards-text-selected: var(--uk2-axos-primary-blue-400);
+  --uk2-checkbox-selection-cards-left-icon-selected: var(--uk2-axos-primary-blue-400);
+  --uk2-checkbox-selection-cards-chevron-icon-selected: var(--uk2-axos-primary-blue-500);
+  --uk2-slider-track-inactive-color: var(--uk2-neutral-grey-200);
+  --uk2-slider-track-active-color: var(--uk2-axos-primary-blue-500);
+  --uk2-slider-thumb-knob-border-color: var(--uk2-axos-primary-blue-400);
+  --uk2-slider-thumb-knob-background-color: var(--uk2-neutral-white);
+  --uk2-slider-track-gradient-color-left: var(--uk2-specialty-blue-500);
+  --uk2-slider-track-gradient-color-right: var(--uk2-specialty-green-500);
+  --uk2-slider-thumb-gradient-knob-border-color: var(--uk2-axos-primary-blue-400);
+  --uk2-slider-thumb-gradient-knob-background-color: var(--uk2-neutral-white);
+  --uk2-brand-top-bar-color-bar-color: linear-gradient(45deg, var(--uk2-axos-primary-blue-600) 14.64%, var(--uk2-axos-primary-blue-500) 48.42%, var(--uk2-axos-primary-blue-300) 85.36%);
+  --uk2-timer-color:  var(--uk2-neutral-slate-400);
+  --uk2-file-viewer-color: var(--uk2-axos-primary-blue-400);
+  --uk2-text-icon-button-neutral-color:  var(--uk2-neutral-slate-400);
+  --uk2-text-icon-button-neutral-color-hover:  var(--uk2-neutral-slate-400);
+  --uk2-text-icon-button-neutral-color-text-variant:  var(--uk2-neutral-slate-400);
+  --uk2-text-icon-button-neutral-color-text-variant-hover:  var(--uk2-neutral-slate-500);
+  --uk2-header-icon-color: var(--uk2-neutral-slate-400);
+}

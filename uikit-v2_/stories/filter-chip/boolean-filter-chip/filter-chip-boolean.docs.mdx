@@ -1,0 +1,238 @@
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2FilterChipBooleanComponent documentation
+## Introduction
+
+<p>
+  Uk2FilterChipBooleanComponent is a component that let you select one or multiple predefined options and conditions. It offers a set of methods to control overlay and clear filter value, you can access the component API by viewChildren or with template variable. Designed to adhere to <a target="_blank" href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=20-5756&t=iUY7hZX9WGoeDLtd-4">Axos Design System</a>.
+</p>
+
+### Prerequisites
+### You need to import this module from @axos/uikit-v2-lib, To be able to access Uk2FilterChipBooleanComponent.
+
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //@axos/uikit-v2-lib
+      import { Uk2FilterChipBooleanModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+### Additionally you need to import the following modules from @angular/material.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //@angular/material
+      import { MatIconModule } from '@angular/material/icon';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>[uk2Conditions] <u>Uk2Condition[]</u> <i>(optional)</i> Set the conditional options for filter chip</li>
+  <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle skeleton mode</li>
+  <li>[uk2Options] <u>Uk2FilterChipOption[]</u> <i>required</i> Array of options that will be rendered in overlay list and set the selected options</li>
+  <li>[uk2Identifier] <u>string</u> <i>required</i> Identifier text of filter chip</li>
+  <li>[uk2OverlayMinWidth] <u>string</u> <i>(optional)</i> String used to set min-width of overlay format should include unit of measurement compatible with CSS like (px, rem, em, etc)</li>
+  <li>[uk2IsMultiple] <u>boolean</u> <i>(optional)</i> It enables multiple option selection</li>
+</ul>
+
+## Outputs
+
+<ul>
+  <li>(uk2FilterValueChanges) <u>Uk2FilterValue</u> Emit filter value when option is selected or conditional changes or when filter is cleared</li>
+  <li>(uk2DeleteFilter) <u>void</u> Emit when filter chip button delete filter is clicked</li>
+</ul>
+
+## Types
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Uk2Condition } from '@axos/uikit-v2-lib';
+  \r
+  export type Uk2Condition = {
+    buttonLabel: string;
+    label: string;
+  };
+  `}
+/>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Uk2FilterChipOption } from '@axos/uikit-v2-lib';
+  \r
+  export type Uk2FilterChipOption = {
+    value: string;
+    selected: boolean;
+  };
+  `}
+/>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Uk2FilterValue } from '@axos/uikit-v2-lib';
+  \r
+  export type Uk2FilterValue = {
+    conditional: Uk2Condition;
+    value: any;
+    identifier: string;
+  };
+  `}
+/>
+
+## Sample code
+### Basic Usage
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-filter-chip-boolean
+      [uk2IsLoading]="isLoading"
+      [uk2Identifier]="identifier"
+      [uk2IsMultiple]="isMultiple"
+      [uk2Conditions]="conditions"
+      [uk2OverlayMinWidth]="overlayMinWidth"
+      [uk2Options]="options"
+      (uk2DeleteFilter)="handleDeleteFilter()"
+      (uk2FilterValueChanges)="handleFilterValueChanges($event)"
+    ></uk2-filter-chip-boolean>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  export class YourComponent {
+    isLoading: boolean = false;
+    identifier: string = 'Name';
+    isMultiple = false;
+    overlayMinWidth = 'auto';
+    options: Uk2FilterChipOption[] = [
+      {
+        value: 'Luis',
+        selected: false,
+      },
+      {
+        value: 'Sara',
+        selected: false,
+      },
+      {
+        value: 'John',
+        selected: false,
+      },
+      {
+        value: 'Peter',
+        selected: false,
+      },
+    ];
+    conditions: Uk2Condition[] = [
+      {
+        label: 'Is',
+        buttonLabel: 'Is',
+      },
+      {
+        label: 'Is not',
+        buttonLabel: 'Not',
+      },
+    ];
+    \r
+    handleDeleteFilter() {
+      console.log('Filter deleted');
+    }
+    \r
+    handleFilterValueChanges(value: Uk2FilterValue) {
+      console.log(value);
+    }
+  }
+  `}
+/>
+
+## Assign default value to filter chip in single selection
+<p>Boolean filter chip will take the first option that has isSelected true to set the default value of the chip</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  export class YourComponent {
+    //... more code
+    options: Uk2FilterChipOption[] = [
+      {
+        value: 'Luis',
+        selected: false,
+      },
+      {
+        value: 'Sara',
+        selected: true,
+      },
+      {
+        value: 'John',
+        selected: false,
+      },
+      {
+        value: 'Peter',
+        selected: false,
+      },
+    ];
+    //... rest of the code
+  }
+  `}
+/>
+
+<p>In this example the option with value Sara will be selected as the default value</p>
+
+## Assign default value to filter chip in multiple selection
+
+<p>Boolean filter chip will take all the options that have isSelected true to set the default value of the chip, don't forget to set uk2IsMultiple input to true</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  export class YourComponent {
+    //... more code
+    isMultiple = true;
+    options: Uk2FilterChipOption[] = [
+      {
+        value: 'Luis',
+        selected: false,
+      },
+      {
+        value: 'Sara',
+        selected: true,
+      },
+      {
+        value: 'John',
+        selected: true,
+      },
+      {
+        value: 'Peter',
+        selected: false,
+      },
+    ];
+    //... rest of the code
+  }
+  `}
+/>
+
+<p>In this example the options with value Sara and John will be selected as the default value</p>

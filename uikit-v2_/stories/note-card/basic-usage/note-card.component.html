@@ -1,0 +1,66 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Note card states (default, skeleton)</li>
+  <li>Note card default sizes depending on the screen size. Change the size preview for this..</li>
+  <li>Customization for font size (small and large)</li>
+  <li>Customization for visibility of optional elements (checkbox, hyperlink)</li>
+  <li>Customization for hyperlink text and URL</li>
+  <li>
+    Note that the hyperlink for this example it is only one and its position its fixed, but there can be many and they
+    can be placed anywhere inside the component.
+  </li>
+</ul>
+
+<section>
+  <h4 *ngIf="!uk2IsLoading">Note card without hyperlink</h4>
+  <h4 *ngIf="uk2IsLoading">Skeleton card with checkbox</h4>
+  <mat-card
+    uk2NoteCard
+    [uk2NoteCardFontSize]="uk2FontNoteCard"
+    [uk2IsLoading]="uk2IsLoading"
+    [uk2NoteCardHasCheckbox]="true"
+  >
+    <mat-card-content>
+      <label *ngIf="!checkboxVisible">
+        {{ text }}
+      </label>
+      <div class="uk2-checkbox-container" *ngIf="checkboxVisible">
+        <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+        <label>
+          {{ text }}
+        </label>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <br />
+  <h4 *ngIf="!uk2IsLoading">Note card with hyperlink</h4>
+  <h4 *ngIf="uk2IsLoading">Skeleton card without checkbox</h4>
+  <mat-card
+    uk2NoteCard
+    [uk2NoteCardFontSize]="uk2FontNoteCard"
+    [uk2IsLoading]="uk2IsLoading"
+    [uk2NoteCardHasCheckbox]="false"
+  >
+    <mat-card-content>
+      <label *ngIf="!checkboxVisible">
+        {{ text }}
+        <a uk2Anchor [href]="href" target="_blank">{{ hyperLinkText }}</a>
+        <br />
+        <br />
+        {{ text }}
+      </label>
+      <div class="uk2-checkbox-container" *ngIf="checkboxVisible">
+        <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+        <label>
+          {{ text }}
+          <a uk2Anchor [href]="href" target="_blank">{{ hyperLinkText }}</a>
+          <br />
+          <br />
+          {{ text }}
+        </label>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <br />
+</section>

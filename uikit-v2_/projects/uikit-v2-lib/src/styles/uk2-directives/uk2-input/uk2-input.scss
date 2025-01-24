@@ -1,0 +1,21 @@
+@import './uk2-input.mixins';
+
+.uk2-input{
+  @include uk2-input-default;
+  @include uk2-text-truncation-ellipsis;
+}
+
+.uk2-skeleton-input{
+    @include uk2-form-field-responsive;
+    @include uk2-loading-skeleton-animation('--uk2-neutral-grey-300','--uk2-neutral-grey-200');
+    border-radius: 4px;
+    &-size-small {
+      height: 32px;
+    }
+    &-size-medium {
+      height: 40px;
+    }
+    &-size-large {
+      height: 48px;
+    }
+}

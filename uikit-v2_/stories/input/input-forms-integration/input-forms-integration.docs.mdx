@@ -1,0 +1,121 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import IntroductionLayout from '../input-introduction.docs.mdx';
+
+<IntroductionLayout></IntroductionLayout>
+
+## Example Code with Reactive Forms (Recommended)
+<br/>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component } from '@angular/core';
+  import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+  \r
+  export class YourComponent {
+    uk2IsLoading = false;
+    form: FormGroup = this.fb.group({
+      name: new FormControl('', [Validators.required]),
+    });
+    \r
+    get name(): any {
+      return this.form.get('name');
+    }
+    \r
+    constructor(private fb: FormBuilder) {}
+    \r
+  };
+  `}
+/>
+
+### *.component.html
+<Source
+  dark
+  code={dedent`
+     <form [formGroup]="form">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Fisrt Name</mat-label>
+        <input
+          matInput
+          uk2Input
+          [uk2IsLoading]="uk2IsLoading"
+          [formControl]="name"
+          placeholder="input placeholder"
+        />
+        <button
+          class="uk2-input-clear-button"
+          *ngIf="form.controls['name'].value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (mousedown)="form.patchValue({ name: '' })"
+        >
+          <mat-icon svgIcon="uk2-x"></mat-icon>
+        </button>
+        <mat-hint>
+          This is an example of simple email input. This is an example of simple email input. This is an example of simple
+          email input. This is an example of simple email input.
+        </mat-hint>
+        <mat-error *ngIf="name.hasError('required')">Fisrt Name is required</mat-error>
+      </mat-form-field>
+    </form>
+  `}
+/>
+
+## Example Code with Template Driven Form
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component } from '@angular/core';
+  \r
+  export class YourComponent {
+    uk2IsLoading = false;
+    user: any = {
+      name: '',
+    };
+    \r
+    constructor() {}
+    \r
+  };
+  `}
+/>
+
+### *.component.html
+<Source
+  dark
+  code={dedent`
+    <form #myForm="ngForm">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          uk2Input
+          name="name"
+          #tdfName="ngModel"
+          required
+          [(ngModel)]="user.name"
+          [uk2IsLoading]="uk2IsLoading"
+          placeholder="input placeholder"
+        />
+        <button
+          class="uk2-input-clear-button"
+          *ngIf="user.name != ''"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (mousedown)="user.name = ''"
+        >
+          <mat-icon svgIcon="uk2-x"></mat-icon>
+        </button>
+        <mat-error *ngIf="tdfName.control.errors?.required">First Name is required</mat-error>
+      </mat-form-field>
+    </form>
+  `}
+/>

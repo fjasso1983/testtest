@@ -1,0 +1,133 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>Interaction patterns (Page number inputs, zoom, fullscreen and expand buttons)</li>
+  <li>File Viewer dimensions (width and height)</li>
+  <li>File Viewer border</li>
+</ul>
+<p
+  ><i
+    >Note that actions of kabob, close, expand, collapse and open on new page buttons are customizable per use case.</i
+  ></p
+>
+<div class="container">
+  <div class="viewer-content">
+    <div
+      uk2FileViewerContainer
+      [uk2FileViewerWidth]="fileViewerWidth"
+      [uk2FileViewerHeight]="fileViewerHeight"
+      [uk2FileViewerNoBorder]="fileViewerHideBorder"
+    >
+      <div uk2FileViewerHeader>
+        <div
+          [uk2FileViewerElementPosition]="positionLeft"
+          [uk2FileViewerPageSize]="pdf?.numPages"
+          uk2FileViewerPageControl
+        >
+          <input
+            [(ngModel)]="inputPage"
+            (keydown)="keydownPage($event)"
+            (blur)="updatePage($event)"
+            autocomplete="off"
+            type="number"
+            id="page"
+          />
+          of {{ pdf?.numPages }}
+        </div>
+        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+          <button
+            (click)="setZoomValue('minus')"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSmallSize"
+            ><mat-icon [svgIcon]="svgZoomLess"></mat-icon
+          ></button>
+          <input
+            type="text"
+            [value]="zoom + '%'"
+            (blur)="onBlur($event)"
+            (click)="onFocus($event)"
+            autocomplete="off"
+            id="page"
+            placeholder="100%"
+          />
+          <button
+            (click)="setZoomValue('plus')"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSmallSize"
+            ><mat-icon [svgIcon]="svgZoomMore"></mat-icon
+          ></button>
+        </div>
+        <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+          <button
+            mat-button
+            uk2TextIconButton
+            uk2FlyoutMenu
+            disableRipple
+            [uk2FlyoutTemplate]="flyoutOverlay"
+            [uk2TextButtonVariant]="buttonVariant"
+            [uk2ButtonSize]="buttonSmallSize"
+            [uk2OverlayYOffset]="8"
+            #flyoutMenu="uk2FlyoutMenu"
+            (click)="flyoutMenu.toggle()"
+          >
+            <mat-icon [svgIcon]="svgEllipses"></mat-icon>
+          </button>
+          <ng-template #flyoutOverlay>
+            <div class="flyout-container">
+              <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="onFlyoutOptionClick()">
+                <mat-icon [svgIcon]="firstItem.svgIconName!"></mat-icon>
+                <p>{{ firstItem.bodyText }}</p>
+              </div>
+              <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="onFlyoutOptionClick()">
+                <mat-icon [svgIcon]="secondItem.svgIconName!"></mat-icon>
+                <p>{{ secondItem.bodyText }}</p>
+              </div>
+              <div uk2MenuListItem [uk2ShowDividerLine]="false" (click)="onFlyoutOptionClick()">
+                <mat-icon [svgIcon]="thirdItem.svgIconName!"></mat-icon>
+                <p>{{ thirdItem.bodyText }}</p>
+              </div>
+            </div>
+          </ng-template>
+          <button mat-button uk2TextIconButton disableRipple [uk2ButtonSize]="buttonSmallSize" (click)="onClose()">
+            <mat-icon [svgIcon]="svgClose"></mat-icon>
+          </button>
+        </div>
+      </div>
+      <pdf-viewer
+        [src]="pdfSrc"
+        [render-text]="true"
+        [original-size]="false"
+        [zoom-scale]="'page-width'"
+        [zoom]="zoom / 100"
+        [autoresize]="true"
+        [(page)]="pdfPage"
+        [show-borders]="true"
+        (after-load-complete)="callBackPDFLoaded($event)"
+      ></pdf-viewer>
+      <div uk2FileViewerFooter>
+        <div [uk2FileViewerElementPosition]="positionLeft">
+          <button (click)="onExpand()" uk2TextIconButton disableRipple mat-button [uk2ButtonSize]="buttonSmallSize">
+            <mat-icon [svgIcon]="svgExpand"></mat-icon>
+          </button>
+        </div>
+        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+          {{ pdfName }}
+        </div>
+        <div [uk2FileViewerElementPosition]="positionRight">
+          <button
+            (click)="onOpenFullscreen()"
+            uk2TextIconButton
+            disableRipple
+            mat-button
+            [uk2ButtonSize]="buttonSmallSize"
+            ><mat-icon [svgIcon]="svgWindow"></mat-icon></button
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>

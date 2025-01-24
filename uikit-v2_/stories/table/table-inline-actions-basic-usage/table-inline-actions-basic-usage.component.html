@@ -1,0 +1,21 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>Number of allowed individual action buttons</li>
+  <li>Customization of the first action (show tooltip, description and icon)</li>
+</ul>
+<br />
+<br />
+
+<div class="mock-row">
+  <div class="mock-cell"> </div>
+  <div class="mock-cell mock-action-cell">
+    <uk2-table-inline-actions
+      [uk2MaxInlineActions]="maxAllowedOptions"
+      [uk2ActionList]="actionList"
+      [uk2RowValue]="rowData"
+      (uk2OnActionSelect)="actionClickEvent($event)"
+    ></uk2-table-inline-actions>
+  </div>
+</div>

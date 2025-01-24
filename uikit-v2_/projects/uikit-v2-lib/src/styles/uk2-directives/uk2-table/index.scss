@@ -1,0 +1,241 @@
+@import './uk2-table.variables.scss';
+@import './uk2-table-mixins.scss';
+
+mat-table.uk2-table {
+  @include uk2-table-variables();
+  border: 1px solid var(--uk2-table-border-color) !important;
+  overflow: hidden;
+  // Use a special mixin to change the size of uk2 checkboxes to 24px width and height
+  .uk2-checkbox-column {
+    @include checkbox-size(24px);
+  }
+
+  mat-header-row {
+    min-height: 40px;
+
+    mat-header-cell {
+      @include mat-header-cell-styles();
+    }
+  }
+
+  mat-row {
+    min-height: unset !important;
+
+    mat-cell {
+      @include mat-cell-styles();
+    }
+
+    &.uk2-group-header{
+      background-color: var(--uk2-table-subheader-row-background-color) !important;
+      border-bottom: 1px solid var(--uk2-table-subheader-row-bottom-border-color);
+      .mat-column-groupHeader{
+        padding-left: 28px;
+        border-bottom: none;
+      }
+      &:hover{
+        background-color: var(--uk2-table-subheader-row-background-color) !important;
+      }
+      strong{
+        padding: 8px 0;
+        color: var(--uk2-table-subheader-row-text-color);
+        @include uk2-font__body-medium--50();
+      }
+    }
+
+    &:hover {
+      background-color: var(--uk2-table-row-hover-background-color) !important;
+    }
+
+    // Set the background color of rows when the row checkbox is selected
+    &:has(.uk2-checkbox-column input[type='checkbox']:checked) {
+      background-color: var(--uk2-table-aux-active-row-color) !important;
+
+      &:hover {
+        background-color: var(--uk2-table-aux-active-selected-row-color) !important;
+      }
+    }
+  }
+}
+
+// Table borders
+mat-table.uk2-table {
+  &.uk2-no-borders {
+    border-radius: 0px !important;
+  }
+
+  &.uk2-8px-borders {
+    border-radius: 8px !important;
+  }
+
+  &.uk2-16px-borders {
+    border-radius: 16px !important;
+  }
+}
+
+// Table Densities
+mat-table.uk2-table {
+  &.uk2-table-small {
+    mat-header-row {
+      mat-header-cell {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
+    mat-row {
+      mat-cell {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  &.uk2-table-medium {
+    mat-header-row {
+      mat-header-cell {
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+    }
+
+    mat-row {
+      mat-cell {
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+    }
+  }
+
+  &.uk2-table-large {
+    mat-header-row {
+      mat-header-cell {
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+    }
+
+    mat-row {
+      mat-cell {
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+    }
+  }
+}
+
+// Checkbox behavior
+// By default if the table has a checkbox column, the checkbox is hidden. When the row is hovered or selected the checkbox is shown
+mat-table.uk2-table {
+  mat-row {
+    &:hover:has(.uk2-checkbox-column input[type='checkbox']) {
+      @include show-cell-checkbox();
+    }
+
+    &:has(.uk2-checkbox-column input[type='checkbox']:checked) {
+      @include show-cell-checkbox();
+    }
+  }
+}
+
+// States
+// Loading state
+mat-table.uk2-table.uk2-table-loading {
+  // In loading state header and row cells hide all the elements and add pseudo element ::before with a background color
+  mat-header-cell,
+  mat-cell {
+    position: relative;
+    color: transparent;
+
+    * {
+      visibility: hidden;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      @include uk2-loading-skeleton-animation(--uk2-neutral-grey-400, --uk2-neutral-grey-300);
+    }
+  }
+
+  // In loading state header and row cells set the width of the pseudo element ::before depending if the cell contains a checkbox or not. If it has a checkbox pseudo element will have a small and rounded skeleton, if it doesn't have a checkbox pseudo element will have a rectangle skeleton
+  mat-header-cell:not(:empty),
+  mat-cell:not(:empty) {
+    &::before {
+      max-width: 124px;
+      width: 124px;
+      height: 16px;
+      border-radius: 16px;
+    }
+  }
+
+  mat-header-cell.uk2-checkbox-column,
+  mat-cell.uk2-checkbox-column {
+    &::before {
+      max-width: 20px;
+      width: 20px;
+      height: 20px;
+      border-radius: 8px;
+    }
+  }
+
+  mat-header-cell:empty {
+    &::before {
+      display: none;
+    }
+  }
+
+  mat-cell.mat-mdc-table-sticky-border-elem-right.uk2-options-column:not(:empty) {
+    &::before {
+      max-width: 17px;
+      width: 17px;
+      height: 17px;
+      border-radius: 8px;
+    }
+  }
+
+  // When table is in loading state it should change background color of the row to default
+  mat-row {
+    background-color: var(--uk2-neutral-white) !important;
+
+    // Selected
+    &:has(input[type='checkbox']:checked) {
+      background-color: var(--uk2-neutral-white) !important;
+
+      &:hover {
+        background-color: var(--uk2-neutral-white) !important;
+      }
+    }
+  }
+}
+
+// End loading state
+
+// Text behavior
+mat-table.uk2-table.uk2-table-text-behavior-wrap {
+  mat-row {
+    mat-cell:not(.uk2-skip-cell-truncate-and-wrap) {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+mat-table.uk2-table.uk2-table-text-behavior-truncate {
+  mat-row {
+    mat-cell:not(.uk2-skip-cell-truncate-and-wrap) {
+      * {
+        @include uk2-text-truncation-ellipsis();
+      }
+    }
+  }
+}
+
+// End text behavior
+
+// Column resize grabber styles
+
+.uk2-table-header-grabber {
+  @include resize-grabber-styles();
+}

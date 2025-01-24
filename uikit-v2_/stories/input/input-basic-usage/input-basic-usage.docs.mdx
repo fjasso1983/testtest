@@ -1,0 +1,41 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source, Canvas } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import IntroductionLayout from '../input-introduction.docs.mdx';
+
+<IntroductionLayout></IntroductionLayout>
+
+## Sample Code
+
+<p>
+  Note the use of <strong>uk2Input</strong> directive, applied to the <strong>&lt;input&gt;</strong> element.
+</p>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Component } from '@angular/core';
+      import { Uk2InputSizeEnum } from '@axos/uikit-v2-lib';
+      \r
+      export class YourComponent {
+        inputSize = Uk2InputSizeEnum.small;
+        isLoading = false;
+      }
+  `}
+/>
+
+
+### *.component.html
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>First Name</mat-label>
+    <input matInput uk2Input [uk2IsLoading]="isLoading" [uk2InputSize]="inputSize" type="text" />
+  </mat-form-field>
+  `}
+/>
+

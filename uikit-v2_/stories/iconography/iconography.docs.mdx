@@ -1,0 +1,730 @@
+import { Source, ArgsTable, Canvas, Meta, Story, PRIMARY_STORY } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+import { MatButtonModule } from '@angular/material/button';
+import dedent from 'ts-dedent';
+import ServicesPrerequisitesDocsLayout from '../services-docs/services-prerequisites.docs.mdx';
+
+# Iconography documentation
+
+## Introduction
+<p>
+  <a href="https://www.figma.com/file/Hg1gtpuOUDdWaIeyy0pg90/%F0%9F%8F%B0-Ft.-Knox-Design-System?node-id=60:9633&t=SzJ2PJM44OKjZPSh-0">Axos Iconography</a> is a set of icons that are defined on the Axos Design System. The UI KIT is packed with all of those icons, for you to be able to use them in your application, without having to deal with the actual assets yourself.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    <strong>&lt;mat-icon&gt;</strong> supports displaying the icons by using the <strong>svgIcon</strong> property.
+  </li>
+  <li>
+    <strong>Uk2IconRegistryService.registerAllCategories()</strong> method should be call from the top level component (app.component.ts) to register them in the <a href="https://v15.material.angular.io/components/icon/overview">MatIconRegistry from Angular Material</a>. Learn more about that their documentation. See the Prerequisites section below to know the correct import to use to access this service.
+  </li>
+  <li>
+    The application should be configured properly to be able to access the SVG files from the UI KIT. See the Code Sample section to know more.
+  </li>
+</ol>
+
+<br/>
+
+## Prerequisites
+
+- You need to import MatIconModule from @angular/material/button.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatIconModule } from '@angular/material/button';
+  `}
+/>
+
+- You need to import HttpClientModule from @angular/common/http.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { HttpClientModule } from '@angular/common/http';
+  `}
+/>
+
+<ServicesPrerequisitesDocsLayout></ServicesPrerequisitesDocsLayout>
+
+<br/>
+
+## Enums
+
+<p>UI KIT provides you with all the names on the icons in the form of enums for names standarization. Please use these when setting the svgIcon property from mat-icon component.</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1AlertsEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1AlertsEnum {
+      xCircle = 'uk2-x-circle',
+      infoCircle = 'uk2-info-circle',
+      checkCircle = 'uk2-check-circle',
+      exclamationCircle = 'uk2-exclamation-circle',
+      exclamationTriangle = 'uk2-exclamation-triangle',
+      questionCircle = 'uk2-question-circle',
+      xCircleFill = 'uk2-x-circle-fill',
+      infoCircleFill = 'uk2-info-circle-fill',
+      checkCircleFill = 'uk2-check-circle-fill',
+      exclamationCircleFill = 'uk2-exclamation-circle-fill',
+      exclamationTriangleFill = 'uk2-exclamation-triangle-fill',
+      questionCircleFill = 'uk2-question-circle-fill',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1BiometricsEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1BiometricsEnum {
+      faceId = 'uk2-face-id',
+      fingerPrint = 'uk2-finger-print',
+      fingerPrint2 = 'uk2-finger-print-2',
+      microphone = 'uk2-microphone',
+      eye = 'uk2-eye',
+      eyeHide = 'uk2-eye-hide',
+      eyeFill = 'uk2-eye-fill',
+      eyeHideFill = 'uk2-eye-hide-fill',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1CommunicationEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1CommunicationEnum {
+      user = 'uk2-user',
+      userCheck = 'uk2-user-check',
+      userAdd = 'uk2-user-add',
+      userCog = 'uk2-user-cog',
+      users = 'uk2-users',
+      addressBook = 'uk2-address-book',
+      home = 'uk2-home',
+      homeCheck = 'uk2-home-check',
+      homeX = 'uk2-home-x',
+      headset = 'uk2-headset',
+      envelope = 'uk2-envelope',
+      envelopeCheck = 'uk2-envelope-check',
+      envelopeX = 'uk2-envelope-x',
+      speechBubble = 'uk2-speech-bubble',
+      speechBubbleText = 'uk2-speech-bubble-text',
+      speechBubbles = 'uk2-speech-bubbles',
+      mobilePhone = 'uk2-mobile-phone',
+      mobilePhoneCheck = 'uk2-mobile-phone-check',
+      mobilePhoneX = 'uk2-mobile-phone-x',
+      phone = 'uk2-phone',
+      phoneRing = 'uk2-phone-ring',
+      phoneCheck = 'uk2-phone-check',
+      phoneX = 'uk2-phone-x',
+      calendar = 'uk2-calendar',
+      calendarCheck = 'uk2-calendar-check',
+      building = 'uk2-building',
+      identification = 'uk2-identification',
+      userFill = 'uk2-user-fill',
+      homeFill = 'uk2-home-fill',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1FilesEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1FilesEnum {
+      fileBlank = 'uk2-file-blank',
+      file = 'uk2-file',
+      filePlus = 'uk2-file-plus',
+      filePdf = 'uk2-file-pdf',
+      fileRibbon = 'uk2-file-ribbon',
+      clipboard = 'uk2-clipboard',
+      clipboardCheck = 'uk2-clipboard-check',
+      scroll = 'uk2-scroll',
+      picture = 'uk2-picture',
+      presentation = 'uk2-presentation',
+      pencilWritingFill = 'uk2-pencil-writing-fill',
+      pencil = 'uk2-pencil',
+      pencilWriting = 'uk2-pencil-writing',
+      disk = 'uk2-disk',
+      printer = 'uk2-printer',
+      link = 'uk2-link',
+      cdMaturity = 'uk2-cd-maturity',
+      internet = 'uk2-internet',
+      pencilFill = 'uk2-pencil-fill',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1FinancialEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1FinancialEnum {
+      bank = 'uk2-bank',
+      coinCents = 'uk2-coin-cents',
+      coinDollarSign = 'uk2-coin-dollar-sign',
+      dollarArrowForward = 'uk2-dollar-arrow-forward',
+      dollarArrowBack = 'uk2-dollar-arrow-back',
+      bankCheck = 'uk2-bank-check',
+      bankCheckStack = 'uk2-bank-check-stack',
+      bankCheckStackX = 'uk2-bank-check-stack-x',
+      bankCheckPencil = 'uk2-bank-check-pencil',
+      bankCheckArrowUp = 'uk2-bank-check-arrow-up',
+      coins = 'uk2-coins',
+      piggy = 'uk2-piggy',
+      vault = 'uk2-vault',
+      cardHolder = 'uk2-card-holder',
+      creditCard = 'uk2-credit-card',
+      briefcase = 'uk2-briefcase',
+      axosCard = 'uk2-axos-card',
+      axosCardX = 'uk2-axos-card-x',
+      dollarBill = 'uk2-dollar-bill',
+      dollarBillStack = 'uk2-dollar-bill-stack',
+      dollarBillArrowForward = 'uk2-dollar-bill-arrow-forward',
+      dollarBillCut = 'uk2-dollar-bill-cut',
+      coinCentsFill = 'uk2-coin-cents-fill',
+      coinDollarSignFill = 'uk2-coin-dollar-sign-fill',
+      dollarBillStackFill = 'uk2-dollar-bill-stack-fill',
+      moneyHand = 'uk2-money-hand',
+      barGraph = 'uk2-bar-graph',
+      lineGraph = 'uk2-line-graph',
+      pieChart = 'uk2-pie-chart',
+      odometer = 'uk2-odometer',
+      activityGraph = 'uk2-activity-graph',
+      percent = 'uk2-percent',
+      cart = 'uk2-cart',
+      handDollar = 'uk2-hand-dollar',
+      paymentDue = 'uk2-payment-due',
+      paymentOverdue = 'uk2-payment-overdue',
+      moneyArrows = 'uk2-money-arrows',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1InvestEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1InvestEnum {
+      wallet = 'uk2-wallet',
+      priceTag = 'uk2-price-tag',
+      percentCircle = 'uk2-percent-circle',
+      coinHand = 'uk2-coin-hand',
+      merge = 'uk2-merge',
+      split = 'uk2-split',
+      nestEgg = 'uk2-nest-egg',
+      moneyJar = 'uk2-money-jar',
+      education = 'uk2-education',
+      etf = 'uk2-etf',
+      shortSell = 'uk2-short-sell',
+      trading = 'uk2-trading',
+      moneyBag = 'uk2-money-bag',
+      options = 'uk2-options',
+      moneyStack = 'uk2-money-stack',
+      bagHand = 'uk2-bag-hand',
+      shortInterest = 'uk2-short-interest',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1MiscEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1MiscEnum {
+      bullhorn = 'uk2-bullhorn',
+      scale = 'uk2-scale',
+      sun = 'uk2-sun',
+      leaf = 'uk2-leaf',
+      socialDistance = 'uk2-social-distance',
+      toiletPaper = 'uk2-toilet-paper',
+      washHands = 'uk2-wash-hands',
+      handSanitizer = 'uk2-hand-sanitizer',
+      coronavirus = 'uk2-coronavirus',
+      n95Mask = 'uk2-n95-mask',
+      gavel = 'uk2-gavel',
+      lightBulb = 'uk2-light-bulb',
+      satellite = 'uk2-satellite',
+      ticket = 'uk2-ticket',
+      coffeeCup = 'uk2-coffee-cup',
+      puzzlePiece = 'uk2-puzzle-piece',
+      car = 'uk2-car',
+      foodAndDrink = 'uk2-food-and-drink',
+      present = 'uk2-present',
+      condo = 'uk2-condo',
+      hiRiseCondo = 'uk2-hi-rise-condo',
+      growMoney = 'uk2-grow-money',
+      accessoriesX = 'uk2-accessories-x',
+      faceCenter = 'uk2-face-center',
+      centerCheck = 'uk2-center-check',
+      smallBusiness = 'uk2-small-business',
+      smallBusinessLoan = 'uk2-small-business-loan',
+      expandImage = 'uk2-expand-image',
+      collapseImage = 'uk2-collapse-image',
+      wifi = 'uk2-wifi',
+      skeletonTier1 = 'uk2-skeleton-tier-1',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1NavigationEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1NavigationEnum {
+      arrowBack = 'uk2-arrow-back',
+      arrowForward = 'uk2-arrow-forward',
+      arrowBackCurve = 'uk2-arrow-back-curve',
+      chevronLeft = 'uk2-chevron-left',
+      chevronRight = 'uk2-chevron-right',
+      chevronDown = 'uk2-chevron-down',
+      chevronUp = 'uk2-chevron-up',
+      arrowsHorizontal = 'uk2-arrows-horizontal',
+      arrowsVertical = 'uk2-arrows-vertical',
+      arrowsCircular = 'uk2-arrows-circular',
+      x = 'uk2-x',
+      hamburger = 'uk2-hamburger',
+      ellipsesHorizontal = 'uk2-ellipses-horizontal',
+      ellipsesVertical = 'uk2-ellipses-vertical',
+      logInR = 'uk2-log-in-R',
+      logInL = 'uk2-log-in-L',
+      logOutR = 'uk2-log-out-R',
+      logOutL = 'uk2-log-out-L',
+      doubleChevronsRight = 'uk2-double-chevrons-right',
+      doubleChevronsLeft = 'uk2-double-chevrons-left',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1UtilityEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1UtilityEnum {
+      minusCircle = 'uk2-minus-circle',
+      plusCircle = 'uk2-plus-circle',
+      none = 'uk2-none',
+      filterSlider = 'uk2-filter-slider',
+      filterFunnel = 'uk2-filter-funnel',
+      lock = 'uk2-lock',
+      unlock = 'uk2-unlock',
+      locationPin = 'uk2-location-pin',
+      cog = 'uk2-cog',
+      trash = 'uk2-trash',
+      share = 'uk2-share',
+      folder = 'uk2-folder',
+      checkmark = 'uk2-checkmark',
+      plus = 'uk2-plus',
+      minus = 'uk2-minus',
+      clock = 'uk2-clock',
+      clockArrow = 'uk2-clock-arrow',
+      clockCircularArrow = 'uk2-clock-circular-arrow',
+      hourglass = 'uk2-hourglass',
+      paperAirplane = 'uk2-paper-airplane',
+      paperAirplane2 = 'uk2-paper-airplane-2',
+      dotGird = 'uk2-dot-gird',
+      flag = 'uk2-flag',
+      ribbon = 'uk2-ribbon',
+      bell = 'uk2-bell',
+      magnifyingGlass = 'uk2-magnifying-glass',
+      magnifyMinus = 'uk2-magnify-minus',
+      minusCircleFill = 'uk2-minus-circle-fill',
+      plusCircleFill = 'uk2-plus-circle-fill',
+      lockFill = 'uk2-lock-fill',
+      unlockFill = 'uk2-unlock-fill',
+      locationPinFill = 'uk2-location-pin-fill',
+      cogFill = 'uk2-cog-fill',
+      clockFill = 'uk2-clock-fill',
+      paperAirplaneFill = 'uk2-paper-airplane-fill',
+      paperAirplane2Fill = 'uk2-paper-airplane-2-fill',
+      flagFilled = 'uk2-flag-filled',
+      magnifyPlus = 'uk2-magnify-plus',
+      camera = 'uk2-camera',
+      download = 'uk2-download',
+      upload = 'uk2-upload',
+      tag = 'uk2-tag',
+      paperClip = 'uk2-paper-clip',
+      newWindow = 'uk2-new-window',
+      backspace = 'uk2-backspace',
+      video = 'uk2-video',
+      videoChat = 'uk2-video-chat',
+      box = 'uk2-box',
+      boxArrowDown = 'uk2-box-arrow-down',
+      expandRow = 'uk2-expand-row',
+      expandColumn = 'uk2-expand-column',
+      calculator = 'uk2-calculator',
+      calculatorCheck = 'uk2-calculator-check',
+      tile = 'uk2-tile',
+      tileBig = 'uk2-tile-big',
+      tileSmall = 'uk2-tile-small',
+      undo = 'uk2-undo',
+      redo = 'uk2-redo',
+      star = 'uk2-star',
+      heart = 'uk2-heart',
+      thumbsUp = 'uk2-thumbs-up',
+      thumbsDown = 'uk2-thumbs-down',
+      cameraFill = 'uk2-camera-fill',
+      tagFill = 'uk2-tag-fill',
+      tileFill = 'uk2-tile-fill',
+      starFill = 'uk2-star-fill',
+      heartFill = 'uk2-heart-fill',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1ValueMovementsEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier1ValueMovementsEnum {
+      positiveMovement = 'uk2-positive-movement',
+      negativeMovement = 'uk2-negative-movement',
+      neutralMovement = 'uk2-neutral-movement',
+      positiveMovementSign = 'uk2-positive-movement-sign',
+      negativeMovementSign = 'uk2-negative-movement-sign',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier2ColoredWithAccentEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier2ColoredWithAccentEnum {
+      briefcase = 'uk2-color-briefcase',
+      cds = 'uk2-color-cds',
+      piggy = 'uk2-color-piggy',
+      moneyHand = 'uk2-color-money-hand',
+      present = 'uk2-color-present',
+      island = 'uk2-color-island',
+      barGraph = 'uk2-color-bar-graph',
+      lineGraph = 'uk2-color-line-graph',
+      creditCard = 'uk2-color-credit-card',
+      car = 'uk2-color-car',
+      home = 'uk2-color-home',
+      image = 'uk2-color-image',
+      tile = 'uk2-color-tile',
+      folders = 'uk2-color-folders',
+      identification = 'uk2-color-identification',
+      user = 'uk2-color-user',
+      users = 'uk2-color-users',
+      userUroup = 'uk2-color-user-group',
+      umbrella = 'uk2-color-umbrella',
+      building = 'uk2-color-building',
+      smallBusiness = 'uk2-color-small-business',
+      smallBusinessLoan = 'uk2-color-small-business-loan',
+      lock = 'uk2-color-lock',
+      pieChart = 'uk2-color-pie-chart',
+      dollarBillStack = 'uk2-color-dollar-bill-stack',
+      bankCheckStack = 'uk2-color-bank-check-stack',
+      innovation = 'uk2-color-innovation',
+      etf = 'uk2-color-etf',
+      stack = 'uk2-color-money-stack',
+      bagHand = 'uk2-color-bag-hand',
+      moneyJar = 'uk2-color-money-jar',
+      nestEgg = 'uk2-color-nest-egg',
+      scroll = 'uk2-color-scroll',
+      trading = 'uk2-color-trading',
+      moneyBag = 'uk2-color-money-bag',
+      options = 'uk2-color-options',
+      education = 'uk2-color-education',
+      clipBoard = 'uk2-color-clip-board',
+      skeletonTier2 = 'uk2-color-skeleton-tier-2',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier2MonoEnum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier2MonoEnum {
+      briefcase = 'uk2-mono-briefcase',
+      cds = 'uk2-mono-cds',
+      piggy = 'uk2-mono-piggy',
+      moneyHand = 'uk2-mono-money-hand',
+      present = 'uk2-mono-present',
+      island = 'uk2-mono-island',
+      barGraph = 'uk2-mono-bar-graph',
+      lineGraph = 'uk2-mono-line-graph',
+      creditCard = 'uk2-mono-credit-card',
+      car = 'uk2-mono-car',
+      home = 'uk2-mono-home',
+      image = 'uk2-mono-image',
+      tile = 'uk2-mono-tile',
+      folders = 'uk2-mono-folders',
+      identification = 'uk2-mono-identification',
+      user = 'uk2-mono-user',
+      users = 'uk2-mono-users',
+      userUroup = 'uk2-mono-user-group',
+      umbrella = 'uk2-mono-umbrella',
+      building = 'uk2-mono-building',
+      smallBusiness = 'uk2-mono-small-business',
+      smallBusinessLoan = 'uk2-mono-smallbusiness-loan',
+      lock = 'uk2-mono-lock',
+      pieChart = 'uk2-mono-pie-chart',
+      dollarBillStack = 'uk2-mono-dollar-bill-stack',
+      bankCheckStack = 'uk2-mono-bank-check-stack',
+      innovation = 'uk2-mono-innovation',
+      etf = 'uk2-mono-etf',
+      stack = 'uk2-mono-money-stack',
+      bagHand = 'uk2-mono-bag-hand',
+      moneyJar = 'uk2-mono-money-jar',
+      nestEgg = 'uk2-mono-nest-egg',
+      scroll = 'uk2-mono-scroll',
+      trading = 'uk2-mono-trading',
+      moneyBag = 'uk2-mono-money-bag',
+      options = 'uk2-mono-options',
+      education = 'uk2-mono-education',
+      clipBoard = 'uk2-mono-clip-board',
+      skeletonTier2 = 'uk2-mono-skeleton-tier-2',
+    }
+  `}
+/>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier3Enum } from '@axos/uikit-v2-lib';
+    ...
+    export enum Uk2Tier3Enum {
+      checking = 'uk2-tier3-checking',
+      piggy = 'uk2-tier3-piggy',
+      house = 'uk2-tier3-house',
+      pieChart = 'uk2-tier3-pie-chart',
+      car = 'uk2-tier3-car',
+      cd = 'uk2-tier3-cd',
+      giveMoney = 'uk2-tier3-give-money',
+      vacation = 'uk2-tier3-vacation',
+      moneyHeart = 'uk2-tier3-money-heart',
+      scroll = 'uk2-tier3-scroll',
+      etf = 'uk2-tier3-etf',
+      phone = 'uk2-tier3-phone',
+      letter = 'uk2-tier3-letter',
+      moneyPile = 'uk2-tier3-money-pile',
+      bagHand = 'uk2-tier3-bag-hand',
+      options = 'uk2-tier3-options',
+      email = 'uk2-tier3-email',
+      groceries = 'uk2-tier3-groceries',
+      briefcase = 'uk2-tier3-briefcase',
+      trading = 'uk2-tier3-trading',
+      clipBoard = 'uk2-tier3-clip-board',
+      growMoney = 'uk2-tier3-grow-money',
+      mobilePhone = 'uk2-tier3-mobile-phone',
+      odometer = 'uk2-tier3-odometer',
+      moneyBag = 'uk2-tier3-money-bag',
+      creditCards = 'uk2-tier3-credit-cards',
+      homeLoad = 'uk2-tier3-home-load',
+      coinBox = 'uk2-tier3-coin-box',
+      bank = 'uk2-tier3-bank',
+      smallBusiness = 'uk2-tier3-small-business',
+      smallBusinessLoan = 'uk2-tier3-small-business-loan',
+      alerts = 'uk2-tier3-alerts',
+      messages = 'uk2-tier3-messages',
+      announcements = 'uk2-tier3-announcements',
+      skeletonTier3 = 'uk2-tier3-skeleton-tier-3',
+    }
+  `}
+/>
+
+
+## Sample Code
+
+### Configuring assets access from angular.json file.
+<p>angular.json</p>
+<Source
+  dark
+  language='json'
+  code={dedent`
+    "[your-app-name]": {
+      ...
+      "architect": {
+        "build": {
+          ...
+          "options": {
+            ...
+            "assets": [
+              ...
+              {
+                "input": "node_modules/@axos/uikit-v2-lib/src/assets/svg/icons",
+                "glob": "**/*",
+                "output": "uk2/assets/svg/icons"
+              }
+            ]
+          }
+        }
+      }
+    }
+  `}
+/>
+
+### Registering the icons from the top level component of your application.
+<p>
+  Note that registerAllCategories() method can be called from the constructor or the ngOnInit lifecycle hook.
+</p>
+
+<p>app.component.ts</p>
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2IconRegistryService } from '@axos/uikit-v2-lib';
+    ...
+    export class AppComponent {
+      constructor(private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+    }
+  `}
+/>
+
+### Basic usage
+
+<p>
+  Displaying an icon from Axos Iconography using mat-icon component.
+</p>
+<p>
+  By default the icons will display in the same color as the surrounding text.
+</p>
+
+<p>*.component.html</p>
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-icon [svgIcon]="alertsIcons.xCircle"></mat-icon>
+  `}
+/>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    import { Uk2Tier1AlertsEnum } from '@axos/uikit-v2-lib';
+    ...
+    export class YourComponent {
+      get alertsIcons() {
+        return Uk2Tier1AlertsEnum;
+      }
+    }
+  `}
+/>
+
+### Changing the color for Tier 1 and Tier 2 Mono icons
+<p>
+  Note the div element with <strong>colored-container</strong> css class, to apply a color.
+</p>
+
+<p>*.component.html</p>
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="colored-container">
+      <mat-icon [svgIcon]="alertsIcons.xCircle"></mat-icon>
+    </div>
+  `}
+/>
+
+<p>*.component.scss</p>
+<Source
+  dark
+  language='css'
+  code={dedent`
+    .colored-container{
+      color: yellow;
+    }
+  `}
+/>
+
+### Changing the color for Tier 2 Colored with Accent icons
+<p>
+  These icons have two elements. An element colored with the surrounding text color, and another element with an accent color (Primary / Blue 200 by default).
+</p>
+<p>
+  To change the color of the surrounding text we can follow the previous code sample.
+</p>
+<p>
+  To change the color for the accent part of the icons, we can overwrite the value for the css variable <strong>--uk2-icons-tier2-accent-color</strong>.
+</p>
+
+#### Overwriting the css variable to yellow from the main <i>styles.scss</i> file.
+<p>*.component.html</p>
+<Source
+  dark
+  language='css'
+  code={dedent`
+    :root {
+      --uk2-icons-tier2-accent-color: yellow;
+    }
+  `}
+/>
+
+#### Overwriting the css variable to yellow from a component.
+<p>*.component.ts</p>
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+    export class YourComponent {
+      constructor() {
+        this.document.querySelector('body')?.style.setProperty('--uk2-icons-tier2-accent-color', 'yellow');
+      }
+    }
+  `}
+/>
+
+### Changing the size for all icons
+
+<p>*.component.html</p>
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="big-icon">
+      <mat-icon [svgIcon]="alertsIcons.xCircle"></mat-icon>
+    </div>
+  `}
+/>
+
+<p>*.component.scss</p>
+<Source
+  dark
+  language='css'
+  code={dedent`
+    .big-icon {
+      with: 64px;
+      height: 64px;
+    }
+  `}
+/>

@@ -1,0 +1,26 @@
+.uk2-element-position-item {
+  overflow: hidden;
+
+  &.uk2-element-position-left {
+    justify-content: flex-start;
+    flex-direction: row;
+    text-align: left;
+    display: flex;
+  }
+
+  &.uk2-element-position-center {
+    justify-content: center;
+    flex-direction: row;
+    text-align: center;
+    align-self: center;
+    display: flex;
+    flex: 1;
+  }
+
+  &.uk2-element-position-right {
+    justify-content: flex-end;
+    flex-direction: row;
+    text-align: right;
+    display: flex;
+  }
+}

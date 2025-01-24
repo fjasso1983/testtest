@@ -1,0 +1,90 @@
+<h2>UiKit V2 Hint display documentation</h2>
+
+<p>
+  <i>Uk2HintDisplayPattern</i>
+  is a directive that will control the display behavior of &lt;mat-hint&gt; element
+</p>
+
+<h3>Input</h3>
+<p>
+  Enum
+  <i>Uk2FormFieldHintDisplayPattern</i>
+</p>
+<ul>
+  <li>alwaysVisible</li>
+  <li>hideInDefaultState</li>
+</ul>
+
+<h3>Basic Example</h3>
+<div>
+  <form>
+    <div class="fields">
+      <div class="field">
+        <h3>Hint always visible</h3>
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Enter your name*</mat-label>
+          <input
+            id="inputName"
+            matInput
+            uk2Input
+            [uk2HintDisplayPattern]="alwaysVisible"
+            [formControl]="name"
+            name="testName"
+            autocomplete="off"
+          />
+          <mat-hint>Second name is optional</mat-hint>
+          <mat-error>
+            <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+            Invalid name
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field">
+        <h3>Hint only visible on focus</h3>
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Enter your email</mat-label>
+          <input
+            id="inputEmail"
+            matInput
+            uk2Input
+            [uk2HintDisplayPattern]="hideInDefaultState"
+            [formControl]="email"
+            name="testEmail"
+            autocomplete="off"
+          />
+          <mat-hint>Use your corporative email</mat-hint>
+          <mat-error>
+            <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+            Invalid name
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field">
+        <h3>Input showing error will hide hints</h3>
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Enter your phone</mat-label>
+          <input
+            id="inputEmail"
+            matInput
+            uk2Input
+            [uk2HintDisplayPattern]="hideInDefaultState"
+            [formControl]="phone"
+            name="phone"
+            autocomplete="off"
+            #phoneEl
+          />
+          <mat-hint>Phone number</mat-hint>
+          <mat-error>
+            <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+            Invalid phone
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<br />
+<h2>Code</h2>
+<pre>
+  {{ basicExample }}
+</pre>

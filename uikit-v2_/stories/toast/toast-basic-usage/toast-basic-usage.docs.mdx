@@ -1,0 +1,110 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# uk2Toast component documentation
+
+## Introduction
+<p>
+  <strong>uk2Toast</strong> is a custom component developed using Angular Material <a href="https://v15.material.angular.io/components/snack-bar/overview" target="_blank">MatSnackBar</a> component, to achieve Toast component which is part of <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F-Framework-Core---Web-2.0?node-id=2065-32560&t=5m3krsC8egFC5G6Z-0" target="_blank">Axos Design System</a>.
+</p>
+
+### Constraints
+<ol>
+  <li>
+    Based on ADA compliance, toast will be dismissed after 10 seconds by default.
+  </li>
+  <li>
+    If app is working on a touch screen, toasts can be dismissed with a tap or swipe in any direction.
+  </li>
+</ol>
+
+## Prerequisites
+
+- You need to import MatSnackBarModule from @angular/material/* into the desired module of your Angular App. To be able to use uk2Toast component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatSnackBarModule } from '@angular/material/snack-bar';
+  `}
+/>
+
+- You need to import Uk2ToastModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use uk2Toast component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2ToastModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+- You need to import MatSnackBar from @angular/material/snack-bar and Uk2ToastComponent, Uk2ToastTypeEnum from @axos/uikit-v2-lib  into the desired component of your Angular App. To be able to use uk2Toast component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatSnackBar } from '@angular/material/snack-bar';
+      import { Uk2ToastComponent, Uk2ToastTypeEnum } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Enums
+
+- You need to import <strong>Uk2ToastTypeEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to choose the type of the toat.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export enum Uk2ToastTypeEnum {
+      success = 'success',
+      alert = 'alert',
+      loading = 'loading',
+    }
+  `}
+/>
+
+## Directives
+
+### Uk2DetectTouchDirective
+
+<p>Toast component uses <b>Uk2DetectTouchDirective</b> which is a specialized directive that add touch event listeners, so if user do tap or swipe in any direction starting from toast, it will emit an event that will dismiss toast.</p>
+<p>
+  <b>selector</b>: [uk2DetectTouch]<br/>
+  <b>output</b>: (touched): EventEmitter&lt;void&gt;
+</p>
+
+## Sample code
+  <p>
+  Here are some examples on how to open uk2Toast from any component.
+  </p>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Component } from '@angular/core';
+      import { MatSnackBar } from '@angular/material/snack-bar';
+      import { Uk2ToastComponent, Uk2ToastTypeEnum } from '@axos/uikit-v2-lib';
+      \r
+      export class YourComponent {
+        durationInSeconds = 5;
+        \r
+        constructor(private _snackBar: MatSnackBar) {}
+        \r
+        openToast() {
+          this._snackBar.openFromComponent(Uk2ToastComponent, {
+            duration: this.durationInSeconds * 1000,
+            data: {
+              message: 'Your toast text message',
+              type: Uk2ToastTypeEnum.success,
+            },
+          });
+        }
+      }
+  `}
+/>
+
+

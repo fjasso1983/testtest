@@ -1,0 +1,22 @@
+<section class="wrapper">
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Progress Bar layout (Header, Progress Bar, Footer)</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+    <li>Progress Bar responsiveness on each size</li>
+    <li>"Actions" tab is used just to provide visual feedback of an actual action happening on every button click.</li>
+  </ul>
+</section>
+
+<uk2-progress-bar
+  [uk2LogoImgPath]="uk2LogoImgPath"
+  [uk2OrganizationName]="uk2OrganizationName"
+  [uk2IsLoading]="uk2IsLoading"
+  [uk2ProgressBarValue]="uk2ProgressBarValue"
+  [uk2HeaderText]="uk2HeaderText"
+  [uk2HeaderIconButton]="uk2HeaderIconButton"
+  (uk2HeaderCallBackButton)="uk2HeaderCallBackButton.emit()"
+  [uk2FooterIconButton]="uk2FooterIconButton"
+  (uk2FooterCallBackButton)="uk2FooterCallBackButton.emit()"
+></uk2-progress-bar>

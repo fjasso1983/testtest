@@ -1,0 +1,26 @@
+@mixin uk2-set-color($color:#000000) {
+  color:$color;
+}
+
+@mixin uk2-format-text($font-family: 'Roboto', $font-size, $font-weight, $line-height){
+  font-family: $font-family;
+  font-style: normal;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: 0.2px;
+  text-align: left;
+}
+
+@mixin uk2-max-number-of-lines($lines: 2){
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+@mixin uk2-text-truncation-ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

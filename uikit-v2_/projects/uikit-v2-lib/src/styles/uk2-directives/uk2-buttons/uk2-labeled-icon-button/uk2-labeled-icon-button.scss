@@ -1,0 +1,66 @@
+@import './uk2-labeled-icon-button.mixins';
+
+button.uk2-labeled-icon-button-small {
+    @include uk2-labeled-icon-button-size($uk2-button-small);
+    & mat-icon {
+      height: 16px !important;
+      width: 16px  !important;
+      min-width: 16px  !important;
+      min-height: 16px  !important;
+     }
+}
+
+button.uk2-labeled-icon-button-medium {
+    @include uk2-labeled-icon-button-size($uk2-button-medium);
+    & mat-icon {
+      height: 24px !important;
+      width: 24px  !important;
+      min-width: 24px  !important;
+      min-height: 24px  !important;
+     }
+}
+
+button.uk2-labeled-icon-button-large {
+    display:none !important;
+    @include uk2-labeled-icon-button-size($uk2-button-large);
+}
+
+button.uk2-labeled-icon-button-skeleton {
+    pointer-events: none;
+    color: transparent !important;
+    background-color: transparent !important;
+    opacity: 1 !important;
+    .mat-icon{
+      background-color: var(--uk2-neutral-grey-300) !important;
+      border-radius: 8px;
+    }
+
+    .mdc-button__label{
+      background-color: var(--uk2-neutral-grey-300) !important;
+      border-radius: 8px;
+      min-width: 97px;
+    }
+
+    &.uk2-labeled-icon-button-small{
+      .mat-icon{
+        border-radius: 4px;
+      }
+
+      .mdc-button__label{
+        border-radius: 4px;
+      }
+    }
+
+}
+
+
+
+.uk2-labeled-icon-right {
+  display: flex;
+  flex-direction: row-reverse;
+
+  mat-icon {
+    margin-left: 8px !important;
+    margin-right: 0px !important;
+  }
+}

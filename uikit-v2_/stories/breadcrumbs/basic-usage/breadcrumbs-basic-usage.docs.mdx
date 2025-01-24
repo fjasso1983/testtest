@@ -1,0 +1,104 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+import BreadcrumbsIntroductionLayout from '../breadcrumbs-introduction.docs.mdx'
+
+<BreadcrumbsIntroductionLayout></BreadcrumbsIntroductionLayout>
+
+## Inputs
+
+<ul>
+  <li>[items] <u>Uk2BreadcrumbsItem</u> list that will be rendered as a breadcrumb item.</li>
+</ul>
+
+## Outputs
+
+<ul>
+  <li>(itemSelected) <u>Uk2BreadcrumbsItem</u> object of a clicked link.</li>
+</ul>
+
+## Models
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+import { Uk2BreadcrumbsItem } from '@axos/uikit-v2-lib';
+...
+type Uk2BreadcrumbsItem = {
+  label: string; // text used as the link content
+  url?: string; // path of a route
+};
+`}
+/>
+
+## Sample code
+
+In order to use Uk2BreadcrumbsComponent you need to add <b>&lt;uk2-breadcrumbs&gt;</b> element inside template and define the property <b>items</b>.<br />
+Note the use and setup of the "items" property
+
+### Basic Usage
+
+### .component.html
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+<uk2-breadcrumbs [items]="items" (itemSelected)="onItemSelected($event)"></uk2-breadcrumbs>
+  `}
+/>
+
+### .component.ts
+
+<Source
+  dark
+  language="typescript"
+  code={dedent`
+import { Uk2BreadcrumbsItem } from '@axos/uikit-v2-lib';
+class MyComponent {
+  items: Uk2BreadcrumbsItem[] = [
+    {
+      url: '/homepage',
+      label: 'Home'
+    },
+    {
+      url: '/store',
+      label: 'Store'
+    },
+    {
+      url: '/about',
+      label: 'About us'
+    }
+  ]
+...
+  onItemSelected(item: Uk2BreadcrumbsItem) {
+    ...
+  }
+}`}/>
+
+### Toggling skeleton state
+
+Note the use of <strong>uk2IsLoading</strong> property to toggle skeleton state.
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <uk2-breadcrumbs [items]="items" [uk2IsLoading]="isLoading"></uk2-breadcrumbs>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  export class YourComponent {
+    isLoading: boolean = false;
+  }
+  `}
+/>

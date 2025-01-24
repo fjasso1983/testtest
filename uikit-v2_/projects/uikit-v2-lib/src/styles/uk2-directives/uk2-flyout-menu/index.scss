@@ -1,0 +1,26 @@
+@import './uk2-flyout-menu.variables';
+@import './uk2-flyout-menu.mixins';
+
+.uk2-flyout-menu {
+  @include uk2-flyout-menu-default-styles;
+}
+
+.uk2-flyout-menu-header {
+  @include uk2-flyout-menu-header-default-styles;
+}
+
+.uk2-flyout-menu-footer {
+  @include uk2-flyout-menu-footer-default-styles;
+}
+
+.uk2-flyout-backdrop {
+  @include uk2-flyout-menu-backdrop-default-styles;
+}
+
+.uk2-flyout-menu-body {
+  @include uk2-flyout-menu-body-default-styles;
+
+  &.uk2-gradient-margin {
+    @include uk2-flyout-bottom-gradient;
+  }
+}

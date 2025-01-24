@@ -1,0 +1,16 @@
+.uk2-filter-chip-option {
+  min-height: 32px;
+  padding: 0px 8px;
+  border-radius: unset !important;
+  &.uk2-menu-list-active{
+    background-color: accent-color-50-hsl();
+  }
+
+  &:focus-visible,
+  &:focus {
+    outline: 2px solid black;
+    outline-offset: -2px;
+  }
+
+  @include checkbox-size(18px);
+}

@@ -1,0 +1,35 @@
+.uk2-filter-chip-overlay {
+  box-sizing: border-box;
+  border: 1px solid var(--uk2-neutral-grey-200);
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px 0px #00000033;
+  background-color: var(--uk2-neutral-white);
+  overflow: hidden;
+
+  .uk2-filter-chip-overlay-clear-selection {
+    padding: 8px;
+    position: relative;
+    color: var(--uk2-neutral-slate-400);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--uk2-neutral-grey-100);
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: 2px solid black;
+      outline-offset: -2px;
+    }
+
+    &::before {
+      position: absolute;
+      top: 1px;
+      left: 8px;
+      content: '';
+      width: calc(100% - 16px);
+      height: 1px;
+      background-color: var(--uk2-neutral-grey-200);
+    }
+  }
+}

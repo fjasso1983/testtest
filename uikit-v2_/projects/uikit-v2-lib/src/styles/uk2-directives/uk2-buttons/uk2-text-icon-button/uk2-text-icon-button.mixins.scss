@@ -1,0 +1,123 @@
+@import '../uk2-buttons.mixins.scss';
+
+@mixin uk2-text-icon-button($button-size, $background-color, $text-color) {
+  border-radius: 8px !important;
+  white-space: nowrap !important;
+  letter-spacing: normal !important;
+  @include uk2-icon-button-responsive($button-size);
+  &:not(.uk2-text-icon-button-skeleton) {
+    background: $background-color !important;
+    color: $text-color !important;
+  }
+  & mat-icon {
+    margin: 0px !important;
+  }
+}
+
+@mixin uk2-text-icon-button-default($button-size) {
+  @include uk2-text-icon-button($button-size, none, accent-color-400-hsl());
+
+  &.uk2-neutral-color {
+    @include uk2-neutral-color-variant(
+      var(--uk2-text-icon-button-neutral-color),
+      var(--uk2-text-icon-button-neutral-color-hover)
+    );
+  }
+}
+
+@mixin uk2-text-icon-button-hover($button-size) {
+  @include uk2-text-icon-button($button-size, var(--uk2-neutral-grey-100), accent-color-400-hsl());
+}
+
+@mixin uk2-text-icon-button-disabled($button-size) {
+  opacity: 0.5 !important;
+  &.uk2-text-icon-button-skeleton {
+    opacity: 1 !important;
+  }
+  @include uk2-text-icon-button($button-size, transparent, var(--uk2-neutral-slate-300));
+}
+
+@mixin uk2-text-icon-button-size($button-size) {
+  @include uk2-button-selected-state();
+  @include uk2-text-icon-button-default($button-size);
+  &:hover {
+    @include uk2-text-icon-button-hover($button-size);
+  }
+
+  &[disabled] {
+    @include uk2-text-icon-button-disabled($button-size);
+  }
+}
+
+@mixin uk2-neutral-color-variant($default-color, $hover-color) {
+  &.uk2-neutral-color:not([disabled]) {
+    &:not(.uk2-text-icon-button-skeleton) {
+      color: $default-color !important;
+    }
+    &:hover {
+      color: $hover-color !important;
+    }
+  }
+}
+
+// Text Variant
+@mixin uk2-text-icon-variant-default() {
+  &:hover {
+    background: unset !important;
+    color: accent-color-500-hsl() !important;
+  }
+  &:focus-visible {
+    color: accent-color-500-hsl() !important;
+  }
+  &.uk2-neutral-color {
+    @include uk2-neutral-color-variant(
+      var(--uk2-text-icon-button-neutral-color-text-variant),
+      var(--uk2-text-icon-button-neutral-color-text-variant-hover)
+    );
+  }
+}
+
+@mixin uk2-text-icon-variant-size-small() {
+  @include button-size(18px);
+  span.mat-mdc-button-touch-target {
+    @include button-size(18px);
+  }
+  mat-icon {
+    @include button-size(18px);
+    svg {
+      @include button-size(18px);
+    }
+  }
+}
+@mixin uk2-text-icon-variant-size-medium() {
+  @include button-size(24px);
+  span.mat-mdc-button-touch-target {
+    @include button-size(24px);
+  }
+  mat-icon {
+    @include button-size(24px);
+    svg {
+      @include button-size(24px);
+    }
+  }
+}
+@mixin uk2-text-icon-variant-size-large() {
+  @include button-size(28px);
+  span.mat-mdc-button-touch-target {
+    @include button-size(28px);
+  }
+  mat-icon {
+    @include button-size(28px);
+    svg {
+      @include button-size(28px);
+    }
+  }
+}
+
+@mixin button-size($size) {
+  height: $size !important;
+  min-height: $size !important;
+  width: $size !important;
+  min-width: $size !important;
+}
+// End text variant

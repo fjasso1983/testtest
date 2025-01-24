@@ -1,0 +1,242 @@
+@import './uk2-value-movement-theming';
+
+.uk2-value-movement-type-positive {
+  color: var(--uk2-value-movement-type-positive-color);
+}
+.uk2-value-movement-type-negative {
+  color: var(--uk2-value-movement-type-negative-color);
+}
+.uk2-value-movement-type-neutral {
+  color: var(--uk2-value-movement-type-neutral-color);
+}
+
+.uk2-value-movement-info-row {
+  display: inline-flex;
+  align-items: center;
+}
+.uk2-value-movement-info-row-gap {
+  gap: 4px;
+}
+.uk2-value-movement-percentage-wrap {
+  display: flex;
+  overflow: hidden;
+  padding: 0 2px 0 2px;
+}
+.uk2-value-movement-amount-wrap {
+  display: flex;
+  overflow: hidden;
+}
+.uk2-value-movement-description {
+  display: flex;
+  color: var(--uk2-value-movement-description-color);
+}
+.uk2-value-movement-description:not(:empty) {
+  padding-left: 4px;
+}
+.uk2-value-movement-text-overflow {
+  @include uk2-text-truncation-ellipsis;
+}
+.uk2-value-movement-nowrap {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.uk2-value-movement-icon-container {
+  display: flex;
+  align-items: center;
+  height: 16px;
+  .uk2-value-movement-icon {
+    display: flex;
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+/**
+ * Display Type: display
+ */
+.uk2-value-movement-display-type-amount-percentage {
+  align-items: end;
+}
+.uk2-value-movement-display-type-amount-percentage-extra-small {
+  @include uk2-font__body-medium--200;
+}
+.uk2-value-movement-display-type-amount-percentage-small {
+  @include uk2-font__display-medium--300;
+}
+.uk2-value-movement-display-type-amount-percentage-medium {
+  @include uk2-font__display-medium--400;
+}
+.uk2-value-movement-display-type-amount-percentage-large {
+  @include uk2-font__display-medium--600;
+}
+.uk2-value-movement-display-type-description {
+  align-items: end;
+}
+.uk2-value-movement-display-type-description-extra-small {
+  height: 18px;
+  @include uk2-font__body-regular--50;
+}
+.uk2-value-movement-display-type-description-small {
+  height: 18px;
+  @include uk2-font__body-regular--50;
+}
+.uk2-value-movement-display-type-description-medium {
+  height: 21px;
+  @include uk2-font__body-regular--75;
+}
+.uk2-value-movement-display-type-description-large {
+  height: 23px;
+  @include uk2-font__body-regular--75;
+}
+.uk2-value-movement-display-type-description-margin-extra-small {
+  margin-bottom: 3px;
+}
+.uk2-value-movement-display-type-description-margin-small {
+  margin-bottom: 3px;
+}
+.uk2-value-movement-display-type-description-margin-medium {
+  margin-bottom: 1px;
+}
+.uk2-value-movement-display-type-description-margin-large {
+  margin-bottom: 3px;
+}
+.uk2-value-movement-display-type-skeleton-body {
+  height: 32px;
+  max-width: 337px;
+  flex: 0 0 100%;
+}
+
+/**
+ * Display Type: chip
+ */
+.uk2-value-movement-chip-type {
+  border-radius: 6px;
+}
+.uk2-value-movement-chip-type-extra-small {
+  padding: 2px 6px;
+}
+.uk2-value-movement-chip-type-small {
+  padding: 4px 8px;
+}
+.uk2-value-movement-chip-type-medium {
+  padding: 4px 8px;
+}
+.uk2-value-movement-chip-type-large {
+  padding: 6px 10px;
+}
+.uk2-value-movement-chip-type-amount-percentage-extra-small {
+  @include uk2-font__body-medium--50;
+}
+.uk2-value-movement-chip-type-amount-percentage-small {
+  @include uk2-font__body-medium--50;
+}
+.uk2-value-movement-chip-type-amount-percentage-medium {
+  @include uk2-font__body-medium--75;
+}
+.uk2-value-movement-chip-type-amount-percentage-large {
+  @include uk2-font__body-medium--75;
+}
+.uk2-value-movement-chip-type-description {
+  align-items: center;
+}
+.uk2-value-movement-chip-type-description-extra-small {
+  height: 16px;
+  @include uk2-font__body-regular--50;
+}
+.uk2-value-movement-chip-type-description-small {
+  height: 16px;
+  @include uk2-font__body-regular--50;
+}
+.uk2-value-movement-chip-type-description-medium {
+  height: 20px;
+  @include uk2-font__body-regular--75;
+}
+.uk2-value-movement-chip-type-description-large {
+  height: 20px;
+  @include uk2-font__body-regular--75;
+}
+.uk2-value-movement-type-positive {
+  .uk2-value-movement-chip-type-description{
+    color: var(--uk2-value-movement-chip-type-description-positive-color);
+  }
+}
+.uk2-value-movement-type-negative {
+  .uk2-value-movement-chip-type-description {
+    color: var(--uk2-value-movement-chip-type-description-negative-color);
+  }
+}
+.uk2-value-movement-type-neutral {
+  .uk2-value-movement-chip-type-description {
+    color: var(--uk2-value-movement-chip-type-description-neutral-color);
+  }
+}
+.uk2-value-movement-chip-type-background-positive {
+  background-color: var(--uk2-value-movement-chip-type-positive-background-color);
+}
+.uk2-value-movement-chip-type-background-negative {
+  background-color: var(--uk2-value-movement-chip-type-negative-background-color);
+}
+.uk2-value-movement-chip-type-background-neutral {
+  background-color: var(--uk2-value-movement-chip-type-neutral-background-color);
+}
+.uk2-value-movement-chip-type-skeleton-body {
+  height: 32px;
+  max-width: 198px;
+  flex: 0 0 100%;
+}
+
+/**
+ * Display Type: noContainer
+ */
+.uk2-value-movement-no-container-type-amount-percentage-extra-small {
+  @include uk2-font__body-regular--50;
+}
+.uk2-value-movement-no-container-type-amount-percentage-small {
+  @include uk2-font__body-regular--50;
+}
+.uk2-value-movement-no-container-type-amount-percentage-medium {
+  @include uk2-font__body-regular--75;
+}
+.uk2-value-movement-no-container-type-amount-percentage-large {
+  @include uk2-font__body-regular--75;
+}
+.uk2-value-movement-no-container-type-description-extra-small {
+  height: 16px;
+  @include uk2-font__body-regular--50;
+}
+.uk2-value-movement-no-container-type-description-small {
+  height: 16px;
+  @include uk2-font__body-regular--50;
+}
+.uk2-value-movement-no-container-type-description-medium {
+  height: 20px;
+  @include uk2-font__body-regular--75;
+}
+.uk2-value-movement-no-container-type-description-large {
+  height: 20px;
+  @include uk2-font__body-regular--75;
+}
+.uk2-value-movement-no-container-type-skeleton-icon {
+  width: 16px;
+  height: 16px;
+}
+.uk2-value-movement-no-container-type-skeleton-body {
+  width: 104px;
+  height: 16px;
+}
+
+/**
+ * Skeleton
+ */
+.uk2-value-movement-skeleton-icon {
+  background-clip: content-box;
+  background-color: var(--uk2-neutral-grey-300);
+  border-radius: 4px;
+}
+.uk2-value-movement-skeleton-body {
+  background-clip: content-box;
+  background-color: var(--uk2-neutral-grey-300);
+  border-radius: 4px;
+}
+

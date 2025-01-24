@@ -1,0 +1,40 @@
+.upload-container {
+  width: 368px;
+  margin: auto;
+}
+
+.upload-display-container {
+  max-width: 60vw;
+  margin: auto;
+}
+
+.loading-spinner-simulation {
+  > mat-icon {
+    animation: rotate 2s linear infinite;
+    align-content: center;
+    margin: auto;
+  }
+}
+
+.flyout-container {
+  border-radius: inherit;
+}
+
+.small-display {
+  width: 368px;
+  margin: auto;
+}
+
+.preview-size {
+  height: 400px;
+  max-height: 400px;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

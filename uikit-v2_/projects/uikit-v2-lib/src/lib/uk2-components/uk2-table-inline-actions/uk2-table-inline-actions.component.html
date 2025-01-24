@@ -1,0 +1,39 @@
+<div class="uk2-table-inline-actions">
+  <button
+    *ngFor="let action of orderedActionList | slice : 0 : uk2MaxInlineActions"
+    class="uk2-inline-table-button"
+    uk2TextIconButton
+    disableRipple
+    mat-button
+    [uk2ButtonSize]="buttonSize.small"
+    (click)="onActionSelected(action.actionId)"
+    #actionButton
+  >
+    <mat-icon [svgIcon]="action.svgIcon"></mat-icon>
+  </button>
+  <button
+    *ngIf="orderedActionList.length > uk2MaxInlineActions"
+    class="uk2-inline-table-button"
+    uk2TextIconButton
+    disableRipple
+    mat-button
+    uk2FlyoutMenu
+    [uk2FlyoutTemplate]="flyoutOverlay"
+    [uk2ButtonSize]="buttonSize.small"
+    #flyoutMenu="uk2FlyoutMenu"
+    (click)="flyoutMenu.toggle()"
+  >
+    <mat-icon [svgIcon]="ellipsisIcon"></mat-icon>
+  </button>
+</div>
+
+<ng-template #flyoutOverlay>
+  <div class="uk2-table-inline-actions-flyout-content">
+    <uk2-list-item
+      *ngFor="let action of orderedActionList | slice : uk2MaxInlineActions"
+      [uk2ListItem]="getActionListItem(action)"
+      (click)="onActionSelected(action.actionId)"
+    >
+    </uk2-list-item>
+  </div>
+</ng-template>

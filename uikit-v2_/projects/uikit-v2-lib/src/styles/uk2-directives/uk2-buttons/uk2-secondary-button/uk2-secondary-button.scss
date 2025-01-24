@@ -1,0 +1,20 @@
+@import './uk2-secondary-button.mixins';
+
+button.uk2-secondary-button-small {
+  @include uk2-secondary-button-size($uk2-button-small);
+}
+
+button.uk2-secondary-button-medium {
+  @include uk2-secondary-button-size($uk2-button-medium);
+}
+
+button.uk2-secondary-button-large {
+  @include uk2-secondary-button-size($uk2-button-large);
+}
+
+button.uk2-secondary-button-skeleton {
+  pointer-events: none;
+  color: transparent !important;
+  background-color: var(--uk2-neutral-grey-300) !important;
+  border: 2px solid var(--uk2-neutral-grey-300) !important;
+}

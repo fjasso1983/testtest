@@ -1,0 +1,118 @@
+<h1>Checkbox directive documentation</h1>
+
+<p>
+  Uk2ButtonToggleGroupDirective is a directive that will only work on
+  <i>&lt;mat-button-toggle-group&gt;</i>
+  elements and it will add a class name to handle styles.
+</p>
+
+<div>
+  <button (click)="toggleLoading()">toggle skeleton</button>
+  <button (click)="toggleSize()">toggle size</button>
+</div>
+
+<br />
+
+<section>
+  <h2>Sample Code</h2>
+
+  <mat-button-toggle-group uk2ButtonToggleGroup [uk2IsLoading]="isLoading" [size]="size">
+    <mat-button-toggle value="bold">
+      <label>Bold</label>
+      <label data-counter>2</label>
+    </mat-button-toggle>
+    <mat-button-toggle value="italic">
+      <label>Italic</label>
+      <label data-counter>3</label>
+    </mat-button-toggle>
+    <mat-button-toggle value="underline">
+      <label>Underline</label>
+      <label data-counter>45</label>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</section>
+
+<section>
+  <h2>Sample Code with out counter</h2>
+
+  <mat-button-toggle-group uk2ButtonToggleGroup [uk2IsLoading]="isLoading" [size]="size">
+    <mat-button-toggle value="bold">
+      <label>Bold</label>
+    </mat-button-toggle>
+    <mat-button-toggle value="italic">
+      <label>Italic</label>
+    </mat-button-toggle>
+    <mat-button-toggle value="underline">
+      <label>Underline</label>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</section>
+
+<section>
+  <h2>Sample code in skeleton state</h2>
+
+  <mat-button-toggle-group uk2ButtonToggleGroup [uk2IsLoading]="true" [size]="size">
+    <mat-button-toggle value="bold">
+      <label>Bold</label>
+    </mat-button-toggle>
+    <mat-button-toggle value="italic">
+      <label>Italic</label>
+    </mat-button-toggle>
+    <mat-button-toggle value="underline">
+      <label>Underline</label>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</section>
+
+<section>
+  <h2>Sample code with text truncation</h2>
+
+  <mat-button-toggle-group uk2ButtonToggleGroup [uk2IsLoading]="isLoading" [size]="size">
+    <mat-button-toggle value="bold">
+      <label>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      </label>
+    </mat-button-toggle>
+    <mat-button-toggle value="italic">
+      <label>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      </label>
+    </mat-button-toggle>
+    <mat-button-toggle value="underline">
+      <label>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      </label>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</section>
+
+<section>
+  <h2>Sample code with text truncation</h2>
+
+  <mat-button-toggle-group uk2ButtonToggleGroup [uk2IsLoading]="isLoading" [size]="size">
+    <mat-button-toggle value="bold">
+      <label>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      </label>
+      <label data-counter>211111</label>
+    </mat-button-toggle>
+    <mat-button-toggle value="italic">
+      <label>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      </label>
+      <label data-counter>300</label>
+    </mat-button-toggle>
+    <mat-button-toggle value="underline">
+      <label>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      </label>
+      <label data-counter>4544</label>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</section>

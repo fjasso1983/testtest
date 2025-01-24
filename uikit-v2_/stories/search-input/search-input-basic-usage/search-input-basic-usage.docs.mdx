@@ -1,0 +1,232 @@
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2SearchInput directives documentation
+## Introduction
+<p>
+  Search input is a combination of directives in different elements to create a search input field. It is designed to adhere to <a href="https://www.figma.com/design/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?node-id=7377-62403&node-type=frame&t=IHdVkIoxi5oYnxPs-0" target="_blank">Axos Design System</a>.
+</p>
+
+## Summary of directives
+
+### [uk2SearchMenu]
+<p> Is a directive linked to a input element that is connected to an overlay with a list of options.</p>
+
+### [uk2SearchMenuOverlay]
+<p> Is a directive that will control overlay options doing filtering, limiting the results or showing a message of no results if none of the options match the search.</p>
+
+### [uk2SearchMenuItem]
+<p>Is a directive that is applied to every option inside the overlay container, this directive is used to set the style and accessibility functionality</p>
+
+### [uk2SearchInputClearIcon]
+<p>Is a directive that is applied to a button element that will clear the input value and focus input</p>
+
+## Constraints
+<ol>
+  <li>[uk2SearchMenu] must be applied to input element</li>
+  <li>[uk2SearchMenu] accept an input and it must be a template variable of a &lt;ng-template&gt;</li>
+  <li>[uk2SearchMenuOverlay] must be a container of every option and be inside &lt;ng-template&gt;</li>
+  <li>[uk2SearchMenuItem] must be applied to every option inside the overlay</li>
+</ol>
+
+## Prerequisites
+
+<p>You need to import the next modules from @axos/uikit-v2-lib and @angular/material. To be able to access search input directives.</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //angular
+      import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+      import { ReactiveFormsModule } from '@angular/forms';
+      import { CommonModule } from '@angular/common';
+      \r
+      //@angular/material
+      import { MatFormFieldModule } from '@angular/material/form-field';
+      import { MatIconModule } from '@angular/material/icon';
+      import { MatInputModule } from '@angular/material/input';
+      import { MatMenuModule } from '@angular/material/menu';
+      import { MatButtonModule } from '@angular/material/button';
+      \r
+      //@axos/uikit-v2-lib
+      import { Uk2ListItemModule, Uk2DirectivesModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+<p>
+  Note that this directive uses icons and these are part of the @axos/uikit-v2-lib iconography. To see more information go to <a href="/docs/iconography--iconography">iconography.</a>
+</p>
+
+## Inputs/Outputs
+
+### [uk2SearchMenu]
+
+<ul>
+  <li>[uk2SearchMenu] <u>TemplateRef</u> &lt;ng-template&gt; template variable.</li>
+  <li>[uk2SearchMenuMinimumLength] <u>number</u> <i>(optional)</i> Number used as the minimum length in input to trigger search menu (<b>Default:</b> 0).</li>
+  <li>[uk2SearchInputCustomLabel] <u>string</u> <i>(optional)</i> String value that will be used to change form field label when input is active (<b>Default:</b> Empty string).</li>
+</ul>
+
+### [uk2SearchMenuOverlay]
+
+<ul>
+  <li>
+    <span>[uk2SearchMenuOverlay] <u>Uk2SearchMenuDirective</u> Instance of Uk2SearchMenuDirective by template variable</span>
+    <br/>
+    <br/>
+    <img src="/assets/uk2/components/search-input/assets/images/search-input-01.png"/>
+  </li>
+  <li>[uk2SearchMenuFilterDelay] <u>number</u> <i>(optional)</i> Milliseconds of delay to start filtering options (<b>Default:</b> 0).</li>
+  <li>[uk2SearchMenuOptionsLimit] <u>number</u> <i>(optional)</i> Number that limit the options founded (<b>Default:</b> 5).</li>
+</ul>
+
+### [uk2SearchMenuItem]
+
+<ul>
+  <li>(uk2SearchMenuItemSelected) <u>void</u> <i>(optional)</i> Emits when user selects an option with mouse or keyboard</li>
+</ul>
+
+### [uk2SearchInputClearIcon]
+
+<ul>
+  <li>
+    <span>[uk2SearchMenu] <u>Uk2SearchMenuDirective</u> Instance of Uk2SearchMenuDirective by template variable</span>
+    <br/>
+    <br/>
+    <img src="/assets/uk2/components/search-input/assets/images/search-input-01.png"/>
+  </li>
+</ul>
+
+## Sample code
+### Basic Usage
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <form>
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Search Input</mat-label>
+      <input
+        type="text"
+        placeholder="Lorem ipsum"
+        autocomplete="off"
+        matInput
+        uk2Input
+        [formControl]="formControl"
+        [uk2IsLoading]="isLoading"
+        [uk2InputSize]="inputSize"
+        [uk2SearchMenu]="templateReference"
+        [uk2SearchMenuMinimumLength]="minimumLengthForSearch"
+        [uk2SearchInputCustomLabel]="customFormLabel"
+        #inputElement
+        #searchMenuDirective="uk2SearchMenu"
+      />
+      <button
+        matSuffix
+        mat-icon-button
+        uk2SearchInputClearIcon
+        [uk2SearchMenu]="searchMenuDirective"
+        *ngIf="inputElement.value"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      <button class="uk2-search-input-icon" matPrefix mat-icon-button aria-label="Search input">
+        <mat-icon svgIcon="uk2-magnifying-glass"></mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+  \r
+  <ng-template #templateReference>
+    <div
+      [uk2SearchMenuOverlay]="searchMenuDirective"
+      [uk2SearchMenuFilterDelay]="filterDelay"
+      [uk2SearchMenuOptionsLimit]="optionsLimit"
+    >
+      <uk2-dropdown-list-item-chevron
+        [uk2ListItem]="option"
+        [uk2IsDisabled]="false"
+        [uk2IsPending]="false"
+        [uk2IsLoading]="false"
+        [uk2ShowDividerLine]="false"
+        uk2SearchMenuItem
+        (uk2SearchMenuItemSelected)="formControl.setValue($any(option).headerLabelName)"
+        *ngFor="let option of options"
+      ></uk2-dropdown-list-item-chevron>
+    </div>
+  </ng-template>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
+\r
+import { Uk2InputSizeEnum, Uk2ListItem } from '@axos/uikit-v2-lib';
+\r
+@Component({
+  selector: 'basic-usage-search-input',
+  templateUrl: './search-input-basic-usage.component.html',
+  styleUrls: ['./search-input-basic-usage.component.scss'],
+})
+export class SearchInputBasicUsageComponent {
+  filterDelay = 0;
+  optionsLimit = 10;
+  isLoading = false;
+  inputSize: Uk2InputSizeEnum = Uk2InputSizeEnum.large;
+  minimumLengthForSearch = 0;
+  customFormLabel = '';
+\r
+  options: Uk2ListItem[] = [
+    {
+      showControl: false,
+      imageUrl: 'https://v15.angular.io/assets/images/logos/angular/shield-large.svg',
+      moneyAmount: 100,
+      svgIconName: 'uk2-location-pin',
+      bodyText: '',
+      headerLabelName: 'Option 1',
+      headerLabelIdentifier: '34',
+      value: '1',
+    },
+    {
+      showControl: false,
+      moneyAmount: 100,
+      svgIconName: 'uk2-location-pin',
+      bodyText: '',
+      headerLabelName: 'Option 2',
+      headerLabelIdentifier: '56',
+      value: '2',
+    },
+    {
+      showControl: false,
+      imageUrl: 'https://v15.angular.io/assets/images/logos/angular/shield-large.svg',
+      moneyAmount: 100,
+      svgIconName: 'uk2-location-pin',
+      bodyText: '',
+      headerLabelName: 'Option 3',
+      headerLabelIdentifier: '76',
+      value: '3',
+    },
+    {
+      showControl: false,
+      moneyAmount: 100,
+      svgIconName: 'uk2-location-pin',
+      bodyText: '',
+      headerLabelName: 'Option 4',
+      headerLabelIdentifier: '98',
+      value: '4',
+    },
+  ];
+  formControl = new FormControl('');
+}`}
+/>

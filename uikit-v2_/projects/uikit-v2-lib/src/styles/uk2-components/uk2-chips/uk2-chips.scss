@@ -1,0 +1,14 @@
+@import './uk2-chips.mixins';
+
+uk2-chip {
+  max-width: inherit;
+  display: inline-flex;
+}
+
+.uk2-chip {
+  @include uk2-chip;
+
+  @include uk2-chip-size;
+
+  @include uk2-chip-skeleton;
+}

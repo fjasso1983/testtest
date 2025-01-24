@@ -1,0 +1,8 @@
+@mixin search-input-icons-padding($padding) {
+  .mat-mdc-form-field-icon-suffix, [dir=rtl] .mat-mdc-form-field-icon-prefix {
+    padding: 0 0 0 $padding !important;
+  }
+  .mat-mdc-form-field-icon-prefix, [dir=rtl] .mat-mdc-form-field-icon-suffix {
+    padding: 0 $padding 0 0 !important;
+  }
+}

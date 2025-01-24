@@ -1,0 +1,63 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+
+<ul>
+  <li>Bottom Sheet sections: Header, Body (Dynamic) and Footer (Dynamic)</li>
+  <li>Interaction pattern: Bottom Sheet is meant to be used in mobile screen sizes only</li>
+  <li>
+    Note that both Body and Footer are defined on a usage basis, the client application is the one responsible for the
+    behavior and actions on the elements inside those sections
+  </li>
+</ul>
+
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickComplete()">Open Bottom Sheet</button>
+
+<ng-template #complete>
+  <uk2-bottom-sheet [title]="title" [description]="description" [uk2IsLoading]="uk2IsLoading">
+    <section id="uk2-bottom-sheet-body">
+      <mat-radio-group>
+        <mat-radio-button
+          value="agree"
+          disableRipple="true"
+          uk2RadioButton
+          [disabled]="isDisabled"
+          [uk2RadioButtonSize]="size"
+          [uk2IsLoading]="isLoading"
+          [uk2Alignment]="alignment"
+        >
+          Lorem ipsum dolor
+          <p class="radio-label-description">Consecutar sit perlabum</p>
+        </mat-radio-button>
+        <mat-radio-button
+          value="value2"
+          disableRipple="true"
+          uk2RadioButton
+          [disabled]="isDisabled"
+          [uk2RadioButtonSize]="size"
+          [uk2IsLoading]="isLoading"
+          [uk2Alignment]="alignment"
+        >
+          Lorem ipsum dolor
+          <p class="radio-label-description">Consecutar sit perlabum</p>
+        </mat-radio-button>
+        <mat-radio-button
+          value="value3"
+          disableRipple="true"
+          uk2RadioButton
+          [disabled]="isDisabled"
+          [uk2RadioButtonSize]="size"
+          [uk2IsLoading]="isLoading"
+          [uk2Alignment]="alignment"
+        >
+          Lorem ipsum dolor
+          <p class="radio-label-description">Consecutar sit perlabum</p>
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <section id="uk2-bottom-sheet-footer">
+      <button uk2PrimaryButton mat-raised-button disableRipple *ngIf="showPrimaryButton">Primary button</button>
+      <button uk2SecondaryButton mat-stroked-button disableRipple *ngIf="showSecondaryButton">Secondary button</button>
+    </section>
+  </uk2-bottom-sheet>
+</ng-template>

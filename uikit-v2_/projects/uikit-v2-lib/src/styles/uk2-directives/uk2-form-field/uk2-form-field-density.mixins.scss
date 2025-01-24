@@ -1,0 +1,161 @@
+@import '../uk2-tag-input-chips/uk2-tag-input-chips.mixins.scss';
+@import '../uk2-input/uk2-input.mixins';
+@import '../uk2-dropdown/uk2-dropdown.mixins';
+
+
+@mixin uk2-form-field-density() {
+  @include uk2-form-field-density-large();
+  @include uk2-form-field-density-medium();
+  @include uk2-form-field-density-small();
+}
+
+//--------------------------//
+// FORM FIELD DENSITY LARGE //
+//--------------------------//
+
+@mixin uk2-form-field-density-large() {
+  &.uk2-form-field-size-large {
+    @include uk2-form-field-sizing($size: 48px, $padding-y: 12px, $font-size: 16px, $line-height: 24px, $icon-size: 24px);
+
+    mat-label {
+      @include uk2-font__body-medium--50();
+    }
+
+    .mat-mdc-form-field-text-prefix{
+      @include uk2-font__body-regular--100();
+    }
+
+    .mat-mdc-form-field-hint, .mat-mdc-form-field-error {
+      @include uk2-font__body-medium--50();
+    }
+
+    .mat-mdc-icon-button svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      padding: 0px 16px;
+    }
+
+    // uk2-input
+    .uk2-input{
+      @include uk2-input-size-large();
+    }
+
+    // uk2-dropdown
+    &.uk2-dropdown-size-large {
+      @include uk2-dropdown-size-large();
+      @include uk2-tag-input-size-large();
+    }
+  }
+}
+
+
+//---------------------------//
+// FORM FIELD DENSITY MEDIUM //
+//---------------------------//
+
+@mixin uk2-form-field-density-medium() {
+  &.uk2-form-field-size-medium {
+    @include uk2-form-field-sizing($size: 40px, $padding-y: 8px, $font-size: 16px, $line-height: 24px, $icon-size: 24px);
+
+    mat-label {
+      @include uk2-font__body-medium--50();
+    }
+
+    .mat-mdc-form-field-hint, .mat-mdc-form-field-error {
+      @include uk2-font__body-medium--50();
+    }
+
+    .mat-mdc-icon-button svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      padding: 0px 16px;
+    }
+
+    // uk2-input
+    .uk2-input{
+      @include uk2-input-size-medium();
+    }
+
+    //uk2-dropdown
+    &.uk2-dropdown-size-medium {
+      @include uk2-input-size-medium();
+      @include uk2-tag-input-size-medium();
+    }
+  }
+}
+
+
+//--------------------------//
+// FORM FIELD DENSITY SMALL //
+//--------------------------//
+
+@mixin uk2-form-field-density-small() {
+  &.uk2-form-field-size-small {
+    @include uk2-form-field-sizing($size: 32px, $padding-y: 4px, $font-size: 14px, $line-height: 20px, $icon-size: 20px);
+
+    mat-label {
+      @include uk2-font__body-medium--25();
+    }
+
+    .mat-mdc-form-field-text-prefix{
+      @include uk2-font__body-regular--75();
+    }
+
+    .mat-mdc-form-field-hint, .mat-mdc-form-field-error {
+      @include uk2-font__body-medium--25();
+    }
+
+    .mat-mdc-text-field-wrapper {
+      padding: 0px 8px;
+    }
+
+    .mat-mdc-icon-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    // uk2-input
+    .uk2-input{
+      @include uk2-input-size-small();
+    }
+
+    // uk2-dropdown
+    &.uk2-dropdown-size-small {
+      @include uk2-dropdown-size-small();
+      @include uk2-tag-input-size-small();
+    }
+  }
+}
+
+
+@mixin uk2-form-field-sizing($size, $padding-y, $font-size, $line-height, $icon-size) {
+  .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    @include uk2-setup-form-field-size($padding-y, $size);
+  }
+
+  .mat-mdc-form-field-icon-suffix, .mat-mdc-form-field-icon-prefix {
+    .mdc-icon-button {
+      width: $icon-size;
+      height: $icon-size;
+      padding: 0;
+      mat-icon {
+        width: $icon-size;
+        height: $icon-size;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .mat-mdc-icon-button .mat-mdc-button-touch-target {
+    width: $size;
+    height: $size;
+  }
+}
+

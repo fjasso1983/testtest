@@ -1,0 +1,51 @@
+<div *ngIf="showOverlay" class="cdk-overlay-container">
+  <div class="cdk-overlay-backdrop uk2-overlay"></div>
+</div>
+
+<div
+  #uk2Tooltip
+  class="uk2-tooltip"
+  [ngClass]="{ 'uk2-tooltip-skeleton': uk2IsLoading }"
+  [attr.aria-described-by]="labelText"
+>
+  <label *ngIf="labelText.length > 0" class="uk2-tooltip-label-text" [ngClass]="getLabelCssClass()">
+    <span *ngIf="!uk2IsLoading">{{ labelText }}</span>
+  </label>
+  <button
+    #uk2TooltipIconButton
+    disableRipple
+    mat-icon-button
+    type="button"
+    tabindex="-1"
+    class="uk2-tooltip-button"
+    [ngClass]="getIconButtonCssClass()"
+  >
+    <mat-icon [svgIcon]="svgIconName"></mat-icon>
+  </button>
+</div>
+
+<div class="uk2-tooltip-container" #uk2TooltipContainer>
+  <div class="uk2-tooltip-content">
+    <div class="uk2-tooltip-content-message">
+      <div #uk2TooltipHtmlContent>
+        <ng-content></ng-content>
+      </div>
+      <div id="uk2-Tooltip-body-text" *ngIf="displayBodyText">
+        {{ bodyText }}
+      </div>
+    </div>
+    <button
+      class="uk2-tooltip-close-button"
+      *ngIf="displayCloseButton"
+      (click)="onCloseButtonClick()"
+      aria-label="close tooltip"
+      role="button"
+    >
+      Close
+    </button>
+  </div>
+</div>
+
+<div class="uk2-tooltip-container-skeleton" #uk2TooltipSkeletonContainer>
+  <div class="uk2-tooltip-content-message-skeleton"></div>
+</div>

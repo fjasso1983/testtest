@@ -1,0 +1,158 @@
+<h2>Pre-formatted Inputs</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Phone format</li>
+  <li>SSN fomat</li>
+  <li>Percentage format</li>
+  <li>Dollar amount format</li>
+  <li>Input size (large, medium y small).</li>
+</ul>
+
+<section>
+  <form [formGroup]="form" *ngIf="form && ssnMaskConfig">
+    <mat-form-field appearance="outline" floatLabel="always" (click)="setCursorPhone()">
+      <mat-label>Mobile Phone Number</mat-label>
+      <span matTextPrefix>+1</span>
+      <input
+        #phoneInput
+        matInput
+        uk2Input
+        type="tel"
+        [placeholder]="phoneMaskConfig.placeHolder"
+        [mask]="phoneMaskConfig.inputMask"
+        [placeHolderCharacter]="phoneMaskConfig.placeHolderCharacter"
+        [showMaskTyped]="phoneMaskConfig.showMaskTyped"
+        [dropSpecialCharacters]="phoneMaskConfig.dropSpecialCharacters"
+        [prefix]="phoneMaskConfig.prefix"
+        id="phoneInput"
+        formControlName="mobilePhoneNumber"
+        autocomplete="0"
+        (keydown)="setCursorPhone()"
+        (keyup)="setCursorPhone()"
+        (input)="handleSelectPhone($event)"
+        (mousedown)="handleSelectPhone($event)"
+        [uk2InputSize]="inputSize"
+      />
+      <button
+        *ngIf="showClearButton('mobilePhoneNumber')"
+        type="button"
+        mat-icon-button
+        matSuffix
+        (mousedown)="clearPhoneField()"
+        [attr.aria-label]="'clean input'"
+        [attr.aria-pressed]="'clean input'"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      <mat-error *ngIf="mobilePhoneNumber.invalid">
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Error message emplacement
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" (click)="setCursorSSN()">
+      <mat-label>Social Security Number</mat-label>
+      <input
+        id="ssn"
+        #ssnInput
+        matInput
+        uk2Input
+        [type]="showSSN ? 'text' : 'password'"
+        formControlName="ssn"
+        autocomplete="0"
+        [placeholder]="ssnMaskConfig.placeHolder"
+        [mask]="showSSN ? ssnMaskConfig.visibleInputMask : ssnMaskConfig.hiddenInputMask"
+        [showMaskTyped]="showSSN"
+        [dropSpecialCharacters]="ssnMaskConfig.dropSpecialCharacters"
+        (keydown)="setCursorSSN()"
+        (keyup)="setCursorSSN()"
+        (mousedown)="handleSelectSSN($event)"
+        [uk2InputSize]="inputSize"
+      />
+      <button
+        id="toggleShowSSN"
+        type="button"
+        matSuffix
+        mat-icon-button
+        aria-label="Show Social Security Number"
+        (click)="toggleShowSSN($event)"
+      >
+        <mat-icon [svgIcon]="showSSN ? 'uk2-eye' : 'uk2-eye-hide'"></mat-icon>
+      </button>
+      <mat-hint>We use bank-level TLS 1.2 encryption to keep your data safe.</mat-hint>
+      <mat-error *ngIf="ssn.invalid">
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Error message emplacement
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Amount</mat-label>
+      <span matTextPrefix>$</span>
+      <input
+        matInput
+        uk2Input
+        placeholder="0.00"
+        mask="separator.2"
+        thousandSeparator=","
+        type="text"
+        id="amount"
+        autocomplete="0"
+        formControlName="amount"
+        (blur)="onBlur($event.target.value)"
+        [uk2InputSize]="inputSize"
+      />
+      <button
+        *ngIf="showClearButton('amount')"
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="this.form.controls['amount'].reset()"
+        [attr.aria-label]="'clean input'"
+        [attr.aria-pressed]="'clean input'"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      <mat-hint>With initial value.</mat-hint>
+      <mat-error *ngIf="amount.invalid">
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Error message emplacement
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="uk2-preformatted-input-percentage">
+      <mat-label>Percentage</mat-label>
+      <input
+        #percentageInput
+        matInput
+        uk2Input
+        id="percentage"
+        formControlName="percentage"
+        type="text"
+        mask="separator"
+        separatorLimit="100"
+        placeholder="0"
+        autocomplete="0"
+        (input)="setPercentageFieldWidth($event.target.value)"
+        [uk2InputSize]="inputSize"
+      />
+      <span matTextSuffix>%</span>
+      <button
+        *ngIf="showClearButton('percentage')"
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="clearPercentageField()"
+        [attr.aria-label]="'clean input'"
+        [attr.aria-pressed]="'clean input'"
+      >
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+      <mat-hint>With initial value.</mat-hint>
+      <mat-error *ngIf="percentage.invalid">
+        <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+        Error message emplacement
+      </mat-error>
+    </mat-form-field>
+  </form>
+</section>

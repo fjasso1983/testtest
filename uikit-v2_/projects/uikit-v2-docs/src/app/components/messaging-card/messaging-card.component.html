@@ -1,0 +1,134 @@
+<uk2-messaging-card
+  uk2MessagingCardSvgIconName="uk2-cog"
+  [uk2MessagingCardHeaderText]="'Certain Statements or Documents Temporarily Unavailable'"
+  [uk2MessagingCardIsExpanded]="true"
+  [uk2MessagingCardIsExpandable]="true"
+  [uk2MessagingCardShowIcon]="showIcon"
+>
+  <div class="messaging-card-content">
+    <div>
+      We're sorry, but we're currently unable to update you with the latest information on certain portfolio’s
+      statements and documents. Please check back later. Thank you for your patience.
+    </div>
+  </div>
+</uk2-messaging-card>
+<br />
+<uk2-messaging-card
+  [uk2MessagingCardType]="alertType"
+  [uk2MessagingCardHeaderText]="headerText"
+  [uk2MessagingCardIsExpanded]="false"
+  [uk2MessagingCardShowIcon]="showIcon"
+>
+  <div class="messaging-card-content">
+    <div>Vitae ornare nec pretium lacus aliquet amet</div>
+    <ul>
+      <li>Lorum: $12,345 ($34,567)</li>
+      <li>Ipsum: $12,345 ($34,567)</li>
+    </ul>
+  </div>
+</uk2-messaging-card>
+<br />
+<br />
+<uk2-messaging-card
+  [uk2MessagingCardType]="informType"
+  [uk2MessagingCardHeaderText]="headerText"
+  [uk2MessagingCardIsExpanded]="false"
+  [uk2MessagingCardShowIcon]="showIcon"
+>
+  <div class="messaging-card-content">
+    <div>Vitae ornare nec pretium lacus aliquet amet</div>
+    <ul>
+      <li>Lorum: $12,345 ($34,567)</li>
+      <li>Ipsum: $12,345 ($34,567)</li>
+    </ul>
+  </div>
+</uk2-messaging-card>
+<br />
+<uk2-messaging-card
+  [uk2MessagingCardType]="informType"
+  uk2MessagingCardHeaderText="SKELETON"
+  [uk2MessagingCardIsExpanded]="false"
+  [uk2IsLoading]="isLoading"
+  [uk2MessagingCardShowIcon]="showIcon"
+>
+  <div class="messaging-card-content">
+    <div>Vitae ornare nec pretium lacus aliquet amet</div>
+    <ul>
+      <li>Lorum: $12,345 ($34,567)</li>
+      <li>Ipsum: $12,345 ($34,567)</li>
+    </ul>
+  </div>
+</uk2-messaging-card>
+<br />
+<uk2-messaging-card
+  [uk2MessagingCardType]="informType"
+  uk2MessagingCardHeaderText="SKELETON"
+  [uk2MessagingCardIsExpanded]="true"
+  [uk2IsLoading]="isLoading"
+  [uk2MessagingCardShowIcon]="showIcon"
+>
+  <div class="messaging-card-content">
+    <div>Vitae ornare nec pretium lacus aliquet amet</div>
+    <ul>
+      <li>Lorum: $12,345 ($34,567)</li>
+      <li>Ipsum: $12,345 ($34,567)</li>
+    </ul>
+  </div>
+</uk2-messaging-card>
+<br />
+<br />
+NOT EXAPANDABLE MODE:
+<br />
+<uk2-messaging-card
+  [uk2MessagingCardType]="informType"
+  [uk2MessagingCardHeaderText]="headerText"
+  [uk2MessagingCardIsExpandable]="isExpandable"
+  [uk2MessagingCardIsExpanded]="false"
+  [uk2MessagingCardShowIcon]="showIcon"
+>
+  <div class="messaging-card-content">
+    <div>Vitae ornare nec pretium lacus aliquet amet</div>
+    <ul>
+      <li>Lorum: $12,345 ($34,567)</li>
+      <li>Ipsum: $12,345 ($34,567)</li>
+    </ul>
+  </div>
+</uk2-messaging-card>
+<br />
+<uk2-messaging-card
+  [uk2MessagingCardType]="informType"
+  uk2MessagingCardHeaderText="Vitae ornare nec pretium lact"
+  [uk2MessagingCardIsExpandable]="isExpandable"
+  [uk2MessagingCardIsExpanded]="false"
+  [uk2MessagingCardShowIcon]="showIcon"
+>
+  <div class="messaging-card-content">
+    <div>Vitae ornare nec pretium lacus aliquet amet</div>
+    <ul>
+      <li>Lorum: $12,345 ($34,567)</li>
+      <li>Ipsum: $12,345 ($34,567)</li>
+    </ul>
+  </div>
+</uk2-messaging-card>
+
+<br />
+<uk2-messaging-card
+  [uk2MessagingCardType]="informType"
+  uk2MessagingCardHeaderText="Vitae ornare nec pretium lact"
+  [uk2MessagingCardIsExpandable]="isExpandable"
+  [uk2MessagingCardIsExpanded]="false"
+  [uk2MessagingCardShowIcon]="showIcon"
+  [uk2IsLoading]="isLoading"
+>
+  <div class="messaging-card-content">
+    <div>Vitae ornare nec pretium lacus aliquet amet</div>
+    <ul>
+      <li>Lorum: $12,345 ($34,567)</li>
+      <li>Ipsum: $12,345 ($34,567)</li>
+    </ul>
+  </div>
+</uk2-messaging-card>
+
+<button (click)="setExpandable()">(setExpandable) current: {{ isExpandable }}</button>
+<button (click)="setLoading()">(setLoading) current: {{ isLoading }}</button>
+<button (click)="setShowIcon()">(setShowIcon) current: {{ showIcon }}</button>

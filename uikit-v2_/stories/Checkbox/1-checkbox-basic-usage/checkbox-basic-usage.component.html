@@ -1,0 +1,26 @@
+<div>
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Checkbox states (default, hover, checked, indeterminate, skeleton and disabled).</li>
+    <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+    <li>Label</li>
+  </ul>
+</div>
+
+<section>
+  <div class="uk2-checkbox-container">
+    <mat-checkbox
+      uk2Checkbox
+      disableRipple
+      [uk2IsLoading]="isLoading"
+      [disabled]="disabled"
+      [indeterminate]="indeterminate"
+      [checked]="isChecked"
+    ></mat-checkbox>
+    <label>
+      {{ text }}
+      <a *ngIf="hasHyperlink" uk2Anchor [href]="'new/url'" target="_blank">{{ hyperlinkText }}</a>
+    </label>
+  </div>
+</section>

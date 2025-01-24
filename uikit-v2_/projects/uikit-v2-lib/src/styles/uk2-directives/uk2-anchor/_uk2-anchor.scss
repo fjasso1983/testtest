@@ -1,0 +1,14 @@
+@import './_uk2-anchor.mixins';
+
+a.uk2-link {
+  @include idle-link-state;
+  &:hover {
+    @include hover-link-state;
+  }
+}
+
+uk2-tile-header-link {
+  a.uk2-link {
+    @include uk2-tile-header-link-integration;
+  }
+}

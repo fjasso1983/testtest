@@ -1,0 +1,45 @@
+<ng-template #uk2PanelTemplate>
+  <div
+    class="uk2-panel"
+    [ngClass]="panelStyles"
+    uk2PanelResize
+    [uk2Position]="uk2PanelPosition"
+    [uk2MinWidth]="uk2PanelMinWidth"
+    [uk2MaxWidth]="uk2PanelMaxWidth"
+    [uk2IsPanelResizable]="uk2IsPanelResizable"
+    [isLoading]="uk2IsLoading"
+    (panelClosed)="closePanel()"
+  >
+    <ng-container *ngIf="!uk2IsLoading; else uk2SkeletonStateTemplate">
+      <div class="uk2-panel-grabber">
+        <div class="uk2-panel-grabber-rectangle"></div>
+      </div>
+      <div class="uk2-panel-header">
+        <div class="uk2-panel-header-content">
+          <div class="uk2-panel-left-header-content">
+            <ng-container [ngTemplateOutlet]="leftHeaderIcons || null"></ng-container>
+          </div>
+          <h2
+            [ngClass]="{
+              'uk2-header-truncate': uk2HeaderTextBehavior === headerTextBehavior.truncate
+            }"
+            >{{ uk2HeaderTitle }}</h2
+          >
+          <div>
+            <ng-container [ngTemplateOutlet]="rightHeaderIcons || null"></ng-container>
+          </div>
+        </div>
+        <ng-container [ngTemplateOutlet]="header || null"></ng-container>
+      </div>
+      <div class="uk2-panel-content" [ngClass]="{ 'uk2-panel-hidden-footer': !uk2ShowFooter }">
+        <ng-container [ngTemplateOutlet]="content || null"></ng-container>
+      </div>
+      <div class="uk2-panel-footer side-spaced-actions" *ngIf="uk2ShowFooter">
+        <ng-container [ngTemplateOutlet]="footer || null"></ng-container>
+      </div>
+    </ng-container>
+    <ng-template #uk2SkeletonStateTemplate>
+      <div class="uk2-panel-skeleton"></div>
+    </ng-template>
+  </div>
+</ng-template>

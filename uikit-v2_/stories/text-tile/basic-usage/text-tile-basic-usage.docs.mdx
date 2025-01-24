@@ -1,0 +1,73 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Uk2TextTileComponent documentation
+
+## Introduction
+<p>
+  <strong>Uk2TextTileComponent</strong> is a custom component that is part of the <a href="https://www.figma.com/file/EnOuKrYzwFV4G6C2UE5L7L/%F0%9F%96%A5%EF%B8%8F-failed-states?type=design&node-id=1311-13361&mode=design&t=6FyFKXjH3gkAbZHL-4" target="_blank">Axos Design System</a>. It can be used as a card to convey information to the user and its content can be customized.
+</p>
+
+## Prerequisites
+- You need to import MatIconModule from @angular/material into the desired module of your Angular App.
+<Source
+  dark
+  language='javascript'
+  code={dedent`
+      import { MatIconModule } from '@angular/material/icon';
+  `}
+/>
+- You need to import Uk2TextTileModule from @axos/uikit-v2-lib into the desired module of your Angular App, to be able to access Uk2TextTileComponent.
+<Source
+  dark
+  language='javascript'
+  code={dedent`
+      import { Uk2TextTileModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+<ul>
+  <li><strong>[uk2TextTileTitle]</strong> <u>string</u> <i>(required)</i> Title for the Text Tile.</li>
+  <li><strong>[uk2TextTileContent]</strong> <u>projected content</u> <i>(required)</i> Projected content for the Text Tile. It can be just text or custom html.</li>
+  <li><strong>[uk2TextTileSvgIconName]</strong> <u>string</u> <i>(optional, <strong>default: uk2-cog</strong>)</i> Icon name for the icon.</li>
+  <li><strong>[uk2TextTileDisplayBackground]</strong> <u>boolean </u> <i>(optional, <strong>default: true</strong>)</i> Whether the background should be displayed or not.</li>
+  <li><strong>[uk2TextTileIsStandaloneTile]</strong> <u>boolean </u> <i>(optional, <strong>default: true</strong>)</i> Whether the tile should be displayed in standalone mode (with rounded corners).</li>
+</ul>
+
+## Sample Code
+This is an example on how to use the <strong>Uk2TextTileComponent</strong>:
+<br/>
+*.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-text-tile
+      [uk2TextTileTitle]="uk2TextTileTitle"
+      [uk2TextTileSvgIconName]="uk2TextTileSvgIconName"
+      [uk2TextTileDisplayBackground]="uk2TextTileDisplayBackground"
+      [uk2TextTileIsStandaloneTile]="uk2TextTileIsStandaloneTile">
+      <p>Lorem ipsum dolor sit amet consectetur. Tempor nulla mauris fames dolor convallis ut purus pharetra consequat. Ut consequat pharetra a risus nisi donec dui diam.</p>
+    </uk2-text-tile>
+  `}
+/>
+
+*.component.ts
+
+<Source
+  dark
+  language='javascript'
+  code={dedent`
+      import { Component } from '@angular/core';
+      import { Uk2Tier1UtilityEnum } from '@axos/uikit-v2-lib';
+      \r
+      export class YourComponent {
+        uk2TextTileTitle = 'Lorem ipsum dolor sit amet consectetur.';
+        uk2TextTileSvgIconName = Uk2Tier1UtilityEnum.cog;
+        uk2TextTileDisplayBackground = true;
+        uk2TextTileIsStandaloneTile = true;
+      }
+  `}
+/>

@@ -1,0 +1,66 @@
+<h1>Radio Button</h1>
+<h2>Horizontal</h2>
+<div class="radio-group">
+  <label>Pick an option</label>
+  <mat-radio-group class="first-group" aria-label="Select an option">
+    <mat-radio-button
+      disableRipple="true"
+      uk2RadioButton
+      value="option 1"
+      [disabled]="disabled"
+      [uk2IsLoading]="isLoading"
+      [uk2RadioButtonSize]="density"
+      [uk2Alignment]="align"
+    >
+      Option 1
+    </mat-radio-button>
+    <mat-radio-button
+      disableRipple="true"
+      uk2RadioButton
+      value="option 2"
+      [disabled]="disabled"
+      [uk2IsLoading]="isLoading"
+      [uk2RadioButtonSize]="density"
+      [uk2Alignment]="align"
+    >
+      Option 2
+    </mat-radio-button>
+  </mat-radio-group>
+</div>
+
+<div>
+  <b>Controls:</b>
+</div>
+<div id="controls">
+  <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="small" (click)="toggleLoading()">
+    Toggle loading
+  </button>
+  <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="small" (click)="toggleDensity()">
+    Toggle density
+  </button>
+  <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="small" (click)="toggleDisable()">
+    Toggle disable
+  </button>
+  <button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="small" (click)="toggleAlignment()">
+    Toggle alignment
+  </button>
+</div>
+
+<br />
+<h2>Vertical</h2>
+<div class="radio-group">
+  <label id="example-radio-group-label">Pick your favorite season</label>
+  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+    <mat-radio-button
+      class="example-radio-button"
+      *ngFor="let season of seasons"
+      [value]="season"
+      disableRipple="true"
+      uk2RadioButton
+      [uk2IsLoading]="loadingGroup2"
+      [uk2Alignment]="align"
+    >
+      {{ season }}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>

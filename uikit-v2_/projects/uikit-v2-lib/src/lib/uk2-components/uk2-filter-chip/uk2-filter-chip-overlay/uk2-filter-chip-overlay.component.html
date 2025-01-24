@@ -1,0 +1,23 @@
+<ng-template #template>
+  <div
+    #container
+    class="uk2-filter-chip-overlay"
+    role="listbox"
+    cdkTrapFocus
+    [style.minWidth]="overlayMinWidth$ | async"
+    (keydown)="moveFocus($event)"
+  >
+    <ng-content></ng-content>
+    <div
+      tabindex="0"
+      class="uk2-filter-chip-overlay-clear-selection"
+      (click)="clearValue()"
+      (keyup.enter)="clearValue()"
+      (keyup.space)="clearValue()"
+      *ngIf="isActive$ | async"
+      #clearSelection
+    >
+      Clear selection
+    </div>
+  </div>
+</ng-template>

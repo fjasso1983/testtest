@@ -1,0 +1,37 @@
+@import './uk2-text-icon-button.mixins.scss';
+
+button.uk2-text-icon-button-small {
+  @include uk2-text-icon-button-size($uk2-button-small);
+}
+
+button.uk2-text-icon-button-medium {
+  @include uk2-text-icon-button-size($uk2-button-medium);
+}
+
+button.uk2-text-icon-button-large {
+  @include uk2-text-icon-button-size($uk2-button-large);
+}
+
+button.uk2-text-icon-button-skeleton {
+  pointer-events: none !important;
+  color: transparent !important;
+  background-color: var(--uk2-neutral-grey-300) !important;
+}
+
+button.uk2-text-icon-button-small.uk2-text-variant,
+button.uk2-text-icon-button-medium.uk2-text-variant,
+button.uk2-text-icon-button-large.uk2-text-variant {
+  @include uk2-text-icon-variant-default();
+}
+
+button.uk2-text-icon-button-small.uk2-text-variant {
+  @include uk2-text-icon-variant-size-small();
+}
+
+button.uk2-text-icon-button-medium.uk2-text-variant {
+  @include uk2-text-icon-variant-size-medium();
+}
+
+button.uk2-text-icon-button-large.uk2-text-variant {
+  @include uk2-text-icon-variant-size-large();
+}

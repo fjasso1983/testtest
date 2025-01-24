@@ -1,0 +1,106 @@
+import { CheckboxExampleFormComponent } from './checkbox-forms-integration.component';
+import { Source, ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import IntroductionLayout from '../checkbox-introduction.docs.mdx';
+import dedent from 'ts-dedent';
+
+# Uk2Checkbox directive: Forms integration documentation
+
+<IntroductionLayout></IntroductionLayout>
+
+## .component.html
+
+<Source
+  dark
+  code={dedent`
+  <h1>
+    We just sent you a text
+  </h1>
+  <h4>
+    Enter the verification code sent to (XXX) XXX-1234
+  </h4>
+  <br>
+  <br>
+  <form [formGroup]="form">
+    <div style="height: 60.5px; width: auto;">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Verification Code</mat-label>
+        <input
+          matInput
+          [uk2IsLoading]="isLoading"
+          uk2Input
+          type="text"
+          placeholder=""
+          id="verificationCode" id="verificationCode" formControlName="verificationCode"
+        />
+      </mat-form-field>
+    </div>
+    <br>
+    <div class="uk2-checkbox-container">
+      <mat-checkbox uk2Checkbox [uk2IsLoading]="isLoading" id="rememberMe" id="rememberMe" formControlName="rememberMe"></mat-checkbox>
+      <label>Remember this device</label>
+    </div>
+    <br>
+    <button
+      uk2TextButton
+      disableRipple
+      [uk2ButtonSize]="'large'"
+      [uk2IsLoading]="isLoading"
+      mat-button
+      [disabled]="!form.valid"
+      (click)="onSubmit()"
+    >
+      Submit
+    </button>
+  </form>
+  `}
+/>
+
+## .component.scss
+
+<Source
+  dark
+  language='css'
+  code={dedent`
+    h1 {
+      font-weight: 500;
+      margin-bottom: 0px
+    }
+    h4 {
+      color: gray;
+      font-weight: lighter;
+      margin-top: 7px;
+      margin-bottom: 0px;
+    }
+    div {
+      margin-top: 7px;
+    }
+  `}
+/>
+
+## .component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+    import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+    @Component({
+      selector: 'app-checkbox-hierarchy',
+      templateUrl: './checkbox-forms-integration.component.html',
+      styleUrls: ['./checkbox-forms-integration.component.scss', '../../../projects/uikit-v2-lib/src/styles/uk2.scss'],
+    })
+    export class CheckboxExampleFormComponent implements OnInit {
+        @Input() isLoading = false;
+        form!: FormGroup;
+        constructor(private formBuilder: FormBuilder) { }
+        ngOnInit(): void {
+          this.form = this.formBuilder.group({
+            verificationCode: ['', [Validators.required]],
+            rememberMe: [false, []],
+          });
+        }
+      }
+  `}
+/>

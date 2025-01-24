@@ -1,0 +1,25 @@
+@mixin underline-text($text-color: var(--uk2-specialty-purple-600), $underline-color: var(--uk2-specialty-purple-600)) {
+  color: $text-color;
+  text-decoration: underline;
+  text-decoration-color: $underline-color;
+}
+
+@mixin idle-link-state {
+  @include underline-text(var(--uk2-semantic-blue), var(--uk2-semantic-blue));
+  cursor: pointer;
+}
+
+@mixin hover-link-state {
+  text-decoration: none;
+}
+
+@mixin uk2-tile-header-link-integration {
+  text-decoration: none !important;
+  color: var(--uk2-header-font-color) !important;
+  &:any-link {
+    color: var(--uk2-header-font-color) !important;
+  }
+  &:hover {
+    color:  var(--uk2-header-font-hover-color) !important;
+  }
+}

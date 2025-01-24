@@ -1,0 +1,103 @@
+<div>
+  <h2>File uploader - Drag & Drop variant</h2>
+  <br />
+  <button (click)="isDisabled = !isDisabled">Set disabled</button>
+  <br />
+  <br />
+  <button (click)="isUploading = !isUploading">Set uploading</button>
+  <br />
+  <br />
+  <button (click)="isLoading = !isLoading">Toggle skeleton state</button>
+  <br />
+  <br />
+  <br />
+  <div class="upload-container">
+    <div
+      uk2FileUploadDragDrop
+      [uk2FileUploadMaxFileSize]="maxFileSize"
+      [uk2IsDisabled]="isDisabled"
+      [uk2IsLoading]="isLoading"
+      [uk2IsUploading]="isUploading"
+      [uk2FileUploadTypes]="fileTypes"
+      (uk2UploadSuccess)="getUploadedFiles($event)"
+      (uk2UploadError)="getErrorMessage($event)"
+    >
+      <input type="file" multiple />
+      <div uk2-file-upload-ready>
+        <mat-icon [svgIcon]="uploaderIcon"></mat-icon>
+        <h3> Upload file here</h3>
+        <p> Drag and drop, or <a uk2Anchor>browse</a></p>
+      </div>
+      <div uk2-file-upload-loading>
+        <mat-spinner uk2-file-upload-load-indicator uk2LoadingSpinner></mat-spinner>
+        <p>Loading...</p>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <h3>Uploaded Files - Display variant</h3>
+  <div class="upload-display-container">
+    <ng-container *ngFor="let file of uploadedFiles; index as i">
+      <div
+        uk2FileUploadDisplay
+        [uk2File]="file"
+        [uk2ShowPreview]="!!file.isExpanded"
+        [uk2IsLoading]="isLoading"
+        (uk2FileSrc)="getPreview($event, file)"
+      >
+        <div class="preview-size" uk2-file-upload-preview>
+          <app-file-uploader-pdf-viewer
+            *ngIf="isPdfFile(file)"
+            [pdfSrc]="file.contentSrc!"
+          ></app-file-uploader-pdf-viewer>
+          <img *ngIf="isImage(file)" [src]="file.contentSrc" />
+        </div>
+        <div uk2-file-upload-description-bar>
+          <div [uk2ElementPosition]="elementPosition.left">
+            <button
+              mat-button
+              uk2TextIconButton
+              disableRipple
+              [uk2TextButtonVariant]="uk2TextButtonVariant"
+              [uk2ButtonSize]="buttonSize.small"
+              (click)="file.isExpanded = !file.isExpanded"
+            >
+              <mat-icon [svgIcon]="iconExpand" *ngIf="!file.isExpanded"></mat-icon>
+              <mat-icon [svgIcon]="iconCollapse" *ngIf="file.isExpanded"></mat-icon>
+            </button>
+          </div>
+          <div [uk2ElementPosition]="elementPosition.center">
+            <p>{{ file.fileName }} </p>
+            <span>({{ file.fileFormatedSize }})</span>
+          </div>
+          <div [uk2ElementPosition]="elementPosition.right">
+            <button
+              mat-button
+              uk2TextIconButton
+              uk2FlyoutMenu
+              disableRipple
+              [uk2FlyoutTemplate]="flyoutOverlay"
+              [uk2TextButtonVariant]="uk2TextButtonVariant"
+              [uk2ButtonSize]="buttonSize.small"
+              #flyoutMenu="uk2FlyoutMenu"
+              (click)="flyoutMenu.toggle()"
+            >
+              <mat-icon [svgIcon]="iconEllipses"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ng-template #flyoutOverlay>
+        <div class="flyout-container">
+          <div *ngFor="let item of flyoutList; last as isLast" uk2MenuListItem [uk2ShowDividerLine]="!isLast">
+            <mat-icon [svgIcon]="item.svgIconName!"></mat-icon>
+            <p>{{ item.bodyText }}</p>
+          </div>
+        </div>
+      </ng-template>
+      <br />
+      <br />
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# uk2FileUploadDragDrop directives documentation
+
+## Introduction
+
+<p><strong>uk2FileUploadDragDrop</strong> is a directive customizing the style and behavior of an element to achieve a drag and drop uploader adhering to the  <a target="_blank" href='https://www.figma.com/design/xNJe50LNYYGhQ1Q1C3zs4b/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---angular---web-2.0?node-id=5735-2550&node-type=canvas&m=dev'>Axos Design System</a></p>
+
+## Prerequisites
+- You need to import Uk2FileUploaderDragDropModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+
+<Source
+    dark
+    language='ts'
+    code={dedent`
+      import { Uk2FileUploaderDragDropModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+## Constraints
+<ol>
+  <li>The directive should only be applied to <strong>div</strong> container elements.</li>
+  <li>Inside of the div container it should contain an <strong>input</strong> element with <strong>type="file"</strong> in it.</li>
+  <li>Inside of the div container it should contain a <strong>div</strong> container with the attribute <strong>uk2-file-upload-ready</strong> to indicate the ready state elements.</li>
+  <li>Inside of the div container it should also contain a <strong>div</strong> container with the attribute <strong>uk2-file-upload-loading</strong> to indicate the loading state elements.</li>
+  <li>Inside of the <i>uk2-file-upload-ready</i> container, it should also have an <strong>a</strong> element with the <strong>uk2Anchor</strong> directive applied to allow uploading files via browsing. </li>
+  <li>Inside of the <i>uk2-file-upload-loading</i> container, it should also have an element with the <strong>uk2-file-upload-load-indicator</strong> attribute for the loading indicator.</li>
+</ol>
+
+## Inputs
+
+<ul>
+  <li><strong>[uk2FileUploadTypes]</strong> <u>string []</u> <i>(optional)</i> Array containing the mimetypes of the allowed file types. (<strong>Default:</strong> ['image/png', 'image/jpeg']).</li>
+  <li><strong>[uk2FileUploadMaxFileSize]</strong> <u>number</u> <i>(optional)</i> Maximum file size allowed, represented in bytes (e.g. 1048576 for 1 Mb, 5242880 for 5 Mb).</li>
+  <li><strong>[uk2IsLoading]</strong> <u>boolean</u> <i>(optional)</i> Sets the skeleton state (<strong>Default:</strong> false)</li>
+  <li><strong>[uk2IsUploading]</strong> <u>boolean</u> <i>(optional)</i> Sets the uploading state (<strong>Default:</strong> false)</li>
+  <li><strong>[uk2IsDisabled]</strong> <u>boolean</u> <i>(optional)</i> Disables the uploader (<strong>Default:</strong> false)</li>
+  <li><strong>[uk2FileUploadMultipleFiles]</strong> <u>boolean</u> <i>(optional)</i> Allows uploading multiple files via the uploader (<strong>Default:</strong> false) </li>
+</ul>
+<br />
+<p>When configuring the allowed file types, please refer to <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types/Common_types">this page</a> for a comprehensive a list of common mimetypes.</p>
+
+## Ouputs 
+
+<ul>
+  <li>(uk2UploadError) <u>string</u> Returns an error message when the provided files are invalid.</li>
+  <li>(uk2UploadSuccess) <u>Uk2File[]</u> Returns an array containing the uploaded formated files when they're valid.</li>
+</ul>
+
+## Component-specific CSS variables
+
+  <ul>
+    <li><strong>[--uk2-file-uploader-interacted-stroke-color]</strong> <i>(default: accent-color-300-hsl)</i> Is the color of the border when the uploader is interacted.</li>
+    <li><strong>[--uk2-file-uploader-text-color]</strong> <i>(default: --uk2-neutral-slate-200)</i> Is the color of the description text inside the uploader.</li>
+    <li><strong>[--uk2-file-uploader-stroke-color]</strong> <i>(default: --uk2-neutral-slate-300)</i> Is the color of the dashed border.</li>
+    <li><strong>[--uk2-file-uploader-header-color]</strong> <i>(default: accent-color-500-hsl)</i> Is the color of the uploader header text</li>
+    <li><strong>[--uk2-file-uploader-icon-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> Is the color of the icon on the uploader.</li>
+    <li><strong>[--uk2-file-uploader-surface-color]</strong> <i>(default: --uk2-neutral-white)</i> Is the background color of on the uploader.</li>
+  </ul>
+
+## Sample Code
+<p>This is the component you can use as a guidance:</p>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class UploaderComponentReference {
+      ...
+      allowMultipleFiles: boolean = true;
+      isDisabled: boolean = false;
+      isUploading: boolean = false;
+      uploadedFiles: uk2File[] = [];
+      maxFileSize = 10485760; //10 MB
+      \r
+      constructor() {
+      }
+      \r
+      getUploadedFiles(files: uk2File[]) {
+        this.isUploading = true;
+        //Example of an async operation after uploading the file
+        this.fileApiService.uploadFiles(files).subscribe(response => {
+          if(response.success) {
+            this.showSuccessToast();
+            this.isUploading = false;
+          }
+        });
+      }
+      \r
+      getErrorMessage(message: string) {
+        this.showAlertToast(message);
+      }
+    }
+  `}
+/>
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <div class="uploader-container">
+      <div
+        uk2FileUploadDragDrop
+        [uk2FileUploadState]="uploaderState"
+        [uk2FileUploadMaxFileSize]="maxFileSize"
+        [uk2FileUploadMultipleFiles]="allowMultipleFiles"
+        [uk2IsDisabled]="isDisabled"
+        (uploadSuccess)="getUploadedFiles($event)"
+        (uploadError)="getErrorMessage($event)"
+      >
+        <input type="file" multiple />
+        <div uk2-file-upload-ready>
+          <mat-icon [svgIcon]="uploaderIcon"></mat-icon>
+          <h3> Upload file here</h3>
+          <p> Drag and drop, or <a uk2Anchor>browse</a></p>
+        </div>
+        <div uk2-file-upload-loading>
+          <div uk2-file-upload-load-indicator class="loading-spinner-animation">
+            <mat-icon [svgIcon]="spinnerIcon"></mat-icon>
+          </div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    </div>
+  `}
+/>

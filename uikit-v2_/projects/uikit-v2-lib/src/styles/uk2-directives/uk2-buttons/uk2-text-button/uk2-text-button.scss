@@ -1,0 +1,37 @@
+@import './uk2-text-button.mixins';
+
+button.uk2-text-button-small {
+    @include uk2-text-button-size($uk2-button-small);
+}
+
+button.uk2-text-button-medium {
+    @include uk2-text-button-size($uk2-button-medium);
+}
+
+button.uk2-text-button-large {
+    @include uk2-text-button-size($uk2-button-large);
+}
+
+button.uk2-text-button-skeleton {
+    pointer-events: none;
+    color: transparent !important;
+    background-color: var(--uk2-neutral-grey-300) !important;
+}
+
+button.uk2-text-button-small.uk2-text-variant,
+button.uk2-text-button-medium.uk2-text-variant,
+button.uk2-text-button-large.uk2-text-variant {
+  @include uk2-text-variant-default();
+}
+
+button.uk2-text-button-small.uk2-text-variant {
+  @include uk2-text-variant-size-small();
+}
+
+button.uk2-text-button-medium.uk2-text-variant {
+  @include uk2-text-variant-size-medium();
+}
+
+button.uk2-text-button-large.uk2-text-variant {
+  @include uk2-text-variant-size-large();
+}

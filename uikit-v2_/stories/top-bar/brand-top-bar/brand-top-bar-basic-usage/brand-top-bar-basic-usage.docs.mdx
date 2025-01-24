@@ -1,0 +1,162 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../../../directives-docs/directives-prerequisites.docs.mdx';
+
+# uk2BrandTopBar component documentation
+
+## Introduction
+<p>
+  <strong>uk2BrandTopBar</strong> is a custom component developed using Angular Material <a href="https://v15.material.angular.io/components/toolbar/overview" target="_blank">&lt;mat-toolbar&gt;</a> component, to achieve Brand Top Bar component which is part of <a href="https://www.figma.com/file/xNJe50LNYYGhQ1Q1C3zs4b/👷‍♂️-Framework-Core---Web-2.0?node-id=0%3A1&t=ISy8VPUvhN5NQaH1-0" target="_blank">Axos Design System</a>.
+</p>
+
+## Prerequisites
+
+- You need to import MatToolbarModule, MatIconModule and MatButtonModule from @angular/material/* into the desired module of your Angular App. To be able to use uk2BrandTopBar component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatToolbarModule } from '@angular/material/toolbar';
+      import { MatIconModule } from '@angular/material/icon';
+      import { MatButtonModule } from '@angular/material/button';
+  `}
+/>
+
+- You need to import Uk2BrandTopBarModule from @axos/uikit-v2-lib into the desired module of your Angular App. To be able to use uk2BrandTopBar component.
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2BrandTopBarModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+## Inputs
+<ul>
+  <li><strong>[uk2LogoImgPath]</strong> <u>String</u> <i>(required)</i> logo image path.</li>
+  <li><strong>[uk2IsLoading]</strong> <u>Boolean</u> <i>(optional)</i> using for display skeleton mode.</li>
+  <li><strong>[uk2IsAxos]</strong> <u>Boolean</u> <i>(optional, <strong>default: false</strong>)</i> used to apply specific styles for Axos Branding (gradient styles to the color bar, logo size and logo padding).</li>
+  <li><strong>[uk2LabeledIconButton]</strong> <u>Uk2BrandTopBarLabeledIconButtonModel </u> <i>(optional)</i> using for display icon labeled button.</li>
+  <li><strong>[uk2OrganizationName]</strong> <u>string </u> <i>(optional)</i> used to display the organization name when uk2LogoImgPath is not provided.</li>
+  <li><strong>[uk2ShowCloseButton]</strong> <u>Boolean</u> <i>(optional, <strong>default: false</strong>)</i> using for display close buttton.</li>
+  <li><strong>[uk2LogoRedirectionUrl]</strong> <u>Uk2BrandTopBarRedirectionUrlModel </u> <i>(optional)</i> using for handle redirection on logo click.</li>
+</ul>
+
+## Component-specific CSS variables
+
+<ul>
+  <li><strong>[--uk2-banner-color-hsl]</strong> <i>(default: --uk2-neutral-slate-500)</i> a linear gradient is generated to complete a linear gradient tilted 72 degress and spanning 67% of the top element of the Brand Top Bar.</li>
+  <li><strong>[--uk2-header-font-color]</strong> <i>(default: --uk2-accent-color-hsl)</i> is the organization name color of Brand Top Bar.</li>
+</ul>
+
+## Outputs
+<ul>
+  <li><strong>(uk2CallBackButton)</strong> <u>Function</u> <i>(optional)</i> Callback function click icon labeled button.</li>
+  <li><strong>(uk2CallBackCloseButton)</strong> <u>Function</u> <i>(optional)</i> Callback function click on close button.</li>
+ </ul>
+
+## Models
+
+- You need to import <strong>Uk2BrandTopBarLabeledIconButtonModel</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to use icon labeled button.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Uk2BrandTopBarLabeledIconButtonModel } from '@axos/uikit-v2-lib';
+  \r
+  export class Uk2BrandTopBarLabeledIconButtonModel {
+    svgIconName: string;
+    labelText: string;
+    \r
+    constructor(uk2LabeledIconButton: any) {
+      this.svgIconName = uk2LabeledIconButton.svgIconName;
+      this.labelText = uk2LabeledIconButton.labelText;
+    }
+  }
+  `}
+/>
+
+
+- You need to import <strong>Uk2BrandTopBarRedirectionUrlModel</strong> from @axos/uikit-v2-lib into the desired component of your Angular App. To be able to handle redirection on logo click.
+
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export class Uk2BrandTopBarRedirectionUrlModel {
+      url: string;
+      openOnNewTab: boolean;
+      \r
+      constructor(uk2BrandTopBarRedirectionUrlConfig: Partial<Uk2BrandTopBarRedirectionUrlModel> = {}) {
+        this.url = uk2BrandTopBarRedirectionUrlConfig.url ?? '';
+        this.openOnNewTab = uk2BrandTopBarRedirectionUrlConfig.openOnNewTab ?? true;
+      }
+    }
+  `}
+/>
+
+## Sample code
+  <p>
+  Here are some examples on how to achieve the branding for some entities on this component.
+  </p>
+
+### *.component.html
+<Source
+  dark
+  code={dedent`
+    <uk2-brand-top-bar
+      [uk2IsLoading]="uk2IsLoading"
+      [uk2IsAxos]="uk2IsAxos"
+      [uk2LogoImgPath]="logo"
+      [uk2LabeledIconButton]="labeledIconButton"
+      [uk2OrganizationName]="organizationName"
+      (uk2CallBackButton)="clickButtonTopBar()"
+      [uk2ShowCloseButton]="showCloseButton"
+      (uk2CallBackCloseButton)="clickCloseButtonTopBar()"
+      [uk2LogoRedirectionUrl]="urlRedirectionConfig"
+    ></uk2-brand-top-bar>
+  `}
+/>
+
+### *.component.ts
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+  import { Uk2BrandTopBarLabeledIconButtonModel } from '@axos/uikit-v2-lib';
+  \r
+  export class YourComponent {
+    \r
+    uk2IsLoading = false;
+    uk2IsAxos = true;
+    logo = "'./your-logo-path/your-image.svg'";
+    labeledIconButton: Uk2BrandTopBarLabeledIconButtonModel = new Uk2BrandTopBarLabeledIconButtonModel({
+      svgIconName: 'uk2-chevron-left',
+      labelText: 'Test button text',
+    });
+    organizationName = 'Axos';
+    showCloseButton = true;
+    urlRedirectionConfig: Uk2BrandTopBarRedirectionUrlModel = new Uk2BrandTopBarRedirectionUrlModel({
+      url: 'http://www.axosbank.com',
+      openOnNewTab: true,
+    });
+    \r
+    constructor() {}
+    \r
+    clickButtonTopBar() {
+      ...
+    }
+    \r
+    clickCloseButtonTopBar() {
+      ...
+    }
+  };
+  `}
+/>
+
+

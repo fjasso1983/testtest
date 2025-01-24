@@ -1,0 +1,98 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>Integration with the file uploader drag and drop variant</li>
+  <li>Integration with the file viewer (PDF Files only)</li>
+  <li>Skeleton state</li>
+  <li>Image preview.</li>
+</ul>
+<p
+  ><i
+    >Please refer to the
+    <a href="./?path=/story/components-file-viewer--basic-usage" target="_blank">file viewer documentation</a>
+    for the PDF preview and to the
+    <a href="./?path=/story/components-file-uploader-drag-and-drop--basic-usage" target="_blank"
+      >file upload drag and drop documentation</a
+    >
+    for the uploader</i
+  ></p
+>
+<br />
+<div class="file-uploader-drag-drop-container">
+  <app-drag-drop-example (uploadStart)="file = undefined" (uploadReady)="onFileUpload($event)"></app-drag-drop-example>
+  <small><i>Upload a file (.png, .jpg or .pdf) to show an example.</i> </small><br />
+</div>
+<br />
+<div class="file-uploader-display-container">
+  <div
+    *ngIf="file"
+    uk2FileUploadDisplay
+    [uk2ShowPreview]="showPreview"
+    [uk2IsLoading]="isLoading"
+    [uk2File]="file"
+    (uk2FileSrc)="getFileUrl($event)"
+  >
+    <div uk2-file-upload-preview>
+      <img *ngIf="isImage" [src]="safeUrl" />
+      <app-file-viewer-example *ngIf="!isImage" [pdfSrc]="fileUrl"></app-file-viewer-example>
+    </div>
+    <div uk2-file-upload-description-bar>
+      <div [uk2ElementPosition]="elementPosition.left">
+        <button
+          *ngIf="showCollapseButton"
+          mat-button
+          uk2TextIconButton
+          disableRipple
+          [uk2TextButtonVariant]="buttonVariant"
+          [uk2ButtonSize]="buttonSmallSize"
+          (click)="showPreview = !showPreview"
+        >
+          <mat-icon *ngIf="!showPreview" [svgIcon]="iconExpand"></mat-icon>
+          <mat-icon *ngIf="showPreview" [svgIcon]="iconCollapse"></mat-icon>
+        </button>
+      </div>
+      <div [uk2ElementPosition]="elementPosition.center">
+        <p> {{ file.fileName }} </p>
+        <span *ngIf="showFileSize"> ({{ file.fileFormatedSize }})</span>
+      </div>
+      <div [uk2ElementPosition]="elementPosition.right">
+        <button
+          mat-button
+          disableRipple
+          uk2FlyoutMenu
+          [uk2FlyoutTemplate]="flyoutOverlay"
+          uk2TextIconButton
+          [uk2TextButtonVariant]="buttonVariant"
+          [uk2ButtonSize]="buttonSmallSize"
+          #flyoutMenu="uk2FlyoutMenu"
+          (click)="flyoutMenu.toggle()"
+        >
+          <mat-icon [svgIcon]="iconEllipses"></mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #flyoutOverlay>
+  <div class="flyout-container">
+    <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="flyoutItemClick()">
+      <mat-icon [svgIcon]="firstItem.svgIconName!"></mat-icon>
+      <p>{{ firstItem.bodyText }}</p>
+    </div>
+    <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="flyoutItemClick()">
+      <mat-icon [svgIcon]="secondItem.svgIconName!"></mat-icon>
+      <p>{{ secondItem.bodyText }}</p>
+    </div>
+    <div uk2MenuListItem [uk2ShowDividerLine]="true" (click)="flyoutItemClick()">
+      <mat-icon [svgIcon]="thirdItem.svgIconName!"></mat-icon>
+      <p>{{ thirdItem.bodyText }}</p>
+    </div>
+    <div uk2MenuListItem [uk2ShowDividerLine]="false" (click)="deleteFile()">
+      <mat-icon [svgIcon]="fourthItem.svgIconName!"></mat-icon>
+      <p>{{ fourthItem.bodyText }}</p>
+    </div>
+  </div>
+</ng-template>
+<br />
+<br />

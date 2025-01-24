@@ -1,0 +1,31 @@
+<div>
+  <h2>Alignment</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Checkbox Alignment Right or Left</li>
+    <li>Checkbox Alignment with skeleton state</li>
+  </ul>
+</div>
+
+<div class="container">
+  <div class="uk2-checkbox-container" [ngClass]="IsAlignRight() ? 'uk2-checkbox-align-right' : ''">
+    <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading" [indeterminate]="true"></mat-checkbox>
+    <label>Lorem ipsum dolot sit amet lorem</label>
+  </div>
+  <div class="uk2-checkbox-container" [ngClass]="IsAlignRight() ? 'uk2-checkbox-align-right' : ''">
+    <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading" [checked]="isChecked"></mat-checkbox>
+    <label>Lorem ipsum dolot</label>
+  </div>
+  <div class="uk2-checkbox-container" [ngClass]="IsAlignRight() ? 'uk2-checkbox-align-right' : ''">
+    <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+    <label>Lorem ipsum dolot sit</label>
+  </div>
+  <div class="uk2-checkbox-container" [ngClass]="IsAlignRight() ? 'uk2-checkbox-align-right' : ''">
+    <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading"></mat-checkbox>
+    <label>Lorem ipsum dolot sit amet</label>
+  </div>
+  <div class="uk2-checkbox-container" [ngClass]="IsAlignRight() ? 'uk2-checkbox-align-right' : ''">
+    <mat-checkbox uk2Checkbox disableRipple [uk2IsLoading]="isLoading" [disabled]="true"></mat-checkbox>
+    <label>Lorem ipsum</label>
+  </div>
+</div>

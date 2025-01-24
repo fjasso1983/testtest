@@ -1,0 +1,78 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Modal layout (Header, Content, Footer)</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Modal responsiveness on each size</li>
+  <li>Header variant</li>
+  <li>Buttons (primary, secondary and text) triggering functionalities</li>
+  <li>Note that every button can be configured to close the modal, regardless of their action.</li>
+  <li>"Actions" tab is used just to provide visual feedback of an actual action happening on every button click.</li>
+</ul>
+
+<button uk2PrimaryButton mat-raised-button disableRipple [uk2ButtonSize]="buttonSize.medium" (click)="openModal()">
+  Open Modal
+</button>
+
+<uk2-modal
+  [title]="title"
+  [subtitle]="subtitle"
+  [disabledCloseOverlayBackdrop]="disabledCloseOverlayBackdrop"
+  [showCloseButton]="showCloseButton"
+  [showTitleDivider]="showTitleDivider"
+  [showActionsDivider]="showActionsDivider"
+  [showHeader]="showHeader"
+  [actionsGrid]="actionsGrid"
+  [titleFontWeight]="titleFontWeight"
+  [titleAlign]="titleAlign"
+  [bodyContentAlignment]="contentAlign"
+  [hasBackdrop]="hasBackdrop"
+  [headerVariant]="headerVariant"
+  [uk2EnableResponsiveFullscreen]="enableResponsiveFullscreen"
+  [uk2UniversalHeaderIsLoading]="uk2UniversalHeaderIsLoading"
+  [uk2UniversalHeaderTextBehavior]="uk2UniversalHeaderTextBehavior"
+  [uk2UniversalHeaderDensity]="uk2UniversalHeaderDensity"
+  [uk2UniversalHeaderShowBackButton]="uk2UniversalHeaderShowBackButton"
+  (backButtonCallback)="backButtonAction()"
+  #modal
+>
+  <ng-template #uk2ModalContent *ngIf="contentTemplate">
+    <p>
+      {{ contentTemplate }}
+    </p>
+  </ng-template>
+  <ng-template #uk2ModalActions *ngIf="secondaryButton || primaryButton || textButton">
+    <button
+      uk2SecondaryButton
+      mat-stroked-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      (click)="!secondaryButtonCloseModal ? clickEvent.emit() : closeModal()"
+      *ngIf="secondaryButton"
+    >
+      {{ secondaryButtonText }}
+    </button>
+
+    <button
+      uk2PrimaryButton
+      mat-raised-button
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      (click)="!primaryButtonCloseModal ? clickEvent.emit() : closeModal()"
+      *ngIf="primaryButton"
+    >
+      {{ primaryButtonText }}
+    </button>
+
+    <button
+      uk2TextButton
+      disableRipple
+      [uk2ButtonSize]="buttonSize.medium"
+      mat-button
+      (click)="!textButtonCloseModal ? clickEvent.emit() : closeModal()"
+      *ngIf="textButton"
+    >
+      {{ textButtonText }}
+    </button>
+  </ng-template>
+</uk2-modal>

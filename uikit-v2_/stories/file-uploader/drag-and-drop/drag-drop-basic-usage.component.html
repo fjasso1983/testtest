@@ -1,0 +1,37 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>File uploader states (ready, loading & skeleton).</li>
+  <li>File uploader success and error outputs.</li>
+  <li>File uploader configuration & restrictions (type, multiple files & size)</li>
+</ul>
+
+<p><i>Note the loading state after uploading a file has to be implemented per use case.</i></p>
+<br />
+<br />
+
+<div class="uploader-container">
+  <div
+    uk2FileUploadDragDrop
+    [uk2FileUploadTypes]="uploaderAllowedType"
+    [uk2FileUploadMaxFileSize]="maxFileSize"
+    [uk2FileUploadMultipleFiles]="canUploadMultipleFiles"
+    [uk2IsDisabled]="isDisabled"
+    [uk2IsUploading]="isUploading"
+    [uk2IsLoading]="isLoading"
+    (uk2UploadSuccess)="onSuccessAction($event)"
+    (uk2UploadError)="onErrorAction($event)"
+  >
+    <input type="file" />
+    <div uk2-file-upload-ready>
+      <mat-icon [svgIcon]="uploaderIcon"></mat-icon>
+      <h3> Upload file here</h3>
+      <p> Drag and drop, or <a uk2Anchor>browse</a></p>
+    </div>
+    <div uk2-file-upload-loading>
+      <mat-spinner uk2-file-upload-load-indicator uk2LoadingSpinner class="loading-spinner"></mat-spinner>
+      <p>Loading...</p>
+    </div>
+  </div>
+</div>

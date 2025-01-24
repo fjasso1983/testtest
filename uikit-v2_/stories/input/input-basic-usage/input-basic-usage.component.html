@@ -1,0 +1,44 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Input states (default, hover, empty, filled, skeleton and disabled).</li>
+  <li>Input size (large, medium y small).</li>
+  <li>Interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Label, Placeholder and Helper text truncation behavior.</li>
+  <li>X Control Interaction pattern</li>
+  <li>Pre-formatted inputs</li>
+</ul>
+<h3>X Control Interaction pattern</h3>
+<form #myForm="ngForm">
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>{{ labelText }}</mat-label>
+    <input
+      matInput
+      uk2Input
+      name="tdfName"
+      #tdfName="ngModel"
+      required
+      [(ngModel)]="valueInput"
+      [uk2IsLoading]="uk2IsLoading"
+      [uk2InputSize]="inputSize"
+      [placeholder]="placeholderText"
+      [disabled]="isDisabled"
+    />
+    <button
+      class="uk2-input-clear-button"
+      *ngIf="valueInput !== ''"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (mousedown)="valueInput = ''"
+      tabindex="-1"
+    >
+      <mat-icon svgIcon="uk2-x"></mat-icon>
+    </button>
+    <mat-hint>{{ helperText }}</mat-hint>
+    <mat-error *ngIf="tdfName.hasError('required')">
+      <mat-icon svgIcon="uk2-exclamation-triangle"></mat-icon>
+      {{ errorText }}
+    </mat-error>
+  </mat-form-field>
+</form>

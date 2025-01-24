@@ -1,0 +1,216 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+
+# Uk2HorizontalLabelAlignedTabsDirective documentation
+
+## Introduction
+<p>
+<b>uk2HorizontalLabelAlignedTabs</b> is a directive to customize the behavior and styling of Angular Material component  <a  href="https://v15.material.angular.io/components/tabs/api#MatTabGroup" target="_blank">MatTabGroup</a>
+</p>
+
+### Constrains
+---
+<ol>
+  <li>
+    It should only be applied to <b>[mat-tab-nav-bar]</b> directives with <b>uk2HorizontalLabelAlignedTabs</b> directive
+    disableRipple, dynamicHeight and <br/> <b>[mat-stretch-tabs]="false"</b> directives.
+  </li>
+</ol>
+
+
+## Prerequisites
+
+<DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
+
+- You need to import MatTabsModule from @angular/material/* into the desired module of your Angular App. To be able to use uk2HorizontalLabelAlignedTabs directive.
+
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { MatTabsModule } from '@angular/material/tabs';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>
+    [uk2IsLoading] <u>boolean</u> <i>(optional)</i> flag to toggle between default state to skeleton state.
+  </li>
+</ul>
+
+## Extra elements
+
+<p>Two extra elements can be handled by the uk2HorizontalLabelAlignedTabs directive</p>
+<ul>
+  <li>
+    <u>uk2NotificationBadge</u> directive <b>(optional)</b> <br/>
+    <p>
+    The directive supports and handles <u>uk2NotificationBadge</u> in combination with <u>[mat-tab-link]</u> directive. <br/>
+    take note that the directive will only handle the css for <u>uk2NotificationBadge</u> to be placed to an [mat-tab-link] directive.
+    and the badge will be hidden when the [mat-tab-link] <b>is disabled</b>.
+    </p>
+
+  </li>
+  <li>
+    <u>mat-icon</u> component <b>(optional)</b> <br/>
+    <p>
+    The directive supports and handles <u>mat-icon</u> component in combination with <u>[mat-tab-link]</u> directive. <br/>
+    take note that the directive will only handle the css for <u>mat-icon</u> to be placed within the [mat-tab-link] directive.
+    </p>
+
+  </li>
+</ul>
+
+## Navigation types and Lazy loading tabs behavior
+
+Directive implementation of lazy loaded is set by default, for the two available scenarios, static component tab navigation and router based tab navigation.
+
+- Static component tab navigation:<br/>
+  Due to the need to use *ngIf* or *ngSwitch* control directives all components placed under the template will execute all lifecycle hooks
+  when rendered (ngOnInit, ngDoCheck, ngOnChanges, etc.) and calling ngOnDestroy when component is dismounted from the view.
+  #### *.component.html
+  <Source
+    dark
+    language='html'
+    code={dedent`
+    <nav
+      [uk2IsLoading]="isLoading"
+      [mat-stretch-tabs]="false"
+      disableRipple
+      dynamicHeight
+      uk2HorizontalLabelAlignedTabs
+      mat-tab-nav-bar
+      [tabPanel]="tabPanel"
+    >
+      <a
+        *ngFor="let tab of tabsList; index as i"
+        uk2NotificationBadge
+        matBadge="!"
+        [disabled]="disabled"
+        mat-tab-link
+        [matBadgeHidden]="badgesHidden"
+        [active]="i === selectedTab"
+        (click)="tabChange(i)"
+      >
+        <mat-icon *ngIf="!iconsHidden" [svgIcon]="alertsIcons.xCircle"></mat-icon>
+        {{ tab.title }}
+      </a>
+    </nav>
+    <section #tabPanel>
+      <ng-container *ngIf="!isLoading">
+        <ng-container *ngFor="let tab of tabsList; index as i">
+          <div *ngIf="i === selectedTab">
+            <p> {{ tab.content }} </p>
+          </div>
+        </ng-container>
+      </ng-container>
+    </section>
+    `}
+  />
+
+- Router based tab navigation:<br/>
+  This directive supports both default router based navigation and lazy loaded route navigation with the same type of interaction mentioned
+  on *Static component navigation*, the major difference resides on the template for the tabPanel element replacing with a router outlet for the template to define
+  static elements/components for each tab.
+  #### *.component.html
+
+  <Source
+    dark
+    language='html'
+    code={dedent`
+    <nav
+      [uk2IsLoading]="isLoading"
+      [mat-stretch-tabs]="false"
+      disableRipple
+      dynamicHeight
+      uk2HorizontalLabelAlignedTabs
+      mat-tab-nav-bar
+      [tabPanel]="tabPanel"
+    >
+      <a
+        *ngFor="let link of links"
+        uk2NotificationBadge
+        [disabled]="disabled"
+        mat-tab-link
+        [matBadgeHidden]="badgesHidden"
+        [active]="activeLink == link.route">
+        [routerLink]="[link.route]"
+        (click)="activeLinkRoute = link.route"
+        >
+        <mat-icon *ngIf="!iconsHidden" [svgIcon]="alertsIcons.xCircle"></mat-icon>
+        {{link.name}}
+      </a>
+    </nav>
+    <section #tabPanel>
+      <router-outlet></router-outlet>
+    </section>
+    `}
+  />
+
+  #### *.component.ts
+  <Source
+    dark
+    language='ts'
+    code={dedent`
+      import { Component, Input, OnInit } from '@angular/core';
+      import { Uk2ButtonSizeEnum, Uk2Tier1AlertsEnum } from '@axos/uikit-v2-lib';
+      \r
+      export class YourComponent {
+        isLoading = false;
+        disabled = false;
+        badgesHidden = true;
+        iconsHidden = false;
+        readonly badgeText = '!';
+        readonly buttonSize = Uk2ButtonSizeEnum.small;
+        activeLink: string | undefined;
+        links: { route: string; name: string; id: number }[] = [
+          {
+            route: '/route-1',
+            name: 'route 1',
+            id: 0,
+          },
+          {
+            route: '/route-2',
+            name: 'route 2',
+            id: 0,
+          },
+        ];
+        \r
+        get alertsIcons() {
+          return Uk2Tier1AlertsEnum;
+        }
+        \r
+      }
+    `}
+  />
+
+<br/>
+
+
+
+## Navigation Behavior
+
+As per Figma specs both navigation buttons placed at the left and right end of the bar will require to be hidden of the link/button container is placed
+at any of the ends at any times 3 event listeners were set to calculate when to hide or show a given button based on.
+
+- Screen size.
+- Position of left navigation button against position of first link/button on scrollable container *(uk2HorizontalLabelAlignedTabs)*.
+- Position of right navigation button against position of last link/button on scrollable container *(uk2HorizontalLabelAlignedTabs)*.
+
+The three events will trigger the calculation are:
+
+- Transition end:<br/>
+  Required due to virtual scrolling behavior implemented by Angular Material for *mat-tab-nav-bar* where "scrolling" happens by a translation on the x axis of the element.
+  This translation on the x axis is animated by a transition, the calculation mentioned before requires to be executed once the element has stopped it's movement.
+- Window resize:<br/>
+  Required since it changes the width of the container element without creating a mutation record
+- Addition or removal of child nodes *(mat-tab-link)* to scrollable container *(uk2HorizontalLabelAlignedTabs)*:<br/>
+  Required since addition or removal of child nodes can change the position of the first/last element on the container requiring to check if a navigation button should go from:
+
+  - hidden -> visible
+  - visible -> hidden
+

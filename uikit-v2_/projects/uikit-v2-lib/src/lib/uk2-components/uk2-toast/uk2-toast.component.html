@@ -1,0 +1,23 @@
+<div
+  class="uk2-toast"
+  [ngClass]="configToast.class"
+  uk2DetectTouch
+  (touched)="dismiss()"
+  (click)="conditionalDismiss()"
+>
+  <div class="uk2-toast-icon-container">
+    <mat-icon class="uk2-toast-icon" [svgIcon]="configToast.iconName"></mat-icon>
+  </div>
+  <div class="uk2-toast-body">
+    <div class="uk2-toast-text-container">
+      <div class="uk2-toast-text">
+        <span *ngIf="data.type !== 'skeleton'">{{ configToast.message }}</span>
+      </div>
+    </div>
+    <div class="uk2-toast-button-container">
+      <button (click)="dismiss()" mat-icon-button disableRipple class="uk2-toast-button">
+        <mat-icon svgIcon="uk2-x"></mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

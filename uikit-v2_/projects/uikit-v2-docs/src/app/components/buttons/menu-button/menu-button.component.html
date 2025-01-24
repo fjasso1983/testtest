@@ -1,0 +1,152 @@
+<h1>Menu button</h1>
+<hr />
+<div>
+  <button (click)="toggleLoading()">Reload Skeleton (3s)</button>
+  {{ isLoading ? 'Skeleton display' : 'Regular display' }}
+</div>
+<div>
+  <button (click)="toggleButtonState()">{{ buttonState }}</button>
+</div>
+
+<div class="container-divider">
+  <div>
+    <h2>Filter button example</h2>
+    <p>Small Size</p>
+    <uk2-menu-button
+      [uk2ButtonType]="multipleType"
+      [uk2ItemList]="testItems1Small"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Filtered'"
+      [uk2DefaultStateText]="'Filter'"
+      [uk2SvgIconName]="filterIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+    <p>Medium Size</p>
+    <uk2-menu-button
+      [uk2ButtonType]="multipleType"
+      [uk2ItemList]="testItems1Medium"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Filtered'"
+      [uk2DefaultStateText]="'Filter'"
+      [uk2SvgIconName]="filterIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+    <p>Large Size</p>
+    <uk2-menu-button
+      [uk2ButtonType]="multipleType"
+      [uk2ItemList]="testItems1Large"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Filtered'"
+      [uk2DefaultStateText]="'Filter'"
+      [uk2SvgIconName]="filterIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+  </div>
+  <div>
+    <h2>Sort button example</h2>
+    <p>Small Size</p>
+    <uk2-menu-button
+      [uk2ButtonType]="singleType"
+      [uk2ItemList]="testItems2"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Sorted'"
+      [uk2DefaultStateText]="'Sort'"
+      [uk2SvgIconName]="sortIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+    <p>Medium Size</p>
+    <uk2-menu-button
+      [uk2ButtonType]="singleType"
+      [uk2ItemList]="testItems2"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Sorted'"
+      [uk2DefaultStateText]="'Sort'"
+      [uk2SvgIconName]="sortIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    >
+      <mat-icon [svgIcon]="sortIcon"></mat-icon>
+    </uk2-menu-button>
+    <p>Large Size</p>
+    <uk2-menu-button
+      [uk2ButtonType]="singleType"
+      [uk2ItemList]="testItems2"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Sorted'"
+      [uk2DefaultStateText]="'Sort'"
+      [uk2SvgIconName]="sortIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+  </div>
+</div>
+<br />
+<br />
+<div>
+  <h2>Loading test</h2>
+  <div class="loading-test">
+    <uk2-menu-button
+      [uk2ButtonType]="singleType"
+      [uk2ItemList]="testItems2"
+      [uk2IsLoading]="false"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Sorted'"
+      [uk2DefaultStateText]="'Sort'"
+      [uk2SvgIconName]="sortIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+    <uk2-menu-button
+      [uk2ButtonType]="singleType"
+      [uk2ItemList]="testItems2"
+      [uk2IsLoading]="true"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Sorted'"
+      [uk2DefaultStateText]="'Sort'"
+      [uk2SvgIconName]="sortIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+  </div>
+</div>
+<br />
+<br />
+<div>
+  <h2>Truncation test</h2>
+  <div class="menu-fixed-width">
+    <uk2-menu-button
+      [uk2ButtonType]="singleType"
+      [uk2ItemList]="testItems2"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Sorted'"
+      [uk2DefaultStateText]="'Sort'"
+      [uk2SvgIconName]="sortIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+    <br />
+    <br />
+    <br />
+    <uk2-menu-button
+      [uk2ButtonType]="multipleType"
+      [uk2ItemList]="testItemsTruncate"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2ActiveStateText]="'Filtered'"
+      [uk2DefaultStateText]="'Filter'"
+      [uk2SvgIconName]="filterIcon"
+      (uk2OnItemSelected)="receiveItems($event)"
+    ></uk2-menu-button>
+  </div>
+</div>
+<br />
+<br />
+<div>
+  <h2>Selection received</h2>
+  <p *ngFor="let item of receivedItems">
+    <b>{{ item.text }}</b>
+    - {{ item.value }}
+  </p>
+</div>

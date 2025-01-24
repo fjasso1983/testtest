@@ -1,0 +1,6 @@
+@import './uk2-timer.mixins';
+
+uk2-timer{
+  color: var(--uk2-timer-color);
+  @include uk2-font__display-medium--600;
+}

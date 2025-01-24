@@ -1,0 +1,161 @@
+@import './uk2-radio-button.mixins.scss';
+
+.uk2-radio-button {
+  &.mat-mdc-radio-button {
+    .mat-mdc-radio-touch-target {
+      @include size(32px);
+    }
+    .mdc-radio {
+      @include size(32px);
+      padding: 0px;
+      .mdc-radio__native-control {
+        @include size(32px);
+      }
+      .mdc-radio__background::before {
+        @include size(32px);
+        @include center();
+        transform: translate(-50%, -50%) scale(1) !important;
+        background-color: var(--uk2-neutral-grey-200) !important;
+      }
+
+      // Radio hover
+      &:hover {
+        .mdc-radio__native-control:not([disabled]):not(:focus)~.mdc-radio__background::before {
+          opacity: 1 !important;
+          background-color: var(--uk2-neutral-grey-200) !important;
+        }
+
+        .mdc-radio__native-control {
+          &:checked+.mdc-radio__background::before {
+            opacity: 1 !important;
+            background-color: var(--uk2-neutral-grey-200) !important;
+          }
+        }
+      }
+
+      // Radio disabled
+      &.mdc-radio--disabled {
+        .mdc-radio__background {
+          .mdc-radio__outer-circle {
+            @include radio-disabled-outer-circle();
+          }
+        }
+        // Radio disabled and checked
+        .mdc-radio__native-control:checked ~ .mdc-radio__background {
+          .mdc-radio__outer-circle {
+            @include radio-disabled-outer-circle();
+          }
+          .mdc-radio__inner-circle {
+            @include radio-disabled-inner-circle();
+          }
+        }
+      }
+
+    }
+
+
+    // Radio checked
+    .mdc-radio__native-control:checked ~ .mdc-radio__background {
+      .mdc-radio__outer-circle {
+        border-color: accent-color-400-hsl() !important;
+      }
+      .mdc-radio__inner-circle {
+        background-color: accent-color-400-hsl() !important;
+      }
+    }
+
+    .mdc-radio__background {
+      @include size(24px);
+      @include center();
+      transform: translate(-50%, -50%) !important;
+      .mdc-radio__outer-circle {
+        border-color: var(--uk2-neutral-grey-600) !important;
+      }
+
+      .mdc-radio__inner-circle {
+        @include center();
+        transform: translate(-50%, -50%) !important;
+        border-width: 0;
+        @include size(14px);
+        background-color: transparent !important;
+        border-radius: 50%;
+        transition: background-color 120ms 0ms cubic-bezier(0, 0, 0.2, 1) !important;
+      }
+
+      .mdc-radio__outer-circle {
+        @include size(24px);
+      }
+    }
+    .mdc-form-field {
+      gap: 8px;
+    }
+
+    // Label section
+    .mdc-form-field>label {
+      @include uk2-format-text('Roboto', 16px, 400, 24px);
+      color: var(--uk2-neutral-slate-400);
+      padding: 0;
+    }
+
+    &.uk2-radio-button-size-medium {
+      .mdc-form-field>label {
+        font-size: 16px;
+      }
+    }
+
+    &.uk2-radio-button-size-small {
+      .mdc-form-field>label {
+        font-size: 14px;
+      }
+    }
+
+    // Skeleton section
+    &.uk2-radio-button-alignment-left {
+      .uk2-skeleton-radio {
+        .uk2-skeleton-input-radio-button {
+          order: 0
+        }
+      }
+      .mdc-form-field {
+        .mdc-radio {
+          order: 0
+        }
+      }
+    }
+
+    &.uk2-radio-button-alignment-right {
+      .uk2-skeleton-radio {
+        .uk2-skeleton-input-radio-button {
+          order: 1
+        }
+      }
+      .mdc-form-field {
+        .mdc-radio {
+          order: 1
+        }
+      }
+    }
+  }
+}
+
+.uk2-skeleton-radio {
+  display: inline-flex;
+  margin: 2px;
+  gap: 16px;
+}
+
+.uk2-skeleton-input-radio-button {
+  @include uk2-loading-skeleton-animation();
+  @include size(32px);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.uk2-skeleton-input-radio-button-text {
+    @include uk2-loading-skeleton-animation();
+    height: 32px;
+    width: 203px;
+    animation-delay: 0.2s;
+    border-radius: 8px;
+    flex-shrink: 1;
+}

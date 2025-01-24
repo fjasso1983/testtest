@@ -1,0 +1,24 @@
+<div class="uk2-breadcrumb-item" [attr.aria-hidden]="true" *ngIf="item; else itemLabel">
+  <a
+    [tabindex]="hidden ? '-1' : '0'"
+    [style.pointer-events]="hidden ? 'none' : 'unset'"
+    [attr.aria-label]="relativePosition"
+    [title]="item.label"
+    [routerLink]="item.url"
+    (click)="onItemSelected(item)"
+    >{{ item.label }}</a
+  >
+  <mat-icon [svgIcon]="separatorSvgIconName"></mat-icon>
+</div>
+<ng-template #itemLabel>
+  <div class="uk2-breadcrumb-item" [attr.aria-hidden]="true" *ngIf="label">
+    <p
+      [tabindex]="hidden ? '-1' : '0'"
+      [attr.aria-hidden]="false"
+      [attr.aria-label]="arialLabel"
+      [attr.aria-expanded]="ariaExpanded"
+      >{{ label }}</p
+    >
+    <mat-icon [svgIcon]="separatorSvgIconName" aria-hidden="true"></mat-icon>
+  </div>
+</ng-template>

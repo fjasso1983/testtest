@@ -1,0 +1,13 @@
+@import './uk2-color-customization';
+
+//* Global variables use the name of the fields that an organization can customize from Admin Portal.
+//* Default theme: Neutral/Slate (hex or hsl format). If hex format is used, refer to _uk2-design-system.scss file.
+//* Component-specific css variables should be defaulted to global css variables which will be defaulted to design system variables (hierarchy: component -> global -> design system).
+//* Fixed colors like semantic, neutral, specialty, etc should use the corresponding variables from the design system. Refer to _uk2-design-system.scss.
+
+:root {
+  @include defineColorHSL(--uk2-accent-color-hsl, 210, 49%, 36%); // primary/blue 400
+  --uk2-header-font-color: var(--uk2-axos-primary-blue-500);
+  --uk2-header-font-hover-color: var(--uk2-axos-primary-blue-600);
+  --uk2-header-font-family: 'Encode Sans';
+}
