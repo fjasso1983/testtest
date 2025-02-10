@@ -7,10 +7,11 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./table-column-resize.component.scss', '../../../projects/uikit-v2-lib/src/styles/uk2.scss'],
 })
 export class TableColumnResizeComponent {
-  @Input() firstColumnWidth: string = '80px';
+  @Input() firstColumnWidth: string = '95px';
   @Input() disableFirstColumnResize: boolean = false;
 
-  displayedColumns: string[] = ['record', 'propertyA', 'propertyB', 'propertyC', 'propertyD', 'amount'];
+  columnWidths: string[] = ['95px', '250px', '200px', '150px', '150px', '100px'];
+  displayedColumns: string[] = ['record', 'propertyA', 'propertyB', 'propertyC', 'propertyD', 'amount', 'fillColumn'];
   dataSource = new MatTableDataSource<RecordTable>(TableData);
 
   constructor() {}

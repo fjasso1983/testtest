@@ -17,8 +17,10 @@ import {
 export class FileUploaderDisplayBasicUsageComponent {
   @ViewChild('flyoutMenu') flyoutMenu!: Uk2FlyoutMenuDirective;
   @Input() showCollapseButton = false;
+  @Input() showPreview = false;
   @Input() showFileSize = false;
   @Input() isLoading = false;
+  @Output() expantButtonClickEvent = new EventEmitter();
   @Output() flyoutItemClickEvent = new EventEmitter();
 
   iconExpand = 'uk2-expand-image';
@@ -29,7 +31,6 @@ export class FileUploaderDisplayBasicUsageComponent {
   buttonSmallSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.small;
   buttonVariant: Uk2TextButtonVariant = Uk2TextButtonVariant.button;
 
-  showPreview = false;
   isImage = false;
 
   file: Uk2File | undefined;
@@ -68,8 +69,11 @@ export class FileUploaderDisplayBasicUsageComponent {
   onFileUpload(file: Uk2File) {
     const imageTypes = ['image/png', 'image/jpeg'];
     this.isImage = imageTypes.includes(file.fileContent.type);
-    this.showPreview = false;
     this.file = file;
+  }
+
+  onExpandButtonClick() {
+    this.expantButtonClickEvent.emit();
   }
 
   getFileUrl(fileUrl: string) {

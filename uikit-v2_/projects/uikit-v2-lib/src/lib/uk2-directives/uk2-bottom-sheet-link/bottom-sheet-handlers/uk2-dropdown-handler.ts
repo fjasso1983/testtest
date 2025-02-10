@@ -1,4 +1,3 @@
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSelect } from '@angular/material/select';
 
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
@@ -6,12 +5,13 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
 import { Uk2BottomSheetHandler } from '../interface/Uk2BottomSheetHandler.interface';
 import { UK2_BOTTOM_SHEET_VIEWPORT } from '../uk2-bottom-sheet-link.directive';
 import { Subject, fromEvent } from 'rxjs';
+import { Uk2BottomSheetService } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 export class Uk2DropdownHandler implements Uk2BottomSheetHandler {
   private _destroy = new Subject<void>();
   private _open: any;
 
-  constructor(private bottomSheetService: MatBottomSheet, private matSelect: MatSelect) {}
+  constructor(private bottomSheetService: Uk2BottomSheetService, private matSelect: MatSelect) {}
 
   onInit(): void {
     this._open = this.matSelect?.open;
@@ -30,7 +30,7 @@ export class Uk2DropdownHandler implements Uk2BottomSheetHandler {
   }
 
   onBlur(): void {
-    this.bottomSheetService?._openedBottomSheetRef
+    this.bottomSheetService.currentBottomSheet
       ?.afterOpened()
       .pipe(take(1))
       .subscribe(() => {
@@ -53,7 +53,7 @@ export class Uk2DropdownHandler implements Uk2BottomSheetHandler {
   closeResponsiveFlyDown() {
     this.matSelect?.close();
     if (this.bottomSheetService) {
-      this.bottomSheetService.dismiss();
+      this.bottomSheetService.closeBottomSheet();
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Uk2FilterBarDirective } from './uk2-filter-bar.directive';
-import { Uk2FilterChipBooleanModule } from '../../uk2-components';
+import { Uk2FilterChipBooleanModule, Uk2ListItem } from '../../uk2-components';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
@@ -78,7 +78,6 @@ describe('Uk2FilterBarDirective', () => {
     <div uk2FilterBar [uk2IsLoading]="isFilterBarLoading" [uk2RelatedContainer]="related">
       <uk2-filter-chip-boolean
         cdkDrag
-        [uk2Options]="item.options"
         [uk2Identifier]="item.label"
         *ngFor="let item of items"
       ></uk2-filter-chip-boolean>
@@ -90,8 +89,50 @@ class TestComponent {
   @ViewChild(Uk2FilterBarDirective) filterBar!: Uk2FilterBarDirective;
   @ViewChild('related') related!: ElementRef;
   isFilterBarLoading = false;
-  nameOptions: string[] = ['Hydrogen', 'Helium', 'Lithium', 'Beryllium', 'Boron'];
-  symbolOptions: string[] = ['H', 'He', 'Li', 'Be', 'B'];
+  nameOptions: Uk2ListItem[] = [
+    {
+      value: 'Hydrogen',
+      headerLabelName: 'Hydrogen',
+    },
+    {
+      value: 'Helium',
+      headerLabelName: 'Helium',
+    },
+    {
+      value: 'Lithium',
+      headerLabelName: 'Lithium',
+    },
+    {
+      value: 'Beryllium',
+      headerLabelName: 'Beryllium',
+    },
+    {
+      value: 'Boron',
+      headerLabelName: 'Boron',
+    },
+  ];
+  symbolOptions: Uk2ListItem[] = [
+    {
+      value: 'H',
+      headerLabelName: 'H',
+    },
+    {
+      value: 'He',
+      headerLabelName: 'He',
+    },
+    {
+      value: 'Li',
+      headerLabelName: 'Li',
+    },
+    {
+      value: 'Be',
+      headerLabelName: 'Be',
+    },
+    {
+      value: 'B',
+      headerLabelName: 'B',
+    },
+  ];
   items: any[] = [
     {
       label: 'Name',

@@ -1,7 +1,12 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Uk2RadioButtonAlignmentEnum, Uk2RadioButtonSizeEnum } from '@axos/uikit-v2-lib';
+import {
+  Uk2BottomSheetService,
+  Uk2BottomSheetSingleModeService,
+  Uk2BottomSheetStackService,
+} from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 @Component({
   selector: 'storybook-bottom-sheet',
@@ -27,9 +32,11 @@ import { Uk2RadioButtonAlignmentEnum, Uk2RadioButtonSizeEnum } from '@axos/uikit
     `,
   ],
   templateUrl: './bottom-sheet.component.html',
+  providers: [Uk2BottomSheetService, Uk2BottomSheetSingleModeService, Uk2BottomSheetStackService],
 })
 export class BottomSheetComponent {
   @Input() uk2IsLoading = false;
+  @Input() isDisabled = false;
   @Input() title = 'Lorem ipsum dolor sit amet consecteur augu turpis';
   @Input() description =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus neque et amet consequat nam pulvinar ipsum turpis ipsum dolor sit amet, consectetur adipiscing elit. Purus neque et amet consequat nam pulvinar ipsum turpis.';
@@ -42,9 +49,10 @@ export class BottomSheetComponent {
 
   completeTemplateRef!: MatBottomSheetRef;
 
-  constructor(private bottomSheetService: MatBottomSheet) {}
+  constructor(private bottomSheetService: Uk2BottomSheetService) {}
 
   onClickComplete() {
-    this.completeTemplateRef = this.bottomSheetService.open(this.completeTemplate);
+    this.bottomSheetService.setStrategy(false);
+    this.bottomSheetService.openBottomSheet(this.completeTemplate);
   }
 }

@@ -1,0 +1,71 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Menu Button states (default, active pressed, pressed, hover, skeleton and disabled).</li>
+  <li>Custom content interaction pattern (how the component looks and behaves when user interacts with).</li>
+  <li>Menu Button responsiveness on each size</li>
+</ul>
+<br />
+<uk2-menu-button
+  uk2FlyoutMenu
+  #flyoutMenu="uk2FlyoutMenu"
+  [uk2FlyoutTemplate]="flyoutOverlay"
+  [uk2OriginXPosition]="customContentOriginXPosition"
+  [uk2OverlayXPosition]="customContentOverlayXPosition"
+  [uk2OriginYPosition]="customContentOriginYPosition"
+  [uk2OverlayYPosition]="customContentOverlayYPosition"
+  [uk2OverlayYOffset]="customContentOverlayYOffset"
+  (uk2OverlayOpened)="onOverlayOpened()"
+  (uk2OverlayClosed)="onOverlayClosed()"
+  #uk2MenuButton="uk2MenuButton"
+  [uk2ButtonType]="buttonType"
+  [uk2IconButtonSizeClass]="iconOnlyCssClass"
+  [uk2ItemList]="items"
+  [uk2IsLoading]="isLoading"
+  [uk2IsDisabled]="isDisabled"
+  [uk2DefaultStateText]="defaultStateText"
+  [uk2ActiveStateText]="activeStateText"
+  [uk2SvgIconName]="icon"
+  [uk2IsIconOnly]="isIconOnly"
+  [uk2DisplayBorder]="displayBorder"
+  [uk2DisplayBadge]="displayBadge"
+  [uk2BackdropIsEnabled]="uk2BackdropIsEnabled"
+  [uk2BackdropIsHidden]="uk2BackdropIsHidden"
+  [uk2ScrollStrategy]="uk2ScrollStrategy"
+  [uk2IsButtonActive]="isActive"
+  [uk2IsButtonPressed]="isPressed"
+  [uk2BadgeText]="badgeText"
+></uk2-menu-button>
+
+<ng-template #flyoutOverlay>
+  <div class="custom-content-example" uk2MenuButtonCustomContent>
+    <mat-tab-group mat-stretch-tabs="false" disableRipple uk2VerticalTabs animationDuration="0ms">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span>Time Period</span>
+        </ng-template>
+        <div
+          class="tab-group-option"
+          [class.active]="selectedTimePeriod === option"
+          *ngFor="let option of timePeriodOptions"
+          (click)="selectedTimePeriod = option"
+        >
+          {{ option }}
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span>Document Type</span>
+        </ng-template>
+        <div
+          class="tab-group-option"
+          [class.active]="selectedDocumentType === option"
+          *ngFor="let option of documentTypeOptions"
+          (click)="selectedDocumentType = option"
+        >
+          {{ option }}
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</ng-template>

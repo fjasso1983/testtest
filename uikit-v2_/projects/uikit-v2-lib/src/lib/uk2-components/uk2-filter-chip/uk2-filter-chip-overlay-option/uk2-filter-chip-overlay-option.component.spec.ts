@@ -47,107 +47,146 @@ describe('Uk2FilterChipOverlayOptionComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should render a checkbox if component input uk2Multiple is true', () => {
-      // Arrange
-      component.uk2Multiple = true;
-
-      // Act
-      fixture.detectChanges();
-
-      // Assert
-      const checkbox = fixture.nativeElement.querySelector('mat-checkbox');
-      expect(checkbox).toBeTruthy();
-    });
-
     it('should set option as active if state value match with option value', () => {
       // Arrange
       component.uk2Value = 'Option 1';
-      component.uk2FilterChipState.setValue('Option 1');
+      component['uk2FilterChipState'].setValue('Option 1');
 
       // Act
       fixture.detectChanges();
 
       // Assert
-      const optionEl = fixture.nativeElement.querySelector('.uk2-filter-chip-option');
-      expect(optionEl.classList).toContain('uk2-menu-list-active');
+      expect(fixture.nativeElement.classList.contains('uk2-filter-chip-option-active')).toBeTruthy();
+    });
+
+    it('should set option as active in uk2Multiple if state value array contains option value', () => {
+      // Arrange
+      component.uk2Value = 'Option 1';
+      component.uk2Multiple = true;
+      component['uk2FilterChipState'].setValue(['Option 3', 'Option 1']);
+
+      // Act
+      fixture.detectChanges();
+
+      // Assert
+      expect(fixture.nativeElement.classList.contains('uk2-filter-chip-option-active')).toBeTruthy();
     });
 
     it('should update state value and state active when option is clicked', () => {
       // Arrange
-      component.uk2FilterChipState.setActive(false);
-      component.uk2FilterChipState.setValue('');
+      component['uk2FilterChipState'].setActive(false);
+      component['uk2FilterChipState'].setValue('');
       component.uk2Value = 'Option 1';
-      const optionEl = fixture.nativeElement.querySelector('.uk2-filter-chip-option');
+      const optionEl = fixture.nativeElement;
 
       // Act
       optionEl.click();
       fixture.detectChanges();
 
       // Assert
-      expect(component.uk2FilterChipState.getValue()).toBe('Option 1');
-      expect(component.uk2FilterChipState.getActive()).toBeTrue();
+      expect(component['uk2FilterChipState'].getValue()).toBe('Option 1');
+      expect(component['uk2FilterChipState'].getActive()).toBeTrue();
     });
 
     it('should update state value and state active when option is multiple and is clicked', () => {
       // Arrange
-      component.uk2FilterChipState.setActive(false);
-      component.uk2FilterChipState.setValue([]);
+      component['uk2FilterChipState'].setActive(false);
+      component['uk2FilterChipState'].setValue([]);
       component.uk2Value = 'Option 1';
       component.uk2Multiple = true;
-      const optionEl = fixture.nativeElement.querySelector('.uk2-filter-chip-option');
+      const optionEl = fixture.nativeElement;
 
       // Act
       optionEl.click();
       fixture.detectChanges();
 
       // Assert
-      expect(component.uk2FilterChipState.getValue()).toEqual(['Option 1']);
-      expect(component.uk2FilterChipState.getActive()).toBeTrue();
+      expect(component['uk2FilterChipState'].getValue()).toEqual(['Option 1']);
+      expect(component['uk2FilterChipState'].getActive()).toBeTrue();
     });
 
     it('should remove option from state value when option is multiple and is clicked and already active', () => {
       // Arrange
-      component.uk2FilterChipState.setActive(true);
-      component.uk2FilterChipState.setValue(['Option 1']);
+      component['uk2FilterChipState'].setActive(true);
+      component['uk2FilterChipState'].setValue(['Option 1']);
       component.uk2Value = 'Option 1';
       component.uk2Multiple = true;
-      const optionEl = fixture.nativeElement.querySelector('.uk2-filter-chip-option');
+      const optionEl = fixture.nativeElement;
 
       // Act
       optionEl.click();
       fixture.detectChanges();
 
       // Assert
-      expect(component.uk2FilterChipState.getValue()).toEqual([]);
-      expect(component.uk2FilterChipState.getActive()).toBeFalse();
+      expect(component['uk2FilterChipState'].getValue()).toEqual([]);
+      expect(component['uk2FilterChipState'].getActive()).toBeFalse();
     });
 
     it('should change empty string to empty array when option is multiple and is clicked', () => {
       // Arrange
-      component.uk2FilterChipState.setActive(false);
-      component.uk2FilterChipState.setValue('');
+      component['uk2FilterChipState'].setActive(false);
+      component['uk2FilterChipState'].setValue('');
       component.uk2Value = 'Option 1';
       component.uk2Multiple = true;
-      const optionEl = fixture.nativeElement.querySelector('.uk2-filter-chip-option');
+      const optionEl = fixture.nativeElement;
 
       // Act
       optionEl.click();
       fixture.detectChanges();
 
       // Assert
-      expect(component.uk2FilterChipState.getValue()).toEqual(['Option 1']);
-      expect(component.uk2FilterChipState.getActive()).toBeTrue();
+      expect(component['uk2FilterChipState'].getValue()).toEqual(['Option 1']);
+      expect(component['uk2FilterChipState'].getActive()).toBeTrue();
     });
 
     it('should focus element when focus method is called', () => {
       // Arrange
-      const spy = spyOn(component.elementRef.nativeElement.querySelector('div'), 'focus');
+      const spy = spyOn(component.elementRef.nativeElement, 'focus');
 
       // Act
       component.focus();
 
       // Assert
       expect(spy).toHaveBeenCalled();
+    });
+
+    it('should call onClick on event keydown.enter', () => {
+      // Arrange
+      const spy = spyOn(component, 'onClick');
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+
+      // Act
+      component.elementRef.nativeElement.dispatchEvent(event);
+
+      // Assert
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should call onClick on event keydown.space', () => {
+      // Arrange
+      const spy = spyOn(component, 'onClick');
+      const event = new KeyboardEvent('keydown', { key: ' ' });
+
+      // Act
+      component.elementRef.nativeElement.dispatchEvent(event);
+
+      // Assert
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should not set value on clicking element if component is disabled', () => {
+      // Arrange
+      component.uk2IsDisabled = true;
+      const spy = spyOn(component['uk2FilterChipState'], 'setValue');
+      const optionEl = fixture.nativeElement;
+
+      // Act
+      optionEl.click();
+      fixture.detectChanges();
+
+      // Assert
+      expect(component['uk2FilterChipState'].getValue()).toEqual(null);
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 });

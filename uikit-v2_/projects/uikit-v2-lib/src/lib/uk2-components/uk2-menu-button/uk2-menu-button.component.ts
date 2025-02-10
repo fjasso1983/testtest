@@ -15,7 +15,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
-import { Uk2ButtonSizeEnum } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
+import { Uk2ButtonSizeEnum, Uk2FlyoutMenuDirective } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
 import { IUk2IsLoading, MATERIAL_CLASSES, UK2_BREAKPOINTS } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 import { Uk2MenuButtonItemHeight, Uk2MenuButtonScrollStrategy, Uk2MenuButtonSelectionTypeEnum } from './enums';
@@ -57,9 +57,17 @@ export class Uk2MenuButtonComponent implements AfterContentInit, AfterViewInit, 
   @Input() uk2ScrollStrategy = Uk2MenuButtonScrollStrategy.block;
   @Input() uk2BottomSheetTitle?: string;
   @Input() uk2BottomSheetDescription?: string;
+  @Input() uk2EnableListScrolling?: boolean = false;
+  @Input() uk2ListScrollingMaxHeight?: number;
+  @Input() uk2EnableListOrdering?: boolean = false;
+
+  @Input() uk2BadgeText: string = '';
+  @Input() uk2IsButtonPressed: boolean = false;
+  @Input() uk2IsButtonActive: boolean = false;
 
   @Output() uk2OnItemSelected = new EventEmitter<Uk2MenuButtonItem[]>();
   @Output() uk2BottomSheetOpened = new EventEmitter<void>();
+  @Output() uk2ItemsReordered = new EventEmitter<Uk2MenuButtonItem[]>();
   /**
    * @deprecated
    * uk2ButtonSize is no longer required as input property, it is now a constant value
@@ -76,13 +84,17 @@ export class Uk2MenuButtonComponent implements AfterContentInit, AfterViewInit, 
   menuItemsContainerMinHeight!: number;
   isMobileSize = false;
 
-  private menuItemDefaultHeight = Uk2MenuButtonItemHeight.default;
+  private get menuItemDefaultHeight(): Uk2MenuButtonItemHeight {
+    if (this.uk2EnableListOrdering) return Uk2MenuButtonItemHeight.ordering;
+    return Uk2MenuButtonItemHeight.default;
+  }
 
   constructor(
     private el: ElementRef<HTMLElement>,
     public viewContainerRef: ViewContainerRef,
     private breakpointObserver: BreakpointObserver,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private flyoutMenu?: Uk2FlyoutMenuDirective
   ) {}
 
   ngAfterContentInit() {
@@ -145,9 +157,16 @@ export class Uk2MenuButtonComponent implements AfterContentInit, AfterViewInit, 
   }
 
   toggleFlyout() {
-    this.uk2MenuButtonOverlayComponent.uk2ItemList = this.uk2ItemList;
-    this.uk2MenuButtonOverlayComponent.open();
-    this.uk2BottomSheetOpened.emit();
+    switch (this.uk2ButtonType) {
+      case Uk2MenuButtonSelectionTypeEnum.custom:
+        this.toggleFlyoutForCustomContentType();
+        break;
+      case Uk2MenuButtonSelectionTypeEnum.single:
+      case Uk2MenuButtonSelectionTypeEnum.multiple:
+      default:
+        this.toggleFlyoutForNonCustomContentType();
+        break;
+    }
   }
 
   selectOption(index: number) {
@@ -216,6 +235,11 @@ export class Uk2MenuButtonComponent implements AfterContentInit, AfterViewInit, 
     this.updateLabelText();
   }
 
+  onListOrdered(newList: Uk2MenuButtonItem[]) {
+    this.uk2ItemList = newList;
+    this.uk2ItemsReordered.emit(newList);
+  }
+
   close() {
     this.uk2MenuButtonOverlayComponent?.close();
   }
@@ -226,6 +250,47 @@ export class Uk2MenuButtonComponent implements AfterContentInit, AfterViewInit, 
 
   applySelectedOptions() {
     this.uk2MenuButtonOverlayComponent?.handleBottomSheetApplyButton();
+  }
+
+  isBadgeVisible(): boolean {
+    if (!this.uk2DisplayBadge) {
+      return false;
+    }
+
+    switch (this.uk2ButtonType) {
+      case Uk2MenuButtonSelectionTypeEnum.custom:
+        return true;
+      case Uk2MenuButtonSelectionTypeEnum.multiple:
+        return this.selectedOptions.length > 0;
+      case Uk2MenuButtonSelectionTypeEnum.single:
+      default:
+        return false;
+    }
+  }
+
+  getBadgeText(): string {
+    switch (this.uk2ButtonType) {
+      case Uk2MenuButtonSelectionTypeEnum.custom:
+        return this.uk2BadgeText;
+      case Uk2MenuButtonSelectionTypeEnum.multiple:
+      case Uk2MenuButtonSelectionTypeEnum.single:
+      default:
+        return this.selectedOptions.length.toString();
+    }
+  }
+
+  private toggleFlyoutForCustomContentType() {
+    try {
+      this.flyoutMenu?.open();
+    } catch {
+      throw new Error('Uk2FlyoutMenuDirective is not defined');
+    }
+  }
+
+  private toggleFlyoutForNonCustomContentType() {
+    this.uk2MenuButtonOverlayComponent.uk2ItemList = this.uk2ItemList;
+    this.uk2MenuButtonOverlayComponent.open();
+    this.uk2BottomSheetOpened.emit();
   }
 
   private updateLabelText() {

@@ -36,6 +36,21 @@ export default {
       action: 'filterChanged',
       table: { disable: true },
     },
+    closeOverlayAfterClearSelection: {
+      name: 'Close Overlay After Clear Selection',
+      description: 'Whether to close the overlay after clearing the selection',
+      table: { category: 'Inputs' },
+    },
+    filterChipMaxWidth: {
+      name: 'Filter Chip Max Width',
+      description: 'Maximum width of the filter chip button before applying truncation to selection',
+      table: { category: 'Inputs' },
+    },
+    showClearSelection: {
+      name: 'Show Clear Selection',
+      description: 'Whether to show the clear selection button',
+      table: { category: 'Inputs' },
+    },
   },
   parameters: {
     actions: {
@@ -45,7 +60,7 @@ export default {
       page: docs,
     },
     controls: {
-      exclude: ['options', 'conditions'],
+      exclude: ['options', 'conditions', 'handleOptionClick', 'filterChipBooleanComponent'],
     },
   },
   decorators: [
@@ -67,4 +82,7 @@ basicUsage.args = {
   isLoading: false,
   isMultiple: false,
   overlayMinWidth: 'auto',
+  closeOverlayAfterClearSelection: false,
+  filterChipMaxWidth: 327,
+  showClearSelection: true,
 };

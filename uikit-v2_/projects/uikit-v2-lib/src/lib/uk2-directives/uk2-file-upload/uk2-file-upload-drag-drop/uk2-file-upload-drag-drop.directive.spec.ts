@@ -48,6 +48,7 @@ describe('Uk2FileUploadDragDropDirective', () => {
 
     fixture = TestBed.createComponent(FileUploaderTestComponent);
     component = fixture.componentInstance;
+
     const directiveEl = fixture.debugElement.query(By.directive(Uk2FileUploadDragDropDirective));
     directive = directiveEl.injector.get(Uk2FileUploadDragDropDirective);
   });
@@ -448,6 +449,16 @@ describe('Uk2FileUploadDragDropDirective', () => {
     fixture.detectChanges();
 
     expect(outputSpy).toHaveBeenCalledWith(expectedOutput);
+  });
+
+  it('should call to destroy all listeners when the element is destroyed', () => {
+    directive['inputListener'] = jasmine.createSpy();
+    directive['anchorListener'] = jasmine.createSpy();
+
+    fixture.destroy();
+
+    expect(directive['inputListener']).toHaveBeenCalled();
+    expect(directive['anchorListener']).toHaveBeenCalled();
   });
 });
 

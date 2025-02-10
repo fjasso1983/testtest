@@ -3,7 +3,9 @@
  */
 
 @mixin uk2-menu-button-pressed() {
-  &:not(.active):active {
+  &:not(.active):active,
+  &:not(.active):not(:active).pressed,
+  &:not(.active):not(:active).pressed:hover {
     @include uk2-menu-button(var(--uk2-neutral-grey-200), var(--uk2-neutral-slate-400), var(--uk2-neutral-grey-300));
     .mdc-button__ripple {
       opacity: 0;
@@ -12,7 +14,9 @@
 }
 
 @mixin uk2-menu-button-active-pressed() {
-  &.active:active {
+  &.active:active,
+  &.active.pressed,
+  &.active.pressed:hover {
     @include uk2-menu-button(var(--uk2-neutral-grey-200), accent-color-500-hsl(), var(--uk2-neutral-grey-300));
     .mdc-button__ripple {
       opacity: 0;
@@ -31,6 +35,25 @@
 
   &.active {
     @include uk2-menu-button(var(--uk2-neutral-white), accent-color-400-hsl(), var(--uk2-neutral-grey-300));
+  }
+
+  &:not(.active).pressed,
+  &:not(.active).pressed:hover {
+    @include uk2-menu-button(var(--uk2-neutral-grey-200), var(--uk2-neutral-slate-400), var(--uk2-neutral-grey-300));
+  }
+
+  &.active.pressed,
+  &.active.pressed:hover {
+    @include uk2-menu-button(var(--uk2-neutral-grey-200), accent-color-500-hsl(), var(--uk2-neutral-grey-300));
+  }
+
+  &:not(.active).pressed,
+  &:not(.active).pressed:hover,
+  &.active.pressed,
+  &.active.pressed:hover {
+    .mdc-button__ripple {
+      opacity: 0;
+    }
   }
 }
 

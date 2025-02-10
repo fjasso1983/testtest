@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 import { Uk2BottomSheetHeaderIconComponent } from './uk2-bottom-sheet-header-icon.component';
 
@@ -18,16 +17,21 @@ describe('Uk2BottomSheetHeaderIconComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should render title and description', () => {
-    component.titleheadericon = 'this is the title';
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-    fixture.detectChanges();
+  it('should emit navigateBackButton on click', () => {
+    spyOn(component.navigateBackButton, 'emit');
+    component.onClickBackButton();
 
-    const header = fixture.debugElement.query(By.css('#uk2-bottom-sheet-header-title')).nativeElement as HTMLElement;
-    const description = fixture.debugElement.query(By.css('#uk2-bottom-sheet-header-description'))
-      .nativeElement as HTMLElement;
+    expect(component.navigateBackButton.emit).toHaveBeenCalled();
+  });
 
-    expect(header.textContent).toBe('this is the title');
-    expect(description.textContent).toBe('this is the description');
+  it('should emit close on click', () => {
+    spyOn(component.close, 'emit');
+    component.onClickCloseButton();
+
+    expect(component.close.emit).toHaveBeenCalled();
   });
 });

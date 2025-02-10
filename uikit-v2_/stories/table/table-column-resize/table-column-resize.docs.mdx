@@ -23,14 +23,24 @@ import dedent from 'ts-dedent';
   <li>
     It should be applied to a <strong> <a href='https://v15.material.angular.io/components/table/api#MatHeaderCell' target='_blank'>mat-header-cell</a></strong> element on a Material table.
   </li>
-  <li>In order to ensure correct functionality across the table, it needs to be applied to all header cells present on a table. <i>(This includes cells that are not resizable, for such cases, it can be specified which cells should not be resizable)</i></li>
+  
 </ol>
+
+## Special considerations
+
+<ul>
+  <li>In order to ensure correct functionality across the table, it needs to be applied to all header cells present on a table. <i>(This includes fixed width columns. If no resize is needed for such columns use )</i></li>
+  <li>To keep the table dimensions correctly, use a <a href='./?path=/docs/components-table--basic-usage#column-fill-directive' target='_blank'><strong>uk2HeaderFillColumn</strong></a> column at the end of the table columns. Unlike all other columns, this type of column should <strong><i>NOT</i></strong> use the resize directive.</li>
+  <li>If no width is specified, the width is set to the width of the header cell.</li>
+  <li>Column content and header cells must have the same padding dimensions to ensure all sizes are applied correctly.</li>
+</ul>
 
 ## Inputs
 
 <ul>
   <li><strong>[uk2ColumnWidth]</strong> <u>string</u> <i>(optional)</i> Sets the column width in a valid CSS expression (e.g. '100px', '10%'). (<strong>Default:</strong> undefined).</li>
   <li><strong>[uk2DisableResize]</strong> <u>boolean</u> <i>(optional)</i> Disables the resize functionality of the column. (<strong>Default:</strong> false).</li>
+  <li><strong>[uk2SetAutoScroll]</strong> <u>boolean</u> <i>(optional)</i> When enabled, it activates the browser scrolling behavior on the table. (<strong>Default:</strong> false). <br /> <i>(Note: this property is not compatible with <a href="./?path=/story/components-table-scrolling--basic-usage" target="_blank">uk2TableScroll</a>, and shouldn't be enabled if the table implements scrolling via that directive)</i> </li>
 </ul>
 
 ## Outputs
@@ -77,28 +87,31 @@ import dedent from 'ts-dedent';
       <ng-container matColumnDef="firstColumn">
         <mat-header-cell
           uk2TableColumnResize
+          uk2HeaderTextCell
           [uk2ColumnWidth]="columnWidth[0]"
           (uk2ColumnWasResized)="onColumnResize(0, $event)"
           *matHeaderCellDef
         >
           Column Name
         </mat-header-cell>
-        <mat-cell *matCellDef="let cell"> {{ cell.firstColumn }} </mat-cell>
+        <mat-cell uk2TextCell *matCellDef="let cell"> {{ cell.firstColumn }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="secondColumn">
         <mat-header-cell 
           uk2TableColumnResize 
+          uk2HeaderTextCell
           [uk2ColumnWidth]="columnWidth[1]"
           (uk2ColumnWasResized)="onColumnResize(1, $event)"
           *matHeaderCellDef
         > 
           Column Name 
           </mat-header-cell>
-        <mat-cell *matCellDef="let cell"> {{ cell.secondColumn }} </mat-cell>
+        <mat-cell uk2TextCell *matCellDef="let cell"> {{ cell.secondColumn }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="thirdColumn">
         <mat-header-cell 
-          uk2TableColumnResize  
+          uk2TableColumnResize
+          uk2HeaderTextCell 
           [uk2ColumnWidth]="columnWidth[2]"
           [uk2DisableResize]="true"
           (uk2ColumnWasResized)="onColumnResize(2, $event)"
@@ -106,7 +119,7 @@ import dedent from 'ts-dedent';
         > 
           Column Name 
         </mat-header-cell>
-        <mat-cell *matCellDef="let cell"> {{ cell.thirdColumn }} </mat-cell>
+        <mat-cell uk2TextCell *matCellDef="let cell"> {{ cell.thirdColumn }} </mat-cell>
       </ng-container>
       ...
     </mat-table>

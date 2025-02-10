@@ -256,3 +256,20 @@
     </div>
   </div>
 </section>
+<br />
+<section>
+  <h2>List item checkbox with drag option</h2>
+  <br />
+  <div cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let item of items" cdkDrag>
+      <uk2-list-item
+        uk2Clickable
+        [uk2ListItem]="item"
+        [uk2CurrencyOptions]="currencyOptions"
+        [uk2ShowDragHandle]="true"
+      >
+        <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+      </uk2-list-item>
+    </div>
+  </div>
+</section>

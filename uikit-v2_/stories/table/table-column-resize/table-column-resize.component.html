@@ -10,68 +10,101 @@
 <mat-table uk2Table [dataSource]="dataSource">
   <ng-container matColumnDef="record">
     <mat-header-cell
+      uk2HeaderRecordCell
       uk2TableColumnResize
       [uk2ColumnWidth]="firstColumnWidth"
       [uk2DisableResize]="disableFirstColumnResize"
+      [uk2SetAutoScroll]="true"
       (uk2ColumnWasResized)="onColumnResize($event)"
       *matHeaderCellDef
     >
       Record #
     </mat-header-cell>
-    <mat-cell *matCellDef="let element">
+    <mat-cell uk2RecordCell *matCellDef="let element">
       <div>
         <p>{{ element.record }}</p>
       </div>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="propertyA">
-    <mat-header-cell uk2TableColumnResize (uk2ColumnWasResized)="onColumnResize($event)" *matHeaderCellDef>
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidths[1]"
+      (uk2ColumnWasResized)="onColumnResize($event)"
+      *matHeaderCellDef
+    >
       Property A
     </mat-header-cell>
-    <mat-cell *matCellDef="let element">
+    <mat-cell uk2TextCell *matCellDef="let element">
       <div> {{ element.propertyA }} </div>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="propertyB">
-    <mat-header-cell uk2TableColumnResize (uk2ColumnWasResized)="onColumnResize($event)" *matHeaderCellDef>
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidths[2]"
+      (uk2ColumnWasResized)="onColumnResize($event)"
+      *matHeaderCellDef
+    >
       Property B
     </mat-header-cell>
-    <mat-cell *matCellDef="let element">
+    <mat-cell uk2TextCell *matCellDef="let element">
       <div> {{ element.propertyB }} </div>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="propertyC">
-    <mat-header-cell uk2TableColumnResize (uk2ColumnWasResized)="onColumnResize($event)" *matHeaderCellDef>
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidths[3]"
+      (uk2ColumnWasResized)="onColumnResize($event)"
+      *matHeaderCellDef
+    >
       Property C
     </mat-header-cell>
-    <mat-cell *matCellDef="let element">
+    <mat-cell uk2TextCell *matCellDef="let element">
       <div> {{ element.propertyC }} </div>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="propertyD">
-    <mat-header-cell uk2TableColumnResize (uk2ColumnWasResized)="onColumnResize($event)" *matHeaderCellDef>
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidths[4]"
+      (uk2ColumnWasResized)="onColumnResize($event)"
+      *matHeaderCellDef
+    >
       Property D
     </mat-header-cell>
-    <mat-cell *matCellDef="let element">
+    <mat-cell uk2TextCell *matCellDef="let element">
       <div> {{ element.propertyD }} </div>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="amount">
     <mat-header-cell
+      uk2HeaderNumericCell
       uk2TableColumnResize
-      [uk2DisableResize]="true"
+      [uk2ColumnWidth]="columnWidths[5]"
       (uk2ColumnWasResized)="onColumnResize($event)"
       *matHeaderCellDef
     >
       Amount
     </mat-header-cell>
-    <mat-cell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
+    <mat-cell uk2NumericCell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
       <div>
         <p> {{ element.amount }} </p>
       </div>
     </mat-cell>
   </ng-container>
+  <ng-container matColumnDef="fillColumn">
+    <mat-header-cell uk2HeaderFillColumn *matHeaderCellDef> </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div> </div>
+    </mat-cell>
+  </ng-container>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <mat-header-row uk2HeaderRow *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row uk2Row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>

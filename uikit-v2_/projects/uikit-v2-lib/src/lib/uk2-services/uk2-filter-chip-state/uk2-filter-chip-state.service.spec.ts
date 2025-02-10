@@ -151,4 +151,46 @@ describe('Uk2FilterChipStateService', () => {
     service.setValue(value);
     service.optionSelected();
   });
+
+  it('should set and get closeOverlayAfterClear', () => {
+    // Arrange
+    const closeOverlayAfterClear = true;
+
+    // Act
+    service.setCloseOverlayAfterClear(closeOverlayAfterClear);
+
+    // Assert
+    expect(service.getCloseOverlayAfterClear()).toBe(closeOverlayAfterClear);
+
+    // Arrange
+    const closeOverlayAfterClearFalse = false;
+
+    // Act
+    service.setCloseOverlayAfterClear(closeOverlayAfterClearFalse);
+
+    // Assert
+    expect(service.getCloseOverlayAfterClear()).toBe(closeOverlayAfterClearFalse);
+  });
+
+  it('should set and get filterChipMaxWidth', () => {
+    // Arrange
+    const filterChipMaxWidth = 200;
+
+    // Act
+    service.setFilterChipMaxWidth(filterChipMaxWidth);
+
+    // Assert
+    expect(service.getFilterChipMaxWidth()).toBe(filterChipMaxWidth);
+  });
+
+  it('should get show clear selection value calling getShowClearSelection', () => {
+    // Arrange
+    const showClearSelection = true;
+
+    // Act
+    service.setShowClearSelection(showClearSelection);
+
+    // Assert
+    expect(service.getShowClearSelection()).toBe(showClearSelection);
+  });
 });

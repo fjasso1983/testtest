@@ -35,18 +35,4 @@
   .uk2-file-viewer-footer {
     @include uk2-file-viewer-footer();
   }
-
-  .uk2-file-viewer-item {
-    &.uk2-file-viewer-item-left {
-      @include uk2-file-viewer-position(left);
-    }
-
-    &.uk2-file-viewer-item-center {
-      @include uk2-file-viewer-position(center);
-    }
-
-    &.uk2-file-viewer-item-right {
-      @include uk2-file-viewer-position(right);
-    }
-  }
 }

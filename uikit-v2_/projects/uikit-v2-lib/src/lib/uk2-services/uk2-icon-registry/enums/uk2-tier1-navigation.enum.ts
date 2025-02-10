@@ -1,6 +1,8 @@
 export enum Uk2Tier1NavigationEnum {
   arrowBack = 'uk2-arrow-back',
   arrowForward = 'uk2-arrow-forward',
+  arrowUp = 'uk2-arrow-up',
+  arrowDown = 'uk2-arrow-down',
   arrowBackCurve = 'uk2-arrow-back-curve',
   chevronLeft = 'uk2-chevron-left',
   chevronRight = 'uk2-chevron-right',

@@ -13,17 +13,22 @@ import { MATERIAL_CLASSES } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils'
 import { Uk2ListItem } from '../../types';
 import { Uk2ListItemModule } from '../../uk2-list-item.module';
 import { Uk2ListItemComponent } from '../../uk2-list-item.component';
+import { Uk2IconRegistryService } from '@axos/uikit-v2-lib';
 
 describe('Uk2ListItemClickableDirective', () => {
   describe('Normal list item', () => {
     let fixture: ComponentFixture<NormalListItemComponent>;
+    let service : Uk2IconRegistryService;
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         declarations: [NormalListItemComponent],
+        providers:[Uk2IconRegistryService],
         imports: [CommonModule, Uk2ListItemModule, MatIconTestingModule, MatIconModule],
       }).compileComponents;
 
+      service = TestBed.inject(Uk2IconRegistryService);
+      service.registerAllCategories();
       fixture = TestBed.createComponent(NormalListItemComponent);
 
       fixture.detectChanges();

@@ -1,0 +1,175 @@
+<h3>Table - Scroll & Resize integration</h3>
+<br />
+<mat-table uk2Table uk2TableScroll [uk2TableBorderType]="borderRadius" [dataSource]="dataSource">
+  <ng-container matColumnDef="checkbox" sticky>
+    <mat-header-cell
+      uk2HeaderBulkActionCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['checkbox']"
+      *matHeaderCellDef
+    >
+      <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+    </mat-header-cell>
+    <mat-cell class="uk2-checkbox-column" uk2BulkActionCell *matCellDef="let checkbox">
+      <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="record" sticky>
+    <mat-header-cell
+      uk2HeaderRecordCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['record']"
+      *matHeaderCellDef
+    >
+      Record
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div>
+        <p># {{ data.record }}</p>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyA">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['propertyA']"
+      *matHeaderCellDef
+    >
+      Property A
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div> {{ data.propertyA }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyB">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['propertyB']"
+      *matHeaderCellDef
+    >
+      Property B
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div> {{ data.propertyB }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyC">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['propertyC']"
+      *matHeaderCellDef
+    >
+      Property C
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div> {{ data.propertyC }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyD">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['propertyD']"
+      *matHeaderCellDef
+    >
+      Property D
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div> {{ data.propertyD }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyE">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['propertyE']"
+      *matHeaderCellDef
+    >
+      Property E
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div> {{ data.propertyE }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyF">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['propertyF']"
+      *matHeaderCellDef
+    >
+      property F
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div> {{ data.propertyF }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyG">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['propertyG']"
+      *matHeaderCellDef
+    >
+      property G
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div> {{ data.propertyG }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyH">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['propertyH']"
+      *matHeaderCellDef
+    >
+      property H
+    </mat-header-cell>
+    <mat-cell *matCellDef="let data">
+      <div> {{ data.propertyH }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-header-cell
+      uk2HeaderNumericCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['amount']"
+      *matHeaderCellDef
+    >
+      Amount
+    </mat-header-cell>
+    <mat-cell class="uk2-skip-cell-truncate-and-wrap" uk2NumericCell *matCellDef="let data">
+      <div>
+        <p> {{ data.amount }} </p>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="fillColumn">
+    <mat-header-cell uk2HeaderFillColumn *matHeaderCellDef> </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div> </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="options" stickyEnd>
+    <mat-header-cell
+      uk2HeaderMenuCell
+      uk2TableColumnResize
+      [uk2ColumnWidth]="columnWidth['options']"
+      [uk2DisableResize]="true"
+      *matHeaderCellDef
+    ></mat-header-cell>
+    <mat-cell uk2MenuCell *matCellDef="let element">
+      <mat-icon class="uk2-option-icon" [svgIcon]="ellipsisIcon"></mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row uk2HeaderRow *matHeaderRowDef="displayedColumns" uk2-sticky-row></mat-header-row>
+  <mat-row uk2Row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+<br />
+<br />
+<br />

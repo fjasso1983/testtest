@@ -1,4 +1,13 @@
-<uk2-bottom-sheet [title]="title" [description]="description" [uk2IsLoading]="uk2IsLoading">
+<uk2-bottom-sheet
+  [title]="title"
+  [description]="description"
+  [uk2IsLoading]="uk2IsLoading"
+  [headerTitle]="headerTitle"
+  [backButtonLabel]="backButtonLabel"
+  [showNavigationIcons]="showNavigationIcons"
+  [showDivider]="showDivider"
+  (navigateBackButton)="closeBottomSheet()"
+>
   <section id="uk2-bottom-sheet-body">
     <div *ngFor="let option of options; let i = index" (click)="handleOptionSelected(option)">
       <div [uk2BottomSheetOptionHelper]="optionHtmlElements[i]"></div>

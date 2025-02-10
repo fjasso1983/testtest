@@ -9,18 +9,21 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import {
   Uk2ChipModule,
   Uk2DirectivesModule,
   Uk2FilterBarDirectiveModule,
   Uk2FilterChipBooleanModule,
+  Uk2FilterChipOverlayOptionModule,
+  Uk2ListItemModule,
   Uk2MenuListItemModule,
 } from '@axos/uikit-v2-lib';
 
 import { FilterChipLabelComponent } from './filter-chip-label.component';
 import { FilterChipLabelRoutingModule } from './filter-chip-label-routing.module';
-import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [FilterChipLabelComponent],
@@ -41,6 +44,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
     Uk2FilterChipBooleanModule,
     Uk2ChipModule,
     Uk2FilterBarDirectiveModule,
+    Uk2FilterChipOverlayOptionModule,
+    Uk2ListItemModule,
+    MatCheckboxModule,
   ],
 })
 export class FilterChipLabelModule {}

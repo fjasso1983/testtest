@@ -158,6 +158,23 @@ describe('Uk2TooltipComponent', () => {
     expect(uk2TooltipBodyText).toBeNull();
   });
 
+  it('shouldn\'t display content when is loading', () => {
+    let element: HTMLElement;
+    element = document.createElement('div');
+    const barElement = document.createElement('div');
+    component.bodyText = 'test';
+    component.svgIconName = 'svgIconName';
+    component.labelText = 'labelText';
+    component.uk2IsLoading = true;
+    const newDiv = document.createElement('div');
+    element.appendChild(barElement);
+    component.uk2TooltipHtmlContent = { nativeElement: element};
+    component.uk2TooltipIconButton = { nativeElement: newDiv};
+    component.uk2TooltipContainer = { nativeElement: newDiv};
+    const uk2TooltipContainer = fixture.elementRef.nativeElement.querySelector('#uk2-tooltip-container');
+    expect(uk2TooltipContainer).toBeNull();
+  });
+
   it('should Throw Error if content and bodytext is empty', () => {
     component.bodyText = '';
     component.svgIconName = 'svgIconName';

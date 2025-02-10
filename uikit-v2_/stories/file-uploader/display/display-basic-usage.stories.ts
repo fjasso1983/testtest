@@ -35,7 +35,8 @@ export default {
         'safeUrl',
         'file',
         'deleteFile',
-        'flyoutMenu'
+        'flyoutMenu',
+        'onExpandButtonClick'
       ],
     },
   },
@@ -50,6 +51,11 @@ export default {
       description: 'Shows the file size besides the file name.',
       table: { category: 'Display' },
     },
+    showPreview: {
+      name: 'Shows the file preview',
+      description: 'Toggle to display the file preview',
+      table: { category: 'Display' },
+    },
     showCollapseButton: {
       name: 'Show expand/collapse button',
       description: 'Shows the expand and collapse button on the description bar.',
@@ -62,6 +68,10 @@ export default {
     },
     flyoutItemClickEvent: {
       action: 'flyoutItemClickEvent',
+      table: { disable: true },
+    },
+    expantButtonClickEvent: {
+      action: 'expantButtonClickEvent',
       table: { disable: true },
     },
   },
@@ -80,4 +90,5 @@ basicUsage.args = {
   showCollapseButton: false,
   showFileSize: false,
   isLoading: false,
+  showPreview: false,
 };

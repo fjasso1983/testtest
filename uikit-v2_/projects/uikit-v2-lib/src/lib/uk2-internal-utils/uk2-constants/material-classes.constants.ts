@@ -39,5 +39,11 @@ export const MATERIAL_CLASSES = {
   matTabNavBarNavigationControlsEnabled: 'mat-mdc-tab-header-pagination-controls-enabled',
   matTextFieldWrapper: 'mat-mdc-text-field-wrapper',
   matTable: 'mat-table',
+  matHeaderCell: 'mat-header-cell',
+  matTableHeaderRow: 'mat-header-row',
   matRow: 'mat-row',
+  matCell: 'mat-cell',
+  matMdcTableSticky: 'mat-mdc-table-sticky',
+  matMdcTableStickyBorderLeft: 'mat-mdc-table-sticky-border-elem-left',
+  matColumnPartial: 'mat-column',
 };

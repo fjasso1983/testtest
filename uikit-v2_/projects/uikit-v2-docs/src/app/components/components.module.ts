@@ -28,6 +28,8 @@ import {
   Uk2FileUploaderDisplayModule,
   Uk2ElementPositionModule,
   Uk2FlyoutMenuModule,
+  Uk2FileViewerModule,
+  Uk2CurrencyModule,
 } from '@axos/uikit-v2-lib';
 
 import { AppMaterialModule } from '../app-material.module';
@@ -88,6 +90,8 @@ import { FileUploadDragDropComponent } from './file-uploader-drag-drop/file-uplo
 import { Uk2ChipModule } from '@axos/uikit-v2-lib';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { FileUploaderPdfViewerComponent } from './file-uploader-drag-drop/file-uploader-pdf-viewer/file-uploader-pdf-viewer.component';
+import { CurrencyComponent } from './currency/currency.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -143,6 +147,7 @@ import { FileUploaderPdfViewerComponent } from './file-uploader-drag-drop/file-u
     FileUploadDragDropComponent,
     LoadingSpinnerComponent,
     FileUploaderPdfViewerComponent,
+    CurrencyComponent,
   ],
   imports: [
     CommonModule,
@@ -179,6 +184,9 @@ import { FileUploaderPdfViewerComponent } from './file-uploader-drag-drop/file-u
     Uk2FileUploaderDisplayModule,
     Uk2ElementPositionModule,
     Uk2FlyoutMenuModule,
+    Uk2FileViewerModule,
+    Uk2CurrencyModule,
+    DragDropModule,
   ],
   providers: [BreadcrumbsService, provideNgxMask()],
 })

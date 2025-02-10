@@ -17,6 +17,36 @@
   .uk2-menu-button-item-divider-line {
     @include uk2-menu-divider-line();
   }
+
+  /* Styling for the footer content wrapper of the overlay of menu button component */
+  #uk2-menu-button-overlay-footer-content-wrapper:not(:empty) {
+    border-top: 1px solid var(--uk2-neutral-grey-200);
+  }
+  .uk2-menu-list-container:has(+#uk2-menu-button-overlay-footer-content-wrapper:not(:empty)) {
+    .uk2-menu-button-item:last-child {
+      border-radius: 0;
+    }
+  }
+  /* Styling for the draggable list elements wrapper of the overlay of menu button component */
+  .uk2-menu-list-container.cdk-drop-list {
+    &.cdk-drop-list-dragging {
+      @include menu-button-overlay-items-on-item-dragging;
+    }
+    .cdk-drag .uk2-list-item {
+      box-sizing: border-box;
+      min-width: 40px;
+    }
+  }
+  /* Styling for the overaly of menu button component when scrolling is active */
+  &:has( .uk2-menu-list-container.scrolleable) {
+    @include menu-button-overlay-scrollable-list;
+  }
+}
+
+/* Styling for the dragging list element preview of the overlay of menu button component */
+@include menu-button-overlay-draggable-styles;
+.cdk-drag.cdk-drag-preview {
+  @include menu-button-overlay-draggable-item-preview;
 }
 
 uk2-menu-button {

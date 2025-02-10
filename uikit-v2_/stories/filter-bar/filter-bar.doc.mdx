@@ -79,24 +79,41 @@ import dedent from 'ts-dedent';
   >
     <uk2-filter-chip-boolean
       cdkDrag
-      [uk2Options]="item.options"
+      [uk2ListItems]="item.options"
       [uk2Identifier]="item.label"
-      [uk2FilterValue]="item.value"
+      [uk2IsMultiple]="item.isMultiple"
       (uk2DeleteFilter)="removeFilter(item)"
       (uk2FilterValueChanges)="filterChanged($event)"
       *ngFor="let item of items"
-    ></uk2-filter-chip-boolean>
+    >
+      <uk2-filter-chip-overlay-option
+        *ngFor="let listItem of item.options"
+        [uk2Value]="listItem.value"
+        [uk2Multiple]="item.isMultiple"
+        #overlayOption="uk2FilterChipOption"
+      >
+        <uk2-list-item [uk2ListItem]="listItem">
+          <mat-checkbox
+            tabIndex="-1"
+            uk2Checkbox
+            disableRipple
+            [checked]="overlayOption.checked"
+            *ngIf="item.isMultiple"
+          ></mat-checkbox>
+        </uk2-list-item>
+      </uk2-filter-chip-overlay-option>
+    </uk2-filter-chip-boolean>
     \r
     <button
       class="uk2-filter-bar-add-filter-button"
-      [class.visible]="showAddFilterButton && !isLoading"
+      [class.visible]="!isLoading"
       mat-button
       uk2TextIconButton
       disableRipple
       [uk2ButtonSize]="smallSize"
       cdkOverlayOrigin
       #addFilterButton="cdkOverlayOrigin"
-      (click)="addFilterMenuOpen = !addFilterMenuOpen; showAddFilterButton = true"
+      (click)="addFilterMenuOpen = !addFilterMenuOpen"
     >
       <mat-icon [svgIcon]="'uk2-plus'"></mat-icon>
     </button>
@@ -104,7 +121,7 @@ import dedent from 'ts-dedent';
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="addFilterButton"
       [cdkConnectedOverlayOpen]="addFilterMenuOpen"
-      (overlayOutsideClick)="addFilterMenuOpen = false; showAddFilterButton = false"
+      (overlayOutsideClick)="addFilterMenuOpen = false"
     >
       <div class="uk2-filter-bar-add-filter-menu">
         <div
@@ -135,39 +152,198 @@ import dedent from 'ts-dedent';
   code={dedent`
   export class YourComponent {
     isLoading = false;
-    columns: any = {
+    columns: { [key: string]: { options: Uk2ListItem[] } } = {
       name: {
-        options: ['Luis', 'John', 'Maria', 'Sara'],
+        options: [
+          {
+            value: 'Luis',
+            headerLabelName: 'Luis',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'John',
+            headerLabelName: 'John',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Maria',
+            headerLabelName: 'Maria',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Sara',
+            headerLabelName: 'Sara',
+            uk2IsSelected: false,
+          },
+        ],
       },
       'Last name': {
-        options: ['Doe', 'Smith', 'Johnson', 'Garcia'],
+        options: [
+          {
+            value: 'Doe',
+            headerLabelName: 'Doe',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Smith',
+            headerLabelName: 'Smith',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Johnson',
+            headerLabelName: 'Johnson',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Garcia',
+            headerLabelName: 'Garcia',
+            uk2IsSelected: false,
+          },
+        ],
       },
       'Is admin': {
-        options: ['Yes', 'No'],
+        options: [
+          {
+            value: 'Yes',
+            headerLabelName: 'Yes',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'No',
+            headerLabelName: 'No',
+            uk2IsSelected: false,
+          },
+        ],
       },
       'Record name': {
-        options: ['Record 1', 'Record 2', 'Record 3', 'Record 4'],
+        options: [
+          {
+            value: 'Record 1',
+            headerLabelName: 'Record 1',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Record 2',
+            headerLabelName: 'Record 2',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Record 3',
+            headerLabelName: 'Record 3',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Record 4',
+            headerLabelName: 'Record 4',
+            uk2IsSelected: false,
+          },
+        ],
       },
       'Money amount': {
-        options: ['100', '200', '300', '400'],
+        options: [
+          {
+            value: '100',
+            headerLabelName: '100',
+            uk2IsSelected: false,
+          },
+          {
+            value: '200',
+            headerLabelName: '200',
+            uk2IsSelected: false,
+          },
+          {
+            value: '300',
+            headerLabelName: '300',
+            uk2IsSelected: false,
+          },
+          {
+            value: '400',
+            headerLabelName: '400',
+            uk2IsSelected: false,
+          },
+        ],
       },
       description: {
-        options: ['Description 1', 'Description 2', 'Description 3', 'Description 4'],
+        options: [
+          {
+            value: 'Description 1',
+            headerLabelName: 'Description 1',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Description 2',
+            headerLabelName: 'Description 2',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Description 3',
+            headerLabelName: 'Description 3',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Description 4',
+            headerLabelName: 'Description 4',
+            uk2IsSelected: false,
+          },
+        ],
       },
     };
     smallSize = Uk2ButtonSizeEnum.small;
     addFilterMenuOpen = false;
     columnOptions = Object.keys(this.columns);
     \r
-    items = [
+    items: { label: string; options: Uk2ListItem[]; isMultiple: boolean }[] = [
       {
         label: 'Name',
-        options: ['Luis', 'John', 'Maria', 'Sara'],
-        value: 'Sara',
+        options: [
+          {
+            value: 'Luis',
+            headerLabelName: 'Luis',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'John',
+            headerLabelName: 'John',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Maria',
+            headerLabelName: 'Maria',
+            uk2IsSelected: true,
+          },
+          {
+            value: 'Sara',
+            headerLabelName: 'Sara',
+            uk2IsSelected: true,
+          },
+        ],
+        isMultiple: true,
       },
       {
         label: 'Last name',
-        options: ['Doe', 'Smith', 'Johnson', 'Garcia'],
+        options: [
+          {
+            value: 'Doe',
+            headerLabelName: 'Doe',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Smith',
+            headerLabelName: 'Smith',
+            uk2IsSelected: true,
+          },
+          {
+            value: 'Johnson',
+            headerLabelName: 'Johnson',
+            uk2IsSelected: false,
+          },
+          {
+            value: 'Garcia',
+            headerLabelName: 'Garcia',
+            uk2IsSelected: false,
+          },
+        ],
+        isMultiple: false,
       },
     ];
     \r
@@ -179,6 +355,7 @@ import dedent from 'ts-dedent';
       this.items.push({
         label: column,
         options: this.columns[column].options,
+        isMultiple: false,
       });
     }
     \r
@@ -247,11 +424,31 @@ import dedent from 'ts-dedent';
     ...
   >
     <uk2-filter-chip-boolean
-      [uk2Options]="item.options"
+      cdkDrag
+      [uk2ListItems]="item.options"
       [uk2Identifier]="item.label"
-      [uk2FilterValue]="item.value"
+      [uk2IsMultiple]="item.isMultiple"
+      (uk2DeleteFilter)="removeFilter(item)"
+      (uk2FilterValueChanges)="filterChanged.emit($event)"
       *ngFor="let item of items"
-    ></uk2-filter-chip-boolean>
+    >
+      <uk2-filter-chip-overlay-option
+        *ngFor="let listItem of item.options"
+        [uk2Value]="listItem.value"
+        [uk2Multiple]="item.isMultiple"
+        #overlayOption="uk2FilterChipOption"
+      >
+        <uk2-list-item [uk2ListItem]="listItem">
+          <mat-checkbox
+            tabIndex="-1"
+            uk2Checkbox
+            disableRipple
+            [checked]="overlayOption.checked"
+            *ngIf="item.isMultiple"
+          ></mat-checkbox>
+        </uk2-list-item>
+      </uk2-filter-chip-overlay-option>
+    </uk2-filter-chip-boolean>
   </div>
   `}
 />
@@ -267,13 +464,21 @@ import dedent from 'ts-dedent';
       items = [
         {
           label: 'Name',
-          options: ['Luis', 'John', 'Maria', 'Sara'],
-          value: 'Maria',
+          options: [
+            { value: 'Luis', headerLabelName: 'Luis', uk2IsSelected: false },
+            { value: 'John', headerLabelName: 'John', uk2IsSelected: false },
+            { value: 'Maria', headerLabelName: 'Maria', uk2IsSelected: true },
+            { value: 'Sara', headerLabelName: 'Sara', uk2IsSelected: false },
+          ],
         },
         {
           label: 'Last name',
-          options: ['Doe', 'Smith', 'Johnson', 'Garcia'],
-          value: '',
+          options: [
+            { value: 'Doe', headerLabelName: 'Doe', uk2IsSelected: false },
+            { value: 'Smith', headerLabelName: 'Smith', uk2IsSelected: true },
+            { value: 'Johnson', headerLabelName: 'Johnson', uk2IsSelected: false },
+            { value: 'Garcia', headerLabelName: 'Garcia', uk2IsSelected: false },
+          ]
         },
       ];
     }

@@ -52,6 +52,7 @@ import { FileViewerFullScreenComponent } from './file-viewer/file-viewer-full-sc
 import { TableComponent } from './table/table.component';
 import { FileUploadDragDropComponent } from './file-uploader-drag-drop/file-uploader-drag-drop.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { CurrencyComponent } from './currency/currency.component';
 
 export const componentsRoutes: Routes = [
   {
@@ -296,6 +297,10 @@ export const componentsRoutes: Routes = [
   {
     path: componentsRoutesNames.table,
     component: TableComponent,
+  },
+  {
+    path: componentsRoutesNames.currency,
+    component: CurrencyComponent,
   },
   {
     path: componentsRoutesNames.fileUploadDragDrop,

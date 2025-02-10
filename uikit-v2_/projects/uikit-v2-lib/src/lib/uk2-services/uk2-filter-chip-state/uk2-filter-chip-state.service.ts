@@ -29,6 +29,10 @@ export class Uk2FilterChipStateService {
     formattedIdentifier: '',
     formattedCondition: '',
     overlayMinWidth: 'auto',
+    closeOverlayAfterClear: true,
+    isMultiple: false,
+    filterChipMaxWidth: 327,
+    showClearSelection: true,
   });
   private _openOverlay = new Subject<void>();
   private _deleted$ = new Subject<void>();
@@ -163,6 +167,70 @@ export class Uk2FilterChipStateService {
   }
 
   /**
+   * Sets the close overlay after clear state for the filter chip.
+   * @memberof Uk2FilterChipStateService
+   * @param {boolean} closeOverlayAfterClear - The close overlay after clear state to set.
+   * @returns {void}
+   * @example
+   * setCloseOverlayAfterClear(false);
+   */
+  setCloseOverlayAfterClear(closeOverlayAfterClear: boolean) {
+    const state = this._filterChipState$.value;
+    this._filterChipState$.next({
+      ...state,
+      closeOverlayAfterClear,
+    });
+  }
+
+  /**
+   * Sets the multiple state for the filter chip.
+   * @memberof Uk2FilterChipStateService
+   * @param {boolean} isMultiple - The multiple state to set.
+   * @returns {void}
+   * @example
+   * setIsMultiple(true);
+   */
+  setIsMultiple(isMultiple: boolean) {
+    const state = this._filterChipState$.value;
+    this._filterChipState$.next({
+      ...state,
+      isMultiple,
+    });
+  }
+
+  /**
+   * Sets the max width for the filter chip.
+   * @memberof Uk2FilterChipStateService
+   * @param {number} maxWidth - The max width to set.
+   * @returns {void}
+   * @example
+   * setFilterChipMaxWidth(327);
+   */
+  setFilterChipMaxWidth(maxWidth: number) {
+    const state = this._filterChipState$.value;
+    this._filterChipState$.next({
+      ...state,
+      filterChipMaxWidth: maxWidth,
+    });
+  }
+
+  /**
+   * Sets the clear selection state for the filter chip.
+   * @memberof Uk2FilterChipStateService
+   * @param {boolean} showClearSelection - The clear selection state to set.
+   * @returns {void}
+   * @example
+   * setClearSelection(true);
+   */
+  setShowClearSelection(showClearSelection: boolean) {
+    const state = this._filterChipState$.value;
+    this._filterChipState$.next({
+      ...state,
+      showClearSelection,
+    });
+  }
+
+  /**
    * Gets the identifier for the filter chip.
    * @memberof Uk2FilterChipStateService
    * @returns {string}
@@ -249,6 +317,54 @@ export class Uk2FilterChipStateService {
       identifier,
       value,
     };
+  }
+
+  /**
+   * Gets the close overlay after clear state for the filter chip.
+   * @memberof Uk2FilterChipStateService
+   * @returns {boolean}
+   * @example
+   * getCloseOverlayAfterClear();
+   * returns true
+   */
+  getCloseOverlayAfterClear(): boolean {
+    return this._filterChipState$.value.closeOverlayAfterClear;
+  }
+
+  /**
+   * Gets the multiple state for the filter chip.
+   * @memberof Uk2FilterChipStateService
+   * @returns {boolean}
+   * @example
+   * getIsMultiple();
+   * returns true
+   */
+  getIsMultiple(): boolean {
+    return this._filterChipState$.value.isMultiple;
+  }
+
+  /**
+   * Gets the max width for the filter chip.
+   * @memberof Uk2FilterChipStateService
+   * @returns {number}
+   * @example
+   * getMaxWidth();
+   * returns 327
+   */
+  getFilterChipMaxWidth(): number {
+    return this._filterChipState$.value.filterChipMaxWidth;
+  }
+
+  /**
+   * Gets the clear selection state for the filter chip.
+   * @memberof Uk2FilterChipStateService
+   * @returns {boolean}
+   * @example
+   * getClearSelection();
+   * returns true
+   */
+  getShowClearSelection(): boolean {
+    return this._filterChipState$.value.showClearSelection;
   }
 
   /**

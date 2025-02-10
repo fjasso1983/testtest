@@ -6,6 +6,7 @@ import {
   Uk2ElementPositionModule,
   Uk2FileUploaderDisplayModule,
   Uk2FileUploaderDragDropModule,
+  Uk2FileViewerModule,
   Uk2FlyoutMenuModule,
   Uk2ListItemModule,
   Uk2LoadingSpinnerModule,
@@ -31,6 +32,7 @@ const uk2Imports = [
   Uk2ElementPositionModule,
   Uk2DirectivesModule,
   Uk2ListItemModule,
+  Uk2FileViewerModule,
 ];
 
 @NgModule({

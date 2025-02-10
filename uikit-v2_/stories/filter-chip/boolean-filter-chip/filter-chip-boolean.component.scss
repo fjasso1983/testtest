@@ -1,0 +1,5 @@
+@import '@axos/uikit-v2-lib/src/styles/uk2.scss';
+
+.uk2-filter-chip-option uk2-list-item.custom-checkbox {
+  @include checkbox-size(20px);
+}

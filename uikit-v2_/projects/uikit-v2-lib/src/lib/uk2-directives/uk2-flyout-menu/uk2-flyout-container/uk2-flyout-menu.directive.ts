@@ -31,8 +31,11 @@ export class Uk2FlyoutMenuDirective implements AfterViewInit, OnDestroy {
   @Input() uk2OverlayHasBackdrop = true;
   @Input() uk2OverlayBackdropClass = '';
   @Input() uk2CloseOnClickOutside = true;
-  @Output() uk2OverlayOpened = new EventEmitter<void>();
-  @Output() uk2OverlayClosed = new EventEmitter<void>();
+  @Input() uk2OverlayPanelClass: string | string[] = [];
+  @Input() uk2FlyoutMenuId: string | undefined;
+
+  @Output() uk2OverlayOpened = new EventEmitter<Uk2FlyoutMenuDirective>();
+  @Output() uk2OverlayClosed = new EventEmitter<Uk2FlyoutMenuDirective>();
 
   private flyoutOverlayRef: OverlayRef | undefined;
 
@@ -54,9 +57,7 @@ export class Uk2FlyoutMenuDirective implements AfterViewInit, OnDestroy {
 
   open() {
     if (this.flyoutOverlayRef) return;
-
     const positionStrategy = this.getPositionStrategy();
-
     const scrollStrategy = this.overlay.scrollStrategies.reposition();
 
     this.flyoutOverlayRef = this.overlay.create({
@@ -65,6 +66,7 @@ export class Uk2FlyoutMenuDirective implements AfterViewInit, OnDestroy {
       hasBackdrop: this.uk2OverlayHasBackdrop,
       disposeOnNavigation: true,
       backdropClass: [uk2FlyoutMenuConstants.cssClasses.backdrop, this.uk2OverlayBackdropClass],
+      panelClass: this.uk2OverlayPanelClass,
     });
 
     this.flyoutOverlayRef.backdropClick().subscribe(() => {
@@ -76,13 +78,13 @@ export class Uk2FlyoutMenuDirective implements AfterViewInit, OnDestroy {
     const portal = new TemplatePortal(this.uk2FlyoutTemplate!, this.viewContainerRef);
     this.flyoutOverlayRef.attach(portal);
     this.flyoutOverlayRef.addPanelClass(uk2FlyoutMenuConstants.cssClasses.flyout);
-    this.uk2OverlayOpened.emit();
+    this.uk2OverlayOpened.emit(this);
   }
 
   close() {
     this.flyoutOverlayRef?.dispose();
     this.flyoutOverlayRef = undefined;
-    this.uk2OverlayClosed.emit();
+    this.uk2OverlayClosed.emit(this);
   }
 
   isFlyoutOpen() {

@@ -21,6 +21,7 @@ export enum Uk2Tier1UtilityEnum {
   paperAirplane = 'uk2-paper-airplane',
   paperAirplane2 = 'uk2-paper-airplane-2',
   dotGird = 'uk2-dot-gird',
+  dotGridDrag = 'uk2-dot-grid-drag',
   flag = 'uk2-flag',
   ribbon = 'uk2-ribbon',
   bell = 'uk2-bell',

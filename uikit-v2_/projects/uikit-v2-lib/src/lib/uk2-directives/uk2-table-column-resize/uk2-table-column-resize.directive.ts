@@ -14,6 +14,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { MatColumnDef } from '@angular/material/table';
 import { MATERIAL_CLASSES } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 @Directive({
@@ -22,6 +23,7 @@ import { MATERIAL_CLASSES } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils'
 export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() uk2DisableResize = false;
   @Input() uk2ColumnWidth: string | undefined;
+  @Input() uk2SetAutoScroll = false;
 
   @Output() uk2ColumnWasResized = new EventEmitter<string>();
 
@@ -29,11 +31,8 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
   private startWidth: number | undefined; //Initial width
 
   private currentWidth: string | undefined;
-  private columnIndex = 0;
-  private isLastColumn = false;
-
   private grabberElement!: HTMLDivElement;
-  private rows: NodeListOf<Element> | undefined;
+  private cells: NodeListOf<Element> | undefined;
 
   private mouseDownListener: (() => void | undefined) | undefined;
   private mouseUpListener: (() => void | undefined) | undefined;
@@ -46,6 +45,7 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    private columnDef: MatColumnDef,
     private el: ElementRef<HTMLElement>,
     private renderer: Renderer2
   ) {}
@@ -55,15 +55,14 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
   }
 
   ngAfterViewInit(): void {
-    this.getRowReferences();
-    this.getColumnIndex();
+    this.getColumnCells();
     this.prepareColumnSize();
-    this.enableTableScroll();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.handleWidthChange(changes.uk2ColumnWidth);
     this.handleDisableResizeChange(changes.uk2DisableResize);
+    this.handleSetAutoScroll(changes.uk2SetAutoScroll);
   }
 
   ngOnDestroy(): void {
@@ -84,36 +83,35 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
     this.resizeColumn(value);
   }
 
-  private handleDisableResizeChange(disableResize: SimpleChange) {
+  private handleDisableResizeChange(disableResize: SimpleChange | undefined) {
     if (disableResize && !disableResize.isFirstChange()) {
       this.disableGrabber(disableResize.currentValue);
     }
   }
 
-  private enableTableScroll() {
+  private handleSetAutoScroll(setAutoScroll: SimpleChange | undefined) {
+    if (setAutoScroll) {
+      this.enableTableScroll(setAutoScroll.currentValue);
+    }
+  }
+
+  private enableTableScroll(enable: boolean) {
     const table = this.el.nativeElement.closest(`${MATERIAL_CLASSES.matTable}.uk2-table`);
-    if (table) {
+    if (enable) {
       this.renderer.setStyle(table, 'overflow-x', 'auto');
+    } else {
+      this.renderer.removeStyle(table, 'overflow-x');
     }
   }
 
   private prepareColumnSize() {
-    if (!this.startWidth) this.startWidth = this.columnOffsetWidth;
+    const columnWidth = this.uk2ColumnWidth ? this.uk2ColumnWidth : `${this.resizeColumnToFitContent()}px`;
 
-    this.applyWidthStyles(this.el.nativeElement, `${this.startWidth}px`);
-    if (!this.isLastColumn) {
-      this.renderer.setStyle(this.el.nativeElement, 'flex', '0 0 auto');
-    }
-
-    if (this.rows) {
-      this.rows.forEach(row => {
-        const cell = row.children[this.columnIndex] as HTMLElement;
-        this.applyWidthStyles(cell, `${this.startWidth}px`);
-        if (!this.isLastColumn) {
-          this.renderer.setStyle(cell, 'flex', '0 0 auto');
-        }
-      });
-    }
+    this.cells?.forEach(cell => {
+      this.renderer.setStyle(cell, 'flex', '0 0 auto');
+      this.renderer.setStyle(cell, 'box-sizing', 'border-box');
+      this.applyWidthStyles(cell as HTMLElement, columnWidth);
+    });
   }
 
   private createGrabberElement() {
@@ -130,16 +128,10 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
     this.renderer.setStyle(this.grabberElement!, 'display', disable ? 'none' : 'block');
   }
 
-  private getRowReferences() {
+  private getColumnCells() {
+    const columnCssClass = `${MATERIAL_CLASSES.matColumnPartial}-${this.columnDef.cssClassFriendlyName}`;
     const table = this.el.nativeElement.closest(MATERIAL_CLASSES.matTable);
-    const rows = table!.querySelectorAll(MATERIAL_CLASSES.matRow);
-    this.rows = rows;
-  }
-
-  private getColumnIndex() {
-    const columnArray = Array.from(this.el.nativeElement.parentElement!.children);
-    this.columnIndex = columnArray.indexOf(this.el.nativeElement);
-    this.isLastColumn = this.columnIndex == columnArray.length - 1;
+    this.cells = table!.querySelectorAll(`.${columnCssClass}`);
   }
 
   //Listener methods
@@ -201,13 +193,9 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
 
   //Resize methods
   private resizeColumn(width: string) {
-    this.applyWidthStyles(this.el.nativeElement, width);
-    if (this.rows) {
-      this.rows.forEach(row => {
-        const cell = row.children[this.columnIndex] as HTMLElement;
-        this.applyWidthStyles(cell, width);
-      });
-    }
+    this.cells?.forEach(cell => {
+      this.applyWidthStyles(cell as HTMLElement, width);
+    });
     this.currentWidth = width;
   }
 
@@ -218,18 +206,16 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
 
   private resizeColumnToFitContent() {
     let maxWidth = this.measureElementWidth(this.el.nativeElement);
-    if (this.rows) {
-      this.rows.forEach(row => {
-        const cell = row.children[this.columnIndex] as HTMLElement;
-        const contentWidth = this.measureElementWidth(cell);
-
-        if (contentWidth > maxWidth) {
-          maxWidth = contentWidth;
-        }
-      });
-    }
+    this.cells?.forEach(cell => {
+      const contentWidth = this.measureElementWidth(cell as HTMLElement);
+      if (contentWidth > maxWidth) {
+        maxWidth = contentWidth;
+      }
+    });
 
     this.resizeColumn(`${maxWidth}px`);
+
+    return maxWidth;
   }
 
   private measureElementWidth(element: HTMLElement) {
@@ -237,8 +223,9 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
     const elementContent = element.innerHTML;
 
     // Create a temporary element to measure the content width
-    const tempElement = this.renderer.createElement('div');
+    const tempElement: HTMLDivElement = this.renderer.createElement('div');
     this.renderer.setStyle(tempElement, 'padding', elementComputedStyles.padding);
+    this.renderer.setStyle(tempElement, 'box-sizing', 'border-box');
     this.renderer.setStyle(tempElement, 'position', 'absolute');
     this.renderer.setStyle(tempElement, 'visibility', 'hidden');
     this.renderer.setStyle(tempElement, 'white-space', 'nowrap');
@@ -246,7 +233,8 @@ export class Uk2TableColumnResizeDirective implements OnInit, OnChanges, AfterVi
     this.renderer.setProperty(tempElement, 'innerHTML', elementContent);
 
     this.renderer.appendChild(this.document.body, tempElement); //Adds the temporary element
-    const contentWidth = tempElement.offsetWidth; //Measures the width of the resulting content
+    const contentRect = tempElement.getBoundingClientRect();
+    const contentWidth = Math.ceil(contentRect.width); //Measures the width of the resulting content rounded up
     this.renderer.removeChild(this.document.body, tempElement); //Removes & cleans the element
 
     return contentWidth;

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, DoCheck, Input, ViewEncapsulation } from '@angular/core';
 import {
   Uk2ButtonSizeEnum,
-  Uk2FileViewerElementPositionEnum,
+  Uk2ElementPositionEnum,
   Uk2ModalActionsGridEnum,
   Uk2ModalFontWeightEnum,
   Uk2ModalTitleAlignEnum,
@@ -49,9 +49,9 @@ export class FileUploaderPdfViewerComponent implements DoCheck {
   pdfName = '';
 
   // POSITION
-  positionLeft = Uk2FileViewerElementPositionEnum.left;
-  positionCenter = Uk2FileViewerElementPositionEnum.center;
-  positionRight = Uk2FileViewerElementPositionEnum.right;
+  positionLeft = Uk2ElementPositionEnum.left;
+  positionCenter = Uk2ElementPositionEnum.center;
+  positionRight = Uk2ElementPositionEnum.right;
 
   // PDF Viewer
   @Input() pdfSrc: string | undefined = '';

@@ -16,12 +16,17 @@ import {
 } from '@axos/uikit-v2-lib';
 
 import { FilterBarComponent } from './filter-bar.component';
+import { Uk2FilterChipOverlayOptionModule } from '../../projects/uikit-v2-lib/src/lib/uk2-components/uk2-filter-chip/uk2-filter-chip-overlay-option/uk2-filter-chip-overlay-option.module';
+import { Uk2ListItemModule } from '../../projects/uikit-v2-lib/src/lib/uk2-components/uk2-list-item/uk2-list-item.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const uk2Imports = [
   Uk2MenuListItemModule,
   Uk2FilterChipBooleanModule,
   Uk2DirectivesModule,
   Uk2FilterBarDirectiveModule,
+  Uk2ListItemModule,
+  Uk2FilterChipOverlayOptionModule,
 ];
 
 @NgModule({
@@ -33,6 +38,7 @@ const uk2Imports = [
     MatButtonModule,
     DragDropModule,
     OverlayModule,
+    MatCheckboxModule,
     ...uk2Imports,
   ],
   exports: [FilterBarComponent],

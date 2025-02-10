@@ -55,9 +55,7 @@ import {
   Uk2FileViewerPageControlDirective,
   Uk2FileViewerActionControlDirective,
   Uk2FileViewerFileNameDirective,
-  Uk2FileViewerElementPositionDirective,
 } from './uk2-file-viewer';
-//import { Uk2ElementResizeDirective } from './uk2-element-resize';
 import { Uk2ElementResizeModule } from './uk2-element-resize';
 import { Uk2ElementPositionModule } from './uk2-element-position';
 
@@ -106,14 +104,6 @@ import { Uk2ElementPositionModule } from './uk2-element-position';
     Uk2SearchMenuItemDirective,
     Uk2SearchMenuOverlayDirective,
     Uk2SearchInputClearIconDirective,
-    Uk2FileViewerContainerDirective,
-    Uk2FileViewerHeaderDirective,
-    Uk2FileViewerFooterDirective,
-    Uk2FileViewerZoomControlDirective,
-    Uk2FileViewerPageControlDirective,
-    Uk2FileViewerActionControlDirective,
-    Uk2FileViewerFileNameDirective,
-    Uk2FileViewerElementPositionDirective,
   ],
   imports: [CommonModule, Uk2InternalUtilsServicesModule],
   exports: [
@@ -160,14 +150,6 @@ import { Uk2ElementPositionModule } from './uk2-element-position';
     Uk2SearchMenuItemDirective,
     Uk2SearchMenuOverlayDirective,
     Uk2SearchInputClearIconDirective,
-    Uk2FileViewerContainerDirective,
-    Uk2FileViewerHeaderDirective,
-    Uk2FileViewerFooterDirective,
-    Uk2FileViewerZoomControlDirective,
-    Uk2FileViewerPageControlDirective,
-    Uk2FileViewerActionControlDirective,
-    Uk2FileViewerFileNameDirective,
-    Uk2FileViewerElementPositionDirective,
     Uk2ElementPositionModule,
     Uk2ElementResizeModule,
   ],

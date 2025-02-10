@@ -1,5 +1,6 @@
 @import './uk2-menu-list-items.variables.scss';
 @import './uk2-menu-list-items.mixins.scss';
+@import '../../uk2-components/uk2-list-item/uk2-list-item.mixins.scss';
 
 .uk2-menu-list-item {
   @include menu-list-items-variables();
@@ -26,4 +27,11 @@
 
 .uk2-menu-list-container {
   @include container-styles();
+
+  .uk2-menu-list-item:has( .uk2-list-drag-handle) {
+    padding-left: 4px;
+    .uk2-list-drag-handle {
+      @include drag-button-icon-styles;
+    }
+  }
 }

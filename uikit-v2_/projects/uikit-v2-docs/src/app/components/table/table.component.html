@@ -7,6 +7,14 @@
   <br />
   <br />
   <hr />
+  <app-table-scrolling-resize></app-table-scrolling-resize>
+  <br />
+  <br />
+  <hr />
+  <app-header-flyout></app-header-flyout>
+  <br />
+  <br />
+  <hr />
 </div>
 <section id="controls">
   <h3>Table Example</h3>
@@ -36,7 +44,11 @@
       <mat-option value="truncate">Text truncate</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-slide-toggle [formControl]="disabledSortHeaders">Disable sort headers</mat-slide-toggle>
+  <mat-slide-toggle [formControl]="disabledSortTable">Disable sort table</mat-slide-toggle>
 </section>
+<hr />
+<br />
 
 <mat-table
   uk2Table
@@ -45,25 +57,52 @@
   [uk2TableDensity]="tableDensity"
   [uk2IsLoading]="isLoadingControl.value || false"
   [uk2TextBehavior]="tableTextBehavior"
+  uk2TableSorting
+  [uk2DisableTableSorting]="!!disabledSortTable.value"
 >
   <ng-container matColumnDef="position">
-    <mat-header-cell uk2TableColumnResize [uk2ColumnWidth]="'100px'" *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef>
       <input type="checkbox" />
     </mat-header-cell>
     <mat-cell *matCellDef="let element"> <input type="checkbox" /> </mat-cell>
   </ng-container>
   <ng-container matColumnDef="name">
-    <mat-header-cell uk2TableColumnResize *matHeaderCellDef> Name </mat-header-cell>
+    <mat-header-cell
+      uk2TableColumnResize
+      *matHeaderCellDef
+      uk2TableHeaderSorting="name"
+      (uk2SortChange)="onSortChange($event)"
+    >
+      Name
+    </mat-header-cell>
     <mat-cell *matCellDef="let element">
       <div>{{ element.name }}</div>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="weight">
-    <mat-header-cell uk2TableColumnResize *matHeaderCellDef> Weight </mat-header-cell>
+    <mat-header-cell
+      uk2TableColumnResize
+      *matHeaderCellDef
+      uk2TableHeaderSorting="weight"
+      [uk2DisableSorting]="!!disabledSortHeaders.value"
+      (uk2SortChange)="onSortChange($event)"
+    >
+      Weight
+    </mat-header-cell>
+    <!-- mat-sort-header -->
     <mat-cell *matCellDef="let element"> {{ element.weight }} </mat-cell>
   </ng-container>
   <ng-container matColumnDef="symbol">
-    <mat-header-cell uk2TableColumnResize [uk2DisableResize]="true" *matHeaderCellDef> Symbol </mat-header-cell>
+    <mat-header-cell
+      uk2TableColumnResize
+      [uk2DisableResize]="true"
+      *matHeaderCellDef
+      uk2TableHeaderSorting="symbol"
+      [uk2DisableSorting]="!!disabledSortHeaders.value"
+      (uk2SortChange)="onSortChange($event)"
+    >
+      Symbol
+    </mat-header-cell>
     <mat-cell *matCellDef="let element">
       <div class="tag">{{ element.symbol }}</div>
       <div class="tag">{{ element.symbol }}</div>
@@ -74,3 +113,6 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
+<br />
+<br />
+<hr />

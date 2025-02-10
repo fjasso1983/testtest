@@ -1,0 +1,13 @@
+@mixin drag-button-icon-styles {
+  align-items: center;
+  display: flex;
+  margin-right: -4px;
+
+  .mat-icon {
+    width: 16px;
+    height: 16px;
+    :hover {
+      cursor: grab;
+    }
+  }
+}

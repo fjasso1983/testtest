@@ -13,6 +13,7 @@ export class Uk2FilterChipButtonComponent implements IUk2IsLoading {
   @Input() uk2IsLoading = false;
   uk2FilterChipStateService = inject(Uk2FilterChipStateService);
   isPressed$ = this.uk2FilterChipStateService.filterChipState$.pipe(map(state => state.isPressed));
+  maxWidth$ = this.uk2FilterChipStateService.filterChipState$.pipe(map(state => state.filterChipMaxWidth));
   elementRef = inject(ElementRef);
 
   openOverlay() {

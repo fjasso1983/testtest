@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, OnDestroy, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 
 import {
   Uk2ButtonSizeEnum,
@@ -14,40 +14,27 @@ import { Uk2Tier1NavigationEnum } from '@axos/uikit-v2-lib/src/lib/uk2-services'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Uk2BottomSheetHeaderIconComponent {
-  @Input() titleheadericon!: string;
-  @Input() showTitleDivider!: boolean;
-  //@Input() close!: () => void;
-
-  @Output() backButtonCallback: EventEmitter<Function> = new EventEmitter();
-  @Output() close: EventEmitter<Function> = new EventEmitter();
-
-  //private panelOverlayRef: OverlayRef | undefined;
-  //private destroy$ = new Subject();
-  //private overlayClose$ = new Subject();
+  @Input() titleHeader!: string;
+  @Input() enableBackButton!: boolean;
+  @Input() backButtonLabel?: string;
+  @Input() enableCloseButton!: boolean;
+  @Input() showNavigationIcons!: boolean;
+  @Input() showDivider!: boolean;
+  @Output() navigateBackButton: EventEmitter<void> = new EventEmitter();
+  @Output() close: EventEmitter<void> = new EventEmitter();
 
   buttonSize = Uk2ButtonSizeEnum.medium;
   buttonVariant = Uk2TextButtonVariant.button;
-  navigationX = Uk2Tier1NavigationEnum.x;
-  navigationBack = Uk2Tier1NavigationEnum.chevronLeft;
-  elementposition = Uk2ElementPositionEnum;
-  leftposition = Uk2ElementPositionEnum.left;
-  rightposition = Uk2ElementPositionEnum.right;
-  centerposition = Uk2ElementPositionEnum.center;
+  navigationIconX = Uk2Tier1NavigationEnum.x;
+  navigationIconBack = Uk2Tier1NavigationEnum.chevronLeft;
+  elementPosition = Uk2ElementPositionEnum;
   labeledIconPosition = Uk2LabeledIconPositionEnum.left;
 
   onClickBackButton() {
-    this.backButtonCallback.emit();
-    //  review fj probar desde docs
-    console.log('Click Back button');
-    alert('Back function was executed');
+    this.navigateBackButton.emit();
   }
 
   onClickCloseButton() {
     this.close.emit();
-    //this.close();
-    //this.closeButtonCallback.emit();
-    //  review fj probar desde docs
-    //console.log('Click close button');
-    //alert('Close function was executed');
   }
 }

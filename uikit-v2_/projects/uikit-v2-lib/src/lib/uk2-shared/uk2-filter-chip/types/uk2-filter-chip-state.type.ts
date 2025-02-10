@@ -5,8 +5,12 @@ export type Uk2FilterChipState = {
   value: any;
   identifier: string;
   isActive: boolean;
+  isMultiple: boolean;
   isPressed: boolean;
   formattedCondition: string;
   formattedIdentifier: string;
   overlayMinWidth: string;
+  closeOverlayAfterClear: boolean;
+  filterChipMaxWidth: number;
+  showClearSelection: boolean;
 };

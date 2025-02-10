@@ -1,41 +1,44 @@
 <section id="uk2-bottom-sheet-header-icon">
-  <div id="uk2-bottom-sheet-header-icon-div">
-    <div [uk2ElementPosition]="leftposition">
-      <button
-        *ngIf="true"
-        uk2LabeledIconButton
-        disableRipple
-        mat-button
-        class="uk2-icon-button"
-        [uk2ButtonSize]="buttonSize"
-        [uk2LabeledIconPosition]="labeledIconPosition"
-        (click)="onClickBackButton()"
-      >
-        <mat-icon class="tier2" [svgIcon]="navigationBack"></mat-icon>
-        Back
-      </button>
-    </div>
-    <div [uk2ElementPosition]="centerposition">
-      <span id="uk2-bottom-sheet-header-icon-title">{{ titleheadericon }}</span>
-    </div>
-    <div [uk2ElementPosition]="rightposition">
-      <button
-        uk2TextIconButton
-        mat-button
-        disableRipple
-        mat-dialog-close
-        mat-button
-        title="Close"
-        [uk2ButtonSize]="buttonSize"
-        [uk2TextButtonVariant]="buttonVariant"
-        (click)="onClickCloseButton()"
-      >
-        <mat-icon class="tier2" [svgIcon]="navigationX"></mat-icon>
-      </button>
-    </div>
+  <div
+    *ngIf="!showNavigationIcons; else bottomSheetHeaderWithNavigationButtons"
+    [uk2ElementPosition]="elementPosition.center"
+  >
+    <span id="uk2-bottom-sheet-header-icon-title">{{ titleHeader }}</span>
   </div>
-
-  <ng-container *ngIf="showTitleDivider">
-    <mat-divider></mat-divider>
-  </ng-container>
+  <ng-template #bottomSheetHeaderWithNavigationButtons>
+    <div class="uk2-bottom-sheet-header-icon-container">
+      <div [uk2ElementPosition]="elementPosition.left">
+        <button
+          uk2LabeledIconButton
+          mat-button
+          disableRipple
+          [uk2ButtonSize]="buttonSize"
+          [uk2LabeledIconPosition]="labeledIconPosition"
+          (click)="onClickBackButton()"
+          class="uk2-bottom-sheet-header-icon-back-button"
+        >
+          <mat-icon class="tier2" [svgIcon]="navigationIconBack" labelText="Back"></mat-icon>
+          <span *ngIf="backButtonLabel">{{ backButtonLabel }}</span>
+        </button>
+      </div>
+      <div [uk2ElementPosition]="elementPosition.center">
+        <span id="uk2-bottom-sheet-header-icon-title">{{ titleHeader }}</span>
+      </div>
+      <div [uk2ElementPosition]="elementPosition.right">
+        <button
+          uk2TextIconButton
+          mat-button
+          disableRipple
+          mat-dialog-close
+          [uk2ButtonSize]="buttonSize"
+          [uk2TextButtonVariant]="buttonVariant"
+          (click)="onClickCloseButton()"
+          class="uk2-bottom-sheet-header-icon-close-button"
+        >
+          <mat-icon class="tier2" [svgIcon]="navigationIconX"></mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider *ngIf="showDivider"></mat-divider>
+  </ng-template>
 </section>

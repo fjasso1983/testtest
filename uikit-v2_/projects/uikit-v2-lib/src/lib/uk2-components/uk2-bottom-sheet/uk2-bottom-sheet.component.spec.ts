@@ -2,10 +2,15 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheetModule, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 import { Uk2BottomSheetComponent } from './uk2-bottom-sheet.component';
 import { Uk2BottomSheetHeaderComponent } from './uk2-bottom-sheet-header';
+import {
+  Uk2BottomSheetService,
+  Uk2BottomSheetSingleModeService,
+  Uk2BottomSheetStackService,
+} from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 describe('Uk2BottomSheetComponent', () => {
   let component: Uk2BottomSheetComponent;
@@ -16,7 +21,7 @@ describe('Uk2BottomSheetComponent', () => {
     (dismissSpy = jasmine.createSpy()),
       await TestBed.configureTestingModule({
         declarations: [Uk2BottomSheetComponent, Uk2BottomSheetHeaderComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, MatBottomSheetModule],
         providers: [
           {
             provide: MatBottomSheetRef,
@@ -24,6 +29,9 @@ describe('Uk2BottomSheetComponent', () => {
               dismiss: dismissSpy,
             },
           },
+          Uk2BottomSheetService,
+          Uk2BottomSheetSingleModeService,
+          Uk2BottomSheetStackService,
         ],
         schemas: [NO_ERRORS_SCHEMA],
       });
@@ -37,8 +45,9 @@ describe('Uk2BottomSheetComponent', () => {
   });
 
   it('should dismiss bottom sheet calling close method', () => {
-    component.close();
+    spyOn(component.bottomSheetStackService, 'closeBottomSheet');
+    component.closeBottomSheet();
 
-    expect(dismissSpy).toHaveBeenCalled();
+    expect(component.bottomSheetStackService.closeBottomSheet).toHaveBeenCalled();
   });
 });

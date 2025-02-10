@@ -8,11 +8,17 @@ import {
   Uk2DropdownSizeEnum,
   Uk2IconRegistryService,
 } from '@axos/uikit-v2-lib';
+import {
+  Uk2BottomSheetService,
+  Uk2BottomSheetSingleModeService,
+  Uk2BottomSheetStackService,
+} from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 @Component({
   selector: 'lib-dropdown',
   templateUrl: './list-item-chevron.component.html',
   styleUrls: ['./list-item-chevron.component.scss'],
+  providers: [Uk2BottomSheetService, Uk2BottomSheetSingleModeService, Uk2BottomSheetStackService],
 })
 export class ListItemChevronComponent implements OnChanges {
   @Input() isLoading!: boolean;

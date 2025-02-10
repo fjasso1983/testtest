@@ -24,7 +24,7 @@
   </button>
 </div>
 
-<div class="uk2-tooltip-container" #uk2TooltipContainer>
+<div class="uk2-tooltip-container" #uk2TooltipContainer [ngClass]="{ 'uk2-hidden': uk2IsLoading }">
   <div class="uk2-tooltip-content">
     <div class="uk2-tooltip-content-message">
       <div #uk2TooltipHtmlContent>

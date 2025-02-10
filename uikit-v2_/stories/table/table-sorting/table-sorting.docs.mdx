@@ -1,0 +1,320 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# uk2TableSorting directives documentation
+
+## Introduction
+
+<p>
+  uk2TableSorting is a directive designed to implement column sorting functionality on an Angular material table
+  component.
+</p>
+<ul>
+  <li>
+    <strong>uk2TableSorting</strong> is used for global table functionalities like disable all columns
+  </li>
+  <li>
+    <strong>uk2TableHeaderSorting</strong> is used for column functionalities like disable only one column or sort data
+  </li>
+</ul>
+
+## Prerequisites
+
+- You need to import Uk2TableSortingDirectiveModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Uk2TableSortingDirectiveModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Constraints
+
+<ol>
+  <li>
+    {' '}
+    <strong>uk2TableSorting</strong> should be applied to a <strong>
+      {' '}
+      <a href="https://v15.material.angular.io/components/table/overview" target="_blank">
+        mat-table
+      </a>
+    </strong> is necessary because it functions as a status manager of the sorted columns in properties such as the active
+    column, and the sorted direction.
+  </li>
+  <li>
+   <strong>uk2TableSorting</strong> replaces <strong><a href="https://v15.material.angular.io/components/sort/overview" target="_blank">matSort</a></strong> directive, this means, you shouldn't use both in the same <strong><a href="https://v15.material.angular.io/components/table/overview" target="_blank">
+        mat-table
+      </a></strong>.
+  </li>
+  <li>
+    {' '}
+    <strong>uk2TableHeaderSorting</strong> It should be applied to a <strong>
+      {' '}
+      <a href="https://v15.material.angular.io/components/table/api#MatHeaderCell" target="_blank">
+        mat-header-cell
+      </a>
+    </strong>, it can be applied to one or more mat-header-cells where the behavior is desired.
+  </li>
+  <li>
+   <strong>uk2TableHeaderSorting</strong> replaces <strong><a href="https://v15.material.angular.io/components/table/api#MatHeaderCell" target="_blank">mat-header-cell</a></strong> directive, this means, you shouldn't use both in the same <strong><a href="https://v15.material.angular.io/components/table/api#MatHeaderCell" target="_blank">
+        mat-header-cell
+      </a></strong>.
+  </li>
+</ol>
+
+## Inputs
+
+### [uk2TableSorting]
+
+<ul>
+  <li>
+    <strong>[uk2DisableTableSorting]</strong> <u>boolean</u> <i>(optional)</i> Disables the sort functionality on all
+    table columns (<strong>Default:</strong> false).
+  </li>
+  <li>
+    <strong>[uk2InitSortFirstColumn]</strong> <u>boolean</u> <i>(optional)</i> If true, sorts the first column in ascending order with the uk2TableHeaderSorting directive of the table  (<strong>Default:</strong> true).
+  </li>
+  <li>
+    <strong>[uk2InitSortFirstColumn]</strong> <u>Uk2SortDirectionEnum</u> <i>(optional)</i>Indicates default sort direction when uk2InitSortFirstColumn is true(<strong>Default:</strong> 'asc').
+  </li>
+</ul>
+
+### [uk2TableHeaderSorting]
+
+<ul>
+  <li>
+    <strong>[uk2TableHeaderSorting]</strong> <u>string</u> <i>(optional)</i> Indicates the reference name of the column
+    to be organized, it must be the same name defined in{' '}
+    <strong>
+      {' '}
+      <a href="https://v15.material.angular.io/components/table/api#MatColumnDef" target="_blank">
+        matColumnDef
+      </a>
+    </strong>
+    .{' '}
+  </li>
+</ul>
+<ul>
+  <li>
+    <strong>[uk2DisableSorting]</strong> <u>boolean</u> <i>(optional)</i> Disables the sort functionality of the column.
+    (<strong>Default:</strong> false).
+  </li>
+</ul>
+
+## Outputs
+
+### [uk2TableHeaderSorting]
+
+<ul>
+  <li>
+    <strong>(uk2SortChange)</strong> <u>EventEmitter&lt;Uk2SortChangeEvent&gt;</u> <i>(optional)</i> Emits when a column
+    is sorted, contains two values, the name of the column and the direction.
+  </li>
+</ul>
+
+## Enums
+
+- To choose the initial sort direction, import the <strong>Uk2SortDirectionEnum</strong> from @axos/uikit-v2-lib into the desired component of your Angular App.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      import { Uk2SortDirectionEnum} from '@axos/uikit-v2-lib';
+  `}
+/>
+ <Source
+  dark
+  language='ts'
+  code={dedent`
+    export enum Uk2SortDirectionEnum {
+      ascending = 'asc',
+      descending = 'desc',
+    }
+  `}
+/>
+
+## Component-specific CSS variables
+
+  <ul>
+    <li><strong>[--uk2-sort-table-header-button-arrow-fill-sort]</strong> <i>(default: accent-color-300-hsl)</i> Is the fill color of the arrow in sort state.</li>
+    <li><strong>[--uk2-sort-table-header-button-arrow-fill-base]</strong> <i>(default: --uk2-neutral-slate-300)</i> Is the fill color of the arrow in base state .</li>
+    <li><strong>[--uk2-sort-table-header-button-surface-hover-color]</strong> <i>(default: --uk2-neutral-grey-200)</i> Is the background color of sort button in hover state.</li>
+    <li><strong>[--uk2-sort-table-header-button-surface-active-color]</strong> <i>(default: --uk2-neutral-grey-300)</i> Is the background color of sort button in active state.</li>
+  </ul>
+
+## Sample Code
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class TableComponent {
+      ...
+      displayedColumns: string[] = ['record', 'propertyA', 'propertyB', 'propertyC', 'value', 'amount'];
+      dataSource = new MatTableDataSource(TableData);
+      ...
+      \r
+      onSortHeaderChange(sortChange: Uk2SortChangeEvent)  {
+        console.log('sortChange', sortChange);
+        \//Add your own sort logic
+      ...
+      }
+      \r
+    }
+  `}
+/>
+
+<p>*.component.html</p>
+<Source
+  dark
+  language="html"
+  code={dedent`
+    ...
+<mat-table uk2Table [dataSource]="dataSource" uk2TableSorting [uk2DisableTableSorting]="disableTableSorting">
+  <ng-container matColumnDef="record">
+    <mat-header-cell
+      *matHeaderCellDef
+      uk2TableHeaderSorting="record"
+      [uk2DisableSorting]="disableFirstColumnSorting"
+      (uk2SortChange)="onSortHeaderChange($event)"
+    >
+      Record #
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div>
+        <p>{{ element.record }}</p>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyA">
+    <mat-header-cell *matHeaderCellDef uk2TableHeaderSorting="propertyA"
+    (uk2SortChange)="onSortHeaderChange($event)">
+      Property A
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div> {{ element.propertyA }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyB">
+    <mat-header-cell *matHeaderCellDef uk2TableHeaderSorting="propertyB"
+    (uk2SortChange)="onSortHeaderChange($event)">
+      Property B
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div> {{ element.propertyB }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyC">
+    <mat-header-cell *matHeaderCellDef uk2TableHeaderSorting="propertyC"
+    (uk2SortChange)="onSortHeaderChange($event)">
+      Property C
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div> {{ element.propertyC }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="value">
+    <mat-header-cell *matHeaderCellDef uk2TableHeaderSorting="value"
+    (uk2SortChange)="onSortHeaderChange($event)">
+      Value</mat-header-cell
+    >
+    <mat-cell *matCellDef="let element">
+      <div> {{ element.value }} </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-header-cell *matHeaderCellDef uk2TableHeaderSorting="amount"
+    (uk2SortChange)="onSortHeaderChange($event)">
+      Amount
+    </mat-header-cell>
+    <mat-cell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
+      <div>
+        <p> {{ element.amount }} </p>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+  ...
+  `}
+/>
+
+<p>*onSortHeaderChange-example.ts</p>
+<p>Example implementation of the <strong>onSortHeaderChange</strong> function used to sort information locally.</p>
+<Source
+  dark
+  language="ts"
+  code={dedent`
+  onSortHeaderChange(sortChange: Uk2SortChangeEvent) {
+    const { column, direction } = sortChange;
+    \r
+    const isAsc = direction === 'asc';
+    \r
+    this.dataSource.data = this.dataSource.data.sort((a,b) => {
+      const valueA = a[column as keyof TableData];
+      const valueB = b[column as keyof TableData];
+      \r
+      if (typeof valueA === 'number' && typeof valueB === 'number')
+        return isAsc ? valueA - valueB : valueB - valueA;
+      \r
+      if (typeof valueA === 'string' && typeof valueB === 'string')
+        return isAsc ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+      \r
+      return 0;
+    });
+  }
+  `}
+/>
+
+<p>*example-data.ts</p>
+<Source
+  dark
+  language="ts"
+  code={dedent`
+ const TableData: TableData[] = [
+  {
+    record: 2,
+    propertyA: 'a',
+    propertyB: 'f',
+    propertyC: 'United States',
+    value: 5,
+    amount: 1.1,
+  },
+  {
+    record: 1,
+    propertyA: 'b',
+    propertyB: 'e',
+    propertyC: 'Mexico',
+    value: 10,
+    amount: 1.01,
+  },
+  {
+    record: 3,
+    propertyA: 'c',
+    propertyB: 'd',
+    propertyC: 'Colombia',
+    value: 1,
+    amount: 1.001,
+  },
+  ...
+];
+\r
+interface TableData {
+  record: number;
+  propertyA: string;
+  propertyB: string;
+  propertyC: string;
+  value: number;
+  amount: number;
+}
+  `}
+/>

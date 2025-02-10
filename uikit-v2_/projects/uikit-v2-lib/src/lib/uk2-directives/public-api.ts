@@ -39,3 +39,7 @@ export * from './uk2-table-column-resize';
 export * from './uk2-flyout-menu';
 export * from './uk2-element-resize';
 export * from './uk2-element-position/enums';
+export * from './uk2-table-scroll';
+export * from './uk2-currency';
+export * from './uk2-table-header-flyout';
+export * from './uk2-table-sorting';

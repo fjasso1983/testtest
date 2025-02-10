@@ -1,0 +1,117 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+export const Template = (args) => ({ props: args });
+
+# Currency directive documentation
+<br/>
+
+## Introduction
+
+<p>
+  Uk2Currency is a directive designed to customize the format of an element that is meant to display money.
+</p>
+
+### Constraints
+
+<ol>
+  <li>The content of the element will be replaced by the formatted amount.</li>
+  <li>If any of the inputs are not specified, it will consider the default value.</li>
+</ol>
+
+## Prerequisites
+
+Import uk2 currency module.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      //@axos/uikit-v2-lib
+      import { Uk2CurrencyModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+## Inputs
+
+<ul>
+  <li>[amount] <u>number</u> amount to format.</li>
+  <li>[currencySymbol] <u>string</u> <i>(optional)</i> currency symbol to use. Default is 'USD'.</li>
+  <li>[showCurrencySymbol] <u>boolean</u> <i>(optional)</i> whether to show the currency symbol. Default is true.</li>
+  <li>[truncate] <u>boolean</u> <i>(optional)</i> whether to truncate the amount if there is not enough space. Default is true.</li>
+  <li>[digitsInfo] <u>string</u> <i>(optional)</i> format for the number of decimal places. Default is '1.2-2'.</li>
+</ul>
+
+## Additional Information
+
+<p> Within Uk2Currency directive, it is using a method to transform the amount to currency, this method is a Pipe that already exists in Angular common. </p>
+
+### Currency Pipe
+
+<p> The <a href="https://angular.dev/api/common/CurrencyPipe" target="_blank">CurrencyPipe</a> is an Angular pipe that transforms a number into a currency string, formatted according to locale rules. </p>
+<p> The params for this pipe are: </p>
+
+<ul>
+  <li> <strong>@param value</strong> string | number | null | undefined </li>
+  <li> <strong>@param currencyCode</strong> string | undefined </li>
+  <li> <strong>@param display</strong> string | boolean | undefined </li>
+  <li> <strong>@param digitsInfo</strong> string | undefined </li>
+</ul>
+
+<p>
+  For <strong>digitsInfo</strong> you need to keep in mind the following information: <br/>
+  It is a decimal representation options, specified by a string in the following format: [<strong>minIntegerDigits</strong>].[<strong>minFractionDigits</strong>]-[<strong>maxFractionDigits</strong>].
+</p>
+<p>
+  <strong>minIntegerDigits:</strong> The minimum number of integer digits before the decimal point. Default is 1. <br/>
+  <strong>minFractionDigits:</strong> The minimum number of digits after the decimal point. Default is 2. <br/>
+  <strong>maxFractionDigits:</strong> The maximum number of digits after the decimal point. Default is 2. <br/>
+</p>
+<p>
+  Example: 1.2-2 <br/>
+
+  1 is the minimum number of integer digits. <br/>
+  2 is the minimum number of fraction digits. <br/>
+  2 is the maximum number of fraction digits.
+</p>
+
+## Sample Code
+
+### Basic Usage
+
+*.component.html
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <p
+      uk2Currency
+      [amount]="amount"
+      [currencySymbol]="currencySymbol"
+      [showCurrencySymbol]="showCurrencySymbol"
+      [truncate]="truncate"
+      [digitsInfo]="digitsInfo">
+    </p>
+  `}
+/>
+
+*.component.ts
+<Source
+  dark
+  language='javascript'
+  code={dedent`
+    ...
+    export class YourComponent {
+      amount = 123456.999;
+      currencySymbol = 'USD';
+      showCurrencySymbol = true;
+      truncate = true;
+      digitsInfo = '1.2-2';
+      \r
+      constructor() {}
+    ...
+    }
+    ...
+  `}
+/>
+

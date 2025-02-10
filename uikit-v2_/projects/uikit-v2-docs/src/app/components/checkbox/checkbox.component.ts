@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Uk2ListItem, Uk2ListItemCurrencyOptions } from '@axos/uikit-v2-lib';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-checkbox',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./checkbox.component.scss'],
 })
 export class CheckboxComponent {
+  @Input() currencyOptions: Uk2ListItemCurrencyOptions = {
+    currencyCode: 'USD',
+    display: 'symbol',
+    digitsInfo: '1.2-2',
+  };
   isLoading = false;
 
   task = {
@@ -27,6 +34,19 @@ export class CheckboxComponent {
   };
 
   allComplete = false;
+
+  firstListItem: Uk2ListItem = {
+    headerLabelName: 'First item',
+    value: 'firstitem',
+  };
+
+  secondListItem: Uk2ListItem = {
+    svgIconName: 'uk2-envelope',
+    headerLabelName: 'Second Item',
+    value: 'EmailNotifications',
+  };
+
+  items = [this.firstListItem, this.secondListItem];
 
   constructor() {}
 
@@ -52,5 +72,9 @@ export class CheckboxComponent {
 
   toggleLoading() {
     this.isLoading = !this.isLoading;
+  }
+
+  drop(event: any) {
+    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
 }

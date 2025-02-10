@@ -2,10 +2,14 @@
   class="uk2-list-item"
   [ngClass]="{
     'uk2-list-item-disabled': uk2IsDisabled,
-    'uk2-list-item-pending': uk2IsPending
+    'uk2-list-item-pending': uk2IsPending,
+    'uk2-list-item-draggable': uk2ShowDragHandle
   }"
   *ngIf="!uk2IsLoading; else skeleton"
 >
+  <div *ngIf="uk2ShowDragHandle" cdkDragHandle class="uk2-list-drag-handle">
+    <mat-icon [svgIcon]="dragIcon"></mat-icon>
+  </div>
   <div class="uk2-list-item-header">
     <img
       class="uk2-list-item-icon"

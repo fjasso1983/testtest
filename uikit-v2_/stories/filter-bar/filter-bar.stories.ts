@@ -51,6 +51,7 @@ export default {
         'smallSize',
         'handleDropEvent',
         'removeFilter',
+        'handleOptionClick',
       ],
     },
   },

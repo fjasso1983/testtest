@@ -49,4 +49,5 @@ export const componentsRoutesNames = {
   table: 'table',
   fileUploadDragDrop: 'file-upload-drag-drop',
   loadingSpinner: 'loading-spinner',
+  currency: 'currency',
 };

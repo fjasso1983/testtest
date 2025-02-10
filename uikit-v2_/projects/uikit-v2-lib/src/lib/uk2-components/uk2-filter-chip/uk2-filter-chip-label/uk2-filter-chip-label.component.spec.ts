@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
@@ -64,7 +64,7 @@ describe('Uk2FilterChipLabelComponent', () => {
       fixture.detectChanges();
 
       // Assert
-      expect(fixture.nativeElement.textContent.trim()).toBe('Name');
+      expect(fixture.nativeElement.querySelector('.uk2-filter-chip-label').textContent.trim()).toBe('Name');
     });
 
     it('should display the identifier and condition when the chip is active', () => {
@@ -79,5 +79,27 @@ describe('Uk2FilterChipLabelComponent', () => {
       // Assert
       expect(fixture.nativeElement.textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim()).toContain('Name: Is Peter');
     });
+
+    it('should display the total number of items selected when the chip is active and the width of the conditions exceeds the max width', fakeAsync(() => {
+      // Arrange
+      component.uk2FilterChipStateService.setIdentifier('Name');
+      component.uk2FilterChipStateService.setConditional({ label: 'Is', buttonLabel: 'Is' });
+      component.uk2FilterChipStateService.setIsMultiple(true);
+      component.uk2FilterChipStateService.setValue(['Peter', 'John', 'Alexander', 'Benjamin', 'Katherine']);
+      component.uk2FilterChipStateService.optionSelected();
+
+      // Act
+      tick();
+      fixture.detectChanges();
+
+      // Assert
+      expect(
+        fixture.nativeElement
+          .querySelector('.uk2-filter-chip-label')
+          .textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ')
+          .trim()
+      ).toContain('Name (5)');
+      expect(component.showNumberOfItems).toBeTrue();
+    }));
   });
 });

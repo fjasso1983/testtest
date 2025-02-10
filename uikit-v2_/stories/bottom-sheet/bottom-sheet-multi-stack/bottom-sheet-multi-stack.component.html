@@ -1,0 +1,67 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+
+<ul>
+  <li>Bottom Sheet sections: Header, Body (Dynamic) and Footer (Dynamic)</li>
+  <li>Interaction pattern: Bottom Sheet is meant to be used in mobile screen sizes only</li>
+  <li>
+    Note that both Body and Footer are defined on a usage basis, the client application is the one responsible for the
+    behavior and actions on the elements inside those sections
+  </li>
+</ul>
+
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="openBottomSheet()">Open Bottom Sheet</button>
+
+<ng-template #complete>
+  <uk2-bottom-sheet
+    backButtonLabel="Back"
+    [title]="title"
+    [description]="description"
+    [headerTitle]="headerTitle"
+    [uk2IsLoading]="uk2IsLoading"
+    [showDivider]="showDivider"
+    [showNavigationIcons]="showNavigationIcons"
+    uk2ElementResize
+  >
+    <section id="uk2-bottom-sheet-body">
+      <section id="uk2-bottom-sheet-body">
+        <mat-form-field appearance="outline" floatLabel="always" [hintLabel]="'Please select an option'">
+          <mat-label>Options</mat-label>
+          <mat-select
+            [placeholder]="'Lorem ipsum'"
+            uk2Dropdown
+            uk2BottomSheetLink
+            disableRipple
+            [uk2DropdownSize]="dropdownSize"
+            [uk2BottomSheetRef]="bottomSheet"
+            #select
+          >
+            <mat-option *ngFor="let listItem of listItems; let odd = odd" [value]="listItem.value">
+              <uk2-dropdown-list-item-chevron
+                [uk2ListItem]="listItem"
+                [uk2ShowDividerLine]="true"
+              ></uk2-dropdown-list-item-chevron>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </section>
+    </section>
+
+    <section id="uk2-bottom-sheet-footer">
+      <button uk2PrimaryButton mat-raised-button disableRipple>Primary button</button>
+      <button uk2SecondaryButton mat-stroked-button disableRipple>Secondary button</button>
+    </section>
+  </uk2-bottom-sheet>
+  <ng-template #bottomSheet>
+    <uk2-bottom-sheet-options
+      title="dropdown multipleSheets test"
+      description="dropdown description"
+      headerTitle="dropdown header title"
+      backButtonLabel="Back"
+      [headerTitle]="headerTitle"
+      [showNavigationIcons]="true"
+      [showDivider]="true"
+      [options]="select.options"
+    ></uk2-bottom-sheet-options>
+  </ng-template>
+</ng-template>

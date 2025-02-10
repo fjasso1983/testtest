@@ -12,18 +12,23 @@ import { Uk2ListItemComponent, Uk2ListItem } from '@axos/uikit-v2-lib/src/lib/uk
 
 import { UK2_DROPDOWN_LIST_ITEM_CLASS } from '../constants';
 import { Uk2DropdownListItemChevronComponent } from './uk2-dropdown-list-item-chevron.component';
+import { Uk2IconRegistryService } from '../../../../uk2-services/uk2-icon-registry/uk2-icon-registry.service';
 
 describe('Uk2DropdownListItemChevronComponent', () => {
   let fixture: ComponentFixture<TestComponent>;
   let component: TestComponent;
+  let service: Uk2IconRegistryService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [Uk2DropdownListItemChevronComponent, TestComponent, Uk2ListItemComponent],
+      providers: [Uk2IconRegistryService],
       imports: [CommonModule, MatOptionModule, MatIconTestingModule, MatIconModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
+    service = TestBed.inject(Uk2IconRegistryService);
+    service.registerAllCategories();
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

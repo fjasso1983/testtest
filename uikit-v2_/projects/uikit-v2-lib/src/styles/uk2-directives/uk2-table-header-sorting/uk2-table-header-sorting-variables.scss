@@ -1,0 +1,11 @@
+$uk2-accent-300-hsl: accent-color-300-hsl();
+
+@mixin uk2-table-sorting-variables() {
+  --uk2-sort-table-header-button-aux-arrow-fill-sort: var(--uk2-sort-table-header-button-arrow-fill-sort, #{$uk2-accent-300-hsl});
+}
+
+:root {
+  --uk2-sort-table-header-button-arrow-fill-base: var(--uk2-neutral-slate-300);
+  --uk2-sort-table-header-button-surface-hover-color: var(--uk2-neutral-grey-200);
+  --uk2-sort-table-header-button-surface-active-color: var(--uk2-neutral-grey-300);
+}

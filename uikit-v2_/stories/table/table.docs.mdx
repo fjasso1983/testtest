@@ -60,7 +60,7 @@ Import angular material table module and uk2 directives module.
   dark
   language='ts'
   code={dedent`
-    import { Uk2TableBorderStyleEnum, Uk2TableDensityEnum, Uk2TableTextBehaviorEnum } from '@axos/uikit-v2-lib';
+    import { Uk2TableBorderStyleEnum, Uk2TableDensityEnum, Uk2TableTextBehaviorEnum, Uk2TableHeaderRowColorEnum } from '@axos/uikit-v2-lib';
     \r
     export enum Uk2TableBorderStyleEnum {
       none = 'none',
@@ -78,50 +78,17 @@ Import angular material table module and uk2 directives module.
       truncate = 'truncate',
       wrap = 'wrap',
     }
+    \r
+    export enum Uk2TableHeaderRowColorEnum {
+      grey = 'grey',
+      white = 'white',
+    }
   `}
 />
 
 ## CSS Classes
 
 To achieve special columns styling, you can use the following classes:
-
-### Checkbox column
-
-<p>
-To use checkbox column add the class <strong>uk2-checkbox-column</strong> to the <strong>mat-header-cell</strong> and <strong>mat-cell</strong> elements. Example below
-</p>
-
-<Source
-  dark
-  language='html'
-  code={dedent`
-    <ng-container matColumnDef="yourColumn">
-      <mat-header-cell class="uk2-checkbox-column" *matHeaderCellDef>
-        <input type="checkbox" />
-      </mat-header-cell>
-      <mat-cell class="uk2-checkbox-column" *matCellDef="let element"> <input type="checkbox" /> </mat-cell>
-    </ng-container>
-  `}
-/>
-
-### Option column
-
-<p>
-To use option column add the class <strong>uk2-options-column</strong> to the <strong>mat-header-cell</strong> and <strong>mat-cell</strong> elements and inside of the cell add mat-icon component with class <strong>uk2-option-icon</strong>. Example below
-</p>
-
-<Source
-  dark
-  language='html'
-  code={dedent`
-    <ng-container matColumnDef="yourColumn">
-      <mat-header-cell class="uk2-options-column" *matHeaderCellDef></mat-header-cell>
-      <mat-cell class="uk2-options-column" *matCellDef="let element">
-        <mat-icon class="uk2-option-icon" [svgIcon]="ellipsisIcon"></mat-icon>
-      </mat-cell>
-    </ng-container>
-  `}
-/>
 
 ### Skip text formatting class
 
@@ -134,7 +101,7 @@ Uk2Table has text truncate and wrap behavior in row cells adding "uk2-skip-cell-
   language='html'
   code={dedent`
     <ng-container matColumnDef="yourColumn">
-      <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+      <mat-header-cell uk2HeaderNumericCell *matHeaderCellDef>Amount</mat-header-cell>
       <mat-cell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
         <!-- it will not truncate or wrap the content -->
         <div>{{ element.amount }}</div>
@@ -143,35 +110,207 @@ Uk2Table has text truncate and wrap behavior in row cells adding "uk2-skip-cell-
   `}
 />
 
-### Group header class
+## Component-specific CSS variables
 
-<p>
-To highlight in the grouping headers row cells adding  <strong>uk2-group-header</strong> class in the groupHeader <strong>mat-row</strong>
-</p>
+Table variables:
+
+  <ul>
+    <li><strong>[--uk2-table-border-color]</strong> <i>(default: --uk2-neutral-grey-100)</i> Is the color of table border.</li>
+  </ul>
+
+Header variables:
+
+  <ul>
+    <li><strong>[--uk2-table-header-cell-skeleton-bg-color]</strong> <i>(default: --uk2-neutral-grey-100)</i> Is the background color the header cells when loading.</li>
+    <li><strong>[--uk2-table-header-cell-bg-color]</strong> <i>(default: --uk2-neutral-grey-50)</i> Is the background color of the header cells.</li>
+    <li><strong>[--uk2-table-header-cell-hover-bg-color]</strong> <i>(default: --uk2-neutral-grey-100)</i> Is the background color of the header cells on hover state.</li>
+    <li><strong>[--uk2-table-header-cell-pressed-bg-color]</strong> <i>(default: --uk2-neutral-grey-200)</i> Is the background color of the header cells on pressed state.</li>
+    <li><strong>[--uk2-table-header-cell-text-color]</strong> <i>(default: --uk2-neutral-slate-300)</i> Is the text color of the header cells.</li>
+    <li><strong>[--uk2-table-header-cell-text-pressed-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> Is the text color of the header cells on pressed state.</li>
+    <li><strong>[--uk2-table-header-cell-border-color]</strong> <i>(default: --uk2-table-border-color)</i> Is the border color of the header cells.</li>
+    <li><strong>[--uk2-table-group-header-row-bg-color]</strong> <i>(default: --uk2-neutral-grey-50)</i> Is the background color of the grouping header row.</li>
+    <li><strong>[--uk2-table-group-header-row-border-color]</strong> <i>(default: --uk2-table-header-cell-border-color)</i> Is the border color of the grouping header row.</li>
+  </ul>
+
+Body variables:
+
+  <ul>
+    <li><strong>[--uk2-table-cell-skeleton-bg-color]</strong> <i>(default: --uk2-neutral-white)</i> Is the background color the body cells when loading.</li>
+    <li><strong>[--uk2-table-cell-text-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> Is the text color of the body cells.</li>
+    <li><strong>[--uk2-table-cell-hover-bg-color]</strong> <i>(default: --uk2-neutral-grey-50)</i> Is the background color of the body cells on hover state.</li>
+    <li><strong>[--uk2-table-cell-hover-text-color]</strong> <i>(default: --uk2-neutral-slate-400)</i> Is the text color of the body cells on hover state.</li>
+    <li><strong>[--uk2-table-cell-selected-text-color]</strong> <i>(default: --uk2-neutral-slate-500)</i> Is the text color of a selected row.</li>
+    <li><strong>[--uk2-table-cell-selected-hover-text-color]</strong> <i>(default: --uk2-neutral-slate-500)</i> Is the text color of a selected row on hover state.</li>
+    <li><strong>[--uk2-table-row-selected-bg-color]</strong> <i>(default: accent-color-50-hsl())</i> Is the background color of a selected row.</li>
+    <li><strong>[--uk2-table-row-selected-hover-bg-color]</strong> <i>(default: accent-color-100-hsl())</i> Is the background color of a selected row on hover state.</li>
+  </ul>
+
+## Table directives
+
+Within the mat-table component there are other important elements that are part of the table as **mat-header-cell**, **mat-cell**, **mat-header-row** and **mat-row**.
+Each of the has an specific directive that sould be added into its tag in order to get everything working as expected. They will add inputs for controlling optional states and css classes that will handle some css styling.
+
+### Header cells and header row directives
+
+For **mat-header-cell**, use one of the following directives depending of the content that it would contain:
+- ***uk2HeaderBulkActionCell*** (for checkbox columns)
+- ***uk2HeaderMenuCell*** (for menu/options columns)
+- ***uk2HeaderNumericCell*** (for numeric columns)
+- ***uk2HeaderRecordCell*** (for record columns)
+- ***uk2HeaderTextCell*** (for text/chip columns)
+- ***uk2HeaderInlineActionsCell*** (for inline actions columns)
+
+The directive will set proper styles for the content inside and will provide a **[uk2IsPressed]** input to control the *'isPressed'* state:
 
 <Source
   dark
   language='html'
   code={dedent`
-    <ng-container matColumnDef="groupHeader" stickyEnd>
-      <mat-header-cell class="uk2-options-column" *matCellDef="let groupBy">
-        <strong>{{groupBy.group}}</strong>
+    <ng-container matColumnDef="checkbox" sticky>
+      <mat-header-cell uk2HeaderBulkActionCell [uk2IsPressed]="isHeaderRowPressed" *matHeaderCellDef>
+        <mat-checkbox
+          uk2Checkbox
+          disableRipple
+          (change)="$event ? toggleAllRows() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+        ></mat-checkbox>
       </mat-header-cell>
+      ...
     </ng-container>
-    <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" class="uk2-group-header"> </mat-row>
   `}
 />
 
-## Component-specific CSS variables
+For **mat-header-row** add the ***uk2HeaderRow*** directive.
+The directive will set proper styles for the content inside and will provide a **[uk2ColorVariant]** input to control the color variant of the elements inside the row.
 
-  <ul>
-    <li><strong>[--uk2-table-border-color]</strong> <i>(default:--uk2-neutral-grey-200)</i> Is the color of table border.</li>
-    <li><strong>[--uk2-table-header-background-color]</strong> <i>(default: --uk2-neutral-grey-50)</i> Is the background color of the header cells.</li>
-    <li><strong>[--uk2-table-header-text-color]</strong> <i>(default: --uk2-neutral-slate-3000)</i> Is the color of the header cells text.</li>
-    <li><strong>[--uk2-table-row-hover-background-color]</strong> <i>(default: --uk2-neutral-grey-50)</i> Is the background color when you hover a default row</li>
-    <li><strong>[--uk2-table-active-row-color]</strong> <i>(default: accent-color-50-hsl())</i> Is the background color of a selected row.</li>
-    <li><strong>[--uk2-table-active-selected-row-color]</strong> <i>(default: accent-color-100-hsl())</i> Is the background color of a selected row when you hover it.</li>
-  </ul>
+<Source
+  dark
+  language='html'
+  code={dedent`
+    ...
+    <mat-header-row
+      uk2HeaderRow
+      [uk2ColorVariant]="headerRowColorVariant"
+      *matHeaderRowDef="displayedColumns"
+    ></mat-header-row>
+    ...
+  `}
+/>
+
+### Column Fill directive
+When working with tables that have fixed with columns or have column resized enabled. It's recommended to use the column fill directive. <br />
+For **mat-header-cell** add the ***uk2HeaderFillColumn*** directive. <br />
+The directive will affect all header and cells that belong to the specified column, and will shrink or grow all cells and columns to keep the table width when the other columns shrink shrink below the table size.
+No content needs to be defined on the cells.
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    ...
+    <ng-container matColumnDef="fillColumn">
+      <mat-header-cell uk2HeaderFillColumn *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div> </div>
+      </mat-cell>
+    </ng-container>
+    ...
+  `}
+/>
+
+
+### Body cells and Body row directives
+
+For **mat-cell**, use one of the following directives depending of the content that it would contain:
+- ***uk2BulkActionCell*** (for checkbox cells)
+- ***uk2MenuCell*** (for menu/options cells)
+- ***uk2ChipCell*** (for chip cells)
+- ***uk2NumericCell*** (for numeric cells)
+- ***uk2RecordCell*** (for record cells)
+- ***uk2TextCell*** (for text/chip cells)
+- ***uk2InlineActionsCell*** (for inline actions cells)
+
+The directive will set proper styles for the content inside the cell:
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <ng-container matColumnDef="checkbox" sticky>
+      ...
+      <mat-cell uk2BulkActionCell *matCellDef="let element">
+        <mat-checkbox
+          uk2Checkbox
+          disableRipple
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(element) : null"
+          [checked]="selection.isSelected(element)"
+        ></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+  `}
+/>
+
+For **mat-row** add the ***uk2Row*** directive.
+The directive will set proper styles for the content inside the row.
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    ...
+    <mat-row
+      uk2Row
+      *matRowDef="displayedColumns"
+    ></mat-row>
+    ...
+  `}
+/>
+
+### Grouping header row directive
+
+To highlight in the grouping headers row cells add the ***uk2SubHeaderRow*** directive in a **mat-row** element.
+The directive will set proper styles for the groupig header row and will handle the group header text alignment with the rest of the records when the table includes a checkbox column.
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    ...
+    <ng-container matColumnDef="groupHeader" stickyEnd>
+      <mat-header-cell uk2HeaderTextCell *matCellDef="let groupBy">
+        <strong>{{groupBy.group}}</strong>
+      </mat-header-cell>
+    </ng-container>
+    <mat-row uk2SubHeaderRow *matRowDef="let row; columns: ['groupHeader']; when: isGroup"></mat-row>
+    ...
+  `}
+/>
+
+
+
+### Control the visibility of an element if table row is selected and hovered
+
+<p> For this behavior uikit offers the combination of three directives exclusive for mat-table </p>
+
+<p><b>[uk2VisibleUntilSelectedAndHover]</b>: is a directive applied only in &lt;mat-row&gt; elements that will check if the row contains a selected checkbox and if table row is hovered and if both conditions are true it will search for an element with the class <b>.uk2-hide-this-element-if-hover-and-selected</b> to make it visible if one of the conditions is false it will hide the target element</p>
+
+<p><b>[uk2VisibleUntilSelectedAndHoverElement]</b>: is a directive available to any elements that will add class <b>.uk2-hide-this-element-if-hover-and-selected</b> to be the target element</p>
+
+<p><b>[uk2TableCellContentOverlapElement] </b>: is a directive available to any elements that will add class <b>.uk2-overlap-this-element-in-row</b> which overlaps the target element on the cell content.
+This behavior is active by default but it can be deactivated setting the property <b>uk2OverlapCellContent</b> to false.
+</p>
+
+<p>Example of how implement directives <a href="#hide-show-directives-example">here</a></p>
+
+
+### Control the visibility of an element if table row is hovered
+<p><b>[uk2VisibleUntilHover]</b>: This directive is similar to uk2VisibleUntilSelectedAndHoverElement, but it only checks if the &lt;mat-row&gt; is being hovered over, and if that condition is true, it will make the element(s) with the .uk2-hide-this-element-if-hover class visible.</p>
+
+<p><b>[uk2VisibleUntilHoverElement]</b>: is a directive available to any elements that will add class <b>.uk2-hide-this-element-if-hover</b> to be the target element</p>
+
+<p>Example of how implement directives <a href="#hide-show-directives-example">here</a></p>
 
 ## Sample Code
 
@@ -183,97 +322,119 @@ To highlight in the grouping headers row cells adding  <strong>uk2-group-header<
   dark
   language='html'
   code={dedent`
-    <mat-table
-      uk2Table
-      [dataSource]="dataSource"
-      [uk2TableBorderType]="tableBorderType"
-      [uk2TableDensity]="tableDensity"
-      [uk2IsLoading]="isLoading"
-      [uk2TextBehavior]="tableTextBehavior"
-    >
-      <ng-container matColumnDef="checkbox" sticky>
-        <mat-header-cell class="uk2-checkbox-column" *matHeaderCellDef>
-          <mat-checkbox
-            uk2Checkbox
-            disableRipple
-            (change)="$event ? toggleAllRows() : null"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()"
-          ></mat-checkbox>
-        </mat-header-cell>
-        <mat-cell class="uk2-checkbox-column" *matCellDef="let element">
-          <mat-checkbox
-            uk2Checkbox
-            disableRipple
-            (click)="$event.stopPropagation()"
-            (change)="$event ? selection.toggle(element) : null"
-            [checked]="selection.isSelected(element)"
-          ></mat-checkbox>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="record" sticky>
-        <mat-header-cell *matHeaderCellDef> Record </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <div
-            ><p>Multiline column</p><p>{{ element.propertyA }}</p></div
-          >
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="propertyA">
-        <mat-header-cell *matHeaderCellDef> Property A </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <div>
-            {{ element.propertyA }}
-          </div>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="propertyB">
-        <mat-header-cell *matHeaderCellDef> Property B </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <div>
-            {{ element.propertyB }}
-          </div>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="propertyC">
-        <mat-header-cell *matHeaderCellDef> Property C </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <div>
-            {{ element.propertyC }}
-          </div>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="amount">
-        <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
-        <mat-cell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
-          <div>
-            <p>
-              {{ element.amount }}
-            </p>
-          </div>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="longColumn">
-        <mat-header-cell *matHeaderCellDef> Long Text Column </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <div>
-            {{ element.longColumn }}
-          </div>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="options" stickyEnd>
-        <mat-header-cell class="uk2-options-column" *matHeaderCellDef></mat-header-cell>
-        <mat-cell class="uk2-options-column" *matCellDef="let element">
-          <mat-icon class="uk2-option-icon" [svgIcon]="ellipsisIcon"></mat-icon>
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      <div class="mat-row no-data-example" *matNoDataRow>
-        <div>&lt;&lt; No results custom template here &gt;&gt;</div>
-      </div>
-    </mat-table>
-`}
+    <div class="example-container">
+      <mat-table
+        uk2Table
+        [dataSource]="dataSource"
+        [uk2TableBorderType]="tableBorderType"
+        [uk2TableDensity]="tableDensity"
+        [uk2IsLoading]="isLoading"
+        [uk2TextBehavior]="tableTextBehavior"
+      >
+        <ng-container matColumnDef="checkbox" sticky>
+          <mat-header-cell uk2HeaderBulkActionCell [uk2IsPressed]="isHeaderRowPressed" *matHeaderCellDef>
+            <mat-checkbox
+              uk2Checkbox
+              disableRipple
+              (change)="$event ? toggleAllRows() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+            ></mat-checkbox>
+          </mat-header-cell>
+          <mat-cell uk2BulkActionCell *matCellDef="let element">
+            <mat-checkbox
+              uk2Checkbox
+              disableRipple
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(element) : null"
+              [checked]="selection.isSelected(element)"
+            ></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="record" sticky>
+          <mat-header-cell uk2HeaderRecordCell [uk2IsPressed]="isHeaderRowPressed" *matHeaderCellDef>
+            Record Column
+          </mat-header-cell>
+          <mat-cell uk2RecordCell *matCellDef="let element">
+            <div
+              ><p>Multiline column</p><p>{{ element.propertyA }}</p></div
+            >
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="propertyA">
+          <mat-header-cell uk2HeaderTextCell [uk2IsPressed]="isHeaderRowPressed" *matHeaderCellDef>
+            Text Column 1
+          </mat-header-cell>
+          <mat-cell uk2TextCell *matCellDef="let element">
+            <div>
+              {{ element.propertyA }}
+            </div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="propertyB">
+          <mat-header-cell uk2HeaderTextCell [uk2IsPressed]="isHeaderRowPressed" *matHeaderCellDef>
+            Text Column 2
+          </mat-header-cell>
+          <mat-cell uk2TextCell *matCellDef="let element">
+            <div>
+              {{ element.propertyB }}
+            </div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="propertyC">
+          <mat-header-cell uk2HeaderTextCell [uk2IsPressed]="isHeaderRowPressed" *matHeaderCellDef>
+            Chip Column
+          </mat-header-cell>
+          <mat-cell uk2TextCell *matCellDef="let element">
+            <div>
+              {{ element.propertyC }}
+            </div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <mat-header-cell uk2HeaderNumericCell [uk2IsPressed]="isHeaderRowPressed" *matHeaderCellDef>
+            Numeric Column
+          </mat-header-cell>
+          <mat-cell uk2NumericCell class="uk2-skip-cell-truncate-and-wrap" *matCellDef="let element">
+            <div>
+              <p>
+                {{ element.amount }}
+              </p>
+            </div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="longColumn">
+          <mat-header-cell uk2HeaderTextCell [uk2IsPressed]="isHeaderRowPressed" *matHeaderCellDef>
+            Text Column 3
+          </mat-header-cell>
+          <mat-cell uk2TextCell *matCellDef="let element">
+            <div>
+              {{ element.longColumn }}
+            </div>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="options" stickyEnd>
+          <mat-header-cell
+            uk2HeaderMenuCell
+            [uk2IsPressed]="isHeaderRowPressed"
+            *matHeaderCellDef
+          ></mat-header-cell>
+          <mat-cell uk2MenuCell *matCellDef="let element">
+            <mat-icon [svgIcon]="ellipsisIcon"></mat-icon>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row
+          uk2HeaderRow
+          [uk2ColorVariant]="headerRowColorVariant"
+          *matHeaderRowDef="displayedColumns"
+        ></mat-header-row>
+        <mat-row uk2Row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <div class="mat-row no-data-example" *matNoDataRow>
+          <div>&lt;&lt; No results custom template here &gt;&gt;</div>
+        </div>
+      </mat-table>
+    </div>
+  `}
 />
 
 ### *.component.ts
@@ -303,6 +464,8 @@ To highlight in the grouping headers row cells adding  <strong>uk2-group-header<
       tableDensity: Uk2TableDensityEnum = Uk2TableDensityEnum.medium;
       tableBorderType: Uk2TableBorderStyleEnum = Uk2TableBorderStyleEnum.borderRadius8;
       tableTextBehavior: Uk2TableTextBehaviorEnum = Uk2TableTextBehaviorEnum.wrap;
+      isHeaderRowPressed: boolean = false;
+      headerRowColorVariant: Uk2TableHeaderRowColorEnum = Uk2TableHeaderRowColorEnum.grey;
       \r
       displayedColumns: string[] = ['checkbox', 'record', 'propertyA', 'propertyB', 'propertyC', 'amount', 'options'];
       dataSource = TableData;
@@ -439,15 +602,11 @@ To highlight in the grouping headers row cells adding  <strong>uk2-group-header<
       font-weight: bold;
     }
     \r
-    // Styling sticky left column
-    .mat-mdc-table-sticky-border-elem-left {
-      font-weight: bold !important;
-      border-right: 1px solid #e4e4e4 !important;
-    }
-    \r
-    mat-table {
-      // UK2 Table CSS variables
-      // --uk2-table-border-color: var(--uk2-neutral-grey-200);
+    .example-container {
+      width: 1100px;
+      height: 500px;
+      max-width: 100%;
+      overflow: auto;
     }
   `}
 />
@@ -540,18 +699,16 @@ To highlight in the grouping headers row cells adding  <strong>uk2-group-header<
       <!-- Define the group headers and rows -->
         <ng-container matColumnDef="groupHeader" stickyEnd>
         <!-- Use the grouping logic method 'groupBy' -->
-          <mat-header-cell class="uk2-options-column" *matCellDef="let groupBy">
+          <mat-header-cell uk2HeaderTextCell *matCellDef="let groupBy">
             <!-- Set the display group name -->
             <strong>Group={{groupBy.group}}</strong>
           </mat-header-cell>
         </ng-container>
         <!-- Display the group rows using the boolean grouping method 'isGroup' -->
-        <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" class="group">
-        </mat-row>
+        <mat-row uk2SubHeaderRow *matRowDef="let row; columns: ['groupHeader']; when: isGroup"></mat-row>
     </mat-table>
 `}
 />
-
 
 ## No Data Example
 
@@ -575,3 +732,86 @@ To highlight in the grouping headers row cells adding  <strong>uk2-group-header<
 `}
 />
 
+ <h2 id="hide-show-directives-example">Directives Example</h2>
+
+- ***uk2VisibleUntilSelectedAndHover***
+
+### *.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-table
+      uk2Table
+      ...
+    >
+      <!-- Columns definition... -->
+      ...
+      <!-- Using the directives to hide/show elements -->
+      <mat-row *matRowDef="let row; columns: displayedColumns" uk2VisibleUntilSelectedAndHover>
+        <!-- Define the target element to hide/show -->
+        <div
+        uk2VisibleUntilSelectedAndHoverElement
+        >
+          <!-- HTML Elements, components, images, etc... -->
+        </div>
+      </mat-row>
+    </mat-table>
+`}
+/>
+
+- ***uk2TableCellContentOverlapElement***
+
+#### *.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-table
+      uk2Table
+      [dataSource]="dataSource"
+      ...
+    >
+      <!-- Define the table rows -->
+      <mat-row *matRowDef="let row; columns: displayedColumns">
+        <!-- Use the directive on the element that needs to overlap -->
+          <div
+            uk2VisibleUntilSelectedAndHoverElement
+            uk2TableCellContentOverlapElement
+            [uk2OverlapCellContent]="row.shouldOverlap"
+          >
+          </div>
+      </mat-row>
+    </mat-table>
+  `}
+/>
+
+
+- ***uk2VisibleUntilHover***
+
+### *.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <mat-table
+      uk2Table
+      ...
+    >
+      <!-- Columns definition... -->
+      ...
+      <!-- Using the directives to hide/show elements -->
+      <mat-row *matRowDef="let row; columns: displayedColumns" uk2VisibleUntilHover>
+        <!-- Define the target element to hide/show -->
+        <div
+        uk2VisibleUntilHoverElement
+        >
+          <!-- HTML Elements, components, images, etc... -->
+        </div>
+      </mat-row>
+    </mat-table>
+`}
+/>

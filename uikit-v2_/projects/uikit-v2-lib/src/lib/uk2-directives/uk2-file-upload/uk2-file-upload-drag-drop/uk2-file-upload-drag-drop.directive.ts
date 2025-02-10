@@ -6,6 +6,7 @@ import {
   HostListener,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   Renderer2,
@@ -18,7 +19,7 @@ import { IUk2IsLoading } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 @Directive({
   selector: 'div[uk2FileUploadDragDrop]',
 })
-export class Uk2FileUploadDragDropDirective implements OnInit, OnChanges, AfterViewInit, IUk2IsLoading {
+export class Uk2FileUploadDragDropDirective implements OnInit, OnChanges, OnDestroy, AfterViewInit, IUk2IsLoading {
   @Input() uk2FileUploadTypes: string[] = ['image/png', 'image/jpeg'];
   @Input() uk2FileUploadMaxFileSize: number | undefined;
   @Input() uk2IsDisabled = false;
@@ -34,6 +35,9 @@ export class Uk2FileUploadDragDropDirective implements OnInit, OnChanges, AfterV
   private readyStateElement: HTMLDivElement | undefined;
   private loadingStateElement: HTMLDivElement | undefined;
   private skeletonStateElement: HTMLDivElement | undefined;
+
+  private inputListener: (() => void | undefined) | undefined;
+  private anchorListener: (() => void | undefined) | undefined;
 
   constructor(private el: ElementRef<HTMLDivElement>, private renderer: Renderer2) {}
 
@@ -86,10 +90,15 @@ export class Uk2FileUploadDragDropDirective implements OnInit, OnChanges, AfterV
     this.changeMultipleFiles(changes);
   }
 
+  ngOnDestroy(): void {
+    if (this.inputListener) this.inputListener();
+    if (this.anchorListener) this.anchorListener();
+  }
+
   private setListeners() {
-    this.renderer.listen(this.inputElement, 'change', event => this.handleBrowserSelection(event));
+    this.inputListener = this.renderer.listen(this.inputElement, 'change', event => this.handleBrowserSelection(event));
     if (this.anchorElement) {
-      this.renderer.listen(this.anchorElement, 'click', event => this.handleAnchorClick(event));
+      this.anchorListener = this.renderer.listen(this.anchorElement, 'click', event => this.handleAnchorClick(event));
     }
   }
 

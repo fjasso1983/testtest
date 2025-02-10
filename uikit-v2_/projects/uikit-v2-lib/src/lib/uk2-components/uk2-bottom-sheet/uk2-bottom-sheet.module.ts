@@ -1,17 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-
 import { Uk2DirectivesModule } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
-
-//import { Uk2ElementPositionModule } from '../../uk2-directives/uk2-element-position/uk2-element-position.module';
-
-//import { Uk2ElementPositionDirective } from '../../uk2-directives/uk2-element-position/uk2-element-position.directive';
-
 import { Uk2BottomSheetHeaderComponent } from './uk2-bottom-sheet-header/uk2-bottom-sheet-header.component';
 import { Uk2BottomSheetHeaderIconComponent } from './uk2-bottom-sheet-header-icon/uk2-bottom-sheet-header-icon.component';
 import { Uk2BottomSheetComponent } from './uk2-bottom-sheet.component';

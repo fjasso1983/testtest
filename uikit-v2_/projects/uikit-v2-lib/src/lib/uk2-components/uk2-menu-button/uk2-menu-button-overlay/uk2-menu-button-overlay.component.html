@@ -16,7 +16,7 @@
       ></uk2-bottom-sheet-header>
     </section>
     <ng-container *ngSwitchCase="buttonType.single">
-      <mat-radio-group>
+      <mat-radio-group [ngClass]="{ scrolleable: canScroll }">
         <div
           class="uk2-menu-button-item"
           uk2MenuListItem
@@ -47,35 +47,69 @@
     </ng-container>
     <ng-container *ngSwitchCase="buttonType.multiple">
       <section id="uk2-bottom-sheet-body-container">
-        <section id="uk2-bottom-sheet-body">
-          <div
-            uk2MenuListItem
-            [uk2IsActive]="item.isSelected"
-            class="uk2-menu-button-item multiple-selection-item"
-            *ngFor="let item of localUk2ItemList; index as i; last as lastItem"
-            (click)="handleMultipleSelection(i)"
+        <ng-container *ngIf="!isMobileSize && enableListOrdering; else nonOrderingTemplate">
+          <section
+            id="uk2-bottom-sheet-body"
+            class="uk2-menu-list-container"
+            cdkDropList
+            (cdkDropListDropped)="onItemsReordered($event)"
+            cdkDropListOrientation="vertical"
+            [ngClass]="{ scrolleable: enableListScrolling }"
           >
-            <div [ngClass]="uk2ContentClass">
-              <div class="content">
-                <div class="uk2-checkbox-container">
-                  <mat-checkbox uk2Checkbox disableRipple [checked]="item.isSelected"></mat-checkbox>
-                </div>
-                <p>
-                  <ng-container
-                    *ngIf="optionTemplateRef"
-                    [ngTemplateOutlet]="optionTemplateRef"
-                    [ngTemplateOutletContext]="{
-                      $implicit: { option: item }
-                    }"
-                  >
-                  </ng-container>
-                </p>
-              </div>
-              <div *ngIf="!lastItem" [ngClass]="uk2DividerLineClass" class="uk2-menu-button-item-divider-line"></div>
+            <div class="uk2-menu-list-draggable-item-wrapper" *ngFor="let item of localUk2ItemList; index as i" cdkDrag>
+              <uk2-list-item uk2Clickable [uk2ListItem]="item" [uk2ShowDragHandle]="true">
+                <mat-checkbox
+                  uk2Checkbox
+                  disableRipple
+                  [checked]="item.isSelected"
+                  (click)="handleMultipleSelection(i)"
+                ></mat-checkbox>
+                <ng-container
+                  *ngIf="optionTemplateRef"
+                  [ngTemplateOutlet]="optionTemplateRef"
+                  [ngTemplateOutletContext]="{
+                    $implicit: { option: item }
+                  }"
+                >
+                </ng-container>
+              </uk2-list-item>
             </div>
-          </div>
-        </section>
-        <div id="uk2-bottom-sheet-body-transparency"></div>
+          </section>
+        </ng-container>
+        <ng-template #nonOrderingTemplate>
+          <section id="uk2-bottom-sheet-body" [ngClass]="{ scrolleable: canScroll }">
+            <div
+              uk2MenuListItem
+              [uk2IsActive]="item.isSelected"
+              class="uk2-menu-button-item multiple-selection-item"
+              *ngFor="let item of localUk2ItemList; index as i; last as lastItem"
+              (click)="handleMultipleSelection(i)"
+            >
+              <div [ngClass]="uk2ContentClass">
+                <div class="content">
+                  <div class="uk2-checkbox-container">
+                    <mat-checkbox uk2Checkbox disableRipple [checked]="item.isSelected"></mat-checkbox>
+                  </div>
+                  <p>
+                    <ng-container
+                      *ngIf="optionTemplateRef"
+                      [ngTemplateOutlet]="optionTemplateRef"
+                      [ngTemplateOutletContext]="{
+                        $implicit: { option: item }
+                      }"
+                    >
+                    </ng-container>
+                  </p>
+                </div>
+                <div *ngIf="!lastItem" [ngClass]="uk2DividerLineClass" class="uk2-menu-button-item-divider-line"></div>
+              </div>
+            </div>
+          </section>
+        </ng-template>
+        <div *ngIf="!isMobileSize" id="uk2-menu-button-overlay-footer-content-wrapper">
+          <ng-content select="[overlayFooterContent]"></ng-content>
+        </div>
+        <div [style.display]="isMobileSize ? 'block' : 'none'" id="uk2-bottom-sheet-body-transparency"></div>
       </section>
       <section id="uk2-bottom-sheet-footer-container" *ngIf="isMobileSize">
         <ng-content></ng-content>

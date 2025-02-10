@@ -1,0 +1,135 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# uk2TableHeaderFlyout directive documentation
+
+## Introduction
+<p> uk2TableHeaderFlyout is a directive designed to implement displaying a flyout when clicking on column headers on an Angular material table component. </p>
+
+## Prerequisites
+- You need to import Uk2TableHeaderFlyoutModule and Uk2FlyoutMenuModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+
+<Source
+    dark
+    language='ts'
+    code={dedent`
+      import { Uk2TableHeaderFlyoutModule, Uk2FlyoutMenuModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+- For the options on the flyout, it's recommended to use Uk2MenuListItem. For this you'll also need to import Uk2MenuListItemModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+
+<Source
+    dark
+    language='ts'
+    code={dedent`
+      import { Uk2MenuListItemModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+## Constraints
+<ol>
+  <li>It should be applied to a <strong> <a href='https://v15.material.angular.io/components/table/api#MatHeaderCell' target='_blank'>mat-header-cell</a></strong> element on a Material table.</li>
+  <li>It should be applied alongside <a href='./?path=/docs/components-kabob--basic-usage'>uk2FlyoutMenu</a>.</li>
+</ol>
+
+## Special considerations
+<p>By default, <strong>uk2TableHeaderFlyout</strong> will set predefined properties to <a href="./?path=/docs/components-kabob--basic-usage" target='_blank'><strong>uk2FlyoutMenu</strong></a> to set a default look and functionality and will overwrite the default and user defined properties.</p>
+<p>The values of those properties are the following:</p>
+<ul>
+    <li><strong>[uk2OriginXPosition]</strong> - Uk2FlyoutMenuXPosition.start</li>
+    <li><strong>[uk2OverlayXPosition]</strong> - Uk2FlyoutMenuXPosition.start</li>
+    <li><strong>[uk2OverlayPanelClass]</strong> - 'uk2-header-flyout-menu'</li>
+    <li><strong>[uk2OverlayYOffset]</strong> - 2</li>
+</ul>
+<p>In order to to set different position configuration values, set <strong>uk2DisableFlyoutPositionOverride</strong> to true to avoid the default position configuration setting in.</p>
+<p>To use a custom CSS class on the flyout container, set <strong>uk2DisableFlyoutClassOverride</strong> to true to avoid the default CSS class.</p>
+
+
+## Inputs
+<ul>
+  <li><strong>[uk2DisableFlyoutPositionOverride]</strong> <u>boolean</u> <i>(optional)</i> Enable to customize the flyout configuration position properties. Otherwise the flyout will use predefined properties (See special considerationsa above) (<strong>Default:</strong> false).</li>
+  <li><strong>[uk2DisableFlyoutClassOverride]</strong> <u>boolean</u> <i>(optional)</i> Enable to customize the flyout container CSS class. Otherwise the flyout will use predefined properties (See special considerationsa above) (<strong>Default:</strong> false).</li>
+  <li><strong>[uk2DisableOpeningFlyout]</strong> <u>boolean</u> <i>(optional)</i> Disables opening the flyout automatically when the header is clicked. (<strong>Default:</strong> false).</li>
+</ul>
+
+## Outputs
+<ul>
+  <li>(uk2HeaderCellWasClicked) <u>EventEmitter&lt;void&gt;</u> <i>(optional)</i> Emits when the column header is clicked.</li>
+</ul>
+
+## Sample Code
+
+### Example with Flyout & Menu list item fully integrated
+<p>This is the component you can use as a guidance:</p>
+
+<p>*.component.ts</p>
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    @Component({
+      ...
+    })
+    export class TableHeaderFlyoutReference {
+      isHeaderColPressed = false;
+      flyoutListItems = [
+      {
+        bodyText: 'Sort ascending',
+        svgIconName: 'uk2-chevron-up',
+        value: 'sort_ascending',
+        hasBorder: false
+      },
+      {
+        bodyText: 'Sort descending',
+        svgIconName: 'uk2-chevron-down',
+        value: 'sort_descending',
+        hasBorder: false
+      }];
+      \r
+      onFlyoutItemClick(item: any) {
+        ...
+      }
+      ...
+    }
+  `}
+/>
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    ...
+    <mat-table uk2Table [dataSource]="tableSourceData">
+      <ng-container matColumnDef="columnA">
+        <mat-header-cell
+          uk2TableHeaderFlyout
+          uk2FlyoutMenu
+          uk2HeaderRecordCell
+          [uk2IsPressed]="isHeaderColPressed"
+          [uk2FlyoutTemplate]="flyoutOverlay"
+          *matHeaderCellDef
+        >
+          Column Text
+        </mat-header-cell>
+        <mat-cell *matCellDef="let cell">{{ cell.columnA }} </mat-cell>
+      </ng-container>
+      ...
+    </mat-table>
+    \r
+    <ng-template #flyoutOverlay>
+      <div
+          uk2MenuListItem
+          [uk2ShowDividerLine]="item.hasBorder"
+          *ngFor="let item of flyoutListItems"
+          (click)="onFlyoutItemClick(item.value)"
+      >
+          <mat-icon *ngIf="item.svgIconName" [svgIcon]="item.svgIconName"></mat-icon>
+          <p>{{ item.bodyText }}</p>
+      </div>
+    </ng-template>
+  `}
+/>

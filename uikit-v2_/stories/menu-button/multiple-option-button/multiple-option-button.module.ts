@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MultipleOptionButtonComponent } from './multiple-option-button.component';
 import { StoriesCommonModule } from 'stories/stories-common.module';
-import { Uk2MenuButtonModule, Uk2ServicesModule } from '@axos/uikit-v2-lib';
+import { Uk2FlyoutMenuDirective, Uk2MenuButtonModule, Uk2ServicesModule } from '@axos/uikit-v2-lib';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     MatIconModule,
   ],
+  providers: [Uk2FlyoutMenuDirective],
   exports: [MultipleOptionButtonComponent],
 })
 export class MultipleOptionButtonModule {}

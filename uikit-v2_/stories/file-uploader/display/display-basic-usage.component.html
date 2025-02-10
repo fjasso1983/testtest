@@ -46,10 +46,9 @@
           disableRipple
           [uk2TextButtonVariant]="buttonVariant"
           [uk2ButtonSize]="buttonSmallSize"
-          (click)="showPreview = !showPreview"
+          (click)="onExpandButtonClick()"
         >
-          <mat-icon *ngIf="!showPreview" [svgIcon]="iconExpand"></mat-icon>
-          <mat-icon *ngIf="showPreview" [svgIcon]="iconCollapse"></mat-icon>
+          <mat-icon [svgIcon]="iconExpand"></mat-icon>
         </button>
       </div>
       <div [uk2ElementPosition]="elementPosition.center">

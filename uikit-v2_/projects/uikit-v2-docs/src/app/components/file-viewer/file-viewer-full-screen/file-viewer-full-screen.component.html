@@ -1,11 +1,7 @@
 <div class="file-viewer-full-screen">
   <div uk2FileViewerContainer [uk2FileViewerWidth]="'100%'" [uk2FileViewerHeight]="'100%'">
     <div uk2FileViewerHeader>
-      <div
-        [uk2FileViewerElementPosition]="positionLeft"
-        [uk2FileViewerPageSize]="pdf?.numPages"
-        uk2FileViewerPageControl
-      >
+      <div [uk2ElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
         <input
           [(ngModel)]="inputPage"
           (blur)="updatePage($event)"
@@ -17,7 +13,7 @@
         of
         {{ pdf?.numPages }}
       </div>
-      <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+      <div [uk2ElementPosition]="positionCenter" uk2FileViewerZoomControl>
         <button
           (click)="setZoomValue('minus')"
           uk2TextIconButton
@@ -44,7 +40,7 @@
           [uk2IsLoading]="isLoading"
           ><mat-icon [svgIcon]="iconZoomMore"></mat-icon></button
       ></div>
-      <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+      <div [uk2ElementPosition]="positionRight" uk2FileViewerActionControl>
         <button
           mat-button
           uk2TextIconButton
@@ -86,7 +82,7 @@
       (after-load-complete)="callBackPDFLoaded($event)"
     ></pdf-viewer>
     <div uk2FileViewerFooter>
-      <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+      <div [uk2ElementPosition]="positionCenter" uk2FileViewerFileName>
         {{ pdfName }}
       </div>
     </div>

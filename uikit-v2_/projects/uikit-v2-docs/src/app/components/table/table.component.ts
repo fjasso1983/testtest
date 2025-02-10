@@ -1,6 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Uk2TableBorderStyleEnum, Uk2TableDensityEnum, Uk2TableTextBehaviorEnum } from '@axos/uikit-v2-lib';
+import { MatTableDataSource } from '@angular/material/table';
+import {
+  Uk2SortChangeEvent,
+  Uk2TableBorderStyleEnum,
+  Uk2TableDensityEnum,
+  Uk2TableTextBehaviorEnum,
+} from '@axos/uikit-v2-lib';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -10,8 +16,10 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, OnDestroy {
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+
   borderType = Uk2TableBorderStyleEnum.borderRadius8;
 
   tableBorderRadius: Uk2TableBorderStyleEnum = Uk2TableBorderStyleEnum.borderRadius8;
@@ -24,6 +32,8 @@ export class TableComponent implements OnInit, OnDestroy {
   tableDensityControl = new FormControl('medium');
   isLoadingControl = new FormControl(false);
   textBehaviorControl = new FormControl('wrap');
+  disabledSortHeaders = new FormControl(false);
+  disabledSortTable = new FormControl(false);
 
   ngOnInit(): void {
     this.borderRadiusControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(value => {
@@ -67,6 +77,24 @@ export class TableComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  onSortChange(sortChange: Uk2SortChangeEvent) {
+    const { column, direction } = sortChange;
+
+    const isAsc = direction === 'asc';
+
+    this.dataSource.data = this.dataSource.data.sort((a, b) => {
+      const valueA = a[column as keyof PeriodicElement];
+      const valueB = b[column as keyof PeriodicElement];
+
+      if (typeof valueA === 'number' && typeof valueB === 'number') return isAsc ? valueA - valueB : valueB - valueA;
+
+      if (typeof valueA === 'string' && typeof valueB === 'string')
+        return isAsc ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+
+      return 0;
+    });
   }
 }
 

@@ -11,6 +11,7 @@ export interface IUk2ListItem {
   uk2ShowDividerLine?: boolean;
   uk2IsLoading?: boolean;
   uk2CurrencyOptions?: IUk2ListItemCurrencyOptions;
+  uk2IsSelected?: boolean;
   value: any;
 }
 

@@ -1,24 +1,25 @@
 import {
+  AfterContentInit,
   Component,
+  ContentChildren,
   EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  QueryList,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-
-import { Uk2BaseFilterChip } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
+import { Uk2BaseFilterChipComponent } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 import { Uk2FilterChipStateService } from '@axos/uikit-v2-lib/src/lib/uk2-services';
-import { Uk2Condition, Uk2FilterChipOption, Uk2FilterValue } from '@axos/uikit-v2-lib/src/lib/uk2-shared';
+import { Uk2Condition, Uk2FilterValue } from '@axos/uikit-v2-lib/src/lib/uk2-shared';
 
 import { Uk2FilterChipOverlayComponent } from '../uk2-filter-chip-overlay';
 import { Uk2FilterChipOverlayLabelComponent } from '../uk2-filter-chip-overlay-label';
+import { Uk2FilterChipOverlayOptionComponent } from '../uk2-filter-chip-overlay-option';
 
 @Component({
   selector: 'uk2-filter-chip-boolean',
@@ -26,14 +27,20 @@ import { Uk2FilterChipOverlayLabelComponent } from '../uk2-filter-chip-overlay-l
   providers: [
     Uk2FilterChipStateService,
     {
-      provide: Uk2BaseFilterChip,
+      provide: Uk2BaseFilterChipComponent,
       useExisting: Uk2FilterChipBooleanComponent,
     },
   ],
+  exportAs: 'uk2FilterChipBoolean',
 })
-export class Uk2FilterChipBooleanComponent extends Uk2BaseFilterChip<string> implements OnInit, OnDestroy, OnChanges {
+export class Uk2FilterChipBooleanComponent
+  extends Uk2BaseFilterChipComponent<string>
+  implements OnInit, OnDestroy, OnChanges, AfterContentInit
+{
   @ViewChild('filterChipOverlay') filterChipOverlay?: Uk2FilterChipOverlayComponent;
   @ViewChild('filterChipOverlayLabel') filterChipOverlayLabel?: Uk2FilterChipOverlayLabelComponent;
+  @ContentChildren(Uk2FilterChipOverlayOptionComponent, { descendants: true })
+  uk2FilterChipOverlayOptions!: QueryList<Uk2FilterChipOverlayOptionComponent>;
   @Input() uk2Conditions: Uk2Condition[] = [
     {
       label: 'Is',
@@ -44,26 +51,10 @@ export class Uk2FilterChipBooleanComponent extends Uk2BaseFilterChip<string> imp
       buttonLabel: 'Not',
     },
   ];
-  @Input() uk2Options: Uk2FilterChipOption[] = [];
-  @Input() uk2Identifier!: string;
-  @Input() uk2IsMultiple = false;
-  @Input()
-  override get uk2IsLoading(): boolean {
-    return this._uk2IsLoading;
-  }
-  override set uk2IsLoading(value: boolean) {
-    this._uk2IsLoading = value;
-    if (value) {
-      this.closeOverlay();
-    }
-  }
   @Input() uk2FilterValue? = '';
-  @Input() uk2OverlayMinWidth = 'auto';
+  @Input() uk2ShowClearSelection = true;
   @Output() uk2DeleteFilter = new EventEmitter<void>();
   @Output() uk2FilterValueChanges = new EventEmitter<Uk2FilterValue>();
-
-  private _uk2IsLoading = false;
-  private destroy$ = new Subject<void>();
 
   constructor(public uk2FilterChipStateService: Uk2FilterChipStateService) {
     super();
@@ -74,100 +65,18 @@ export class Uk2FilterChipBooleanComponent extends Uk2BaseFilterChip<string> imp
   }
 
   ngOnInit(): void {
-    this.uk2FilterChipStateService.filterDeleted$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.uk2DeleteFilter.emit();
-    });
-
-    this.uk2FilterChipStateService.filterValue$.pipe(takeUntil(this.destroy$)).subscribe(filterValue => {
-      this.uk2FilterValueChanges.emit(filterValue);
-    });
+    super.ngOnInit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const { uk2OverlayMinWidth, uk2Options, uk2Identifier, uk2Conditions } = changes;
+    super.ngOnChanges(changes);
+  }
 
-    if (uk2Identifier) {
-      this.uk2FilterChipStateService.setIdentifier(this.uk2Identifier);
-    }
-    if (uk2Conditions) {
-      this.uk2Conditions.length && this.uk2FilterChipStateService.setConditional(this.uk2Conditions[0]);
-    }
-    if (uk2OverlayMinWidth) {
-      this.uk2FilterChipStateService.setOverlayMinWidth(this.uk2OverlayMinWidth);
-    }
-    if (uk2Options && this.uk2Options.length) {
-      this.setValueUsingOption();
-    }
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  /**
-   * Opens filter chip overlay.
-   * @memberof Uk2FilterChipBooleanComponent
-   * @param {void} - No parameters.
-   * @returns {void}
-   * @example
-   * openOverlay();
-   */
-  openOverlay(): void {
-    if (this.uk2IsLoading) return;
-    const overlayRef = this.filterChipOverlay?.open();
-    overlayRef?.outsidePointerEvents().subscribe(() => {
-      this.filterChipOverlay?.close();
-    });
-  }
-
-  /**
-   * Closes filter chip overlay.
-   * @memberof Uk2FilterChipBooleanComponent
-   * @param {void} - No parameters.
-   * @returns {void}
-   * @example
-   * closeOverlay();
-   */
-  closeOverlay(): void {
-    this.filterChipOverlay?.close();
-    this.filterChipOverlayLabel?.closeOverlays();
-  }
-
-  /**
-   * Handle option selected if is multiple it wont close overlay.
-   * @memberof Uk2FilterChipBooleanComponent
-   * @param {void} - No parameters.
-   * @returns {void}
-   * @example
-   * handleOptionSelected();
-   */
-  handleOptionSelected(): void {
-    if (!this.uk2IsMultiple) {
-      this.closeOverlay();
-    }
-  }
-
-  /**
-   * Clears the filter chip value.
-   * @memberof Uk2FilterChipBooleanComponent
-   * @param {void} - No parameters.
-   * @returns {void}
-   * @example
-   * clearValue();
-   */
-  clearValue(): void {
-    this.uk2FilterChipStateService.setValue('');
-    this.uk2FilterChipStateService.optionSelected();
-  }
-
-  private setValueUsingOption() {
-    const selectedOptions: string[] = this.uk2Options.filter(option => option.selected).map(option => option.value);
-
-    if (!this.uk2IsMultiple && selectedOptions.length) {
-      this.uk2FilterChipStateService.setValue(selectedOptions[0]);
-    } else {
-      this.uk2FilterChipStateService.setValue(selectedOptions);
-    }
+    super.ngOnDestroy();
   }
 }

@@ -1,10 +1,7 @@
 <p>file-viewer works!</p>
 
 <div *ngIf="!extended" class="uk2-pdf-viewer-container-collapsed">
-  <div
-    [uk2FileViewerElementPosition]="positionLeft"
-    class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-start"
-  >
+  <div class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-start">
     <button
       (click)="extendView()"
       uk2TextIconButton
@@ -15,16 +12,10 @@
       ><mat-icon [svgIcon]="iconExtand"></mat-icon
     ></button>
   </div>
-  <div
-    [uk2FileViewerElementPosition]="positionCenter"
-    class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-center"
-  >
+  <div class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-center">
     {{ pdfName }}
   </div>
-  <div
-    [uk2FileViewerElementPosition]="positionRight"
-    class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-end"
-  >
+  <div class="uk2-pdf-viewer-collapsed-item uk2-pdf-viewer-collapsed-item-end">
     <button
       mat-button
       uk2TextIconButton
@@ -60,7 +51,7 @@
 
 <div *ngIf="extended" uk2FileViewerContainer [uk2FileViewerWidth]="'800px'" [uk2FileViewerHeight]="'400px'">
   <div uk2FileViewerHeader>
-    <div [uk2FileViewerElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
+    <div [uk2ElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
       <input
         [(ngModel)]="inputPage"
         (blur)="updatePage($event)"
@@ -71,7 +62,7 @@
       />
       of {{ pdf?.numPages }}
     </div>
-    <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+    <div [uk2ElementPosition]="positionCenter" uk2FileViewerZoomControl>
       <button
         (click)="setZoomValue('minus')"
         uk2TextIconButton
@@ -98,7 +89,7 @@
         [uk2IsLoading]="isLoading"
         ><mat-icon [svgIcon]="iconZoomMore"></mat-icon></button
     ></div>
-    <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+    <div [uk2ElementPosition]="positionRight" uk2FileViewerActionControl>
       <button
         mat-button
         uk2TextIconButton
@@ -143,7 +134,7 @@
     (after-load-complete)="callBackPDFLoaded($event)"
   ></pdf-viewer>
   <div uk2FileViewerFooter>
-    <div [uk2FileViewerElementPosition]="positionLeft">
+    <div [uk2ElementPosition]="positionLeft">
       <button
         (click)="extendView()"
         uk2TextIconButton
@@ -154,10 +145,10 @@
         ><mat-icon [svgIcon]="iconCollapse"></mat-icon
       ></button>
     </div>
-    <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+    <div [uk2ElementPosition]="positionCenter" uk2FileViewerFileName>
       {{ pdfName }}
     </div>
-    <div [uk2FileViewerElementPosition]="positionRight">
+    <div [uk2ElementPosition]="positionRight">
       <button
         (click)="openFullScreen()"
         uk2TextIconButton
@@ -198,11 +189,7 @@
       [uk2FileViewerNoBorder]="true"
     >
       <div uk2FileViewerHeader>
-        <div
-          [uk2FileViewerElementPosition]="positionLeft"
-          [uk2FileViewerPageSize]="pdf?.numPages"
-          uk2FileViewerPageControl
-        >
+        <div [uk2ElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
           <input
             [(ngModel)]="inputPage"
             (blur)="updatePage($event)"
@@ -214,7 +201,7 @@
           of
           {{ pdf?.numPages }}
         </div>
-        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+        <div [uk2ElementPosition]="positionCenter" uk2FileViewerZoomControl>
           <button
             (click)="setZoomValue('minus')"
             uk2TextIconButton
@@ -241,7 +228,7 @@
             [uk2IsLoading]="isLoading"
             ><mat-icon [svgIcon]="iconZoomMore"></mat-icon></button
         ></div>
-        <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+        <div [uk2ElementPosition]="positionRight" uk2FileViewerActionControl>
           <button
             mat-button
             uk2TextIconButton
@@ -283,7 +270,7 @@
         (after-load-complete)="callBackPDFLoaded($event)"
       ></pdf-viewer>
       <div uk2FileViewerFooter>
-        <div [uk2FileViewerElementPosition]="positionLeft">
+        <div [uk2ElementPosition]="positionLeft">
           <button
             (click)="openFullScreen()"
             uk2TextIconButton
@@ -293,7 +280,7 @@
             [uk2IsLoading]="isLoading"
             ><mat-icon [svgIcon]="iconWindow"></mat-icon></button
         ></div>
-        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+        <div [uk2ElementPosition]="positionCenter" uk2FileViewerFileName>
           {{ pdfName }}
         </div>
       </div>

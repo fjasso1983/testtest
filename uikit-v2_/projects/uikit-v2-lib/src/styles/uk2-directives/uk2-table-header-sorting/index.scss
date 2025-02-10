@@ -1,0 +1,41 @@
+@import './uk2-table-header-sorting-variables.scss';
+
+.uk2-sort-table-header-button {
+  @include uk2-table-sorting-variables();
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  gap: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  margin-left: 2px;
+
+  &__arrow-svg {
+    line-height: 0;
+  }
+
+  .uk2-sort-table-header-button__arrow-svg {
+    fill: var(--uk2-sort-table-header-button-arrow-fill-base);
+  }
+
+  &.uk2-sort-active-asc .uk2-sort-table-header-button__arrow-svg--asc {
+    fill: var(--uk2-sort-table-header-button-aux-arrow-fill-sort);
+  }
+
+  &.uk2-sort-active-desc .uk2-sort-table-header-button__arrow-svg--desc {
+    fill: var(--uk2-sort-table-header-button-aux-arrow-fill-sort);
+  }
+
+  &:hover {
+    background-color: var(--uk2-sort-table-header-button-surface-hover-color);
+  }
+
+  &:active {
+    background-color: var(--uk2-sort-table-header-button-surface-active-color);
+  }
+}

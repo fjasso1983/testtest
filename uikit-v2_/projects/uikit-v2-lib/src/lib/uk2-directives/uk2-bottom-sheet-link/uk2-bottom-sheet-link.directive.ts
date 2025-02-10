@@ -1,10 +1,10 @@
 import { Directive, HostListener, Input, OnDestroy, OnInit, Optional, TemplateRef } from '@angular/core';
 
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSelect } from '@angular/material/select';
 
 import { Uk2BottomSheetHandler } from './interface/Uk2BottomSheetHandler.interface';
 import { Uk2DropdownHandler } from './bottom-sheet-handlers/uk2-dropdown-handler';
+import { Uk2BottomSheetService } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 export const UK2_BOTTOM_SHEET_VIEWPORT = 768;
 
@@ -16,7 +16,7 @@ export class Uk2BottomSheetLinkDirective implements OnInit, OnDestroy {
 
   private handler!: Uk2BottomSheetHandler;
 
-  constructor(@Optional() public matSelect: MatSelect, @Optional() private bottomSheetService: MatBottomSheet) {
+  constructor(@Optional() public matSelect: MatSelect, @Optional() private bottomSheetService: Uk2BottomSheetService) {
     if (matSelect) {
       this.handler = new Uk2DropdownHandler(this.bottomSheetService, this.matSelect);
     }
@@ -46,7 +46,7 @@ export class Uk2BottomSheetLinkDirective implements OnInit, OnDestroy {
 
   private openBottomSheet() {
     if (this.bottomSheetService) {
-      this.bottomSheetService.open(this.uk2BottomSheetRef);
+      this.bottomSheetService.openBottomSheet(this.uk2BottomSheetRef);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Uk2ButtonSizeEnum, Uk2FilterChipOption, Uk2FilterValue } from '@axos/uikit-v2-lib';
+import { Uk2ButtonSizeEnum, Uk2FilterChipBooleanComponent, Uk2FilterValue, Uk2ListItem } from '@axos/uikit-v2-lib';
 
 @Component({
   selector: 'filter-bar-docs',
@@ -14,24 +14,140 @@ export class FilterBarComponent {
   @Input() showClearFiltersButton = true;
   @Output() filterChanged = new EventEmitter<Uk2FilterValue>();
   relatedContainer?: HTMLElement;
-  columns: any = {
+  columns: { [key: string]: { options: Uk2ListItem[] } } = {
     Name: {
-      options: ['Luis', 'John', 'Maria', 'Sara'],
+      options: [
+        {
+          value: 'Luis',
+          headerLabelName: 'Luis',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'John',
+          headerLabelName: 'John',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Maria',
+          headerLabelName: 'Maria',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Sara',
+          headerLabelName: 'Sara',
+          uk2IsSelected: false,
+        },
+      ],
     },
     'Last name': {
-      options: ['Doe', 'Smith', 'Johnson', 'Garcia'],
+      options: [
+        {
+          value: 'Doe',
+          headerLabelName: 'Doe',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Smith',
+          headerLabelName: 'Smith',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Johnson',
+          headerLabelName: 'Johnson',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Garcia',
+          headerLabelName: 'Garcia',
+          uk2IsSelected: false,
+        },
+      ],
     },
     'Is admin': {
-      options: ['Yes', 'No'],
+      options: [
+        {
+          value: 'Yes',
+          headerLabelName: 'Yes',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'No',
+          headerLabelName: 'No',
+          uk2IsSelected: false,
+        },
+      ],
     },
     'Record name': {
-      options: ['Record 1', 'Record 2', 'Record 3', 'Record 4'],
+      options: [
+        {
+          value: 'Record 1',
+          headerLabelName: 'Record 1',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Record 2',
+          headerLabelName: 'Record 2',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Record 3',
+          headerLabelName: 'Record 3',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Record 4',
+          headerLabelName: 'Record 4',
+          uk2IsSelected: false,
+        },
+      ],
     },
     'Money amount': {
-      options: ['100', '200', '300', '400'],
+      options: [
+        {
+          value: '100',
+          headerLabelName: '100',
+          uk2IsSelected: false,
+        },
+        {
+          value: '200',
+          headerLabelName: '200',
+          uk2IsSelected: false,
+        },
+        {
+          value: '300',
+          headerLabelName: '300',
+          uk2IsSelected: false,
+        },
+        {
+          value: '400',
+          headerLabelName: '400',
+          uk2IsSelected: false,
+        },
+      ],
     },
     Description: {
-      options: ['Description 1', 'Description 2', 'Description 3', 'Description 4'],
+      options: [
+        {
+          value: 'Description 1',
+          headerLabelName: 'Description 1',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Description 2',
+          headerLabelName: 'Description 2',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Description 3',
+          headerLabelName: 'Description 3',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Description 4',
+          headerLabelName: 'Description 4',
+          uk2IsSelected: false,
+        },
+      ],
     },
   };
   smallSize = Uk2ButtonSizeEnum.small;
@@ -39,32 +155,72 @@ export class FilterBarComponent {
   columnOptions = Object.keys(this.columns);
 
   // filter chip properties
-  items: { label: string; options: Uk2FilterChipOption[]; isMultiple: boolean }[] = [
+  items: { label: string; options: Uk2ListItem[]; isMultiple: boolean }[] = [
     {
       label: 'Name',
       options: [
-        { value: 'Luis', selected: false },
-        { value: 'John', selected: false },
-        { value: 'Maria', selected: true },
-        { value: 'Sara', selected: true },
+        {
+          value: 'Luis',
+          headerLabelName: 'Luis',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'John',
+          headerLabelName: 'John',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Maria',
+          headerLabelName: 'Maria',
+          uk2IsSelected: true,
+        },
+        {
+          value: 'Sara',
+          headerLabelName: 'Sara',
+          uk2IsSelected: false,
+        },
       ],
       isMultiple: true,
     },
     {
       label: 'Last name',
       options: [
-        { value: 'Doe', selected: false },
-        { value: 'Smith', selected: true },
-        { value: 'Johnson', selected: false },
-        { value: 'Garcia', selected: false },
+        {
+          value: 'Doe',
+          headerLabelName: 'Doe',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Smith',
+          headerLabelName: 'Smith',
+          uk2IsSelected: true,
+        },
+        {
+          value: 'Johnson',
+          headerLabelName: 'Johnson',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'Garcia',
+          headerLabelName: 'Garcia',
+          uk2IsSelected: false,
+        },
       ],
       isMultiple: false,
     },
     {
       label: 'Is Admin',
       options: [
-        { value: 'Yes', selected: false },
-        { value: 'No', selected: false },
+        {
+          value: 'Yes',
+          headerLabelName: 'Yes',
+          uk2IsSelected: false,
+        },
+        {
+          value: 'No',
+          headerLabelName: 'No',
+          uk2IsSelected: false,
+        },
       ],
       isMultiple: false,
     },
@@ -84,5 +240,10 @@ export class FilterBarComponent {
 
   removeFilter(item: any) {
     this.items = this.items.filter(i => i !== item);
+  }
+
+  handleOptionClick(filterChipBoolean: Uk2FilterChipBooleanComponent) {
+    if (filterChipBoolean.uk2IsMultiple) return;
+    filterChipBoolean.closeOverlay();
   }
 }

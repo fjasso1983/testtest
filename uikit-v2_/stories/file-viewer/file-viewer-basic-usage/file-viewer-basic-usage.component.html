@@ -21,7 +21,7 @@
     >
       <div uk2FileViewerHeader>
         <div
-          [uk2FileViewerElementPosition]="positionLeft"
+          [uk2ElementPosition]="positionLeft"
           [uk2FileViewerPageSize]="pdf?.numPages"
           uk2FileViewerPageControl
         >
@@ -35,7 +35,7 @@
           />
           of {{ pdf?.numPages }}
         </div>
-        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+        <div [uk2ElementPosition]="positionCenter" uk2FileViewerZoomControl>
           <button
             (click)="setZoomValue('minus')"
             uk2TextIconButton
@@ -62,7 +62,7 @@
             ><mat-icon [svgIcon]="svgZoomMore"></mat-icon
           ></button>
         </div>
-        <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+        <div [uk2ElementPosition]="positionRight" uk2FileViewerActionControl>
           <button
             mat-button
             uk2TextIconButton
@@ -110,15 +110,15 @@
         (after-load-complete)="callBackPDFLoaded($event)"
       ></pdf-viewer>
       <div uk2FileViewerFooter>
-        <div [uk2FileViewerElementPosition]="positionLeft">
+        <div [uk2ElementPosition]="positionLeft">
           <button (click)="onExpand()" uk2TextIconButton disableRipple mat-button [uk2ButtonSize]="buttonSmallSize">
             <mat-icon [svgIcon]="svgExpand"></mat-icon>
           </button>
         </div>
-        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+        <div [uk2ElementPosition]="positionCenter" uk2FileViewerFileName>
           {{ pdfName }}
         </div>
-        <div [uk2FileViewerElementPosition]="positionRight">
+        <div [uk2ElementPosition]="positionRight">
           <button
             (click)="onOpenFullscreen()"
             uk2TextIconButton

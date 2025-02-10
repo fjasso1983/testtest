@@ -1,8 +1,3 @@
-@mixin uk2-file-viewer-position($position: 'center') {
-  text-align: $position;
-  grid-area: $position;
-}
-
 @mixin uk2-file-viewer-border-mode {
   border-radius: 8px;
   .uk2-file-viewer-header {
@@ -83,6 +78,7 @@
   .uk2-file-viewer-zoom-control {
     @include uk2-font__body-regular--75();
     color: var(--uk2-file-viewer-color);
+    align-items: center;
     padding: 8px 0;
     input {
       box-sizing: border-box;
@@ -156,9 +152,9 @@
   border-top: solid 1px var(--uk2-neutral-grey-300);
   height: 48px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 32px 1fr 32px;
   grid-template-rows: 1fr;
-  gap: 0px 0px;
+  gap: 0px 9px;
   grid-template-areas: 'left center right';
   box-sizing: border-box;
 

@@ -8,8 +8,8 @@ import {
   Uk2ChipSizesEnum,
   Uk2ChipTypesEnum,
   Uk2Condition,
-  Uk2FilterChipOption,
   Uk2FilterValue,
+  Uk2ListItem,
 } from '@axos/uikit-v2-lib';
 
 interface PeriodicElement {
@@ -111,90 +111,110 @@ export class FilterChipLabelComponent {
       buttonLabel: 'Can be',
     },
   ];
-  options: Uk2FilterChipOption[] = [
+  options: Uk2ListItem[] = [
     {
       value: 'John',
-      selected: false,
+      headerLabelName: 'John',
+      uk2IsSelected: true,
     },
     {
       value: 'Peter',
-      selected: false,
+      headerLabelName: 'Peter',
+      uk2IsSelected: false,
     },
     {
       value: 'Karol',
-      selected: false,
+      headerLabelName: 'Karol',
+      uk2IsSelected: false,
     },
     {
       value: 'Michael',
-      selected: false,
+      headerLabelName: 'Michae',
+      uk2IsSelected: false,
     },
     {
       value: 'George',
-      selected: false,
+      headerLabelName: 'George',
+      uk2IsSelected: false,
     },
     {
       value: 'Tom',
-      selected: false,
+      headerLabelName: 'Tom',
+      uk2IsSelected: false,
     },
     {
       value: 'Jerry',
-      selected: false,
+      headerLabelName: 'Jerry',
+      uk2IsSelected: false,
     },
     {
       value: 'Mickey',
-      selected: false,
+      headerLabelName: 'Mickey',
+      uk2IsSelected: false,
     },
     {
       value: 'Donald',
-      selected: false,
+      headerLabelName: 'Donald',
+      uk2IsSelected: false,
     },
     {
       value: 'Daffy',
-      selected: false,
+      headerLabelName: 'Daffy',
+      uk2IsSelected: false,
     },
   ];
-  nameOptions: Uk2FilterChipOption[] = [
+  nameOptions: Uk2ListItem[] = [
     {
       value: 'Hydrogen',
-      selected: false,
+      headerLabelName: 'Hydrog',
+      uk2IsSelected: false,
     },
     {
       value: 'Helium',
-      selected: false,
+      headerLabelName: 'Helium',
+      uk2IsSelected: false,
     },
     {
       value: 'Lithium',
-      selected: false,
+      headerLabelName: 'Lithiu',
+      uk2IsSelected: false,
     },
     {
       value: 'Beryllium',
-      selected: false,
+      headerLabelName: 'Beryll',
+      uk2IsSelected: false,
     },
     {
       value: 'Boron',
-      selected: false,
+      headerLabelName: 'Boron',
+      uk2IsSelected: false,
     },
   ];
-  symbolOptions: Uk2FilterChipOption[] = [
+  symbolOptions: Uk2ListItem[] = [
     {
       value: 'H',
-      selected: false,
+      headerLabelName: 'H',
+      uk2IsSelected: false,
     },
     {
       value: 'He',
-      selected: false,
+      headerLabelName: 'He',
+      uk2IsSelected: false,
     },
     {
       value: 'Li',
-      selected: false,
+      headerLabelName: 'Li',
+      uk2IsSelected: false,
     },
     {
       value: 'Be',
-      selected: false,
+      headerLabelName: 'Be',
+      uk2IsSelected: false,
     },
     {
       value: 'B',
-      selected: false,
+      headerLabelName: 'B',
+      uk2IsSelected: false,
     },
   ];
   isMultiple = false;
@@ -212,13 +232,55 @@ export class FilterChipLabelComponent {
   ];
   columns: any = {
     position: {
-      options: ['1', '2', '3', '4', '5'],
+      options: [
+        {
+          value: '1',
+          headerLabelName: '1',
+          uk2IsSelected: false,
+        },
+        {
+          value: '2',
+          headerLabelName: '2',
+          uk2IsSelected: false,
+        },
+        {
+          value: '3',
+          headerLabelName: '3',
+          uk2IsSelected: false,
+        },
+        {
+          value: '4',
+          headerLabelName: '4',
+          uk2IsSelected: false,
+        },
+      ],
     },
     name: {
       options: this.nameOptions,
     },
     weight: {
-      options: ['1.0079', '4.0026', '6.941', '9.0122', '10.811'],
+      options: [
+        {
+          value: '100',
+          headerLabelName: '100',
+          uk2IsSelected: false,
+        },
+        {
+          value: '200',
+          headerLabelName: '200',
+          uk2IsSelected: false,
+        },
+        {
+          value: '300',
+          headerLabelName: '300',
+          uk2IsSelected: false,
+        },
+        {
+          value: '400',
+          headerLabelName: '400',
+          uk2IsSelected: false,
+        },
+      ],
     },
     symbol: {
       options: this.symbolOptions,

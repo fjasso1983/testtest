@@ -5,7 +5,7 @@
   [uk2FileViewerNoBorder]="true"
 >
   <div uk2FileViewerHeader>
-    <div [uk2FileViewerElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
+    <div [uk2ElementPosition]="positionLeft" [uk2FileViewerPageSize]="pdf?.numPages" uk2FileViewerPageControl>
       <input
         [(ngModel)]="inputPage"
         (blur)="updatePage($event)"
@@ -16,7 +16,7 @@
       />
       of {{ pdf?.numPages }}
     </div>
-    <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+    <div [uk2ElementPosition]="positionCenter" uk2FileViewerZoomControl>
       <button
         (click)="setZoomValue('minus')"
         uk2TextIconButton
@@ -43,7 +43,7 @@
         [uk2IsLoading]="isLoading"
         ><mat-icon [svgIcon]="iconZoomMore"></mat-icon></button
     ></div>
-    <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl></div>
+    <div [uk2ElementPosition]="positionRight" uk2FileViewerActionControl></div>
   </div>
   <pdf-viewer
     *ngIf="pdfSrc"

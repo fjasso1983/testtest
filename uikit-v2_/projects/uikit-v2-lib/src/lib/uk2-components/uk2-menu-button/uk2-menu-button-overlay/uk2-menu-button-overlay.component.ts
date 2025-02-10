@@ -9,6 +9,8 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
+  RendererStyleFlags2,
   SimpleChanges,
   TemplateRef,
   ViewChild,
@@ -35,6 +37,7 @@ import { Uk2ButtonSizeEnum } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
 import { Uk2MenuButtonCSSProperty, Uk2MenuButtonItem } from '../types';
 import { Uk2MenuButtonScrollStrategy, Uk2MenuButtonSelectionTypeEnum } from '../enums';
 import { uk2MenuButtonConstants } from '../constants';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'uk2-menu-button-overlay',
@@ -63,8 +66,12 @@ export class Uk2MenuButtonOverlayComponent implements OnDestroy, OnInit, OnChang
   @Input() isMobileSize = false;
   @Input() bottomSheetTitle?: string;
   @Input() bottomSheetDescription?: string;
+  @Input() enableListOrdering?: boolean = false;
+  @Input() enableListScrolling?: boolean = false;
+  @Input() listScrollingMaxHeight?: number;
   @Output() selectOptionIndex = new EventEmitter<number>();
   @Output() multipleOptionsSelect = new EventEmitter<Uk2MenuButtonItem[]>();
+  @Output() listOrdered = new EventEmitter<Uk2MenuButtonItem[]>();
 
   flyoutOverlayReference: OverlayRef | undefined;
   overlayPortal?: TemplatePortal<any>;
@@ -72,6 +79,9 @@ export class Uk2MenuButtonOverlayComponent implements OnDestroy, OnInit, OnChang
   buttonType = Uk2MenuButtonSelectionTypeEnum;
   uk2ButtonSize = Uk2ButtonSizeEnum.large;
   localUk2ItemList: Uk2MenuButtonItem[] = [];
+  get canScroll(): boolean {
+    return !this.isMobileSize && !!this.enableListScrolling;
+  }
 
   private destroyed = new EventEmitter<void>();
   private matBottomSheetRef?: MatBottomSheetRef;
@@ -80,6 +90,7 @@ export class Uk2MenuButtonOverlayComponent implements OnDestroy, OnInit, OnChang
   private bottomSheet = inject(MatBottomSheet);
   private changeDetectorRef = inject(ChangeDetectorRef);
   private overlayContainer = inject(OverlayContainer);
+  private renderer = inject(Renderer2);
 
   ngOnInit(): void {
     fromEvent(window, 'resize')
@@ -92,6 +103,9 @@ export class Uk2MenuButtonOverlayComponent implements OnDestroy, OnInit, OnChang
   ngOnChanges(changes: SimpleChanges): void {
     if (changes?.uk2CSSPortalProperties) {
       this.setPortalOutletCSSVariables(changes.uk2CSSPortalProperties.currentValue);
+    }
+    if (changes?.enableListScrolling || changes?.listScrollingMaxHeight) {
+      this.updateOverlayListMaxHeight();
     }
   }
 
@@ -153,11 +167,31 @@ export class Uk2MenuButtonOverlayComponent implements OnDestroy, OnInit, OnChang
     }
   }
 
+  onItemsReordered(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.localUk2ItemList, event.previousIndex, event.currentIndex);
+    this.listOrdered.emit(this.localUk2ItemList);
+  }
+
   private openOverlay() {
     if (this.flyoutIsOpen) return;
-
     this.createFlyoutContainer();
+    this.updateOverlayListMaxHeight();
     this.flyoutIsOpen = !this.flyoutIsOpen;
+  }
+
+  private updateOverlayListMaxHeight(): void {
+    const listContainerElement = document.querySelector('.uk2-menu-list-container');
+    if (!listContainerElement) return;
+    if (this.enableListScrolling && this.listScrollingMaxHeight && this.listScrollingMaxHeight >= 0) {
+      this.renderer.setStyle(
+        listContainerElement,
+        'max-height',
+        this.listScrollingMaxHeight + 'px',
+        RendererStyleFlags2.Important
+      );
+    } else {
+      this.renderer.removeStyle(listContainerElement, 'max-height');
+    }
   }
 
   private openBottomSheet() {

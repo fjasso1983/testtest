@@ -1,0 +1,32 @@
+@use "sass:map";
+
+:root {
+    --uk2-table-header-cell-skeleton-bg-color: var(--uk2-neutral-grey-100);
+    --uk2-table-header-cell-bg-color: var(--uk2-neutral-grey-50);
+    --uk2-table-header-cell-hover-bg-color: var(--uk2-neutral-grey-100);
+    --uk2-table-header-cell-pressed-bg-color: var(--uk2-neutral-grey-200);
+    --uk2-table-header-cell-text-color: var(--uk2-neutral-slate-300);
+    --uk2-table-header-cell-text-pressed-color: var(--uk2-neutral-slate-400);
+    --uk2-table-header-cell-border-color: var(--uk2-table-border-color);
+    --uk2-table-group-header-row-bg-color: var(--uk2-neutral-grey-50);
+    --uk2-table-group-header-row-border-color: var(--uk2-table-header-cell-border-color);
+}
+
+$uk2-header-color-variants: (
+    'grey': (
+        'bg-default-color': var(--uk2-neutral-grey-50),
+        'bg-hover-color': var(--uk2-neutral-grey-100),
+        'bg-pressed-color': var(--uk2-neutral-grey-200),
+        'text-color': var(--uk2-neutral-slate-300),
+        'pressed-text-color': var(--uk2-neutral-slate-400),
+        'border-color': var(--uk2-table-border-color) 
+    ),
+    'white': (
+        'bg-default-color': var(--uk2-neutral-white),
+        'bg-hover-color': var(--uk2-neutral-grey-50),
+        'bg-pressed-color': var(--uk2-neutral-grey-200),
+        'text-color': var(--uk2-neutral-slate-300),
+        'pressed-text-color': var(--uk2-neutral-slate-400),
+        'border-color': var(--uk2-table-border-color) 
+    )
+);

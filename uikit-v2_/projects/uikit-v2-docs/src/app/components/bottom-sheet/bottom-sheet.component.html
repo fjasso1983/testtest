@@ -1,6 +1,3 @@
-<!-- <br />
-<button uk2PrimaryButton mat-raised-button disableRipple (click)="openOverlay()">Open side bottomsheet</button>
-<br /> -->
 <button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickComplete()">Open complete template</button>
 <button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickNoDescription()">
   Open no description template
@@ -10,6 +7,9 @@
 <button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickSkeleton()">Open skeleton template</button>
 <button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickShortContent()">
   Open short content template
+</button>
+<button uk2PrimaryButton disableRipple mat-raised-button (click)="onClickMultipleBottomSheets()">
+  Open multiple bottom sheets template
 </button>
 <br />
 <br />
@@ -52,82 +52,18 @@
   <pre>{{ group.value | json }}</pre>
   <button type="submit" [disabled]="group.invalid" uk2PrimaryButton mat-raised-button disableRipple>Submit</button>
 </form>
-
-<ng-template #sidePanelRef>
-  <uk2-bottom-sheet
-    #sidePanelRef
-    uk2BottomSheetWidth="'100%'"
-    [title]="title"
-    [description]="description"
-    [titleheadericon]="titleheadericon"
-    [showTitleDivider]="true"
-    uk2ElementResize
-    [uk2BottomSheetMaxWidth]="1280"
-    [uk2BottomSheetMinWidth]="496"
-  >
-    <section id="uk2-bottom-sheet-body">
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
-        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
-        Hic.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
-        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
-      </p>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
-        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
-        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
-        quidem laborum!
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas itaque voluptate vitae laboriosam. Obcaecati
-        aliquid tempore illo. Doloribus sunt deleniti id dolor aut unde animi consequatur reprehenderit corporis magni.
-        Hic.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum iusto accusamus maxime blanditiis, harum quisquam
-        numquam. Veniam sit ullam ab aliquid adipisci iste sint mollitia! Optio cumque doloremque nisi perspiciatis.
-      </p>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt culpa maiores velit, ad dignissimos vero vel
-        veritatis nam quis quam numquam corporis pariatur ab iure commodi consequatur, repellat, earum ea?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit dolorum ducimus totam pariatur accusamus laborum
-        tempora ipsam quo voluptatem error. Hic debitis reprehenderit exercitationem delectus dignissimos ducimus esse
-        quidem laborum!
-      </p>
-    </section>
-
-    <section id="uk2-bottom-sheet-footer">
-      <button
-        uk2PrimaryButton
-        mat-raised-button
-        disableRipple
-        (click)="openAlert('completeTemplate', 'Primary button clicked')"
-      >
-        Lorem Ipsum
-      </button>
-      <button uk2SecondaryButton mat-stroked-button disableRipple>Lorem Ipsum</button>
-    </section>
-  </uk2-bottom-sheet>
-</ng-template>
-
 <ng-template #complete>
   <uk2-bottom-sheet
-    uk2BottomSheetWidth="'100%'"
-    [title]="title"
+    backButtonLabel="Back"
     [description]="description"
-    [titleheadericon]="titleheadericon"
-    [showTitleDivider]="true"
+    [headerTitle]="headerTitle"
+    [showNavigationIcons]="true"
+    [showDivider]="true"
+    [title]="title"
+    uk2BottomSheetWidth="100"
+    [uk2BottomSheetMaxHeight]="1280"
+    [uk2BottomSheetMinHeight]="150"
     uk2ElementResize
-    [uk2BottomSheetMaxWidth]="1380"
-    [uk2BottomSheetMinWidth]="396"
   >
     <section id="uk2-bottom-sheet-body">
       <p>
@@ -383,6 +319,53 @@
       <button uk2SecondaryButton mat-stroked-button disableRipple>Lorem Ipsum</button>
     </section>
   </uk2-bottom-sheet>
+</ng-template>
+
+<ng-template #multipleBottomSheets>
+  <uk2-bottom-sheet
+    backButtonLabel="Back"
+    [description]="description"
+    [headerTitle]="headerTitle"
+    [showNavigationIcons]="true"
+    [showDivider]="true"
+    [title]="title"
+    uk2BottomSheetWidth="100"
+    uk2ElementResize
+  >
+    <section id="uk2-bottom-sheet-body">
+      <mat-form-field appearance="outline" floatLabel="always" [hintLabel]="'Please select an option'">
+        <mat-label>Options</mat-label>
+        <mat-select
+          [placeholder]="'Lorem ipsum'"
+          uk2Dropdown
+          uk2BottomSheetLink
+          disableRipple
+          [uk2DropdownSize]="dropdownSize"
+          [uk2BottomSheetRef]="bottomSheet"
+          #select
+        >
+          <mat-option *ngFor="let listItem of listItems; let odd = odd" [value]="listItem.value">
+            <uk2-dropdown-list-item-chevron
+              [uk2ListItem]="listItem"
+              [uk2ShowDividerLine]="true"
+            ></uk2-dropdown-list-item-chevron>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </section>
+  </uk2-bottom-sheet>
+  <ng-template #bottomSheet>
+    <uk2-bottom-sheet-options
+      title="dropdown multipleSheets test"
+      description="dropdown description"
+      headerTitle="dropdown header title"
+      backButtonLabel="Back"
+      [headerTitle]="headerTitle"
+      [showNavigationIcons]="true"
+      [showDivider]="true"
+      [options]="select.options"
+    ></uk2-bottom-sheet-options>
+  </ng-template>
 </ng-template>
 
 <ng-template #formIntegration>

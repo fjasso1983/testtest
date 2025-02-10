@@ -1,0 +1,67 @@
+<h2>Basic Usage</h2>
+<p>This page showcases the following:</p>
+<ul>
+  <li>Menu Button states (default, active pressed, pressed, hover, skeleton and disabled).</li>
+  <li>Multiple options reordering pattern (how the component looks and behaves when user reorder items in with).</li>
+  <li>Multiple options footer list (how the component looks and behaves when user reorder items in with).</li>
+  <li>Single/Multiple options scrolling (how the component looks and behaves when user reorder items in with).</li>
+</ul>
+<br />
+<uk2-menu-button
+  #uk2MenuButton="uk2MenuButton"
+  [uk2ButtonType]="buttonType"
+  [uk2IconButtonSizeClass]="iconOnlyCssClass"
+  [uk2ItemList]="items"
+  [uk2IsLoading]="isLoading"
+  [uk2IsDisabled]="isDisabled"
+  [uk2DefaultStateText]="defaultStateText"
+  [uk2ActiveStateText]="activeStateText"
+  [uk2SvgIconName]="icon"
+  [uk2IsIconOnly]="isIconOnly"
+  [uk2DisplayBorder]="displayBorder"
+  [uk2DisplayBadge]="displayBadge"
+  [uk2BackdropIsEnabled]="uk2BackdropIsEnabled"
+  [uk2BackdropIsHidden]="uk2BackdropIsHidden"
+  [uk2ScrollStrategy]="uk2ScrollStrategy"
+  [uk2BottomSheetTitle]="uk2BottomSheetTitle"
+  [uk2BottomSheetDescription]="uk2BottomSheetDescription"
+  [uk2EnableListOrdering]="enableListOrdering"
+  [uk2EnableListScrolling]="enableListScrolling"
+  [uk2ListScrollingMaxHeight]="listScrollingMaxHeight"
+  (uk2ItemsReordered)="onItemsReordered($event)"
+>
+  <ng-template #option let-context>
+    {{ context.option.text }}
+  </ng-template>
+  <button
+    id="uk2-bottom-sheet-apply-button"
+    uk2PrimaryButton
+    disableRipple
+    mat-raised-button
+    [uk2ButtonSize]="uk2ButtonSize"
+    (click)="handleApplyButton()"
+  >
+    Apply
+  </button>
+  <button
+    uk2SecondaryButton
+    disableRipple
+    mat-stroked-button
+    [uk2ButtonSize]="uk2ButtonSize"
+    (click)="uk2MenuButton.close()"
+  >
+    Cancel
+  </button>
+  <div *ngIf="enableListFooter" class="custom-footer-example" uk2MenuButtonOverlayFooterContent>
+    <div uk2MenuListItem (click)="resetColumns()">
+      <span class="footer-button-text"> Reset columns </span>
+    </div>
+  </div>
+</uk2-menu-button>
+<br />
+<br />
+<br />
+<div>
+  <p><b>Items received in ordering callback:</b></p>
+  <code>{{ receivedItems | json }}</code>
+</div>

@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, DoCheck, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   Uk2ButtonSizeEnum,
-  Uk2FileViewerElementPositionEnum,
   Uk2FlyoutMenuDirective,
   Uk2ListItem,
   Uk2TextButtonVariant,
   Uk2Tier1NavigationEnum,
   Uk2Tier1UtilityEnum,
+  Uk2ElementPositionEnum,
 } from '@axos/uikit-v2-lib';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 
@@ -70,9 +70,9 @@ export class FileViewerFullScreenComponent implements DoCheck {
   pdfName = '';
 
   // POSITION
-  positionLeft = Uk2FileViewerElementPositionEnum.left;
-  positionCenter = Uk2FileViewerElementPositionEnum.center;
-  positionRight = Uk2FileViewerElementPositionEnum.right;
+  positionLeft = Uk2ElementPositionEnum.left;
+  positionCenter = Uk2ElementPositionEnum.center;
+  positionRight = Uk2ElementPositionEnum.right;
 
   // PDF Viewer
   pdfSrc = '../../../assets/Account_Application_and_Agreement.pdf';

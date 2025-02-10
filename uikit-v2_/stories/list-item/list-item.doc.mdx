@@ -4,6 +4,23 @@ import { moduleMetadata } from '@storybook/angular';
 import { Source } from '@storybook/addon-docs';
 import dedent from 'ts-dedent';
 
+In case you need the drag and drop functionality you need to import the DragAndDrop CDK module from Angular Material module
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { DragDropModule } from '@angular/cdk/drag-drop';
+    \r
+    @NgModule({
+      ...
+      imports: [DragDropModule],
+      ...
+    })
+    export class ExampleModule { }
+  `}
+/>
+
 ## Inputs
 <ul>
   <li>
@@ -23,6 +40,9 @@ import dedent from 'ts-dedent';
   </li>
   <li>
     [uk2CurrencyOptions] <u>Uk2ListItemCurrencyOptions</u> <i>(optional)</i> is a configuration object to format money amount more details if <a href="https://angular.io/api/common/CurrencyPipe" target="_blank">angular documentation</a>
+  </li>
+  <li>
+    [uk2AddDragHandle] <u>boolean</u> <i>(optional)</i> is a flag to add drag handle icon
   </li>
 </ul>
 

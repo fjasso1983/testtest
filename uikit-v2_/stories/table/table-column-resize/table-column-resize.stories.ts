@@ -32,7 +32,7 @@ export default {
       page: TableResizeDocs,
     },
     controls: {
-      exclude: ['displayedColumns', 'dataSource'],
+      exclude: ['displayedColumns', 'dataSource', 'columnWidths'],
     },
   },
   decorators: [
@@ -50,6 +50,6 @@ const template: Story<TableColumnResizeComponent> = (args: TableColumnResizeComp
 });
 export const basicUsage = template.bind({});
 basicUsage.args = {
-  firstColumnWidth: '80px',
+  firstColumnWidth: '95px',
   disableFirstColumnResize: false,
 };

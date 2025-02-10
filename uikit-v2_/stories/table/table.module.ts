@@ -8,12 +8,15 @@ import {
   Uk2IconRegistryService,
   Uk2ServicesModule,
   Uk2TableDirectiveModule,
+  Uk2ChipModule,
+  Uk2TableInlineActionsModule,
 } from '@axos/uikit-v2-lib';
 
 import { TableComponent } from './table.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [TableComponent],
@@ -26,6 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     Uk2DirectivesModule,
     Uk2ServicesModule,
     Uk2TableDirectiveModule,
+    MatButtonModule,
+    Uk2ChipModule,
+    Uk2TableInlineActionsModule,
   ],
   exports: [TableComponent],
   providers: [

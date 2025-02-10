@@ -59,6 +59,18 @@ describe('Uk2FilterChipButtonComponent', () => {
       // Assert
       expect(spy).toHaveBeenCalled();
     });
+
+    it('should set the max width of the button to the value from the service', () => {
+      // Arrange
+      const button = fixture.nativeElement.querySelector('button');
+      component.uk2FilterChipStateService.setFilterChipMaxWidth(100);
+
+      // Act
+      fixture.detectChanges();
+
+      // Assert
+      expect(button.style.maxWidth).toBe('100px');
+    });
   });
 
   describe('errors', () => {

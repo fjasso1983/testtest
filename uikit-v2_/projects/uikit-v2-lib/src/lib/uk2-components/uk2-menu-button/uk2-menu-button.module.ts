@@ -9,12 +9,18 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
-import { Uk2DirectivesModule, Uk2MenuListItemModule } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
+import {
+  Uk2DirectivesModule,
+  Uk2FlyoutMenuModule,
+  Uk2MenuListItemModule,
+} from '@axos/uikit-v2-lib/src/lib/uk2-directives';
 
 import { Uk2MenuButtonComponent } from './uk2-menu-button.component';
 import { Uk2MenuButtonOverlayComponent } from './uk2-menu-button-overlay/uk2-menu-button-overlay.component';
 import { Uk2BottomSheetModule } from '../uk2-bottom-sheet';
+import { Uk2ListItemModule } from '../uk2-list-item';
 
 @NgModule({
   declarations: [Uk2MenuButtonComponent, Uk2MenuButtonOverlayComponent],
@@ -31,6 +37,9 @@ import { Uk2BottomSheetModule } from '../uk2-bottom-sheet';
     OverlayModule,
     MatBottomSheetModule,
     Uk2BottomSheetModule,
+    Uk2FlyoutMenuModule,
+    DragDropModule,
+    Uk2ListItemModule,
   ],
   exports: [Uk2MenuButtonComponent, Uk2MenuButtonOverlayComponent],
 })

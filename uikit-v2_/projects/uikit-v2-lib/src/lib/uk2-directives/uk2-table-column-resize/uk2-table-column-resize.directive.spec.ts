@@ -14,6 +14,7 @@ import { By } from '@angular/platform-browser';
         uk2TableColumnResize
         [uk2ColumnWidth]="columnWidth"
         [uk2DisableResize]="disableColumn"
+        [uk2SetAutoScroll]="enableAutoScroll"
         *matHeaderCellDef
       >
         Column Text
@@ -39,7 +40,7 @@ import { By } from '@angular/platform-browser';
         padding: 0 !important;
       }
 
-      /*350px size */
+      /* 350px size */
       .long-column-styles {
         width: 300px !important;
         padding: 0 25px !important;
@@ -49,6 +50,7 @@ import { By } from '@angular/platform-browser';
 })
 class TestComponent {
   columnWidth: string | undefined = undefined;
+  enableAutoScroll = false;
   disableColumn = false;
   displayedColumns: string[] = ['firstColumn', 'secondColumn', 'lastColumn'];
   tableSourceData = [
@@ -96,10 +98,17 @@ describe('Uk2TableColumnResizeDirective', () => {
     expect(grabberElement).toBeTruthy();
   });
 
-  it('should apply horizontal scrolling styles to the parent table', () => {
+  it('should apply and remove horizontal scrolling styles to the parent table when uk2SetAutoScroll is changed', () => {
+    component.enableAutoScroll = true;
     const parentTable = fixture.debugElement.query(By.css('#tableElement')).nativeElement;
 
+    fixture.detectChanges();
     expect(parentTable.style.overflowX).toBe('auto');
+
+    component.enableAutoScroll = false;
+    fixture.detectChanges();
+
+    expect(parentTable.style.overflowX).toBeFalsy();
   });
 
   it('should apply display block to the grabber when uk2DisableResize is set to false', () => {
@@ -131,7 +140,30 @@ describe('Uk2TableColumnResizeDirective', () => {
     expect(headerCell.style['width']).toEqual('150px');
   });
 
-  it("should set the flex style on each cell and header as '0 0 auto' if the column is not the last on the table", () => {
+  it('should resize the column cells to the header content width when uk2ColumnWidth is not set', () => {
+    const directiveEl = fixture.debugElement.query(By.directive(Uk2TableColumnResizeDirective));
+    const headerCell = directiveEl.nativeElement;
+    const headerContentWidth = headerCell.offsetWidth;
+
+    component.columnWidth = undefined;
+    fixture.detectChanges();
+
+    expect(headerCell.style['min-width']).toEqual(`${headerContentWidth}px`);
+  });
+
+  it('should keep the column width when uk2ColumnWidth is changed to undefined', () => {
+    const directiveEl = fixture.debugElement.query(By.directive(Uk2TableColumnResizeDirective));
+    const headerCell = directiveEl.nativeElement;
+    component.columnWidth = '150px';
+    fixture.detectChanges();
+
+    component.columnWidth = undefined;
+    fixture.detectChanges();
+
+    expect(headerCell.style['min-width']).toEqual('150px');
+  });
+
+  it("should set the flex style on each cell and header as '0 0 auto'", () => {
     const tableElement = fixture.debugElement.query(By.css('#tableElement')).nativeElement;
     const headerRow = tableElement.querySelectorAll('mat-header-row');
     const headerCell = headerRow[0].querySelectorAll('mat-header-cell')[0];
@@ -140,17 +172,6 @@ describe('Uk2TableColumnResizeDirective', () => {
 
     expect(headerCell.style.flex).toBe('0 0 auto');
     expect(contentCell.style.flex).toBe('0 0 auto');
-  });
-
-  it("should not set the flex style on each cell and header as '0 0 auto' if the column is the last on the table", () => {
-    const tableElement = fixture.debugElement.query(By.css('#tableElement')).nativeElement;
-    const headerRow = tableElement.querySelectorAll('mat-header-row');
-    const headerCell = headerRow[0].querySelectorAll('mat-header-cell')[2];
-    const contentRow = tableElement.querySelectorAll('mat-row');
-    const contentCell = contentRow[0].querySelectorAll('mat-cell')[2];
-
-    expect(headerCell.style.flex).not.toBe('0 0 auto');
-    expect(contentCell.style.flex).not.toBe('0 0 auto');
   });
 
   it('should apply the correct cursor styles when the mouse is lifted after dragging the size', () => {

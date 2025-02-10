@@ -1,0 +1,39 @@
+<div>
+  <h2>Basic Usage</h2>
+  <p>This page showcases the following:</p>
+  <ul>
+    <li>Checkbox list item reordable list.</li>
+  </ul>
+</div>
+
+<div>
+  <h2>List items with drag functionality</h2>
+  <div cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="dropEvent($event)">
+    <div *ngFor="let item of listItems" cdkDrag>
+      <uk2-list-item uk2Clickable [uk2ListItem]="item" [uk2CurrencyOptions]="currencyOptions" [uk2ShowDragHandle]="showDragIcon">
+        <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+      </uk2-list-item>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+
+<div>
+  <h2>Menu list item with drag functionality</h2>
+</div>
+<div>
+  <div cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="dropEvent($event)">
+    <div *ngFor="let item of menuListItems" cdkDrag>
+
+      <div uk2MenuListItem cdkDragHandle [uk2IsDisabled]="false" [uk2IsActive]="item.isSelected" [uk2IsLoading]="false"
+        [uk2ShowDividerLine]="false" (click)="onActionClicked(firstItem)">
+        <div *ngIf="showDragIcon" class="uk2-list-drag-handle">
+          <mat-icon [svgIcon]="dragIcon"></mat-icon>
+        </div>
+        <mat-icon [svgIcon]="item.svgIconName"></mat-icon>
+        <p>{{ item.bodyText }}</p>
+      </div>
+    </div>
+  </div>
+</div>

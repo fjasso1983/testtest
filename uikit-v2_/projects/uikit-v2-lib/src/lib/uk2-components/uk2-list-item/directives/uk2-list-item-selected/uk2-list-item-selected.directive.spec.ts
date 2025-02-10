@@ -16,11 +16,13 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { Uk2ListItem } from '../../types';
 import { Uk2ListItemModule } from '../../uk2-list-item.module';
+import { Uk2IconRegistryService } from '@axos/uikit-v2-lib';
 
 describe('Uk2ListItemSelectedDirective', () => {
   describe('MatOption Parent', () => {
     let fixture: ComponentFixture<OptionListItemComponent>;
     let loader: HarnessLoader;
+    let service: Uk2IconRegistryService;
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
@@ -32,9 +34,12 @@ describe('Uk2ListItemSelectedDirective', () => {
           MatIconTestingModule,
           Uk2ListItemModule,
         ],
+        providers:[Uk2IconRegistryService],
         declarations: [OptionListItemComponent],
       }).compileComponents();
 
+      service = TestBed.inject(Uk2IconRegistryService);
+      service.registerAllCategories();
       fixture = TestBed.createComponent(OptionListItemComponent);
       loader = TestbedHarnessEnvironment.loader(fixture);
 

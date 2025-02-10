@@ -1,0 +1,18 @@
+@mixin uk2-table-header-flyout-styles {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin uk2-table-flyout-menu-styles {
+  display: flex !important;
+  flex-direction: column;
+
+  .uk2-menu-list-item {
+    min-height: 32px;
+    padding: 4px 8px;
+    .uk2-menu-list-divider {
+      @include divider-padding-size(8px);
+    }
+  }
+}

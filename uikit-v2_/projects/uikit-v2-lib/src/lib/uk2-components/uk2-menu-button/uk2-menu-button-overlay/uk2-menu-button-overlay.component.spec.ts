@@ -14,13 +14,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 
-import { Uk2DirectivesModule } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
+import { Uk2DirectivesModule, Uk2MenuListItemModule } from '@axos/uikit-v2-lib/src/lib/uk2-directives';
 
 import { Uk2MenuButtonOverlayComponent } from './uk2-menu-button-overlay.component';
 import { Uk2BottomSheetModule } from '../../uk2-bottom-sheet';
 import { ElementRef, SimpleChange, SimpleChanges } from '@angular/core';
 import { Uk2MenuButtonCSSProperty } from '../types';
 import { Uk2MenuButtonScrollStrategy, Uk2MenuButtonSelectionTypeEnum } from '../enums';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 describe('Uk2MenuButtonOverlayComponent', () => {
   let fixture: ComponentFixture<Uk2MenuButtonOverlayComponent>;
@@ -44,6 +45,7 @@ describe('Uk2MenuButtonOverlayComponent', () => {
         MatButtonModule,
         Uk2BottomSheetModule,
         Uk2DirectivesModule,
+        Uk2MenuListItemModule,
       ],
     }).compileComponents();
 
@@ -331,6 +333,32 @@ describe('Uk2MenuButtonOverlayComponent', () => {
       component['handleBackdropClickEventToPreventCloseFlyout']();
 
       expect(component['flyoutOverlayReference']).toBeUndefined();
+    });
+
+    it('should emit listOrdered output when onItemsReordered() is called', () => {
+      spyOn(component.listOrdered, 'emit');
+      const eventMock: CdkDragDrop<string[]> = {
+        previousIndex: 0,
+        currentIndex: 1,
+      } as CdkDragDrop<string[]>;
+      component.localUk2ItemList = [...Array(12)].map((_, i) => ({
+        text: `Lorem Ipsum ${i + 1}`,
+        isSelected: true,
+        value: 'test',
+      }));
+      component.onItemsReordered(eventMock);
+      expect(component.listOrdered.emit).toHaveBeenCalled();
+    });
+
+    it('should set max-height styles when updateOverlayListMaxHeight() is called and enableListScrolling and listScrollingMaxHeight have proper values', () => {
+      spyOn(component['renderer'], 'setStyle');
+      const containerElementMock = document.createElement('div');
+      containerElementMock.classList.add('uk2-menu-list-container');
+      document.body.appendChild(containerElementMock);
+      component.enableListScrolling = true;
+      component.listScrollingMaxHeight = 360;
+      component['updateOverlayListMaxHeight']();
+      expect(component['renderer'].setStyle).toHaveBeenCalled();
     });
   });
 });

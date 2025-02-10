@@ -9,10 +9,38 @@
 <uk2-filter-chip-boolean
   [uk2Conditions]="conditions"
   [uk2IsLoading]="isLoading"
-  [uk2Options]="options"
   [uk2Identifier]="identifier"
   [uk2OverlayMinWidth]="overlayMinWidth"
   [uk2IsMultiple]="isMultiple"
+  [uk2CloseOverlayAfterClear]="closeOverlayAfterClearSelection"
+  [uk2FilterChipMaxWidth]="filterChipMaxWidth"
+  [uk2ShowClearSelection]="showClearSelection"
   (uk2DeleteFilter)="removeFilter.emit()"
   (uk2FilterValueChanges)="filterChanged.emit($event)"
-></uk2-filter-chip-boolean>
+  #chip="uk2FilterChipBoolean"
+>
+  <uk2-filter-chip-overlay-option
+    *ngFor="let option of options; let last = last"
+    [uk2Value]="option.value"
+    [uk2Multiple]="isMultiple"
+    [uk2IsDisabled]="option.uk2IsLoading || option.uk2IsDisabled || false"
+    [uk2Selected]="option.uk2IsSelected || false"
+    #overlayOption="uk2FilterChipOption"
+    (click)="handleOptionClick()"
+  >
+    <uk2-list-item
+      [uk2ListItem]="option"
+      [uk2IsDisabled]="option.uk2IsDisabled"
+      [uk2IsLoading]="option.uk2IsLoading || false"
+      class="custom-checkbox"
+    >
+      <mat-checkbox
+        tabIndex="-1"
+        uk2Checkbox
+        disableRipple
+        [checked]="overlayOption.checked"
+        *ngIf="isMultiple"
+      ></mat-checkbox>
+    </uk2-list-item>
+  </uk2-filter-chip-overlay-option>
+</uk2-filter-chip-boolean>

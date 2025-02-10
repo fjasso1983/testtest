@@ -111,8 +111,7 @@
 
 @mixin divider-styles() {
   background-color: var(--uk2-menu-list-item-divider-color);
-  width: calc(100% - 32px);
-  margin: 0px 16px;
+  @include divider-padding-size(16px);
   position: absolute;
   height: 1px;
   bottom: 0;
@@ -124,4 +123,11 @@
   flex-direction: column;
   flex-wrap: nowrap;
   display: flex;
+}
+
+@mixin divider-padding-size($size) {
+  $double-size: $size * 2;
+
+  width: calc(100% - $double-size);
+  margin: 0px $size;
 }

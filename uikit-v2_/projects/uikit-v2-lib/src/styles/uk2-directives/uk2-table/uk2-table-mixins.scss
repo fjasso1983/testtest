@@ -1,85 +1,62 @@
-@mixin hide-cell-checkbox {
-  mat-checkbox.uk2-checkbox {
-    opacity: 0;
-    pointer-events: none;
-    cursor: default;
-  }
-}
-
-@mixin show-cell-checkbox {
-  mat-cell {
-    & > mat-checkbox.uk2-checkbox {
-      opacity: 1;
-      pointer-events: all;
-      cursor: pointer;
+@mixin table-scroll-styles {
+  position: relative;
+  > .uk2-table-sticky-row {
+    position: absolute;
+    z-index: 10;
+    top: 0px;
+    mat-header-cell {
+      &.mat-mdc-table-sticky {
+        z-index: 11 !important;
+      }
     }
   }
-}
 
-@mixin set-checkbox-column {
-  flex-grow: 0;
-  flex-basis: 32px;
-  padding-right: 0px !important;
-  border-right: none;
-}
-
-@mixin set-option-column {
-  flex-grow: 0;
-  // Reduced by 1 pixel due to fix aligning with body cells
-  flex-basis: 23px;
-
-  mat-icon {
-    color: var(--uk2-neutral-slate-400);
-  }
-}
-
-@mixin mat-header-cell-styles {
-  background-color: var(--uk2-table-header-background-color) !important;
-  color: var(--uk2-table-header-text-color);
-  padding-left: 8px !important;
-  padding-right: 8px !important;
-  border-color: var(--uk2-table-border-color);
-  position: relative;
-  @include uk2-font__body-medium--50();
-
-  &.uk2-checkbox-column {
-    @include set-checkbox-column();
+  mat-row,
+  mat-header-row {
+    min-width: 100%;
   }
 
-  &.uk2-options-column {
-    @include set-option-column();
+  mat-cell,
+  mat-header-cell {
+    &.uk2-options-column {
+      //Default width for the option column when scroll is enabled
+      width: 25px;
+    }
   }
 
-  // Do not add border right if column has checkbox or is the last column
-  &:not(.uk2-checkbox-column):not(:last-child) {
+  mat-row,
+  mat-header-row,
+  mat-footer-row {
+    display: inline-flex;
+  }
+
+  .mat-mdc-table-sticky-border-elem-right {
+    border-left: 1px solid var(--uk2-table-border-color);
+  }
+
+  .mat-mdc-table-sticky-border-elem-left {
     border-right: 1px solid var(--uk2-table-border-color);
   }
+
+  .uk2-sticky-shadow-container {
+    position: absolute;
+    z-index: 20;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    box-shadow: 0px 0px 16px 0px var(--uk2-neutral-slate-600-alpha-33);
+    pointer-events: none;
+  }
 }
 
-@mixin mat-cell-styles {
-  padding-left: 8px !important;
-  padding-right: 8px !important;
-  color: var(--uk2-neutral-slate-500);
-  border-color: var(--uk2-table-border-color);
-  @include uk2-font__body-regular--75();
-
-  &.uk2-checkbox-column {
-    // Mixin that set the width of the column to be smaller
-    @include set-checkbox-column();
-    // Be default checkbox row cells are hidden until user hover it or select it
-    @include hide-cell-checkbox();
-  }
-
-  &.uk2-options-column {
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-    border-left: 1px solid var(--uk2-table-border-color);
-    @include set-option-column();
-
-    .uk2-option-icon {
-      width: 20px;
-      height: 20px;
-    }
+@mixin table-scroll-horizontal-scroller {
+  top: -1px;
+  position: absolute;
+  width: 100%;
+  overflow-x: auto;
+  z-index: 9;
+  .uk2-size-scroller {
+    height: 1px;
   }
 }
 
@@ -90,4 +67,7 @@
   padding: 0 2px;
   height: 100%;
   right: -3px;
+  &:hover {
+    background-color: accent-color-300-hsl();
+  }
 }

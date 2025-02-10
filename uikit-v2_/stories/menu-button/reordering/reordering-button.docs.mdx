@@ -1,0 +1,274 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import IntroductionLayout from '../menu-button-introduction.docs.mdx';
+import CustomCSSPropertiesLayout from '../menu-button-custom-css-properties.docs.mdx';
+import IconOnlyMenuButton from '../menu-button-custom-css-sizing.docs.mdx';
+
+<IntroductionLayout></IntroductionLayout>
+
+# Reordering list items in menu button overlay
+
+To enable overlay list items reordering, set the **[uk2ButtonType]** input to *Uk2MenuButtonSelectionTypeEnum.multiple*
+and the **[uk2EnableListOrdering]** input to *true* in the `<uk2-menu-button></uk2-menu-button>` component.
+
+*.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <uk2-menu-button
+    [uk2ButtonType]="buttonType"
+    [uk2EnableListOrdering]="true"
+    ...
+  >
+    ...
+  </uk2-menu-button>
+  ...
+  `}
+/>
+
+*.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component } from '@angular/core';
+  \r
+  import { Uk2MenuButtonComponent, Uk2MenuButtonSelectionTypeEnum } from '@axos/uikit-v2-lib';
+  \r
+  @Component({
+    ...
+  })
+  export class YOUR_COMPONENT {
+    @ViewChild(Uk2MenuButtonComponent) menuButtonComponent: Uk2MenuButtonComponent;
+    buttonType: Uk2MenuButtonSelectionTypeEnum = Uk2MenuButtonSelectionTypeEnum.multiple;
+    ...
+  }
+  `}
+/>
+
+# Adding a list items footer in menu button overlay
+
+You can easily add a footer template to the overlay items list by using content projection.
+
+To add custom footer content, set the **[uk2ButtonType]** input to *Uk2MenuButtonSelectionTypeEnum.multiple* in the `<uk2-menu-button></uk2-menu-button>` component.
+
+Then, you need to create a wrapper element with the **uk2MenuButtonOverlayFooterContent** attribute on it inside the `<uk2-menu-button></uk2-menu-button>` component.
+The wrapper element and its content will be projected into the footer of the overlay items list.
+
+*.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <uk2-menu-button
+    [uk2ButtonType]="buttonType"
+    ...
+  >
+    <div class="custom-footer-example" uk2MenuButtonOverlayFooterContent>
+      <div uk2MenuListItem (click)="onFooterClick()">
+        <span class="footer-button-text"> Footer label text </span>
+      </div>
+    </div>
+    ...
+  </uk2-menu-button>
+  ...
+  `}
+/>
+
+*.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    \r
+    import { Uk2MenuButtonComponent, Uk2MenuButtonSelectionTypeEnum } from '@axos/uikit-v2-lib';
+    \r
+    @Component({
+      ...
+    })
+    export class YOUR_COMPONENT {
+      @ViewChild(Uk2MenuButtonComponent) menuButtonComponent: Uk2MenuButtonComponent;
+      buttonType: Uk2MenuButtonSelectionTypeEnum = Uk2MenuButtonSelectionTypeEnum.multiple;
+      ...
+      onFooterClick(): void {
+        console.log('Footer clicked!!!');
+      }
+    }
+  `}
+/>
+
+# Enabling scrolling on the overlay items list
+
+To enable scrolling on the overlay items list, set the **[uk2EnableListScrolling]** input to *true* in the `<uk2-menu-button></uk2-menu-button>` component.
+
+When **uk2EnableListScrolling** is true, you can use the **[uk2ListScrollingMaxHeight]** input to change the max-height of the overlay items list.
+
+*.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <uk2-menu-button
+    [uk2EnableListScrolling]="true"
+    [uk2ListScrollingMaxHeight]="250"
+    ...
+  >
+    ...
+  </uk2-menu-button>
+  ...
+  `}
+/>
+
+## Sample Code
+This is the component you can use as a guidance for custom content Uk2MenuButton component:
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-menu-button
+      #uk2MenuButton="uk2MenuButton"
+      [uk2ButtonType]="buttonType"
+      [uk2IconButtonSizeClass]="iconOnlyCssClass"
+      [uk2ItemList]="items"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2DefaultStateText]="defaultStateText"
+      [uk2ActiveStateText]="activeStateText"
+      [uk2SvgIconName]="icon"
+      [uk2IsIconOnly]="isIconOnly"
+      [uk2DisplayBorder]="displayBorder"
+      [uk2DisplayBadge]="displayBadge"
+      [uk2BackdropIsEnabled]="uk2BackdropIsEnabled"
+      [uk2BackdropIsHidden]="uk2BackdropIsHidden"
+      [uk2ScrollStrategy]="uk2ScrollStrategy"
+      [uk2BottomSheetTitle]="uk2BottomSheetTitle"
+      [uk2BottomSheetDescription]="uk2BottomSheetDescription"
+      [uk2EnableListOrdering]="enableListOrdering"
+      [uk2EnableListScrolling]="enableListScrolling"
+      [uk2ListScrollingMaxHeight]="listScrollingMaxHeight"
+      (uk2ItemsReordered)="onItemsReordered($event)"
+    >
+      <ng-template #option let-context>
+        {{ context.option.text }}
+      </ng-template>
+      <button
+        id="uk2-bottom-sheet-apply-button"
+        uk2PrimaryButton
+        disableRipple
+        mat-raised-button
+        [uk2ButtonSize]="uk2ButtonSize"
+        (click)="handleApplyButton()"
+      >
+        Apply
+      </button>
+      <button
+        uk2SecondaryButton
+        disableRipple
+        mat-stroked-button
+        [uk2ButtonSize]="uk2ButtonSize"
+        (click)="uk2MenuButton.close()"
+      >
+        Cancel
+      </button>
+      <div class="custom-footer-example" uk2MenuButtonOverlayFooterContent>
+        <div uk2MenuListItem (click)="resetColumns()">
+          <span class="footer-button-text"> Reset columns </span>
+        </div>
+      </div>
+    </uk2-menu-button>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    import {
+      Uk2ButtonSizeEnum,
+      Uk2IconRegistryService,
+      Uk2MenuButtonComponent,
+      Uk2MenuButtonItem,
+      Uk2MenuButtonScrollStrategy,
+      Uk2MenuButtonSelectionTypeEnum,
+      Uk2Tier1UtilityEnum,
+    } from '@axos/uikit-v2-lib';
+    \r
+    export class YOUR_COMPONENT {
+      iconOnlyCssClass: string | undefined;
+      isIconOnly = false;
+      displayBorder = true;
+      displayBadge = false;
+      isLoading = false;
+      isDisabled = false;
+      defaultStateText = 'Filter';
+      activeStateText = 'Filtered';
+      icon = Uk2Tier1UtilityEnum.filterFunnel;
+      buttonType: Uk2MenuButtonSelectionTypeEnum = Uk2MenuButtonSelectionTypeEnum.multiple;
+      items = [...Array(12)].map((_, i) => ({
+        text: 'Lorem Ipsum ' + i,
+        isSelected: true,
+        value: 'test',
+      }));
+      uk2ButtonSize = Uk2ButtonSizeEnum.large;
+      enableListOrdering: boolean = true;
+      originalItems = window.structuredClone(this.items);
+      uk2BackdropIsEnabled = true;
+      uk2BackdropIsHidden = true;
+      uk2ScrollStrategy = Uk2MenuButtonScrollStrategy.block;
+      uk2BottomSheetTitle = '';
+      uk2BottomSheetDescription = '';
+      enableListFooter = true;
+      enableListScrolling = true;
+      listScrollingMaxHeight = 360;
+      @ViewChild(Uk2MenuButtonComponent) menuButton!: Uk2MenuButtonComponent;
+      \r
+      constructor(private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      onItemsReordered(items: Uk2MenuButtonItem[]) {
+        this.items = items;
+      }
+      \r
+      handleApplyButton() {
+        this.menuButton.applySelectedOptions();
+        this.menuButton.close();
+      }
+      \r
+      resetColumns(): void {
+        this.items = window.structuredClone(this.originalItems);
+      }
+    }
+  `}
+/>
+
+<p>*.component.scss</p>
+
+<Source
+  dark
+  language='scss'
+  code={dedent`
+    .custom-footer-example .uk2-menu-list-item {
+        min-height: 40px;
+        .footer-button-text {
+            @include uk2-font__body-regular--50();
+        }
+    }
+  `}
+/>
+
+<IconOnlyMenuButton></IconOnlyMenuButton>
+<CustomCSSPropertiesLayout></CustomCSSPropertiesLayout>

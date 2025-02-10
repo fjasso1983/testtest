@@ -1,0 +1,76 @@
+import { Source } from '@storybook/addon-docs';
+import DirectivesPrerequisitesDocsLayout from '../../directives-docs/directives-prerequisites.docs.mdx';
+import dedent from 'ts-dedent';
+
+# Uk2TableScrollDirective directive documentation
+
+## Introduction
+<p> Uk2TableScrollDirective is a directive designed to implement scrolling functionality on an <a href='https://v15.material.angular.io/components/table/overview' target='_blank'>Angular material table</a> component as part of the <a href='https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=928-2284&p=f&m=dev' target='_blank'>Axos Design System.</a> </p>
+
+## Prerequisites
+- You need to import Uk2TableScrollerModule from @axos/uikit-v2-lib into the desired module of your Angular App.
+
+<Source
+    dark
+    language='ts'
+    code={dedent`
+      import { Uk2TableScrollerModule } from '@axos/uikit-v2-lib';
+  `}
+  />
+
+## Constraints
+<ol>
+  <li>It should be applied to a <strong> <a href='https://v15.material.angular.io/components/table/api#MatTable' target='_blank'>mat-table</a></strong> Material table.</li>
+  <li>The attribute <strong>uk2-sticky-row</strong> needs be added to the table header row to enable sticky row behavior.</li>
+</ol>
+
+## Special considerations
+<ul>
+  <li>In order to ensure correct functionality, it's recommended to not have margins defined on the table or the parent element. (Use paddings or margins on other elements to set require space between elements.)</li>
+  <li>Column sticky behavior can be achieved by using Angular material <a href="https://v15.material.angular.io/components/table/examples#table-sticky-columns" target="_blank">Column definition</a> configuration (<a href='https://v15.material.angular.io/components/table/examples#table-sticky-columns' target='_blank'>example</a>)</li>
+  <li>Scrollbar appearance is not fully supported on Firefox (<a href='./?path=/docs/scrollbar--scrollbar'>See scrollbar documentation</a>). </li>
+  <li>By default the directive will try to determine the scrollable viewport of the table. If no scrollable viewport is found, the browser document element is considered the viewport</li>
+</ul>
+
+
+## Inputs
+
+<ul>
+  <li><strong>[uk2TableViewport]</strong> <u>HTMLElement</u> <i>(optional)</i> Specifies the viewport where the table is scrolling. If no viewport is specified, the directive will try to determine it. (<strong>Default:</strong> undefined).</li>
+  <li><strong>[uk2MarginBelowViewport]</strong> <u>number</u> <i>(optional)</i> Specifies the space kept by the table and the viewport when the viewport is vertically scrolling down the table. (<strong>Default:</strong> 4).</li>
+</ul>
+
+
+## Sample Code
+<p>This is the component you can use as a guidance:</p>
+
+<p>*.component.html</p>
+<small>Example with sticky columns defined</small>
+<Source
+  dark
+  language='html'
+  code={dedent`
+    ...
+    <mat-table uk2Table uk2TableScroll>
+      <ng-container matColumnDef="checkbox" sticky>
+        <mat-header-cell uk2HeaderBulkActionCell *matHeaderCellDef>
+            <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+        </mat-header-cell>
+        <mat-cell uk2BulkActionCell *matCellDef="let checkbox">
+            <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+        </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="record" sticky>
+        <mat-header-cell uk2HeaderRecordCell *matHeaderCellDef> Record </mat-header-cell>
+        <mat-cell uk2RecordCell *matCellDef="let data">
+            <div>
+            <p># {{ data.record }}</p>
+            </div>
+        </mat-cell>
+        </ng-container>
+        ...
+        <mat-header-row uk2HeaderRow *matHeaderRowDef="displayedColumns" uk2-sticky-row></mat-header-row>
+        <mat-row uk2Row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  `}
+/>

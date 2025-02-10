@@ -11,7 +11,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
-import { IUk2IsLoading, Uk2BaseFilterChip } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
+import { IUk2IsLoading, Uk2BaseFilterChipComponent } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -23,7 +23,9 @@ import { takeUntil } from 'rxjs/operators';
 export class Uk2FilterBarDirective implements OnInit, OnChanges, IUk2IsLoading {
   @Input() uk2RelatedContainer?: HTMLElement;
   @Input() uk2IsLoading = false;
-  @ContentChildren(Uk2BaseFilterChip, { descendants: true }) uk2FilterChips!: QueryList<Uk2BaseFilterChip<any>>;
+  @ContentChildren(Uk2BaseFilterChipComponent, { descendants: true }) uk2FilterChips!: QueryList<
+    Uk2BaseFilterChipComponent<any>
+  >;
   private elementRef = inject(ElementRef);
   private renderer = inject(Renderer2);
   private nativeElement = this.elementRef.nativeElement as HTMLElement;

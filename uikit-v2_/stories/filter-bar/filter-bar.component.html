@@ -19,13 +19,32 @@
   >
     <uk2-filter-chip-boolean
       cdkDrag
-      [uk2Options]="item.options"
       [uk2Identifier]="item.label"
       [uk2IsMultiple]="item.isMultiple"
       (uk2DeleteFilter)="removeFilter(item)"
       (uk2FilterValueChanges)="filterChanged.emit($event)"
       *ngFor="let item of items"
-    ></uk2-filter-chip-boolean>
+      #filterChipBoolean="uk2FilterChipBoolean"
+    >
+      <uk2-filter-chip-overlay-option
+        *ngFor="let listItem of item.options"
+        [uk2Value]="listItem.value"
+        [uk2Multiple]="item.isMultiple"
+        [uk2Selected]="listItem.uk2IsSelected || false"
+        #overlayOption="uk2FilterChipOption"
+        (click)="handleOptionClick(filterChipBoolean)"
+      >
+        <uk2-list-item [uk2ListItem]="listItem">
+          <mat-checkbox
+            tabIndex="-1"
+            uk2Checkbox
+            disableRipple
+            [checked]="overlayOption.checked"
+            *ngIf="item.isMultiple"
+          ></mat-checkbox>
+        </uk2-list-item>
+      </uk2-filter-chip-overlay-option>
+    </uk2-filter-chip-boolean>
 
     <button
       class="uk2-filter-bar-add-filter-button"

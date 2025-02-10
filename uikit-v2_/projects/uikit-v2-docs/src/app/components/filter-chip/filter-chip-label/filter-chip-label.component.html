@@ -49,7 +49,6 @@
   </dl>
 
   <uk2-filter-chip-boolean
-    [uk2Options]="options"
     [uk2Conditions]="customConditions"
     [uk2Identifier]="group.get('identifier')?.value || ''"
     [uk2OverlayMinWidth]="group.get('minWidth')?.value || ''"
@@ -57,7 +56,25 @@
     [uk2IsMultiple]="isMultiple"
     [uk2FilterValue]="group.get('value')?.value || ''"
     (uk2FilterValueChanges)="updateValue($event)"
-  ></uk2-filter-chip-boolean>
+  >
+    <uk2-filter-chip-overlay-option
+      *ngFor="let option of options"
+      [uk2Value]="option.value"
+      [uk2Multiple]="isMultiple"
+      [uk2Selected]="option.uk2IsSelected || false"
+      #overlayOption="uk2FilterChipOption"
+    >
+      <uk2-list-item [uk2ListItem]="option">
+        <mat-checkbox
+          tabIndex="-1"
+          uk2Checkbox
+          disableRipple
+          [checked]="overlayOption.checked"
+          *ngIf="isMultiple"
+        ></mat-checkbox>
+      </uk2-list-item>
+    </uk2-filter-chip-overlay-option>
+  </uk2-filter-chip-boolean>
 </section>
 
 <h2>Filter Bar</h2>
@@ -72,12 +89,15 @@
     [uk2RelatedContainer]="table"
     (cdkDropListDropped)="handleDropEvent($event)"
   >
-    <uk2-filter-chip-boolean
-      cdkDrag
-      [uk2Options]="item.options"
-      [uk2Identifier]="item.label"
-      *ngFor="let item of items"
-    ></uk2-filter-chip-boolean>
+    <uk2-filter-chip-boolean cdkDrag [uk2Identifier]="item.label" *ngFor="let item of items">
+      <uk2-filter-chip-overlay-option
+        *ngFor="let listItem of item.options"
+        [uk2Value]="listItem.value"
+        [uk2Selected]="listItem.uk2IsSelected"
+      >
+        <uk2-list-item [uk2ListItem]="listItem"></uk2-list-item>
+      </uk2-filter-chip-overlay-option>
+    </uk2-filter-chip-boolean>
 
     <button
       class="uk2-filter-bar-add-filter-button"

@@ -1,0 +1,184 @@
+@mixin uk2-cell() {
+    padding-inline: 16px 8px;
+    color: var(--uk2-table-cell-text-color);
+    border-color: var(--uk2-table-border-color);
+    background-color: var(--uk2-neutral-white);
+    @include uk2-font__body-regular--75();
+}
+
+@mixin cell-common-skeleton-bg() {
+  color: transparent !important;
+  user-select: none;
+  background-color: var(--uk2-table-cell-skeleton-bg-color) !important;
+}
+
+@mixin cell-common-skeleton() {
+  @include cell-common-skeleton-bg;
+  &:before {
+    max-width: 124px !important;
+    width: 124px !important;
+    height: 16px !important;
+    border-radius: 16px !important;
+    position: absolute;
+    left: auto !important;
+  }
+}
+
+@mixin uk2-bulk-action-cell() {
+  flex-grow: 0;
+  flex-basis: 32px;
+  padding-inline: 8px 0 !important;
+  border-right: none;
+  min-width: fit-content;
+  // Mixin that set the width of the column to be smaller
+  @include checkbox-size(24px);
+  // Be default checkbox row cells are hidden until user hover it or select it
+  @include hide-cell-checkbox();
+}
+
+@mixin uk2-record-cell() {
+  color: var(--uk2-neutral-slate-500);
+  border-right: 1px solid var(--uk2-table-border-color) !important;
+  @include uk2-font__body-medium--75;
+}
+
+@mixin uk2-text-cell() {
+
+}
+
+@mixin uk2-numeric-cell() {
+  justify-content: flex-end;
+}
+
+@mixin uk2-chip-cell() {
+  gap: 4px;
+}
+
+@mixin uk2-menu-cell() {
+  min-width: fit-content;
+  padding-inline: 2px !important;
+  border-left: 1px solid var(--uk2-table-border-color);
+  flex-grow: 0;
+  flex-basis: 24px;
+  mat-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--uk2-neutral-slate-400);
+  }
+}
+
+@mixin uk2-inline-actions-cell() {
+  min-width: fit-content;
+  padding-inline: 8px !important;
+  border-left: 1px solid var(--uk2-table-border-color);
+  flex-grow: 0;
+}
+
+@mixin uk2-bulk-action-cell-skeleton() {
+  @include cell-common-skeleton;
+  &:before {
+    max-width: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 8px !important;
+  }
+}
+
+@mixin uk2-record-cell-skeleton() {
+  @include cell-common-skeleton;
+}
+
+@mixin uk2-text-cell-skeleton() {
+  @include cell-common-skeleton;
+  &:before {
+    max-width: 144px !important;
+    width: 144px !important;
+  }
+}
+
+@mixin uk2-numeric-cell-skeleton() {
+  @include cell-common-skeleton;
+  &:before {
+    max-width: 144px !important;
+    width: 144px !important;
+  }
+}
+
+@mixin uk2-chip-cell-skeleton() {
+  @include cell-common-skeleton;
+  @include cell-two-shapes-skeleton(78px);
+  &:before,
+  &:after {
+    max-width: 78px !important;
+    width: 78px !important;
+  }
+}
+
+@mixin uk2-menu-cell-skeleton() {
+  justify-content: center;
+  @include cell-common-skeleton;
+  &:before {
+    max-width: 7px !important;
+    width: 7px !important;
+    height: 18px !important;
+    border-radius: 2px !important;
+  }
+}
+
+@mixin uk2-inline-actions-cell-skeleton() {
+  $first-shape-width: 20px;
+  $second-shape-width: 7px;
+  $shapes-gap: 8px;
+  justify-content: center;
+  @include cell-common-skeleton;
+  @include cell-two-shapes-skeleton(0px, 0px);
+  &:before {
+    max-width: $first-shape-width !important;
+    width: $first-shape-width !important;
+    height: 20px !important;
+    border-radius: 8px !important;
+    transform: translate(calc(($second-shape-width/2 + $shapes-gap/2) * -1), -50%);
+  }
+  &:after {
+    max-width: $second-shape-width !important;
+    width: $second-shape-width !important;
+    height: 18px !important;
+    border-radius: 2px !important;
+    transform: translate(calc($first-shape-width/2 + $shapes-gap/2), -50%);
+  }
+}
+
+@mixin cell-two-shapes-skeleton($first-shape-width: 124px, $gap: 8px) {
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    max-width: 124px;
+    width: 124px;
+    height: 16px;
+    border-radius: 16px;
+    left: auto;
+    margin-left: calc($first-shape-width + $gap);
+    @include uk2-loading-skeleton-animation(--uk2-neutral-grey-400, --uk2-neutral-grey-300);
+  }
+}
+
+@mixin hide-cell-checkbox {
+  mat-checkbox.uk2-checkbox {
+    opacity: 0;
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+@mixin show-cell-checkbox {
+  mat-cell {
+    & > mat-checkbox.uk2-checkbox {
+      opacity: 1;
+      pointer-events: all;
+      cursor: pointer;
+    }
+  }
+}

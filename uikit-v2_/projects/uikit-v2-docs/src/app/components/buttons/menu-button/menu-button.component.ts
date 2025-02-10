@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
-import { Uk2MenuButtonItem, Uk2MenuButtonSelectionTypeEnum, Uk2Tier1UtilityEnum } from '@axos/uikit-v2-lib';
+import {
+  Uk2FlyoutMenuDirective,
+  Uk2MenuButtonItem,
+  Uk2MenuButtonSelectionTypeEnum,
+  Uk2Tier1UtilityEnum,
+} from '@axos/uikit-v2-lib';
 
 @Component({
   selector: 'app-menu-button',
   templateUrl: './menu-button.component.html',
   styleUrls: ['./menu-button.component.scss'],
+  providers: [Uk2FlyoutMenuDirective],
 })
 export class MenuButtonComponent {
   buttonState = 'Disable Button';

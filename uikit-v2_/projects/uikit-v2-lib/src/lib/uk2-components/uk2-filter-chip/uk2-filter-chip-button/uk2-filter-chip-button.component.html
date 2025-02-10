@@ -1,5 +1,6 @@
 <button
   class="uk2-filter-chip-button"
+  [style.max-width.px]="maxWidth$ | async"
   [class.uk2-filter-chip-button-active]="isPressed$ | async"
   (keydown.enter)="openOverlay()"
   (click)="openOverlay()"

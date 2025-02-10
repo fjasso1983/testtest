@@ -1,0 +1,236 @@
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+import IntroductionLayout from '../menu-button-introduction.docs.mdx';
+import CustomCSSPropertiesLayout from '../menu-button-custom-css-properties.docs.mdx';
+import IconOnlyMenuButton from '../menu-button-custom-css-sizing.docs.mdx';
+
+<IntroductionLayout></IntroductionLayout>
+
+# Displaying custom content in menu button overlay
+You can display custom content in the menu button overlay by projecting elements inside a uk2FlyoutMenu element. It is useful if you need to display templates that not fit into a list of options.
+
+## custom content projection
+
+To enable custom content projection, set the **uk2ButtonType** property of the `<uk2-menu-button></uk2-menu-button>` component to *Uk2MenuButtonSelectionTypeEnum.custom*.
+
+In addition, you'll need to add the **uk2FlyoutMenu** directive to the `<uk2-menu-button></uk2-menu-button>` component along with its required **uk2FlyoutTemplate** property and the **#flyoutMenu** id.
+
+Finally, you need to create a wrapper template with the same id that you set to the **uk2FlyoutTemplate** in the `<uk2-menu-button></uk2-menu-button>` component. For this example it is **#flyoutOverlay** id.
+Inside this wrapper you can put custom content that will be projected inside the flyoutMenu overlay.
+
+As you are adding the **uk2FlyoutMenu** directive to the `<uk2-menu-button></uk2-menu-button>` component, you can use all its inputs and outputs to customize the overlay position and behavior.
+For example, you can use the *(uk2OverlayOpened)* and the *(uk2OverlayClosed)* outputs to handle the overlay open and close events.
+
+*.component.html
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+  <uk2-menu-button
+    [uk2ButtonType]="buttonType"
+    uk2FlyoutMenu
+    #flyoutMenu="uk2FlyoutMenu"
+    [uk2FlyoutTemplate]="flyoutOverlay"
+    ...
+  ></uk2-menu-button>
+  ...
+  <ng-template #flyoutOverlay>
+    <h2>Custom content</h2>
+    <p>This is a custom content projected inside the menu button overlay</p>
+  </ng-template>
+  ...
+  `}
+/>
+
+*.component.ts
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+  import { Component } from '@angular/core';
+  \r
+  import { Uk2MenuButtonComponent, Uk2MenuButtonSelectionTypeEnum } from '@axos/uikit-v2-lib';
+  \r
+  @Component({
+    ...
+  })
+  export class YOUR_COMPONENT {
+    @ViewChild(Uk2MenuButtonComponent) menuButtonComponent: Uk2MenuButtonComponent;
+    buttonType: Uk2MenuButtonSelectionTypeEnum = Uk2MenuButtonSelectionTypeEnum.custom;
+    ...
+  }
+  `}
+/>
+
+
+## Sample Code
+This is the component you can use as a guidance for custom content Uk2MenuButton component:
+
+<p>*.component.html</p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-menu-button
+      uk2FlyoutMenu
+      #flyoutMenu="uk2FlyoutMenu"
+      [uk2FlyoutTemplate]="flyoutOverlay"
+      [uk2OriginXPosition]="customContentOriginXPosition"
+      [uk2OverlayXPosition]="customContentOverlayXPosition"
+      [uk2OriginYPosition]="customContentOriginYPosition"
+      [uk2OverlayYPosition]="customContentOverlayYPosition"
+      [uk2OverlayYOffset]="customContentOverlayYOffset"
+      (uk2OverlayOpened)="onOverlayOpened()"
+      (uk2OverlayClosed)="onOverlayClosed()"
+      #uk2MenuButton="uk2MenuButton"
+      [uk2ButtonType]="buttonType"
+      [uk2IconButtonSizeClass]="iconOnlyCssClass"
+      [uk2IsLoading]="isLoading"
+      [uk2IsDisabled]="isDisabled"
+      [uk2SvgIconName]="icon"
+      [uk2IsIconOnly]="isIconOnly"
+      [uk2DisplayBorder]="displayBorder"
+      [uk2DisplayBadge]="displayBadge"
+      [uk2IsButtonActive]="isActive"
+      [uk2IsButtonPressed]="isPressed"
+      [uk2BadgeText]="badgeText"
+    ></uk2-menu-button>
+    <ng-template #flyoutOverlay>
+      <div class="custom-content-example" uk2MenuButtonCustomContent>
+        <mat-tab-group mat-stretch-tabs="false" disableRipple uk2VerticalTabs animationDuration="0ms">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <span>Time Period</span>
+            </ng-template>
+            <div
+              class="tab-group-option"
+              [class.active]="selectedTimePeriod === option"
+              *ngFor="let option of timePeriodOptions"
+              (click)="selectedTimePeriod = option"
+            >
+              {{ option }}
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <span>Document Type</span>
+            </ng-template>
+            <div
+              class="tab-group-option"
+              [class.active]="selectedDocumentType === option"
+              *ngFor="let option of documentTypeOptions"
+              (click)="selectedDocumentType = option"
+            >
+              {{ option }}
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </ng-template>
+  `}
+/>
+
+<p>*.component.ts</p>
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+    import { Component } from '@angular/core';
+    import {
+      Uk2ButtonSizeEnum,
+      Uk2MenuButtonItem,
+      Uk2MenuButtonSelectionTypeEnum,
+      Uk2Tier1UtilityEnum,
+      Uk2FlyoutMenuXPosition,
+      Uk2FlyoutMenuYPosition
+    } from '@axos/uikit-v2-lib';
+    \r
+    export class YOUR_COMPONENT {
+      buttonType: Uk2MenuButtonSelectionTypeEnum = Uk2MenuButtonSelectionTypeEnum.custom;
+      isLoading: false;
+      isDisabled: false;
+      icon = Uk2Tier1UtilityEnum.filterSlider;
+      isIconOnly: true;
+      displayBorder: false;
+      displayBadge: true;
+      enableCustomContent: true;
+      isActive: false;
+      isPressed: false;
+      badgeText: '3';
+      customContentOriginXPosition: Uk2FlyoutMenuXPosition = Uk2FlyoutMenuXPosition.start;
+      customContentOverlayXPosition: Uk2FlyoutMenuXPosition = Uk2FlyoutMenuXPosition.start;
+      customContentOriginYPosition: Uk2FlyoutMenuYPosition = Uk2FlyoutMenuYPosition.bottom;
+      customContentOverlayYPosition: Uk2FlyoutMenuYPosition = Uk2FlyoutMenuYPosition.top;
+      customContentOverlayYOffset: number = 4;
+      timePeriodOptions = ['This Month', 'Last Month', 'Last 3 Months', 'Last 12 Months', '2023', '2022', '2021'];
+      documentTypeOptions = ['PDF', 'DOCX', 'JPEG', 'PNG'];
+      selectedTimePeriod = '';
+      selectedDocumentType = '';
+      \r
+      constructor(private iconRegistryService: Uk2IconRegistryService) {
+        this.iconRegistryService.registerAllCategories();
+      }
+      \r
+      onOverlayOpened(): void {
+        this.isPressed = true;
+        console.log('Custom content overlay opened!!!');
+      }
+      \r
+      onOverlayClosed(): void {
+        this.isPressed = false;
+        console.log('Custom content overlay closed!!!');
+      }
+    }
+  `}
+/>
+
+<p>*.component.scss</p>
+
+<Source
+  dark
+  language='scss'
+  code={dedent`
+    .custom-content-example {
+      border-radius: inherit;
+      border-right: 1px solid var(--uk2-neutral-grey-200);
+      mat-tab-group {
+        display: flex;
+        flex-basis: auto;
+        flex-grow: 2;
+        .mat-mdc-tab-header {
+          padding: 16px;
+          border-right: 1px solid var(--uk2-neutral-grey-200);
+          .mat-mdc-tab {
+            height: 32px !important;
+            span {
+              @include uk2-font__body-medium--50();
+            }
+          }
+        }
+        .mat-mdc-tab-body {
+          .tab-group-option {
+            padding: 8px 32px 8px 16px;
+            color: var(--uk2-neutral-slate-500);
+            @include uk2-font__body-regular--75();
+            cursor: pointer;
+            &:hover {
+              background-color: var(--uk2-neutral-grey-100);
+            }
+            &.active {
+              font-weight: 500 !important;
+              background-color: accent-color-50-hsl();
+              color: accent-color-400-hsl();
+            }
+          }
+        }
+      }
+    }
+  `}
+/>
+
+<IconOnlyMenuButton></IconOnlyMenuButton>
+<CustomCSSPropertiesLayout></CustomCSSPropertiesLayout>

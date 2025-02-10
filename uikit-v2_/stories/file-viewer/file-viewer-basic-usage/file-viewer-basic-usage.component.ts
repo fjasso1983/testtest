@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, DoCheck, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import {
   Uk2ButtonSizeEnum,
-  Uk2FileViewerElementPositionEnum,
   Uk2FlyoutMenuDirective,
   Uk2IconRegistryService,
   Uk2TextButtonVariant,
+  Uk2ElementPositionEnum
 } from '@axos/uikit-v2-lib';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 
@@ -20,9 +20,9 @@ export class FileViewerBasicUsageComponent implements DoCheck {
   @Input() fileViewerHideBorder: boolean = false;
   @Input() fileViewerHeight: string = '400px';
 
-  positionLeft = Uk2FileViewerElementPositionEnum.left;
-  positionCenter = Uk2FileViewerElementPositionEnum.center;
-  positionRight = Uk2FileViewerElementPositionEnum.right;
+  positionLeft = Uk2ElementPositionEnum.left;
+  positionCenter = Uk2ElementPositionEnum.center;
+  positionRight = Uk2ElementPositionEnum.right;
   buttonSmallSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.small;
   buttonVariant: Uk2TextButtonVariant = Uk2TextButtonVariant.button;
 

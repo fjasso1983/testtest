@@ -10,13 +10,20 @@ import dedent from 'ts-dedent';
 ## Prerequisites
 <DirectivesPrerequisitesDocsLayout></DirectivesPrerequisitesDocsLayout>
 
-- You need to import Uk2FlyoutMenuModule from @axos/uikit-v2-lib on your application module to access flyout menus.
+- You need to import Uk2FlyoutMenuModule,Uk2ElementPositionModule and Uk2FileViewerModule from @axos/uikit-v2-lib on your application module to access flyout menus.
 
 <Source
   dark
-  language='ts'
+  language="ts"
   code={dedent`
-      import { Uk2FlyoutMenuModule } from '@axos/uikit-v2-lib';
+    import { Uk2FlyoutMenuModule,Uk2ElementPositionModule, Uk2FileViewerModule } from '@axos/uikit-v2-lib';
+    \r
+    @NgModule({
+      ...
+      imports: [Uk2FlyoutMenuModule,Uk2ElementPositionModule, Uk2FileViewerModule],
+      ...
+    })
+    export class ExampleModule { }
   `}
 />
 
@@ -39,7 +46,7 @@ import dedent from 'ts-dedent';
 
 <p>In adition to the structure of this directives, footer and header elements need to indicate their position via different directive for correct styling.</p>
 <p>The structure of the position directive and it's values is visualized on the following diagram:</p>
-<img style={{marginBottom:"16px"}} src="/assets/uk2/components/file-viewer/assets/images/file-viewer-position-structure.png"/>
+<img style={{marginBottom:"16px"}} src="/assets/uk2/components/file-viewer/assets/images/file-viewer-position-structure-new.png"/>
 
 ## Container directive
 <p>The container has a single directive which encapsulates both footer and header directives.</p>
@@ -96,11 +103,11 @@ import dedent from 'ts-dedent';
 <p>Both footer and header elements need to indicate their position for correct styling.</p>
 
 <ul>
-    <li><b>[uk2FileViewerElementPosition]</b> File position directive. Sets the correct style needed for the position of an element in the file viewer footer or header.</li>
+    <li><b>[uk2ElementPosition]</b> File position directive. Sets the correct style needed for the position of an element in the file viewer footer or header.</li>
 </ul>
 
 <ul>
-    <li> <b>[uk2FileViewerElementPosition]</b> <u>Uk2FileViewerElementPositionEnum</u> <i>(optional)</i> Sets the position of where the element is located on the footer or header of the file viewer. (<strong>Default:</strong> Uk2FileViewerElementPositionEnum.center)</li>
+    <li> <b>[uk2ElementPosition]</b> <u>Uk2ElementPositionEnum</u> <i>(optional)</i> Sets the position of where the element is located on the footer or header of the file viewer. (<strong>Default:</strong> Uk2ElementPositionEnum.center)</li>
 </ul>
 
 ## Visualizing PDF documents example
@@ -180,9 +187,9 @@ import dedent from 'ts-dedent';
       fileViewerHideBorder = false;
       \r
       //File viewer position declarations to use on the viewer
-      positionLeft = Uk2FileViewerElementPositionEnum.left;
-      positionCenter = Uk2FileViewerElementPositionEnum.center;
-      positionRight = Uk2FileViewerElementPositionEnum.right;
+      positionLeft = Uk2ElementPositionEnum.left;
+      positionCenter = Uk2ElementPositionEnum.center;
+      positionRight = Uk2ElementPositionEnum.right;
       \r
       //Button config
       buttonSmallSize: Uk2ButtonSizeEnum = Uk2ButtonSizeEnum.small;
@@ -300,7 +307,7 @@ import dedent from 'ts-dedent';
     >
       <div uk2FileViewerHeader>
         <div
-          [uk2FileViewerElementPosition]="positionLeft"
+          [uk2ElementPosition]="positionLeft"
           [uk2FileViewerPageSize]="pdf?.numPages"
           uk2FileViewerPageControl
         >
@@ -314,7 +321,7 @@ import dedent from 'ts-dedent';
           />
           of {{ pdf?.numPages }}
         </div>
-        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerZoomControl>
+        <div [uk2ElementPosition]="positionCenter" uk2FileViewerZoomControl>
           <button
             (click)="setZoomValue('minus')"
             uk2TextIconButton
@@ -341,7 +348,7 @@ import dedent from 'ts-dedent';
             ><mat-icon [svgIcon]="svgZoomMore"></mat-icon
           ></button>
         </div>
-        <div [uk2FileViewerElementPosition]="positionRight" uk2FileViewerActionControl>
+        <div [uk2ElementPosition]="positionRight" uk2FileViewerActionControl>
           <button
             mat-button
             uk2TextIconButton
@@ -377,16 +384,16 @@ import dedent from 'ts-dedent';
         (after-load-complete)="onLoadPDFCallback($event)"
       ></pdf-viewer>
       <div uk2FileViewerFooter>
-        <div [uk2FileViewerElementPosition]="positionLeft">
+        <div [uk2ElementPosition]="positionLeft">
           <button (click)="onExpand()" uk2TextIconButton disableRipple mat-button [uk2ButtonSize]="buttonSmallSize">
             <mat-icon [svgIcon]="svgExpand" *ngIf="!expanded"></mat-icon>
             <mat-icon [svgIcon]="svgCollapse" *ngIf="expanded"></mat-icon>
           </button>
         </div>
-        <div [uk2FileViewerElementPosition]="positionCenter" uk2FileViewerFileName>
+        <div [uk2ElementPosition]="positionCenter" uk2FileViewerFileName>
           {{ pdfName }}
         </div>
-        <div [uk2FileViewerElementPosition]="positionRight">
+        <div [uk2ElementPosition]="positionRight">
           <button
             (click)="openFullScreen()"
             uk2TextIconButton

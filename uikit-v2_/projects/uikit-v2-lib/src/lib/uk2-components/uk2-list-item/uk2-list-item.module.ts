@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Uk2ListItemComponent } from './uk2-list-item.component';
 import { Uk2DropdownListItemChevronComponent } from './dropdown-list-items';
 import { Uk2ListItemClickableDirective, Uk2ListItemSelectedDirective } from './directives';
-
 @NgModule({
   imports: [CommonModule, MatIconModule],
   declarations: [

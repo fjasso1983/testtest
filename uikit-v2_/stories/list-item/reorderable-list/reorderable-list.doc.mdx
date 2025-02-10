@@ -1,0 +1,414 @@
+<!-- Custom-MDX-Documentation.mdx -->
+import { Story, Meta } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { Source } from '@storybook/addon-docs';
+import dedent from 'ts-dedent';
+
+# Reordable list item documentation
+### Reordable Checkbox List  and Menu item integration examples
+
+## Introduction
+<p>
+In this documentation, we will provide the necessary code to use Angular Material's CDK for the drag and drop event in the List Item and Menu Item components.
+In this example, we will demonstrate how to create a reorderable list using the Uk2ListItem components and the uk2MenuListItem directive.
+</p>
+
+<br />
+
+## Prerequisites
+<p>
+To use Angular Material's drag and drop functionality, you need to import the MatIconModule, DragDropModule, and if you are using check boxes in your list items, you also need to import the MatCheckboxModule.
+</p>
+
+<p>You need to import Uk2ListItemModule,MatIconModule,DragDropModule and MatCheckboxModule  into the desired module of your Angular App. </p>
+
+<Source
+  dark
+  language="ts"
+  code={dedent`
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Uk2ListItemModule, Uk2ServicesModule } from '@axos/uikit-v2-lib';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+\r
+  @NgModule({
+    ...
+    imports: [
+      MatIconModule,
+      MatCheckboxModule,
+      Uk2ListItemModule,
+      Uk2ServicesModule,
+      DragDropModule,
+      CdkDragDrop,
+    ],
+      ...
+    })
+    export class ExampleModule { }
+  `}
+/>
+
+<p>Once imported, here is a quick example of the drag and drop implementation:</p>
+<Source
+  dark
+  language="html"
+  code={dedent`
+  <div> 
+    <h2>List items with drag functionality</h2>
+    <div cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="dropEvent($event)">
+      <div *ngFor="let item of listItems" cdkDrag>
+        <uk2-list-item uk2Clickable [uk2ListItem]="item" [uk2CurrencyOptions]="currencyOptions" [uk2ShowDragHandle]="showDragIcon">
+          <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+        </uk2-list-item>
+      </div>
+    </div>
+  </div>
+  `}
+/>
+
+<p>
+As shown in the previous example, we define the div as cdkDropList and add the orientation using cdkDropListOrientation. We also configure the event that will be triggered when the component is dropped.
+</p>
+<p>
+For more information, see the following section of <a href="https://v15.material.angular.io/cdk/drag-drop/overview" _target="_blank"> Angular Material CDK Drag and Drop.</a>
+
+</p>
+
+## Handler Icon
+<p>
+  The Uk2ListItemComponent supports the drag handle icon, which can be added to the list item by setting the [uk2AddDragHandle] input to true.  The default drag handle icon is a material icon named "uk2-dot-grid-drag".
+</p>
+<p>
+  For the Menu list items, The drag handle icon is a material icon that can be customized by setting the using Axos Iconography input to the desired icon name.
+</p>
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+    <div cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="dropEvent($event)">
+      <div *ngFor="let item of menuListItems" cdkDrag>
+        <div uk2MenuListItem cdkDragHandle [uk2IsDisabled]="false" [uk2IsActive]="item.isSelected" [uk2IsLoading]="false"
+          [uk2ShowDividerLine]="false" (click)="onActionClicked(firstItem)">
+          <!-- Drag handle icon -->
+          <div *ngIf="showDragIcon" class="uk2-list-drag-handle">
+            <mat-icon [svgIcon]="dragIcon"></mat-icon>
+          </div>
+          <!-- Menu item icon -->
+          <mat-icon [svgIcon]="item.svgIconName"></mat-icon>
+          <p>{{ item.bodyText }}</p>
+        </div>
+      </div>
+    </div>
+  `}
+/>
+
+
+## Models
+<p>The following models are required to create a list of items</p>
+Uk2ListItem
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    interface Uk2ListItem {
+      showControl?: boolean;
+      svgIconName?: string;
+      imageUrl?: string;
+      headerLabelName?: string;
+      headerLabelIdentifier?: string;
+      moneyAmount?: number;
+      bodyText?: string;
+      uk2IsPending?: boolean;
+      uk2IsDisabled?: boolean;
+      uk2ShowDividerLine?: boolean;
+      uk2IsLoading?: boolean;
+      uk2CurrencyOptions?: IUk2ListItemCurrencyOptions;
+      value: any;
+    }
+  `}
+/>
+Uk2ListItemCurrencyOptions
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    interface Uk2ListItemCurrencyOptions {
+      currencyCode?: string;
+      display?: string;
+      digitsInfo?: string;
+      locale?: string;
+    }
+  `}
+/>
+
+## Directives
+### Uk2ListItemClickableDirective <i>[uk2Clickable]</i>
+This directive is applied on the list-item component <b>uk2-list-item[uk2Clickable]</b> and it makes the list-item listen to click events that can toggle the selected/checked state of angular material radio button or angular material checkbox.
+
+<Source
+  dark
+  language="html"
+  code={dedent`
+  <uk2-list-item
+      uk2Clickable
+      [uk2ListItem]="listItem"
+      [uk2IsDisabled]="disabled"
+      [uk2IsPending]="pending"
+      [uk2IsLoading]="isLoading"
+      [uk2ShowDividerLine]="showDivider"
+      [uk2CurrencyOptions]="currencyOptions"
+    >
+    <!-- Projecting a checkbox element -->
+    <mat-checkbox uk2Checkbox disableRipple formControlName="checkboxControl"></mat-checkbox>
+    <!-- Projecting a radio element -->
+    <mat-radio-button disableRipple uk2RadioButton [value]="item.headerLabelName"> </mat-radio-button>
+  </uk2-list-item>
+  `}
+/>
+
+## Dynamic content inside list item
+<p>
+  Uk2ListItemComponent supports content projection, allowing client to insert dynamic content inside list-item, this content can be another component or html elements. Uk2ListItemComponent supports integration with material radio button and material checkbox, when this input elements are selected that would change the styles from list-item.
+</p>
+
+Example of content projection
+<Source
+  dark
+  language="html"
+  code={dedent`
+<uk2-list-item
+    uk2Clickable
+    [uk2ListItem]="listItem"
+    [uk2IsDisabled]="disabled"
+    [uk2IsPending]="pending"
+    [uk2IsLoading]="isLoading"
+    [uk2ShowDividerLine]="showDivider"
+    [uk2CurrencyOptions]="currencyOptions"
+  >
+  <!-- Dynamic content -->
+  <mat-icon svgIcon="uk2-chevron-right"></mat-icon>
+</uk2-list-item>
+`}
+/>
+
+## Events
+<p>
+  The Angular Material CDK provides a function to handle the drop event of the items, this event will provide the 
+  solution and the trigger to handle the events of the drop list.
+</p>
+
+Html File
+<Source
+  dark
+  language="html"
+  code={dedent`
+  <div cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="dropEvent($event)">
+    <div *ngFor="let item of listItems" cdkDrag>
+      <uk2-list-item uk2Clickable [uk2ListItem]="item" [uk2CurrencyOptions]="currencyOptions" [uk2AddDragHandle]="true">
+        <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+      </uk2-list-item>
+    </div>
+  </div>
+`}
+/>
+
+TS file
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    dropEvent(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.listItems, event.previousIndex, event.currentIndex);
+    }
+  `}
+/>
+<p>
+  the moveItemInArray function will rearrange the items from the droped position
+</p>
+{/* 
+<ul>
+  <li>
+    [uk2ListItem] <u>Uk2ListItem</u> <i>(required)</i> is the model of an account used to display list-item
+  </li>
+  <li>
+    [uk2IsDisabled] <u>boolean</u> <i>(optional)</i> is flag to activate disable state of list-item
+  </li>
+  <li>
+    [uk2IsPending] <u>boolean</u> <i>(optional)</i> is flag to activate pending state of list-item
+  </li>
+  <li>
+    [uk2IsLoading] <u>boolean</u> <i>(optional)</i> is flag to activate skeleton state of list-item
+  </li>
+  <li>
+    [uk2ShowDividerLine] <u>boolean</u> <i>(optional)</i> is a flag to append a divider line at the end of list-item
+  </li>
+  <li>
+    [uk2CurrencyOptions] <u>Uk2ListItemCurrencyOptions</u> <i>(optional)</i> is a configuration object to format money amount more details if <a href="https://angular.io/api/common/CurrencyPipe" target="_blank">angular documentation</a>
+  </li>
+  <li>
+    [uk2AddDragHandle] <u>boolean</u> <i>(optional)</i> is a flag to add drag handle icon
+  </li>
+</ul> */}
+<br/>
+
+## Sample Code
+
+<p>.component.ts</p>
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Component, Input,  OnInit } from '@angular/core';
+    import { Uk2ListItem, Uk2ListItemCurrencyOptions } from '@axos/uikit-v2-lib';
+    import { CdkDragDrop, moveItemInArray, } from '@angular/cdk/drag-drop';
+    \n
+    @Component({
+        selector: 'lib-reordable-list-item',
+        templateUrl: './reordable-list.component.html',
+        styleUrls: ['./reordable-list.component.scss'],
+    })
+    export class ReordableListItemComponent implements OnInit {
+        @Input() currencyOptions: Uk2ListItemCurrencyOptions = {
+            currencyCode: 'USD',
+            display: 'symbol',
+            digitsInfo: '1.2-2',
+          };
+    \n
+        constructor() {}
+    \n
+        listItemFirst: Uk2ListItem = {
+            headerLabelName: 'First item',
+            value: 'firstitem',
+        };
+    \n        
+        listItemSecond: Uk2ListItem = {
+            headerLabelName: 'Second Item',
+            value: 'seconditem',
+        };
+    \n        
+        listItemThird: Uk2ListItem = {
+            headerLabelName: 'Third Item',
+            value: 'thirditem',
+        };
+    \n
+        listItems!:Uk2ListItem[];
+    \n
+        ngOnInit(): void {
+            this.listItems= [this.listItemFirst, this.listItemSecond,this.listItemThird];
+        }
+    \n
+        dropEvent(event: CdkDragDrop<string[]>) {
+            moveItemInArray(this.listItems, event.previousIndex, event.currentIndex);
+        }
+    }
+  `}
+/>
+
+<p>.component.html</p>
+<Source
+  dark
+  language="html"
+  code={dedent`
+  <div>
+    <h2>Basic Usage</h2>
+    <p>This page showcases the following:</p>
+    <ul>
+      <li>Checkbox list item reordable list.</li>
+    </ul>
+  </div>
+
+  <div>
+    <h2>List items with drag functionality</h2>
+    <div cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="dropEvent($event)">
+      <div *ngFor="let item of listItems" cdkDrag>
+        <uk2-list-item uk2Clickable [uk2ListItem]="item" [uk2CurrencyOptions]="currencyOptions" [uk2AddDragHandle]="true">
+          <mat-checkbox uk2Checkbox disableRipple></mat-checkbox>
+        </uk2-list-item>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+`}
+/>
+
+## Sample Code Menu List Item
+<p>.component.ts</p>
+<Source
+  dark
+  language="ts"
+  code={dedent`
+    import { Component, Input,  OnInit } from '@angular/core';
+    import { Uk2IconRegistryService, Uk2ListItem, Uk2ListItemCurrencyOptions, Uk2Tier1UtilityEnum } from '@axos/uikit-v2-lib';
+    import { CdkDragDrop, moveItemInArray, } from '@angular/cdk/drag-drop';
+    \n
+    @Component({
+        selector: 'lib-reordable-list-item',
+        templateUrl: './reordable-list.component.html',
+        styleUrls: ['./reordable-list.component.scss'],
+    })
+    export class ReordableListItemComponent implements OnInit {
+        \n
+        constructor(private iconRegister:Uk2IconRegistryService) {}
+        \n
+        menuItemFirst = {
+            bodyText: 'First item',
+            svgIconName: 'uk2-download',
+            value: 'option1',
+            isSelected: false,
+        };
+        \n
+        menuItemSecond = {
+            bodyText: 'Second Item',
+            svgIconName: 'uk2-share',
+            value: 'option2',
+            isSelected: false,
+        };
+        \n
+        menuItemThird = {
+            bodyText: 'Third Item',
+            svgIconName: 'uk2-upload',
+            value: 'option3',
+            isSelected: false,
+        };
+        \n
+        dragIcon!:Uk2Tier1UtilityEnum;
+        menuListItems!:any[];
+        \n
+        ngOnInit(): void {
+            this.iconRegister.registerAllCategories();
+            this.menuListItems=[this.menuItemFirst,this.menuItemSecond,this.menuItemThird];
+            this.dragIcon=Uk2Tier1UtilityEnum.dotGridDrag;
+        }
+        \n
+        dropEvent(event: CdkDragDrop<string[]>) {
+            moveItemInArray(this.menuListItems, event.previousIndex, event.currentIndex);
+        }
+    }
+  `}
+/>
+
+<p>.component.html</p>
+<Source
+  dark
+  language="html"
+  code={dedent`
+<div>
+  <h2>Menu list item with drag functionality</h2>
+</div>
+<div>
+  <div cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="dropEvent($event)">
+    <div *ngFor="let item of menuListItems" cdkDrag>
+      <div uk2MenuListItem cdkDragHandle [uk2IsDisabled]="false" [uk2IsActive]="item.isSelected" [uk2IsLoading]="false"
+        [uk2ShowDividerLine]="false" (click)="onActionClicked(firstItem)">
+        <div class="uk2-list-drag-handle">
+          <mat-icon [svgIcon]="dragIcon"></mat-icon>
+        </div>
+        <mat-icon [svgIcon]="item.svgIconName"></mat-icon>
+        <p>{{ item.bodyText }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+`}
+/>

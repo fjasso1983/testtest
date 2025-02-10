@@ -1,4 +1,4 @@
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { Overlay } from '@angular/cdk/overlay';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,15 +7,12 @@ import {
   QueryList,
   SimpleChanges,
   ViewContainerRef,
-  OnDestroy,
   ElementRef,
 } from '@angular/core';
 
-import { IUk2IsLoading } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
-
+import { IUk2IsLoading, Uk2BottomSheetService } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 import { MatOption } from '@angular/material/core';
-import { MatBottomSheetRef, MatBottomSheet } from '@angular/material/bottom-sheet';
-
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Uk2BottomSheetComponent } from '../uk2-bottom-sheet.component';
 
 @Component({
@@ -23,21 +20,25 @@ import { Uk2BottomSheetComponent } from '../uk2-bottom-sheet.component';
   templateUrl: './uk2-bottom-sheet-options.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Uk2BottomSheetOptionsComponent
-  extends Uk2BottomSheetComponent
-  implements OnDestroy, OnChanges, IUk2IsLoading
-{
+export class Uk2BottomSheetOptionsComponent extends Uk2BottomSheetComponent implements OnChanges, IUk2IsLoading {
   @Input() options: QueryList<MatOption<any>> = new QueryList();
+  @Input() uk2IsLoading!: boolean;
+  @Input() title!: string;
+  @Input() description!: string;
+  @Input() headerTitle!: string;
+  @Input() backButtonLabel!: string;
+  @Input() showNavigationIcons!: boolean;
+  @Input() showDivider!: boolean;
   optionHtmlElements: HTMLElement[] = [];
 
   constructor(
     public bottomSheetService: MatBottomSheet,
-    private matBottomSheet: MatBottomSheetRef,
+    public bottomSheetStackService: Uk2BottomSheetService,
     public overlay: Overlay,
     public viewContainerRef: ViewContainerRef,
     public elementRef: ElementRef
   ) {
-    super(bottomSheetService, matBottomSheet, overlay, viewContainerRef, elementRef);
+    super(bottomSheetService, bottomSheetStackService, overlay, viewContainerRef, elementRef);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -50,6 +51,10 @@ export class Uk2BottomSheetOptionsComponent
 
   handleOptionSelected(option: MatOption) {
     option.select();
-    this.matBottomSheet.dismiss();
+    this.bottomSheetStackService.closeBottomSheet();
+  }
+
+  handleCloseBottomSheet() {
+    this.bottomSheetStackService.closeBottomSheet();
   }
 }

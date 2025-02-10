@@ -38,6 +38,10 @@ export class AppComponent implements OnInit {
       label: 'File uploader',
     },
     {
+      route: '/components/currency',
+      label: 'Currency',
+    },
+    {
       route: '/components/timer',
       label: 'Timer',
     },

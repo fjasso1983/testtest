@@ -1,0 +1,38 @@
+@import '../../../projects/uikit-v2-lib/src/styles/uk2';
+@include uk2-menu-icon-button-custom-size-range;
+
+.custom-content-example {
+    border-radius: inherit;
+    border-right: 1px solid var(--uk2-neutral-grey-200);
+    mat-tab-group {
+        display: flex;
+        flex-basis: auto;
+        flex-grow: 2;
+        .mat-mdc-tab-header {
+            padding: 16px;
+            border-right: 1px solid var(--uk2-neutral-grey-200);
+            .mat-mdc-tab {
+                height: 32px !important;
+                span {
+                    @include uk2-font__body-medium--50();
+                }
+            }
+        }
+        .mat-mdc-tab-body {
+            .tab-group-option {
+                padding: 8px 32px 8px 16px;
+                color: var(--uk2-neutral-slate-500);
+                @include uk2-font__body-regular--75();
+                cursor: pointer;
+                &:hover {
+                    background-color: var(--uk2-neutral-grey-100);
+                }
+                &.active {
+                    font-weight: 500 !important;
+                    background-color: accent-color-50-hsl();
+                    color: accent-color-400-hsl();
+                }
+            }
+        }
+    }
+}

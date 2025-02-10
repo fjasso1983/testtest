@@ -1,6 +1,20 @@
 <ng-container *ngIf="state$ | async as state">
   <div class="uk2-filter-chip-label" [class.uk2-is-active]="state.isActive">
     <span class="uk2-filter-chip-label-identifier" [class.valid-condition]="state.isActive">
+      <span *ngIf="!showNumberOfItems">{{ state.formattedIdentifier | titlecase }}</span>
+      <span *ngIf="showNumberOfItems">{{ formatIdentifierNumberOfItems(state) }}</span>
+    </span>
+    <span class="uk2-filter-chip-label-condition" *ngIf="!showNumberOfItems">
+      <span *ngIf="state.isActive">&nbsp;</span>{{ state.formattedCondition }}
+    </span>
+    <mat-icon [svgIcon]="chevronDownIcon"></mat-icon>
+  </div>
+  <div
+    class="uk2-filter-chip-label uk2-filter-chip-label-ghost"
+    [class.uk2-is-active]="state.isActive"
+    #conditionalCloneEl
+  >
+    <span class="uk2-filter-chip-label-identifier" [class.valid-condition]="state.isActive">
       {{ state.formattedIdentifier | titlecase }}
     </span>
     <span class="uk2-filter-chip-label-condition">

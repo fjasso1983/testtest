@@ -5,7 +5,7 @@
     role="listbox"
     cdkTrapFocus
     [style.minWidth]="overlayMinWidth$ | async"
-    (keydown)="moveFocus($event)"
+    (keydown)="handleKeyEvent($event)"
   >
     <ng-content></ng-content>
     <div
@@ -14,7 +14,7 @@
       (click)="clearValue()"
       (keyup.enter)="clearValue()"
       (keyup.space)="clearValue()"
-      *ngIf="isActive$ | async"
+      *ngIf="(showClearSelection$ | async) && (isActive$ | async)"
       #clearSelection
     >
       Clear selection

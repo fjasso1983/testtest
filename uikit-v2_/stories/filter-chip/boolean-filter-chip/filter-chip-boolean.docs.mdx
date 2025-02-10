@@ -7,7 +7,7 @@ import dedent from 'ts-dedent';
 ## Introduction
 
 <p>
-  Uk2FilterChipBooleanComponent is a component that let you select one or multiple predefined options and conditions. It offers a set of methods to control overlay and clear filter value, you can access the component API by viewChildren or with template variable. Designed to adhere to <a target="_blank" href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=20-5756&t=iUY7hZX9WGoeDLtd-4">Axos Design System</a>.
+  Uk2FilterChipBooleanComponent is a component that let you select one or multiple projected options and conditions. It offers a set of methods to control overlay and clear filter value, you can access the component API by viewChildren or with template variable. Designed to adhere to <a target="_blank" href="https://www.figma.com/design/hpH5aw4XwrvayJMkWpPDPp/%F0%9F%91%B7%E2%80%8D%E2%99%82%EF%B8%8F---framework-core---responsive-web-component-library?node-id=20-5756&t=iUY7hZX9WGoeDLtd-4">Axos Design System</a>.
 </p>
 
 ### Prerequisites
@@ -18,8 +18,7 @@ import dedent from 'ts-dedent';
   dark
   language='ts'
   code={dedent`
-      //@axos/uikit-v2-lib
-      import { Uk2FilterChipBooleanModule } from '@axos/uikit-v2-lib';
+      import { Uk2FilterChipBooleanModule, Uk2FilterChipOverlayOptionModule } from '@axos/uikit-v2-lib';
   `}
 />
 
@@ -29,20 +28,37 @@ import dedent from 'ts-dedent';
   dark
   language='ts'
   code={dedent`
-      //@angular/material
       import { MatIconModule } from '@angular/material/icon';
+      import { MatCheckboxModule } from '@angular/material/checkbox';
   `}
 />
+
+### You can optionally import one of the list item modules from @axos/uikit-v2-lib to project the options in the filter chip button.
+
+<Source
+  dark
+  language='ts'
+  code={dedent`
+      // Option 1 import Uk2ListItemModule to access Uk2ListItemComponent and use it to project the options
+      import { Uk2ListItemModule } from '@axos/uikit-v2-lib';
+      // Option 2 import Uk2MenuListItemModule to access Uk2MenuListItemDirective and use it to project the options
+      import { Uk2MenuListItemModule } from '@axos/uikit-v2-lib';
+  `}
+/>
+
+<p>Find examples of integration of Uk2MenuListItemModule <a href='#menu-list-item-example'>here</a> </p>
+<p>Find examples of integration of Uk2ListItemModule <a href='#list-item-example'>here</a> </p>
 
 ## Inputs
 
 <ul>
   <li>[uk2Conditions] <u>Uk2Condition[]</u> <i>(optional)</i> Set the conditional options for filter chip</li>
   <li>[uk2IsLoading] <u>boolean</u> <i>(optional)</i> Toggle skeleton mode</li>
-  <li>[uk2Options] <u>Uk2FilterChipOption[]</u> <i>required</i> Array of options that will be rendered in overlay list and set the selected options</li>
   <li>[uk2Identifier] <u>string</u> <i>required</i> Identifier text of filter chip</li>
   <li>[uk2OverlayMinWidth] <u>string</u> <i>(optional)</i> String used to set min-width of overlay format should include unit of measurement compatible with CSS like (px, rem, em, etc)</li>
   <li>[uk2IsMultiple] <u>boolean</u> <i>(optional)</i> It enables multiple option selection</li>
+  <li>[uk2MaxWidth] <u>number</u> Set the maximum width of filter chip button before applying truncation to selection</li>
+  <li>[uk2ShowClearSelection] <u>boolean</u> Flag to show/hide clear selection button in filter chip overlay</li>
 </ul>
 
 ## Outputs
@@ -71,19 +87,6 @@ import dedent from 'ts-dedent';
   dark
   language='ts'
   code={dedent`
-  import { Uk2FilterChipOption } from '@axos/uikit-v2-lib';
-  \r
-  export type Uk2FilterChipOption = {
-    value: string;
-    selected: boolean;
-  };
-  `}
-/>
-
-<Source
-  dark
-  language='ts'
-  code={dedent`
   import { Uk2FilterValue } from '@axos/uikit-v2-lib';
   \r
   export type Uk2FilterValue = {
@@ -95,7 +98,7 @@ import dedent from 'ts-dedent';
 />
 
 ## Sample code
-### Basic Usage
+### <p id="list-item-example">Basic Usage</p>
 
 <p>*.component.html</p>
 
@@ -109,10 +112,35 @@ import dedent from 'ts-dedent';
       [uk2IsMultiple]="isMultiple"
       [uk2Conditions]="conditions"
       [uk2OverlayMinWidth]="overlayMinWidth"
-      [uk2Options]="options"
+      [uk2ShowClearSelection]="showClearSelection"
       (uk2DeleteFilter)="handleDeleteFilter()"
       (uk2FilterValueChanges)="handleFilterValueChanges($event)"
-    ></uk2-filter-chip-boolean>
+      #chip="uk2FilterChipBoolean"
+    >
+      <uk2-filter-chip-overlay-option
+        *ngFor="let option of options"
+        [uk2Value]="option.value"
+        [uk2Multiple]="isMultiple"
+        [uk2IsDisabled]="option.uk2IsLoading || option.uk2IsDisabled || false"
+        #overlayOption="uk2FilterChipOption"
+        (click)="chip.closeOverlay()"
+      >
+        <!-- You can project any element, for this example uk2-list-item is been projected -->
+        <uk2-list-item
+          [uk2ListItem]="option"
+          [uk2IsDisabled]="option.uk2IsDisabled"
+          [uk2IsLoading]="option.uk2IsLoading || false"
+        >
+          <mat-checkbox
+            tabIndex="-1"
+            uk2Checkbox
+            disableRipple
+            [checked]="overlayOption.checked"
+            *ngIf="isMultiple"
+          ></mat-checkbox>
+        </uk2-list-item>
+      </uk2-filter-chip-overlay-option>
+    </uk2-filter-chip-boolean>
   `}
 />
 
@@ -127,22 +155,26 @@ import dedent from 'ts-dedent';
     identifier: string = 'Name';
     isMultiple = false;
     overlayMinWidth = 'auto';
-    options: Uk2FilterChipOption[] = [
+    options: Uk2ListItem[] = [
       {
         value: 'Luis',
-        selected: false,
+        uk2IsSelected: false,
+        headerLabelName: 'Luis',
       },
       {
         value: 'Sara',
-        selected: false,
+        uk2IsSelected: false,
+        headerLabelName: 'Sara',
       },
       {
         value: 'John',
-        selected: false,
+        uk2IsSelected: false,
+        headerLabelName: 'John',
       },
       {
         value: 'Peter',
-        selected: false,
+        uk2IsSelected: false,
+        headerLabelName: 'Peter',
       },
     ];
     conditions: Uk2Condition[] = [
@@ -155,6 +187,7 @@ import dedent from 'ts-dedent';
         buttonLabel: 'Not',
       },
     ];
+    showClearSelection: true;
     \r
     handleDeleteFilter() {
       console.log('Filter deleted');
@@ -172,26 +205,51 @@ import dedent from 'ts-dedent';
 
 <Source
   dark
+  language='html'
+  code={dedent`
+    <uk2-filter-chip-boolean
+      ...
+    >
+      <uk2-filter-chip-overlay-option
+        *ngFor="let option of options"
+        ...
+        <!-- Input to mark option as selected -->
+        [uk2Selected]="option.uk2IsSelected"
+      >
+        <!-- You can project any element, for this example uk2-list-item is been projected -->
+      </uk2-filter-chip-overlay-option>
+    </uk2-filter-chip-boolean>
+  `}
+/>
+
+<Source
+  dark
   language='typescript'
   code={dedent`
   export class YourComponent {
     //... more code
-    options: Uk2FilterChipOption[] = [
+    // The structure of the options projected are not limited to Uk2LitItem you can use any structure
+    // that can pass all the necessary inputs to uk2-filter-chip-overlay-option element
+    options: Uk2ListItem[] = [
       {
         value: 'Luis',
-        selected: false,
+        uk2IsSelected: false,
+        headerLabelName: 'Luis',
       },
       {
         value: 'Sara',
-        selected: true,
+        uk2IsSelected: true,
+        headerLabelName: 'Sara',
       },
       {
         value: 'John',
-        selected: false,
+        uk2IsSelected: false,
+        headerLabelName: 'John',
       },
       {
         value: 'Peter',
-        selected: false,
+        uk2IsSelected: false,
+        headerLabelName: 'Peter',
       },
     ];
     //... rest of the code
@@ -207,32 +265,183 @@ import dedent from 'ts-dedent';
 
 <Source
   dark
+  language='html'
+  code={dedent`
+    <uk2-filter-chip-boolean
+      [uk2IsMultiple]="isMultiple"
+      ...
+    >
+      <uk2-filter-chip-overlay-option
+        *ngFor="let option of options"
+        ...
+        <!-- Input to mark option as selected -->
+        [uk2Selected]="option.uk2IsSelected"
+      >
+        <!-- You can project any element, for this example uk2-list-item is been projected -->
+      </uk2-filter-chip-overlay-option>
+    </uk2-filter-chip-boolean>
+  `}
+/>
+
+<Source
+  dark
   language='typescript'
   code={dedent`
   export class YourComponent {
     //... more code
     isMultiple = true;
-    options: Uk2FilterChipOption[] = [
+    // The structure of the options projected are not limited to Uk2LitItem you can use any structure
+    // that can pass all the necessary inputs to uk2-filter-chip-overlay-option element
+    options: Uk2ListItem[] = [
       {
         value: 'Luis',
-        selected: false,
+        uk2IsSelected: true,
+        headerLabelName: 'Luis',
       },
       {
         value: 'Sara',
-        selected: true,
+        uk2IsSelected: true,
+        headerLabelName: 'Sara',
       },
       {
         value: 'John',
-        selected: true,
+        uk2IsSelected: false,
+        headerLabelName: 'John',
       },
       {
         value: 'Peter',
-        selected: false,
+        uk2IsSelected: false,
+        headerLabelName: 'Peter',
       },
-    ];
+    ]
     //... rest of the code
   }
   `}
 />
 
 <p>In this example the options with value Sara and John will be selected as the default value</p>
+
+## <p id="menu-list-item-example">Example of integration with uk2-menu-list-item directive</p>
+
+<p>Boolean filter chip can be integrated with uk2-menu-list-item directive to show the options in the filter chip button</p>
+
+<p> *component.html </p>
+
+<Source
+  dark
+  language='html'
+  code={dedent`
+    <uk2-filter-chip-boolean
+      [uk2Conditions]="conditions"
+      [uk2IsLoading]="isLoading"
+      [uk2Identifier]="identifier"
+      [uk2OverlayMinWidth]="overlayMinWidth"
+      [uk2IsMultiple]="isMultiple"
+      [uk2CloseOverlayAfterClear]="closeOverlayAfterClearSelection"
+      [uk2FilterChipMaxWidth]="filterChipMaxWidth"
+      [uk2ShowClearSelection]="showClearSelection"
+      (uk2DeleteFilter)="removeFilter.emit()"
+      (uk2FilterValueChanges)="filterChanged.emit($event)"
+      #chip="uk2FilterChipBoolean"
+    >
+      <uk2-filter-chip-overlay-option
+        *ngFor="let option of options; let last = last"
+        [uk2Value]="option.value"
+        [uk2Multiple]="isMultiple"
+        [uk2IsDisabled]="option.uk2IsLoading || option.uk2IsDisabled || false"
+        [uk2Selected]="option.uk2IsSelected || false"
+        #overlayOption="uk2FilterChipOption"
+        (click)="handleOptionClick()"
+      >
+        <div
+          uk2MenuListItem
+          [uk2ShowDividerLine]="!last"
+          [uk2IsActive]="overlayOption.checked"
+          [uk2IsDisabled]="option.uk2IsDisabled || false"
+          [uk2IsLoading]="option.uk2IsLoading || false"
+        >
+          <mat-checkbox
+            tabIndex="-1"
+            uk2Checkbox
+            disableRipple
+            [checked]="overlayOption.checked"
+            *ngIf="isMultiple"
+          ></mat-checkbox>
+          <mat-icon [svgIcon]="option.svgIconName || ''"></mat-icon>
+          <p>{{ option.headerLabelName }}</p>
+        </div>
+      </uk2-filter-chip-overlay-option>
+    </uk2-filter-chip-boolean>
+  `}
+/>
+
+<p> *component.ts </p>
+
+<Source
+  dark
+  language='typescript'
+  code={dedent`
+  export class YourComponent {
+    isLoading: boolean = false;
+    identifier: string = 'Name';
+    isMultiple = false;
+    overlayMinWidth = 'auto';
+    options: Uk2ListItem[] = [
+      {
+        showControl: this.isMultiple,
+        headerLabelName: 'Alexander the Great',
+        value: 'Alexander the Great',
+        uk2IsSelected: true,
+        svgIconName: 'uk2-location-pin',
+      },
+      {
+        showControl: this.isMultiple,
+        headerLabelName: 'Benjamin Franklin',
+        value: 'Benjamin Franklin',
+        svgIconName: 'uk2-exclamation-triangle',
+      },
+      {
+        showControl: this.isMultiple,
+        headerLabelName: 'John',
+        value: 'John',
+        uk2IsDisabled: true,
+      },
+      {
+        showControl: this.isMultiple,
+        headerLabelName: 'Katherine Johnson',
+        value: 'Katherine Johnson',
+        uk2IsLoading: true,
+      },
+      {
+        showControl: this.isMultiple,
+        headerLabelName: 'Sebastian the Crab',
+        value: 'Sebastian the Crab',
+        imageUrl: 'https://v15.angular.io/assets/images/logos/angular/shield-large.svg',
+        moneyAmount: 926122.99,
+        svgIconName: 'uk2-location-pin',
+        bodyText: 'Consecutar sit perlabum',
+        headerLabelIdentifier: '1234',
+      },
+    ];
+    conditions: Uk2Condition[] = [
+      {
+        label: 'Is',
+        buttonLabel: 'Is',
+      },
+      {
+        label: 'Is not',
+        buttonLabel: 'Not',
+      },
+    ];
+    showClearSelection: true;
+    \r
+    handleDeleteFilter() {
+      console.log('Filter deleted');
+    }
+    \r
+    handleFilterValueChanges(value: Uk2FilterValue) {
+      console.log(value);
+    }
+  }
+  `}
+/>

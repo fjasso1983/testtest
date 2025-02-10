@@ -9,7 +9,8 @@ import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 import { BehaviorSubject } from 'rxjs';
 
-import { Uk2ServicesModule, Uk2IconRegistryService } from '@axos/uikit-v2-lib';
+import { Uk2ServicesModule } from '@axos/uikit-v2-lib';
+import { Uk2IconRegistryService } from '../../uk2-services';
 
 import { Uk2BreadcrumbsComponent } from './uk2-breadcrumbs.component';
 import { Uk2BreadcrumbsContainerDirective } from './uk2-breadcrumbs-container/uk2-breadcrumbs-container.directive';

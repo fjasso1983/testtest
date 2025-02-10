@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
+import { Component, ElementRef, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { Overlay } from '@angular/cdk/overlay';
@@ -14,10 +14,10 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { of } from 'rxjs';
 
 import { Uk2MenuButtonComponent } from './uk2-menu-button.component';
-import { Uk2DirectivesModule } from '../../uk2-directives';
+import { Uk2DirectivesModule, Uk2FlyoutMenuDirective, Uk2FlyoutMenuModule } from '../../uk2-directives';
 import { Uk2Tier1UtilityEnum } from '../../uk2-services';
 import { MATERIAL_CLASSES } from '../../uk2-internal-utils';
-import { Uk2MenuButtonScrollStrategy, Uk2MenuButtonSelectionTypeEnum } from './enums';
+import { Uk2MenuButtonItemHeight, Uk2MenuButtonScrollStrategy, Uk2MenuButtonSelectionTypeEnum } from './enums';
 import { Uk2MenuButtonItem } from './types';
 import { uk2MenuButtonConstants } from './constants';
 import { Uk2MenuButtonOverlayComponent } from './uk2-menu-button-overlay/uk2-menu-button-overlay.component';
@@ -92,9 +92,10 @@ describe('Uk2MenuButtonComponent', () => {
         MatBadgeModule,
         Uk2DirectivesModule,
         MatBottomSheetModule,
+        Uk2FlyoutMenuModule,
       ],
       declarations: [Uk2MenuButtonComponent, MenuButtonTestComponent, Uk2MenuButtonOverlayComponent],
-      providers: [{ provide: Overlay, useValue: mockOverlay }, BreakpointObserver],
+      providers: [{ provide: Overlay, useValue: mockOverlay }, BreakpointObserver, Uk2FlyoutMenuDirective],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
@@ -426,6 +427,42 @@ describe('Uk2MenuButtonComponent', () => {
     expect(uk2BottomSheetOpenedSpy).toHaveBeenCalled();
   });
 
+  it('should open a flyout menu when this.uk2ButtonType === Uk2MenuButtonSelectionTypeEnum.custom', () => {
+    component.uk2ButtonType = Uk2MenuButtonSelectionTypeEnum.custom;
+    spyOn(component['flyoutMenu'], <never>'open').and.callFake(<never>(() => {}));
+    component.toggleFlyout();
+    expect(component['flyoutMenu']?.open).toHaveBeenCalled();
+  });
+
+  it('should throw an error when toggleFlyout() is called and this.uk2ButtonType === Uk2MenuButtonSelectionTypeEnum.custom but flyoutMenu.open() fails', () => {
+    component.uk2ButtonType = Uk2MenuButtonSelectionTypeEnum.custom;
+    spyOn(component['flyoutMenu'], <never>'open')
+      .and.callFake(<never>(() => {}))
+      .and.throwError('Error');
+    expect(() => component.toggleFlyout()).toThrow();
+  });
+
+  it('should return uk2BadgeText when getBadgeText() is called and uk2ButtonType is Uk2MenuButtonSelectionTypeEnum.custom', () => {
+    component.uk2ButtonType = Uk2MenuButtonSelectionTypeEnum.custom;
+    component.uk2BadgeText = '5';
+    const badgeText = component.getBadgeText();
+    expect(badgeText).toEqual(component.uk2BadgeText);
+  });
+
+  it('should return true when isBadgeVisible() is called and uk2DisplayBadge is true and uk2ButtonType is Uk2MenuButtonSelectionTypeEnum.custom', () => {
+    component.uk2ButtonType = Uk2MenuButtonSelectionTypeEnum.custom;
+    component.uk2DisplayBadge = true;
+    const isBadgeVisible = component.isBadgeVisible();
+    expect(isBadgeVisible).toBeTrue();
+  });
+
+  it('should return false as default when isBadgeVisible() is called', () => {
+    component.uk2ButtonType = Uk2MenuButtonSelectionTypeEnum.single;
+    component.uk2DisplayBadge = true;
+    const isBadgeVisible = component.isBadgeVisible();
+    expect(isBadgeVisible).toBeFalse();
+  });
+
   it('should not render any label when uk2IsIconOnly is true', () => {
     const labelElement = fixture.debugElement.query(By.css(`.${MATERIAL_CLASSES.buttonLabel}`)).nativeElement;
     const buttonElement = component.button!.nativeElement;
@@ -550,9 +587,16 @@ describe('Uk2MenuButtonComponent desktop size', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, MatIconTestingModule, MatButtonModule, Uk2DirectivesModule],
+      imports: [
+        CommonModule,
+        FormsModule,
+        MatIconTestingModule,
+        MatButtonModule,
+        Uk2DirectivesModule,
+        Uk2FlyoutMenuModule,
+      ],
       declarations: [Uk2MenuButtonComponent, MenuButtonTestComponent],
-      providers: [{ provide: Overlay, useValue: mockOverlay }, BreakpointObserver],
+      providers: [{ provide: Overlay, useValue: mockOverlay }, BreakpointObserver, Uk2FlyoutMenuDirective],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
@@ -645,6 +689,23 @@ describe('Uk2MenuButtonComponent desktop size', () => {
     expect(labelText).toBe(testItems[2].text);
     expect(buttonElement.classList.contains('label-truncate')).toBeTrue();
   });
+
+  it('should return Uk2MenuButtonItemHeight.ordering when menuItemDefaultHeight getter is called and uk2EnableListOrdering is true', () => {
+    component.uk2EnableListOrdering = true;
+    const menuItemDefaultHeight = component['menuItemDefaultHeight'];
+    expect(menuItemDefaultHeight).toEqual(Uk2MenuButtonItemHeight.ordering);
+  });
+
+  it('should emit uk2ItemsReordered output when onListOrdered() is called', () => {
+    const listMock = [...Array(12)].map((_, i) => ({
+      text: `Lorem Ipsum ${i + 1}`,
+      isSelected: true,
+      value: 'test',
+    }));
+    spyOn(component.uk2ItemsReordered, 'emit');
+    component.onListOrdered(listMock);
+    expect(component.uk2ItemsReordered.emit).toHaveBeenCalledWith(listMock);
+  });
 });
 
 describe('Uk2MenuButtonComponent mobile size', () => {
@@ -660,9 +721,10 @@ describe('Uk2MenuButtonComponent mobile size', () => {
         MatButtonModule,
         MatBottomSheetModule,
         Uk2DirectivesModule,
+        Uk2FlyoutMenuModule,
       ],
       declarations: [Uk2MenuButtonComponent, Uk2MenuButtonOverlayComponent, MenuButtonTestComponent],
-      providers: [{ provide: Overlay, useValue: mockOverlay }, BreakpointObserver],
+      providers: [{ provide: Overlay, useValue: mockOverlay }, BreakpointObserver, Uk2FlyoutMenuDirective],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
@@ -828,9 +890,16 @@ describe('Uk2MenuButtonComponent initial state', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, MatIconTestingModule, MatButtonModule, Uk2DirectivesModule],
+      imports: [
+        CommonModule,
+        FormsModule,
+        MatIconTestingModule,
+        MatButtonModule,
+        Uk2DirectivesModule,
+        Uk2FlyoutMenuModule,
+      ],
       declarations: [Uk2MenuButtonComponent, MenuButtonTestComponent],
-      providers: [],
+      providers: [Uk2FlyoutMenuDirective],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

@@ -1,0 +1,104 @@
+<h1>Basic Usage</h1>
+
+<p>This page showcases the following:</p>
+<ul>
+  <li>Opening a flyout menu.</li>
+  <li>Header active state.</li>
+</ul>
+<br />
+<br />
+<mat-table uk2Table [dataSource]="tableData">
+  <ng-container matColumnDef="record">
+    <mat-header-cell
+      uk2HeaderRecordCell
+      uk2TableHeaderFlyout
+      uk2FlyoutMenu
+      (uk2OverlayOpened)="getActiveFlyout($event, 0)"
+      (uk2OverlayClosed)="onFlyoutClose()"
+      [uk2IsPressed]="flyoutIsOpen && activeColumnIndex == 0"
+      [uk2FlyoutTemplate]="flyoutOverlay"
+      *matHeaderCellDef
+    >
+      Record
+    </mat-header-cell>
+    <mat-cell uk2RecordCell *matCellDef="let element"> {{ element.record }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyA">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableHeaderFlyout
+      uk2FlyoutMenu
+      (uk2OverlayOpened)="getActiveFlyout($event, 1)"
+      (uk2OverlayClosed)="onFlyoutClose()"
+      [uk2IsPressed]="flyoutIsOpen && activeColumnIndex == 1"
+      [uk2FlyoutTemplate]="flyoutOverlay"
+      *matHeaderCellDef
+    >
+      Property A
+    </mat-header-cell>
+    <mat-cell uk2TextCell *matCellDef="let element"> {{ element.propertyA }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyB">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableHeaderFlyout
+      uk2FlyoutMenu
+      (uk2OverlayOpened)="getActiveFlyout($event, 2)"
+      (uk2OverlayClosed)="onFlyoutClose()"
+      [uk2IsPressed]="flyoutIsOpen && activeColumnIndex == 2"
+      [uk2FlyoutTemplate]="flyoutOverlay"
+      *matHeaderCellDef
+    >
+      Property B
+    </mat-header-cell>
+    <mat-cell uk2TextCell *matCellDef="let element"> {{ element.propertyB }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyC">
+    <mat-header-cell
+      uk2HeaderTextCell
+      uk2TableHeaderFlyout
+      uk2FlyoutMenu
+      (uk2OverlayOpened)="getActiveFlyout($event, 3)"
+      (uk2OverlayClosed)="onFlyoutClose()"
+      [uk2IsPressed]="flyoutIsOpen && activeColumnIndex == 3"
+      [uk2FlyoutTemplate]="flyoutOverlay"
+      *matHeaderCellDef
+    >
+      Property C
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.propertyC }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="propertyD">
+    <mat-header-cell
+      uk2HeaderNumericCell
+      uk2TableHeaderFlyout
+      uk2FlyoutMenu
+      (uk2OverlayOpened)="getActiveFlyout($event, 4)"
+      (uk2OverlayClosed)="onFlyoutClose()"
+      [uk2IsPressed]="flyoutIsOpen && activeColumnIndex == 4"
+      [uk2FlyoutTemplate]="flyoutOverlay"
+      *matHeaderCellDef
+    >
+      Property D
+    </mat-header-cell>
+    <mat-cell uk2NumericCell *matCellDef="let element"> {{ element.propertyD }} </mat-cell>
+  </ng-container>
+  <mat-header-row uk2HeaderRow *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row uk2Row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<ng-template #flyoutOverlay>
+  <div
+    uk2MenuListItem
+    [uk2ShowDividerLine]="!!item.hasBorder"
+    *ngFor="let item of flyoutListItems"
+    (click)="onFlyoutItemClick(item.value)"
+  >
+    <mat-icon *ngIf="item.svgIconName" [svgIcon]="item.svgIconName"></mat-icon>
+    <p>{{ item.bodyText }}</p>
+  </div>
+  <div uk2MenuListItem>
+    <p>Wrap Column</p>
+    <mat-slide-toggle disableRipple></mat-slide-toggle>
+  </div>
+</ng-template>

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, QueryList } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatOption } from '@angular/material/core';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 
@@ -14,16 +14,14 @@ import {
   Uk2BottomSheetTouchDismissDirective,
 } from '@axos/uikit-v2-lib/src/lib/uk2-components/uk2-bottom-sheet/uk2-bottom-sheet-directives';
 import { Uk2BottomSheetHeaderComponent } from '@axos/uikit-v2-lib/src/lib/uk2-components';
+import { Uk2BottomSheetService, Uk2BottomSheetStackService } from '@axos/uikit-v2-lib/src/lib/uk2-internal-utils';
 
 describe('Uk2BottomSheetOptionsComponent', () => {
   let fixture: ComponentFixture<Uk2BottomSheetOptionsComponent>;
   let component: Uk2BottomSheetOptionsComponent;
   let entryOptions: QueryList<MatOption<any>>;
-  let dismissSpy: jasmine.Spy;
 
   beforeEach(async () => {
-    dismissSpy = jasmine.createSpy();
-
     await TestBed.configureTestingModule({
       declarations: [
         Uk2BottomSheetOptionsComponent,
@@ -33,8 +31,8 @@ describe('Uk2BottomSheetOptionsComponent', () => {
         Uk2BottomSheetCalculatorDirective,
         Uk2BottomSheetTouchDismissDirective,
       ],
-      imports: [MatIconTestingModule],
-      providers: [{ provide: MatBottomSheetRef, useValue: { dismiss: dismissSpy } }],
+      imports: [MatIconTestingModule, MatBottomSheetModule],
+      providers: [Uk2BottomSheetService],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
@@ -106,6 +104,7 @@ describe('Uk2BottomSheetOptionsComponent', () => {
   });
 
   it('should dismiss bottom sheet after clicking option', () => {
+    const dismissSpy = spyOn(component.bottomSheetStackService, 'closeBottomSheet');
     let option = fixture.debugElement.query(By.css('mat-option')).nativeElement as HTMLElement;
 
     option.click();

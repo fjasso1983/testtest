@@ -5,7 +5,9 @@
   [ngClass]="{
     'no-border': !uk2DisplayBorder,
     'icon-only': uk2IsIconOnly,
-    'uk2-menu-icon-button__custom': uk2IsIconOnly && !!uk2IconButtonSizeClass
+    'uk2-menu-icon-button__custom': uk2IsIconOnly && !!uk2IconButtonSizeClass,
+    active: uk2IsButtonActive,
+    pressed: uk2IsButtonPressed
   }"
   [class]="uk2IsIconOnly && !!uk2IconButtonSizeClass ? uk2IconButtonSizeClass : ''"
   mat-stroked-button
@@ -22,13 +24,7 @@
   ></mat-icon>
   {{ uk2IsIconOnly ? '' : uk2DefaultStateText }}
 </button>
-<div
-  class="uk2-menu-button-badge"
-  uk2NotificationBadge
-  [matBadge]="selectedOptions.length + ''"
-  *ngIf="uk2DisplayBadge && uk2ButtonType === buttonType.multiple && selectedOptions.length > 0"
->
-</div>
+<div class="uk2-menu-button-badge" uk2NotificationBadge [matBadge]="getBadgeText()" *ngIf="isBadgeVisible()"> </div>
 <uk2-menu-button-overlay
   [menuButton]="menuButton._elementRef"
   [uk2ButtonType]="uk2ButtonType"
@@ -47,8 +43,13 @@
   [isMobileSize]="isMobileSize"
   [bottomSheetTitle]="uk2BottomSheetTitle"
   [bottomSheetDescription]="uk2BottomSheetDescription"
+  [enableListOrdering]="uk2EnableListOrdering"
+  [enableListScrolling]="uk2EnableListScrolling"
+  [listScrollingMaxHeight]="uk2ListScrollingMaxHeight"
   (selectOptionIndex)="selectOption($event)"
   (multipleOptionsSelect)="multipleOptionsSelect($event)"
+  (listOrdered)="onListOrdered($event)"
 >
   <ng-content></ng-content>
+  <ng-content overlayFooterContent select="[uk2MenuButtonOverlayFooterContent]"></ng-content>
 </uk2-menu-button-overlay>

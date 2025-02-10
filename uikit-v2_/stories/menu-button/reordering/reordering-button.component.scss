@@ -1,0 +1,9 @@
+@import '../../../projects/uikit-v2-lib/src/styles/uk2';
+@include uk2-menu-icon-button-custom-size-range;
+
+.custom-footer-example .uk2-menu-list-item {
+    min-height: 40px;
+    .footer-button-text {
+        @include uk2-font__body-regular--50();
+    }
+}
